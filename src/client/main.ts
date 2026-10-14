@@ -130,7 +130,7 @@ function connect() {
   socket.onerror = () => {};
 }
 function logo() {
-  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>TACTICAL CO-OP / V0.1</small></span></a>`;
+  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>TACTICAL CO-OP / V2</small></span></a>`;
 }
 function header() {
   return `<header>${logo()}<nav><span class="nav-active">작전 준비</span><button data-action="help" class="text-button">필드 가이드 <span>↗</span></button></nav><div class="account"><span class="connection ${connected ? "online" : ""}">${connected ? "서버 연결됨" : "재연결 중"}</span><span class="credits">◈ <b>${profile?.credits ?? "—"}</b><small> CR</small></span></div></header>`;

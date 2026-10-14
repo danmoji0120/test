@@ -33,4 +33,7 @@ for (const count of [1, 2, 4])
     report.push(row);
     console.log(row);
   }
-writeFileSync("docs/simulation-qa.json", JSON.stringify(report, null, 2));
+writeFileSync(
+  (process.env.QA_REPORT_DIR || "docs") + "/simulation-qa.json",
+  JSON.stringify(report, null, 2),
+);

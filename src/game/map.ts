@@ -57,207 +57,239 @@ export function visible(a: Vec, b: Vec, map: GameMap) {
   const d = distance(a, b);
   return wallDistance(a, Math.atan2(b.y - a.y, b.x - a.x), d, map) >= d - 1;
 }
-/** Connected industrial modules. Every boundary has two entrances; interiors vary by type and variant. */
+/** V2: irregular industrial wings carved into solid terrain, linked by dog-leg halls and service bypasses. */
 export function generateMap(seed: number): GameMap {
   const rand = rng(seed),
-    cols = 4,
-    rows = 3,
-    mw = 1000,
-    mh = 900;
-  const width = cols * mw,
-    height = rows * mh;
-  const obstacles: Rect[] = [
-    { x: 0, y: 0, w: width, h: 40, kind: "wall" },
-    { x: 0, y: height - 40, w: width, h: 40, kind: "wall" },
-    { x: 0, y: 0, w: 40, h: height, kind: "wall" },
-    { x: width - 40, y: 0, w: 40, h: height, kind: "wall" },
-  ];
-  const route: number[] = [];
-  const vertical = rand() > 0.5,
-    reverse = rand() > 0.5;
-  if (!vertical)
-    for (let row = 0; row < rows; row++)
-      for (let col = 0; col < cols; col++)
-        route.push(row * cols + (row % 2 ? cols - 1 - col : col));
-  else
-    for (let col = 0; col < cols; col++)
-      for (let row = 0; row < rows; row++)
-        route.push((col % 2 ? rows - 1 - row : row) * cols + col);
-  if (reverse) route.reverse();
-  // Two independent doors at every shared edge make flanking a choice.
-  for (let col = 1; col < cols; col++)
-    for (let row = 0; row < rows; row++) {
-      const offset = rand() > 0.5 ? 0 : 45,
-        x = col * mw - 20,
-        y = row * mh;
-      for (const [a, b] of [
-        [0, 130 + offset],
-        [330 + offset, 570 - offset],
-        [770 - offset, 900],
-      ])
-        obstacles.push({ x, y: y + a, w: 40, h: b - a, kind: "wall" });
-    }
-  for (let row = 1; row < rows; row++)
-    for (let col = 0; col < cols; col++) {
-      const offset = rand() > 0.5 ? 0 : 40,
-        x = col * mw,
-        y = row * mh - 20;
-      for (const [a, b] of [
-        [0, 150 + offset],
-        [350 + offset, 650 - offset],
-        [850 - offset, 1000],
-      ])
-        obstacles.push({ x: x + a, y, w: b - a, h: 40, kind: "wall" });
-    }
+    width = 5000,
+    height = 3300,
+    cell = 50;
+  const cols = width / cell,
+    rows = height / cell;
+  const floor = new Uint8Array(cols * rows);
+  const carve = (x: number, y: number, w: number, h: number) => {
+    for (
+      let yy = Math.max(1, Math.floor(y / cell));
+      yy < Math.min(rows - 1, Math.ceil((y + h) / cell));
+      yy++
+    )
+      for (
+        let xx = Math.max(1, Math.floor(x / cell));
+        xx < Math.min(cols - 1, Math.ceil((x + w) / cell));
+        xx++
+      )
+        floor[yy * cols + xx] = 1;
+  };
   const labels: Record<ZoneKind, string> = {
-    warehouse: "화물 창고",
-    corridor: "수송 회랑",
-    reactor: "발전실",
+    yard: "외곽 진입로",
     security: "보안 관제실",
-    yard: "야적장",
+    warehouse: "화물 창고",
+    corridor: "설비 복도",
+    reactor: "발전실",
     extraction: "추출 구역",
   };
-  const kinds: ZoneKind[] = ["warehouse", "corridor", "security", "yard"];
-  const zones: Zone[] = [];
-  for (let id = 0; id < cols * rows; id++) {
-    const x = (id % cols) * mw,
-      y = Math.floor(id / cols) * mh,
-      index = route.indexOf(id);
-    const kind: ZoneKind =
-      index === 0
-        ? "yard"
-        : index === 10
-          ? "reactor"
-          : index === 11
-            ? "extraction"
-            : kinds[Math.floor(rand() * kinds.length)];
-    const variant = Math.floor(rand() * 3);
-    const zone: Zone = {
+  // Footprints vary independently. These are wings of a facility, not cells of an equal-size grid.
+  const plans: [number, number, number, number, ZoneKind][] = [
+    [100, 2200, 900, 800, "yard"],
+    [1100, 2300, 650, 650, "security"],
+    [1800, 1950, 950, 1000, "warehouse"],
+    [2950, 2250, 600, 650, "corridor"],
+    [3750, 2150, 900, 900, "warehouse"],
+    [3900, 1150, 750, 650, "security"],
+    [2850, 1000, 850, 1000, "yard"],
+    [2050, 1250, 600, 600, "corridor"],
+    [1100, 1000, 700, 700, "security"],
+    [250, 800, 650, 1050, "warehouse"],
+    [700, 100, 1500, 650, "reactor"],
+    [2550, 100, 1500, 650, "extraction"],
+  ];
+  const zones: Zone[] = plans.map(([x, y, w, h, kind], id) => {
+    x += (Math.floor(rand() * 3) - 1) * 50;
+    y += (Math.floor(rand() * 3) - 1) * 50;
+    w += (Math.floor(rand() * 3) - 1) * 100;
+    h += (Math.floor(rand() * 3) - 1) * 100;
+    carve(x, y, w, h);
+    return {
       id,
       x,
       y,
-      w: mw,
-      h: mh,
+      w,
+      h,
       kind,
       label: labels[kind],
-      variant,
-      center: { x: x + 500, y: y + 450 },
-      entry: { x: x + 500, y: y + 450 },
+      variant: Math.floor(rand() * 3),
+      center: { x: x + w / 2, y: y + h / 2 },
+      entry: { x: x + w / 2, y: y + h / 2 },
       pads: [],
     };
-    const templates: Record<ZoneKind, number[][]> = {
-      warehouse: [
-        [230, 240, 190, 85],
-        [620, 550, 150, 100],
-        [230, 600, 140, 75],
-        [680, 220, 130, 100],
-      ],
-      corridor:
-        variant === 0
-          ? [
-              [300, 100, 40, 230],
-              [660, 570, 40, 230],
-              [390, 240, 200, 40],
-            ]
-          : variant === 1
-            ? [
-                [100, 320, 260, 40],
-                [640, 540, 260, 40],
-                [650, 170, 40, 150],
-              ]
-            : [
-                [310, 170, 40, 220],
-                [650, 520, 40, 220],
-                [170, 630, 150, 40],
-              ],
-      security: [
-        [220, 230, 200, 40],
-        [610, 600, 210, 40],
-        [270, 280, 40, 130],
-        [680, 450, 40, 140],
-      ],
-      yard:
-        variant === 0
-          ? [
-              [250, 220, 130, 220],
-              [640, 530, 140, 190],
-            ]
-          : variant === 1
-            ? [
-                [240, 230, 190, 80],
-                [620, 560, 200, 80],
-                [640, 230, 120, 90],
-              ]
-            : [
-                [230, 220, 140, 90],
-                [620, 520, 180, 150],
-                [200, 600, 170, 70],
-              ],
-      reactor: [
-        [240, 230, 150, 120],
-        [650, 560, 140, 140],
-        [640, 220, 140, 110],
-        [240, 590, 140, 90],
-      ],
-      extraction: [
-        [240, 230, 140, 85],
-        [640, 590, 150, 90],
-      ],
-    };
-    for (const [a, b, w, h] of templates[kind])
-      obstacles.push({
-        x: x + a,
-        y: y + b,
-        w,
-        h,
-        kind:
-          kind === "corridor" || kind === "security"
-            ? "wall"
-            : kind === "yard" || kind === "warehouse"
-              ? "container"
-              : "crate",
-      });
-    // Mid-lane cover creates a protected close-range approach instead of a long open firing lane.
-    if (kind !== "corridor")
-      for (const [a, b] of [
-        [430, 280],
-        [430, 570],
-      ])
-        obstacles.push({ x: x + a, y: y + b, w: 100, h: 60, kind: "crate" });
-    zone.pads = [
-      [150, 150],
-      [850, 150],
-      [150, 750],
-      [850, 750],
-      [500, 220],
-      [500, 700],
-    ]
-      .map(([a, b]) => ({ x: x + a, y: y + b }))
-      .filter((p) => !blocked(p, obstacles, 24));
-    zones.push(zone);
+  });
+  const connect = (a: Vec, b: Vec, wide: number, horizontal: boolean) => {
+    const mid = horizontal ? { x: b.x, y: a.y } : { x: a.x, y: b.y };
+    for (const [p, q] of [
+      [a, mid],
+      [mid, b],
+    ])
+      carve(
+        Math.min(p.x, q.x) - wide / 2,
+        Math.min(p.y, q.y) - wide / 2,
+        Math.abs(p.x - q.x) + wide,
+        Math.abs(p.y - q.y) + wide,
+      );
+  };
+  const route = zones.map((z) => z.id);
+  for (let i = 1; i < zones.length; i++)
+    connect(
+      zones[i - 1].center,
+      zones[i].center,
+      i === 10 ? 250 : 200,
+      rand() > 0.5,
+    );
+  // Independent service links create loops, including alternate approaches to the central wings.
+  for (const [a, b] of [
+    [0, 9],
+    [2, 7],
+    [3, 6],
+    rand() > 0.5 ? [1, 8] : [4, 6],
+    [6, 11],
+  ])
+    connect(zones[a].center, zones[b].center, 150, rand() > 0.5);
+  const obstacles: Rect[] = [];
+  // Merge identical horizontal solid runs vertically. Keeps navigation and ray casting compact.
+  let previous = new Map<string, Rect>();
+  for (let y = 0; y < rows; y++) {
+    const current = new Map<string, Rect>();
+    for (let x = 0; x < cols;) {
+      if (floor[y * cols + x]) {
+        x++;
+        continue;
+      }
+      const begin = x;
+      while (x < cols && !floor[y * cols + x]) x++;
+      const key = `${begin}:${x}`,
+        old = previous.get(key);
+      if (old) {
+        old.h += cell;
+        current.set(key, old);
+      } else {
+        const rect: Rect = {
+          x: begin * cell,
+          y: y * cell,
+          w: (x - begin) * cell,
+          h: cell,
+          kind: "wall",
+        };
+        obstacles.push(rect);
+        current.set(key, rect);
+      }
+    }
+    previous = current;
   }
-  const center = (index: number) => ({ ...zones[route[index]].center });
-  const core = center(10);
+  const add = (
+    zone: Zone,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    kind: Rect["kind"],
+  ) => obstacles.push({ x: zone.x + x, y: zone.y + y, w, h, kind });
+  for (const z of zones) {
+    // Large opaque machinery leaves a cross-shaped passage through every objective center.
+    const cx = z.w / 2,
+      cy = z.h / 2,
+      gap = z.kind === "corridor" ? 95 : 130;
+    if (z.kind === "corridor") {
+      add(
+        z,
+        65,
+        70,
+        Math.max(80, cx - gap - 65),
+        Math.max(80, cy - gap - 70),
+        "wall",
+      );
+      add(
+        z,
+        cx + gap,
+        cy + gap,
+        Math.max(80, cx - gap - 65),
+        Math.max(80, cy - gap - 70),
+        "wall",
+      );
+    } else {
+      const kind =
+        z.kind === "warehouse" || z.kind === "yard" ? "container" : "wall";
+      add(
+        z,
+        80,
+        80,
+        Math.max(90, cx - gap - 80),
+        Math.max(90, cy - gap - 80),
+        kind,
+      );
+      add(
+        z,
+        cx + gap,
+        cy + gap,
+        Math.max(90, cx - gap - 80),
+        Math.max(90, cy - gap - 80),
+        kind,
+      );
+      if (z.variant !== 1)
+        add(
+          z,
+          cx + gap,
+          80,
+          Math.max(70, cx - gap - 100),
+          Math.max(70, cy - gap - 100),
+          z.kind === "reactor" ? "crate" : kind,
+        );
+      if (z.variant !== 0)
+        add(
+          z,
+          80,
+          cy + gap,
+          Math.max(70, cx - gap - 100),
+          Math.max(70, cy - gap - 100),
+          "crate",
+        );
+    }
+  }
+  for (const z of zones) {
+    // Guards occupy lane corners and entry throats, never the insides of structures.
+    for (const [dx, dy] of [
+      [-90, -90],
+      [90, 90],
+      [-90, 90],
+      [90, -90],
+      [0, -z.h / 2 + 70],
+      [0, z.h / 2 - 70],
+      [-z.w / 2 + 70, 0],
+      [z.w / 2 - 70, 0],
+    ]) {
+      const p = { x: z.center.x + dx, y: z.center.y + dy };
+      if (!blocked(p, obstacles, 24)) z.pads.push(p);
+    }
+  }
+  const center = (i: number) => ({ ...zones[i].center }),
+    core = center(10);
   return {
     width,
     height,
     obstacles,
     zones,
     route,
-    spawn: center(0),
+    spawn: { x: zones[0].center.x, y: zones[0].y + zones[0].h - 120 },
     core,
     extract: center(11),
     devices: [
-      { x: core.x - 110, y: core.y - 70, hp: 240, maxHp: 240 },
-      { x: core.x + 110, y: core.y + 70, hp: 240, maxHp: 240 },
+      { x: core.x - 75, y: core.y - 65, hp: 240, maxHp: 240 },
+      { x: core.x + 75, y: core.y + 65, hp: 240, maxHp: 240 },
     ],
-    supplies: [0, 2, 4, 6, 8, 10].map((index) => ({
-      ...center(index),
-      x: center(index).x - 80,
-      y: center(index).y + 80,
+    supplies: [0, 2, 4, 6, 8, 10].map((i) => ({
+      ...center(i),
+      x: center(i).x - 60,
+      y: center(i).y + 60,
       used: false,
     })),
-    intel: { ...center(7), x: center(7).x + 90 },
+    intel: { ...center(7), x: center(7).x + 70 },
     seed,
   };
 }

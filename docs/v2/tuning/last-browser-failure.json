@@ -1,0 +1,10 @@
+{
+  "error": "Error: page.evaluate: Target page, context or browser has been closed",
+  "errors": [
+    "Cannot read properties of undefined (reading 'dx')",
+    "Cannot read properties of undefined (reading 'dx')",
+    "Cannot read properties of undefined (reading 'dx')",
+    "Cannot read properties of undefined (reading 'dx')"
+  ],
+  "state": null
+}

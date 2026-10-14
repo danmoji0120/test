@@ -10,8 +10,13 @@ import {
   type GameEvent,
   type Input,
 } from "../shared/data";
-import { operatorFrame, operatorImage } from "../art/raster";
-import { distance } from "../game/map";
+import {
+  operatorFrame,
+  operatorImage,
+  enemyFrame,
+  enemyImage,
+} from "../art/raster";
+import { distance, visible, wallDistance } from "../game/map";
 import type { AudioEngine } from "./audio";
 const TAU = Math.PI * 2;
 interface Particle {
@@ -35,6 +40,7 @@ export class Renderer {
   floor: HTMLCanvasElement | null = null;
   mapSeed = -1;
   atlas = operatorImage();
+  enemyAtlas = enemyImage();
   positions = new Map<string, Vec>();
   particles: Particle[] = [];
   trails: (GameEvent & { life: number })[] = [];
@@ -59,7 +65,7 @@ export class Renderer {
   last = performance.now();
   running = false;
   raf = 0;
-  zoom = 1.12;
+  zoom = 0.95;
   constructor(
     public canvas: HTMLCanvasElement,
     public audio: AudioEngine,
@@ -76,7 +82,7 @@ export class Renderer {
     this.canvas.style.width = this.width + "px";
     this.canvas.style.height = this.height + "px";
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    this.zoom = this.width < 1400 ? 1 : 1.12;
+    this.zoom = this.width < 1400 ? 0.82 : 0.95;
   }
   set(w: World, id: string) {
     if (this.world?.id !== w.id) {
@@ -125,7 +131,7 @@ export class Renderer {
               105,
             );
         } else if (e.type === "hit") {
-          if (e.actor === id && e.enemy) this.shake = Math.max(this.shake, 3);
+          if (e.actor === id && e.enemy) this.shake = Math.max(this.shake, 6);
           this.burst(e.x, e.y - 12, e.weapon === "sg" ? 16 : 8, "#fbd594", 130);
           if (e.actor === id && !e.enemy) {
             this.hit = 0.18;
@@ -172,10 +178,10 @@ export class Renderer {
       55,
     );
     if (e.actor === this.id) {
-      this.kick = e.weapon === "sg" ? 8 : e.weapon === "ar" ? 3 : 1.5;
+      this.kick = e.weapon === "sg" ? 12 : e.weapon === "ar" ? 5 : 2.3;
       this.shake = Math.max(
         this.shake,
-        e.weapon === "sg" ? 5.5 : e.weapon === "ar" ? 2 : 0.85,
+        e.weapon === "sg" ? 9 : e.weapon === "ar" ? 4 : 1.7,
       );
     }
   }
@@ -282,7 +288,7 @@ export class Renderer {
       g.setLineDash([]);
       if (zone.kind === "reactor" || zone.kind === "security") {
         g.fillStyle = zone.kind === "reactor" ? "#76ebc411" : "#ba9bfd10";
-        g.fillRect(zone.x + 390, zone.y + 320, 220, 260);
+        g.fillRect(zone.center.x - 110, zone.center.y - 100, 220, 200);
       }
     }
     for (const o of w.map.obstacles) {
@@ -369,26 +375,41 @@ export class Renderer {
     const local = this.localInput?.();
     if (local) this.preview(p, local, performance.now());
     this.kick = Math.max(0, this.kick - dt * 45);
+    const aimX = (this.mouse.x - this.width / 2) / this.zoom,
+      aimY = (this.mouse.y - this.height / 2) / this.zoom,
+      aimLength = Math.hypot(aimX, aimY),
+      aimScale = Math.min(
+        local?.aim ? 0.32 : 0.23,
+        165 / Math.max(1, aimLength),
+      ),
+      movement = local ?? p.input;
+    const leadX = aimX * aimScale + movement.dx * 48,
+      leadY = aimY * aimScale + movement.dy * 48,
+      cap = Math.min(1, 195 / Math.max(1, Math.hypot(leadX, leadY)));
     const target = {
-      x: p.x + (this.mouse.x - this.width / 2) * 0.13,
-      y: p.y + (this.mouse.y - this.height / 2) * 0.13,
+      x: p.x + leadX * cap,
+      y: p.y + leadY * cap,
     };
     const halfW = this.width / 2 / this.zoom,
       halfH = this.height / 2 / this.zoom;
     target.x = Math.max(halfW, Math.min(w.map.width - halfW, target.x));
     target.y = Math.max(halfH, Math.min(w.map.height - halfH, target.y));
-    const blend = 1 - Math.exp(-dt * 12);
+    const blend = 1 - Math.exp(-dt * 6);
     this.camera.x += (target.x - this.camera.x) * blend;
     this.camera.y += (target.y - this.camera.y) * blend;
     g.clearRect(0, 0, this.width, this.height);
     g.save();
     g.translate(
-      this.width / 2 + (Math.random() - 0.5) * this.shake,
-      this.height / 2 + (Math.random() - 0.5) * this.shake,
+      this.width / 2 +
+        (Math.random() - 0.5) * this.shake -
+        Math.cos(p.angle) * this.kick * 0.5,
+      this.height / 2 +
+        (Math.random() - 0.5) * this.shake -
+        Math.sin(p.angle) * this.kick * 0.5,
     );
     g.scale(this.zoom, this.zoom);
     g.translate(-this.camera.x, -this.camera.y);
-    this.shake = Math.max(0, this.shake - dt * 14);
+    this.shake = Math.max(0, this.shake - dt * 26);
     if (this.floor) {
       const x = Math.max(0, Math.floor(this.camera.x - halfW - 8)),
         y = Math.max(0, Math.floor(this.camera.y - halfH - 8));
@@ -480,18 +501,30 @@ export class Renderer {
       this.marker(e, "전원 집결", t, "#89edcc");
     }
     for (const e of w.enemies) {
-      if (e.windup > 0) {
+      if (
+        e.windup > 0 &&
+        w.players.some(
+          (ally) =>
+            ally.connected &&
+            !ally.down &&
+            distance(ally, e) < 950 &&
+            visible(ally, e, w.map),
+        )
+      ) {
         g.strokeStyle = "#ff685d80";
         g.setLineDash([8, 5]);
         g.lineWidth = 2;
         g.beginPath();
         g.moveTo(e.x, e.y);
         g.lineTo(
-          e.x + Math.cos(e.angle) * ENEMIES[e.kind].range,
+          e.x +
+            Math.cos(e.angle) *
+              wallDistance(e, e.angle, ENEMIES[e.kind].range, w.map),
           e.y -
             RULES.muzzleHeight -
             4 +
-            Math.sin(e.angle) * ENEMIES[e.kind].range,
+            Math.sin(e.angle) *
+              wallDistance(e, e.angle, ENEMIES[e.kind].range, w.map),
         );
         g.stroke();
         g.setLineDash([]);
@@ -517,7 +550,16 @@ export class Renderer {
           pos,
           t,
         );
-      else this.enemy(a, pos, t);
+      else if (
+        w.players.some(
+          (ally) =>
+            ally.connected &&
+            !ally.down &&
+            distance(ally, a) < 950 &&
+            visible(ally, a, w.map),
+        )
+      )
+        this.enemy(a, pos, t);
     }
     for (const id of this.positions.keys())
       if (!actors.some((a) => a.id === id)) this.positions.delete(id);
@@ -543,18 +585,18 @@ export class Renderer {
       g.translate(f.x, f.y - RULES.muzzleHeight - 4);
       g.rotate(f.angle);
       const size = f.weapon === "sg" ? 27 : f.weapon === "ar" ? 18 : 11;
-      const light = g.createRadialGradient(32, 0, 0, 32, 0, size * 3);
+      const light = g.createRadialGradient(20, 0, 0, 20, 0, size * 3);
       light.addColorStop(0, "#ffc67b66");
       light.addColorStop(1, "#ffc67b00");
       g.fillStyle = light;
-      g.fillRect(32 - size * 3, -size * 3, size * 6, size * 6);
+      g.fillRect(20 - size * 3, -size * 3, size * 6, size * 6);
       g.fillStyle = "#fff1bf";
       g.beginPath();
-      g.moveTo(31, -3);
-      g.lineTo(40 + size, -1);
-      g.lineTo(38, 4);
-      g.lineTo(44, -size / 2);
-      g.lineTo(32, 3);
+      g.moveTo(19, -3);
+      g.lineTo(23 + size, -1);
+      g.lineTo(23, 4);
+      g.lineTo(29, -size / 2);
+      g.lineTo(20, 3);
       g.closePath();
       g.fill();
       g.restore();
@@ -598,7 +640,7 @@ export class Renderer {
     g.fillStyle = shade;
     g.fillRect(0, 0, this.width, this.height);
     if (p.hurt > 3.75) {
-      g.strokeStyle = "#ed687c55";
+      g.strokeStyle = "#ed687c99";
       g.lineWidth = 20;
       g.strokeRect(0, 0, this.width, this.height);
     }
@@ -699,12 +741,12 @@ export class Renderer {
     g.translate(pos.x, pos.y);
     g.fillStyle = "#050c1680";
     g.beginPath();
-    g.ellipse(0, 12, 24, 10, 0, 0, TAU);
+    g.ellipse(0, 7, 16, 7, 0, 0, TAU);
     g.fill();
     g.strokeStyle = p.down ? "#f28b9a" : c.color + "99";
     g.lineWidth = p.id === this.id ? 2 : 1;
     g.beginPath();
-    g.ellipse(0, 13, 27, 12, 0, 0, TAU);
+    g.ellipse(0, 8, 18, 8, 0, 0, TAU);
     g.stroke();
     if (p.down) {
       g.rotate(-1.3);
@@ -731,8 +773,8 @@ export class Renderer {
     if (p.hurt > 3.7) g.filter = "brightness(1.8) saturate(0.7)";
     if (this.atlas.complete && this.atlas.naturalWidth) {
       const f = operatorFrame(p.character, direction),
-        width = (104 * f.w) / f.h;
-      g.drawImage(this.atlas, f.x, f.y, f.w, f.h, -width / 2, -86, width, 104);
+        width = (64 * f.w) / f.h;
+      g.drawImage(this.atlas, f.x, f.y, f.w, f.h, -width / 2, -53, width, 64);
     }
     g.filter = "none";
     if (p.reload > 0) {
@@ -743,7 +785,7 @@ export class Renderer {
       g.arc(
         0,
         5,
-        30,
+        23,
         -Math.PI / 2,
         -Math.PI / 2 + TAU * (1 - p.reload / total),
       );
@@ -754,14 +796,14 @@ export class Renderer {
     g.textAlign = "center";
     g.font = "bold 10px sans-serif";
     g.fillStyle = p.down ? "#ff9daa" : p.connected ? "#c5e5e1" : "#8c9da5";
-    g.fillText(p.down ? "F · 구조 요청" : p.name, pos.x, pos.y + 31);
+    g.fillText(p.down ? "F · 구조 요청" : p.name, pos.x, pos.y + 23);
     if (p.hp < 100 || p.down) {
       g.fillStyle = "#0b1423";
-      g.fillRect(pos.x - 22, pos.y + 37, 44, 4);
+      g.fillRect(pos.x - 22, pos.y + 29, 44, 4);
       g.fillStyle = p.down ? "#b9a3ee" : "#87d8c1";
       g.fillRect(
         pos.x - 22,
-        pos.y + 37,
+        pos.y + 29,
         44 * (p.down ? p.reviveProgress / 3 : p.hp / 100),
         4,
       );
@@ -769,61 +811,62 @@ export class Renderer {
     g.restore();
   }
   enemy(e: Enemy, pos: Vec, t: number) {
-    const g = this.ctx,
-      heavy = e.kind === "heavy",
-      rush = e.kind === "rush";
+    const g = this.ctx;
     g.save();
     g.translate(pos.x, pos.y);
-    g.fillStyle = "#050c1670";
+    g.fillStyle = "#030911aa";
     g.beginPath();
-    g.ellipse(0, 12, heavy ? 25 : 20, 10, 0, 0, TAU);
+    g.ellipse(0, 5, e.kind === "heavy" ? 19 : 14, 7, 0, 0, TAU);
     g.fill();
-    g.fillStyle = "#19252e";
-    g.fillRect(-13, 0, 10, 15);
-    g.fillRect(4, 0, 10, 15);
-    g.fillStyle =
-      e.hurt > 0 ? "#e4b2ac" : heavy ? "#6a6058" : rush ? "#663f48" : "#4a555e";
+    const direction =
+      Math.abs(Math.sin(e.angle)) > Math.abs(Math.cos(e.angle))
+        ? Math.sin(e.angle) > 0
+          ? 0
+          : 2
+        : Math.cos(e.angle) > 0
+          ? 1
+          : 3;
+    const f = enemyFrame(e.kind, direction),
+      height = e.kind === "heavy" ? 66 : 60,
+      width = (height * f.w) / f.h;
+    if (e.hurt > 0) {
+      g.translate(-Math.cos(e.angle) * 2, -Math.sin(e.angle) * 2);
+      g.filter = "brightness(2) saturate(0.5)";
+    }
+    if (this.enemyAtlas.complete && this.enemyAtlas.naturalWidth)
+      g.drawImage(
+        this.enemyAtlas,
+        f.x,
+        f.y,
+        f.w,
+        f.h,
+        -width / 2,
+        -height + 8,
+        width,
+        height,
+      );
+    g.filter = "none";
+    // A compact red foot arc identifies hostility even when the visor faces away.
+    g.strokeStyle = e.kind === "heavy" ? "#efad65bb" : "#eb6570aa";
+    g.lineWidth = 1.5;
     g.beginPath();
-    g.roundRect(heavy ? -23 : -17, -26, heavy ? 46 : 34, 36, 5);
-    g.fill();
-    g.fillStyle = "#263541";
-    g.fillRect(-13, -20, 26, 22);
-    g.strokeStyle = heavy ? "#dba474" : rush ? "#e3818f" : "#a8a39a";
-    g.lineWidth = 3;
-    g.beginPath();
-    g.moveTo(-10, -13);
-    g.lineTo(0, -5);
-    g.lineTo(10, -13);
+    g.ellipse(0, 7, 17, 7, 0, 0, Math.PI);
     g.stroke();
-    g.fillStyle = "#1a2530";
-    g.beginPath();
-    g.roundRect(-17, -45, 34, 27, 7);
-    g.fill();
-    g.fillStyle = "#5d6269";
-    g.fillRect(-16, -44, 32, 7);
-    g.shadowColor = "#fc7a7b";
-    g.shadowBlur = e.windup > 0 ? 12 : 4;
-    g.fillStyle = "#fb8c8e";
-    g.fillRect(-11, -34, 22, 5);
-    g.shadowBlur = 0;
-    g.save();
-    g.rotate(e.angle);
-    g.fillStyle = "#111c25";
-    g.fillRect(6, -5, heavy ? 43 : 31, 10);
-    g.fillStyle = "#8b7772";
-    g.fillRect(10, -5, 20, 3);
-    g.restore();
     if (e.windup > 0) {
-      g.fillStyle = "#ffb49b";
-      g.font = "bold 21px monospace";
+      g.fillStyle = "#ffd5ad";
       g.textAlign = "center";
-      g.fillText("!", 0, -56 + Math.sin(t * 20));
+      g.font = "bold 14px monospace";
+      g.fillText(
+        e.kind === "heavy" ? "▲" : "!",
+        0,
+        -height - 2 + Math.sin(t * 20),
+      );
     }
     if (e.hp < ENEMIES[e.kind].hp) {
-      g.fillStyle = "#18232d";
-      g.fillRect(-20, -53, 40, 3);
-      g.fillStyle = "#e8978d";
-      g.fillRect(-20, -53, (40 * e.hp) / ENEMIES[e.kind].hp, 3);
+      g.fillStyle = "#0e141c";
+      g.fillRect(-16, -height - 3, 32, 3);
+      g.fillStyle = "#f39185";
+      g.fillRect(-16, -height - 3, (32 * e.hp) / ENEMIES[e.kind].hp, 3);
     }
     g.restore();
   }

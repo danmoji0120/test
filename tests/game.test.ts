@@ -335,10 +335,12 @@ it("meltdown is a real escape deadline and successful escape takes priority on i
   tick(safe, 1 / 30);
   expect(safe.mission.stage).toBe("success");
 });
-it("different seeds change industrial modules and their entry traversal order", () => {
+it("different seeds change facility footprints, hall connections and machinery", () => {
   const maps = Array.from({ length: 20 }, (_, seed) => generateMap(seed));
   expect(
-    new Set(maps.map((m) => JSON.stringify(m.route))).size,
+    new Set(
+      maps.map((m) => JSON.stringify(m.zones.map((z) => [z.x, z.y, z.w, z.h]))),
+    ).size,
   ).toBeGreaterThanOrEqual(4);
   expect(
     new Set(maps.map((m) => m.zones.map((z) => z.kind + z.variant).join()))
@@ -372,8 +374,8 @@ it("completes an operation with discrete WASD held for 100ms updates without way
     if (step % 3 === 0)
       w.players.forEach((p, i) => {
         const input = pilots[i].input(w, p, i);
-        input.dx = Math.abs(input.dx) > 0.2 ? Math.sign(input.dx) : 0;
-        input.dy = Math.abs(input.dy) > 0.2 ? Math.sign(input.dy) : 0;
+        input.dx = Math.abs(input.dx) > 0.1 ? Math.sign(input.dx) : 0;
+        input.dy = Math.abs(input.dy) > 0.1 ? Math.sign(input.dy) : 0;
         p.input = input;
       });
     tick(w, 1 / 30);
@@ -395,7 +397,8 @@ it("hits the visible upper torso instead of requiring shots at an enemy's feet",
 it("connects a physically clear cover corner to a free navigation start cell", () => {
   const m = generateMap(7),
     p = { x: 1437, y: 255 },
-    goal = m.zones[2].center;
+    goal = { x: 1550, y: 450 };
+  m.obstacles = [{ x: 1250, y: 280, w: 170, h: 80, kind: "crate" }];
   expect(blocked(p, m.obstacles, 16)).toBe(false);
   const path = findPath(p, goal, m);
   expect(path.length).toBeGreaterThan(0);
@@ -423,4 +426,53 @@ it("freezes combat immediately after boarding instead of damaging escaped teamma
   expect(w.mission.stage).toBe("success");
   expect(p.hp).toBe(7);
   expect(w.events.some((e) => e.type === "shot" && e.enemy)).toBe(false);
+});
+
+it("fires within a quarter second of first visual contact", () => {
+  const w = setup(),
+    p = w.players[0];
+  w.map.obstacles = [];
+  spawnEnemy(w, { x: p.x + 300, y: p.y }, "rifle");
+  advance(w, 0.25);
+  expect(w.events.some((e) => e.type === "shot" && e.enemy)).toBe(true);
+  expect(w.enemies[0].cooldown).toBeGreaterThan(0);
+});
+it("relays the observed position to nearby guards but forgets it behind cover", () => {
+  const w = setup(),
+    p = w.players[0];
+  w.map.obstacles = [];
+  spawnEnemy(w, { x: p.x + 250, y: p.y }, "rifle");
+  spawnEnemy(w, { x: p.x + 780, y: p.y }, "rush");
+  w.enemies[1].role = "flank";
+  tick(w, 1 / 30);
+  expect(w.enemies[1].lastSeen).toEqual({ x: p.x, y: p.y });
+  expect(w.enemies[1].memory).toBeGreaterThan(0);
+  const snapshot = { ...w.enemies[1].lastSeen! };
+  w.map.obstacles = [
+    { x: p.x + 100, y: 0, w: 80, h: w.map.height, kind: "wall" },
+  ];
+  p.y += 100;
+  advance(w, 1);
+  expect(w.enemies[1].lastSeen).toEqual(snapshot);
+  advance(w, 9);
+  expect(w.enemies.every((e) => e.memory === 0 && e.target === null)).toBe(
+    true,
+  );
+  expect(p.hp).toBe(100);
+});
+it("uses a free flanking goal and anchors a heavy gun at a cover corner", () => {
+  const w = setup(),
+    p = w.players[0];
+  w.map.obstacles = [{ x: 600, y: 370, w: 160, h: 100, kind: "container" }];
+  spawnEnemy(w, { x: 600, y: 260 }, "rush");
+  spawnEnemy(w, { x: 680, y: 300 }, "heavy");
+  w.enemies[0].role = "flank";
+  w.enemies.forEach((e) => (e.cooldown = 1));
+  tick(w, 1 / 30);
+  const [flank, heavy] = w.enemies;
+  expect(flank.tactical).not.toEqual({ x: p.x, y: p.y });
+  expect(blocked(flank.tactical!, w.map.obstacles, 20)).toBe(false);
+  expect(heavy.role).toBe("anchor");
+  expect(heavy.tactical).not.toEqual({ x: p.x, y: p.y });
+  expect(heavy.path.length).toBeGreaterThan(0);
 });

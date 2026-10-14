@@ -167,7 +167,12 @@ export class Pilot {
             (p.x - e.x) * Math.sin(e.angle) - (p.y - e.y) * Math.cos(e.angle),
           ) < 48,
       );
-    if (danger && !input.interact && !input.revive) {
+    if (
+      danger &&
+      !input.interact &&
+      !input.revive &&
+      !(m.stage === "extract" && distance(p, w.map.extract) < 100)
+    ) {
       const side = { x: -Math.sin(danger.angle), y: Math.cos(danger.angle) };
       const intent =
         Math.hypot(input.dx, input.dy) > 0

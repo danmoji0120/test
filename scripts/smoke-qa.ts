@@ -80,7 +80,7 @@ for (const count of [1, 2]) {
   for (const p of pages) await p.context().close();
 }
 writeFileSync(
-  "docs/smoke-qa.json",
+  (process.env.QA_REPORT_DIR || "docs") + "/smoke-qa.json",
   JSON.stringify({ report, errors }, null, 2),
 );
 await browser.close();

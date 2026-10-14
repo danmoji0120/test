@@ -63,7 +63,7 @@ export function spawnEnemy(w: World, pos: Vec, kind: EnemyKind) {
     kind,
     hp: ENEMIES[kind].hp,
     angle: 0,
-    cooldown: 1 + random(w),
+    cooldown: 0,
     windup: 0,
     target: null,
     lastSeen: null,
@@ -75,6 +75,9 @@ export function spawnEnemy(w: World, pos: Vec, kind: EnemyKind) {
     zone: -1,
     burst: 0,
     home: { ...pos },
+    role: kind === "heavy" ? "anchor" : random(w) < 0.4 ? "flank" : "assault",
+    alert: 0,
+    tactical: null,
   });
 }
 export function createWorld(
@@ -145,9 +148,10 @@ export function spawnEncounter(
 ) {
   const zone = w.map.zones[zoneId];
   if (!zone) return;
-  const count = pursuit ? 2 + team : 4 + team;
+  const count = pursuit ? 2 + team : 3 + team;
   for (let i = 0; i < count && w.enemies.length < 30; i++) {
     const pad = zone.pads[(i + wave * 2) % zone.pads.length];
+    if (!pad) continue;
     const pos = {
       x: pad.x + (Math.floor(i / zone.pads.length) % 2) * 45,
       y: pad.y,
@@ -201,6 +205,13 @@ export function fire(w: World, p: Player) {
     (gun.spread + (moving ? gun.moving : 0) + p.recoil) *
     (p.input.aim ? 0.48 : 1) *
     (p.mod === "loader" ? 1.1 : 1);
+  for (const e of w.enemies) {
+    if (e.hp > 0 && distance(e, p) < 620 && e.memory <= 0) {
+      e.lastSeen = { x: p.x, y: p.y };
+      e.memory = 4;
+      e.repath = 0;
+    }
+  }
   p.ammo--;
   p.cooldown = gun.rate;
   p.recoil = Math.min(
@@ -327,7 +338,8 @@ function enemyAI(w: World, dt: number, difficulty: number) {
     e.cooldown -= dt;
     e.repath -= dt;
     e.hurt = Math.max(0, e.hurt - dt);
-    e.memory -= dt;
+    e.memory = Math.max(0, e.memory - dt);
+    e.alert = Math.max(0, e.alert - dt);
     e.stagger = Math.max(0, e.stagger - dt);
     if (e.stagger > 0) continue;
     const seen = live
@@ -337,7 +349,21 @@ function enemyAI(w: World, dt: number, difficulty: number) {
     if (target) {
       e.target = target.id;
       e.lastSeen = { x: target.x, y: target.y };
-      e.memory = 5;
+      if (e.memory <= 0) e.cooldown = 0;
+      e.memory = 8;
+    }
+    // Radio calls relay a snapshot, never the live position of an unseen player.
+    if (e.lastSeen && e.memory > 0 && e.alert <= 0) {
+      for (const ally of w.enemies) {
+        if (ally === e || ally.hp <= 0 || distance(e, ally) > 620) continue;
+        if (ally.memory < e.memory - 0.1) {
+          ally.lastSeen = { ...e.lastSeen };
+          ally.memory = Math.max(0, e.memory - 0.35);
+          ally.target = e.target;
+          ally.repath = 0;
+        }
+      }
+      e.alert = 1.6;
     }
     if (e.windup > 0) {
       e.windup -= dt;
@@ -373,72 +399,86 @@ function enemyAI(w: World, dt: number, difficulty: number) {
       }
       continue;
     }
-    if (target && distance(e, target) < spec.range) {
-      if (e.cooldown <= 0) {
-        e.angle =
-          Math.atan2(target.y - e.y, target.x - e.x) + (random(w) - 0.5) * 0.12;
-        e.windup = spec.windup;
-      }
-      if (e.kind === "rush" && distance(e, target) > 90) {
-        const a = Math.atan2(target.y - e.y, target.x - e.x);
-        move(
-          e,
-          Math.cos(a) * spec.speed * dt,
-          Math.sin(a) * spec.speed * dt,
-          w.map,
-          19,
-        );
-      } else if (e.kind === "rifle" && distance(e, target) > 210) {
-        const sign = Number(e.id.slice(1)) % 2 ? 1 : -1;
-        const a =
-          Math.atan2(target.y - e.y, target.x - e.x) + (Math.PI / 2) * sign;
-        move(
-          e,
-          Math.cos(a) * spec.speed * 0.45 * dt,
-          Math.sin(a) * spec.speed * 0.45 * dt,
-          w.map,
-          19,
-        );
-      }
-      if (e.kind !== "rush" && distance(e, target) < 170) {
-        const a = Math.atan2(e.y - target.y, e.x - target.x);
-        move(
-          e,
-          Math.cos(a) * spec.speed * dt,
-          Math.sin(a) * spec.speed * dt,
-          w.map,
-          19,
-        );
-      }
+    const inRange = target && distance(e, target) < spec.range;
+    if (inRange && e.cooldown <= 0) {
+      e.angle =
+        Math.atan2(target.y - e.y, target.x - e.x) + (random(w) - 0.5) * 0.16;
+      e.windup = spec.windup;
+      // Lock the firing direction before locomotion can turn the sprite.
       continue;
     }
     let goal: Vec | undefined;
-    if (e.memory > 0 && e.lastSeen) goal = e.lastSeen;
-    else {
+    if (e.memory > 0 && e.lastSeen) {
+      goal = { ...e.lastSeen };
+      if (e.repath <= 0) {
+        const angle = Math.atan2(goal.y - e.y, goal.x - e.x);
+        if (e.role === "flank" && distance(e, goal) > 160) {
+          const side = Number(e.id.slice(1)) % 2 ? 1 : -1;
+          // A* chooses an actual bypass; candidates on walls are discarded.
+          for (const offset of [260, 180, 100]) {
+            const candidate = {
+              x: goal.x - Math.sin(angle) * offset * side,
+              y: goal.y + Math.cos(angle) * offset * side,
+            };
+            if (
+              !blocked(candidate, w.map.obstacles, 22) &&
+              candidate.x > 40 &&
+              candidate.y > 40 &&
+              candidate.x < w.map.width - 40 &&
+              candidate.y < w.map.height - 40
+            ) {
+              goal = candidate;
+              break;
+            }
+          }
+        } else if (e.kind !== "rush" && target && distance(e, target) > 180) {
+          // Peekable corners beside nearby solid cover give rifle/anchor roles firing positions.
+          const candidates: Vec[] = [];
+          for (const o of w.map.obstacles) {
+            if (distance(e, { x: o.x + o.w / 2, y: o.y + o.h / 2 }) > 430)
+              continue;
+            candidates.push(
+              ...[
+                { x: o.x - 35, y: o.y - 35 },
+                { x: o.x + o.w + 35, y: o.y - 35 },
+                { x: o.x - 35, y: o.y + o.h + 35 },
+                { x: o.x + o.w + 35, y: o.y + o.h + 35 },
+              ].filter(
+                (v) =>
+                  distance(v, target) > 190 &&
+                  distance(v, target) < spec.range * 0.9 &&
+                  !blocked(v, w.map.obstacles, 22) &&
+                  visible(v, target, w.map),
+              ),
+            );
+          }
+          candidates.sort((a, b) => distance(e, a) - distance(e, b));
+          if (candidates[0]) goal = candidates[0];
+          else if (e.role === "anchor" && inRange) goal = { x: e.x, y: e.y };
+        }
+        if (e.kind !== "rush" && target && distance(e, target) < 160) {
+          const candidate = {
+            x: e.x - Math.cos(angle) * 130,
+            y: e.y - Math.sin(angle) * 130,
+          };
+          if (!blocked(candidate, w.map.obstacles, 22)) goal = candidate;
+        }
+        e.tactical = goal;
+      } else goal = e.tactical ?? goal;
+    } else {
       e.target = null;
+      e.tactical = null;
       if (e.repath <= 0) {
         const a = random(w) * Math.PI * 2;
         goal = {
-          x: e.home.x + Math.cos(a) * 100,
-          y: e.home.y + Math.sin(a) * 100,
+          x: e.home.x + Math.cos(a) * 130,
+          y: e.home.y + Math.sin(a) * 130,
         };
       }
     }
     if (goal && e.repath <= 0) {
-      // Riflemen choose a reachable cover edge while pursuing a remembered target.
-      if (e.kind === "rifle" && e.memory > 0 && !target) {
-        const covers = w.map.obstacles.filter(
-          (o) => o.kind !== "wall" && distance(e, o) < 220,
-        );
-        const cover = covers[0];
-        if (cover) {
-          const side = e.x < cover.x ? cover.x - 45 : cover.x + cover.w + 45;
-          const candidate = { x: side, y: cover.y + cover.h / 2 };
-          if (!blocked(candidate, w.map.obstacles, 20)) goal = candidate;
-        }
-      }
-      e.path = findPath(e, goal, w.map, 19);
-      e.repath = 0.8 + random(w) * 0.6;
+      e.path = distance(e, goal) < 30 ? [] : findPath(e, goal, w.map, 19);
+      e.repath = 0.65 + random(w) * 0.45;
     }
     if (e.path.length) {
       const point = e.path[0],
@@ -586,6 +626,15 @@ export function tick(w: World, dt: number, hard = false) {
   }
   // A checkpoint advances through combat clearance, never a long interaction timer.
   if (["infiltrate", "breach", "destroy"].includes(m.stage)) {
+    const nextPatrol = m.encounters[m.checkpoint + 1];
+    if (
+      nextPatrol &&
+      !nextPatrol.spawned &&
+      live.some((p) => distance(p, w.map.zones[nextPatrol.zone].center) < 1050)
+    ) {
+      spawnEncounter(w, nextPatrol.zone, 0, live.length);
+      nextPatrol.spawned = true;
+    }
     const encounter = m.encounters[m.checkpoint];
     if (encounter && !encounter.cleared) {
       const zone = w.map.zones[encounter.zone];

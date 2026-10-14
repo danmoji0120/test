@@ -32,13 +32,15 @@
       });
       const w = createWorld("render-benchmark", 42, players);
       w.enemies = [];
+      // Explicit open stress fixture: all twenty enemies remain visible to exercise raster rendering.
+      w.map.obstacles = [];
       players.forEach((p, i) => {
-        p.x = 1750 + i * 55;
-        p.y = 920 + (i % 2) * 60;
+        p.x = 2500 + i * 55;
+        p.y = 1650 + (i % 2) * 60;
         p.moving = true;
       });
-      for (let y = 550; y <= 1250 && w.enemies.length < 20; y += 110) {
-        for (let x = 975; x <= 2275 && w.enemies.length < 20; x += 110) {
+      for (let y = 1350; y <= 1950 && w.enemies.length < 20; y += 110) {
+        for (let x = 2050; x <= 2950 && w.enemies.length < 20; x += 110) {
           spawnEnemy(
             w,
             { x, y },
@@ -60,7 +62,7 @@
         w.time = clock;
         for (const [i, p] of players.entries()) {
           p.angle = clock + i;
-          p.x = 1750 + i * 55 + Math.sin(clock * 3 + i) * 20;
+          p.x = 2500 + i * 55 + Math.sin(clock * 3 + i) * 20;
           p.recoil = 0.05;
           if (Math.floor(clock * 15) % 5 === 0)
             event(w, {

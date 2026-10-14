@@ -1,6 +1,6 @@
 {
   "name": "project-doll-squad",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,9 @@
     "qa:stability": "node --expose-gc --import tsx scripts/stability-qa.ts",
     "qa:render": "tsx scripts/render-qa.ts",
     "format": "prettier --write src tests scripts *.json *.html *.md",
-    "qa:smoke": "tsx scripts/smoke-qa.ts"
+    "qa:smoke": "tsx scripts/smoke-qa.ts",
+    "qa:audio": "tsx scripts/audio-qa.ts",
+    "qa:session": "tsx scripts/qa-session.ts"
   },
   "dependencies": {
     "vite": "^6.3.5",

@@ -61,5 +61,8 @@ const report = {
     p99: times[Math.floor(times.length * 0.99)],
   },
 };
-writeFileSync("docs/stability-qa.json", JSON.stringify(report, null, 2));
+writeFileSync(
+  (process.env.QA_REPORT_DIR || "docs") + "/stability-qa.json",
+  JSON.stringify(report, null, 2),
+);
 console.log(report);

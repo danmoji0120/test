@@ -1,36 +1,73 @@
 import { WEAPONS, type GameEvent } from "../shared/data";
+/** Noise/transient/low-frequency layers; no musical oscillator as the gun's main voice. */
 export class AudioEngine {
   ctx: AudioContext | null = null;
   gain: GainNode | null = null;
   volume = 0.35;
   private noise: AudioBuffer | null = null;
-  private ambient: OscillatorNode | null = null;
+  private room: ConvolverNode | null = null;
   start() {
     if (!this.ctx) {
-      this.ctx = new AudioContext();
-      this.gain = this.ctx.createGain();
+      const ctx = (this.ctx = new AudioContext());
+      this.gain = ctx.createGain();
       this.gain.gain.value = this.volume;
-      this.gain.connect(this.ctx.destination);
-      this.noise = this.ctx.createBuffer(
-        1,
-        this.ctx.sampleRate * 0.3,
-        this.ctx.sampleRate,
+      const limiter = ctx.createDynamicsCompressor();
+      limiter.threshold.value = -10;
+      limiter.ratio.value = 8;
+      this.gain.connect(limiter).connect(ctx.destination);
+      this.noise = ctx.createBuffer(1, ctx.sampleRate * 0.8, ctx.sampleRate);
+      const data = this.noise.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+      this.room = ctx.createConvolver();
+      const impulse = ctx.createBuffer(
+        2,
+        ctx.sampleRate * 0.18,
+        ctx.sampleRate,
       );
-      const d = this.noise.getChannelData(0);
-      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-      this.ambient = this.ctx.createOscillator();
-      const g = this.ctx.createGain();
-      g.gain.value = 0.009;
-      this.ambient.frequency.value = 55;
-      this.ambient.type = "sine";
-      this.ambient.connect(g).connect(this.gain);
-      this.ambient.start();
+      for (let ch = 0; ch < 2; ch++) {
+        const d = impulse.getChannelData(ch);
+        for (let i = 0; i < d.length; i++)
+          d[i] =
+            (Math.random() * 2 - 1) *
+            Math.pow(1 - i / d.length, 4) *
+            (i < 300 ? 0 : 0.5);
+      }
+      this.room.buffer = impulse;
+      const wet = ctx.createGain();
+      wet.gain.value = 0.13;
+      this.room.connect(wet).connect(this.gain);
     }
     void this.ctx.resume();
   }
   setVolume(v: number) {
     this.volume = v;
     if (this.gain) this.gain.gain.value = v;
+  }
+  private noiseBurst(
+    freq: number,
+    duration: number,
+    volume: number,
+    type: BiquadFilterType = "lowpass",
+    delay = 0,
+    reverb = false,
+  ) {
+    if (!this.ctx || !this.gain || !this.noise) return;
+    const ctx = this.ctx,
+      t = ctx.currentTime + delay,
+      source = ctx.createBufferSource(),
+      filter = ctx.createBiquadFilter(),
+      env = ctx.createGain();
+    source.buffer = this.noise;
+    filter.type = type;
+    filter.frequency.value = freq;
+    filter.Q.value = 0.7;
+    env.gain.setValueAtTime(0.001, t);
+    env.gain.linearRampToValueAtTime(volume, t + 0.002);
+    env.gain.exponentialRampToValueAtTime(0.001, t + duration);
+    source.connect(filter).connect(env).connect(this.gain);
+    if (reverb && this.room) env.connect(this.room);
+    source.start(t, Math.random() * 0.2);
+    source.stop(t + duration + 0.01);
   }
   tone(
     freq: number,
@@ -43,67 +80,55 @@ export class AudioEngine {
       o = this.ctx.createOscillator(),
       g = this.ctx.createGain();
     o.type = type;
-    o.frequency.setValueAtTime(freq, t);
-    o.frequency.exponentialRampToValueAtTime(
-      Math.max(30, freq * 0.4),
-      t + duration,
-    );
-    g.gain.setValueAtTime(volume, t);
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.001, t);
+    g.gain.linearRampToValueAtTime(volume, t + 0.003);
     g.gain.exponentialRampToValueAtTime(0.001, t + duration);
     o.connect(g).connect(this.gain);
     o.start();
     o.stop(t + duration);
   }
   play(e: GameEvent, dist: number) {
-    if (!this.ctx || !this.gain || dist > 1100) return;
-    if (e.pellet) return;
-    const volume = Math.max(0.02, 1 - dist / 1200);
+    if (!this.ctx || !this.gain || dist > 1100 || e.pellet) return;
+    const v = Math.max(0.025, 1 / (1 + Math.pow(dist / 380, 2)));
     if (e.type === "shot") {
-      const gun = e.weapon ? WEAPONS[e.weapon] : null;
+      const sg = e.weapon === "sg",
+        smg = e.weapon === "smg";
+      this.noiseBurst(
+        sg ? 1700 : smg ? 3300 : 2400,
+        sg ? 0.24 : smg ? 0.075 : 0.14,
+        (sg ? 1 : smg ? 0.42 : 0.7) * v,
+        "lowpass",
+        0,
+        true,
+      );
+      this.noiseBurst(6500, 0.025, 0.24 * v, "highpass");
       this.tone(
-        gun?.sound ?? 100,
-        gun?.id === "sg" ? 0.3 : gun?.id === "smg" ? 0.055 : 0.12,
-        (gun?.id === "sg" ? 0.38 : gun?.id === "smg" ? 0.15 : 0.26) * volume,
-        gun?.id === "smg" ? "square" : "triangle",
+        sg ? 58 : smg ? 115 : 82,
+        sg ? 0.22 : smg ? 0.06 : 0.12,
+        (sg ? 0.65 : smg ? 0.2 : 0.42) * v,
       );
-      const noise = this.ctx.createBufferSource(),
-        g = this.ctx.createGain(),
-        filter = this.ctx.createBiquadFilter(),
-        t = this.ctx.currentTime;
-      noise.buffer = this.noise;
-      filter.type = "bandpass";
-      filter.frequency.value =
-        gun?.id === "smg" ? 2900 : gun?.id === "sg" ? 550 : 1500;
-      filter.Q.value = gun?.id === "smg" ? 0.8 : 0.45;
-      g.gain.setValueAtTime((gun?.id === "sg" ? 0.7 : 0.42) * volume, t);
-      g.gain.exponentialRampToValueAtTime(
-        0.001,
-        t + (gun?.id === "sg" ? 0.28 : gun?.id === "smg" ? 0.045 : 0.11),
+      if (sg) this.noiseBurst(1700, 0.09, 0.12 * v, "bandpass", 0.23);
+      if (e.impact) this.noiseBurst(3900, 0.065, 0.13 * v, "bandpass", 0.025);
+    } else if (e.type === "hit") {
+      this.noiseBurst(
+        e.enemy ? 480 : 2300,
+        0.065,
+        (e.enemy ? 0.42 : 0.18) * v,
+        "bandpass",
       );
-      noise.connect(filter).connect(g).connect(this.gain);
-      noise.start();
-      noise.stop(t + 0.3);
-      if (gun?.id === "sg") {
-        this.tone(52, 0.24, 0.26 * volume);
-        setTimeout(() => this.tone(310, 0.07, 0.1 * volume, "square"), 190);
-      }
-    } else if (e.type === "hit")
-      this.tone(e.enemy ? 150 : 920, 0.045, 0.1 * volume, "triangle");
-    else if (e.type === "kill") {
-      this.tone(1250, 0.07, 0.14 * volume);
-      setTimeout(() => this.tone(1680, 0.065, 0.1 * volume), 45);
+    } else if (e.type === "kill") {
+      this.noiseBurst(1300, 0.15, 0.22 * v, "bandpass");
+      this.tone(65, 0.07, 0.1 * v);
     } else if (e.type === "reload") {
-      this.tone(360, 0.08, 0.13);
       const duration = e.weapon ? WEAPONS[e.weapon].reload : 1.5;
-      setTimeout(() => this.tone(180, 0.05, 0.1, "square"), 180);
-      setTimeout(
-        () => this.tone(600, 0.07, 0.15),
-        Math.max(350, duration * 1000 - 160),
-      );
+      this.noiseBurst(2600, 0.065, 0.27 * v, "bandpass");
+      this.noiseBurst(900, 0.09, 0.24 * v, "bandpass", 0.17);
+      this.noiseBurst(3400, 0.07, 0.3 * v, "bandpass", duration - 0.16);
     } else if (e.type === "explode") {
-      this.tone(70, 0.8, 0.4, "sawtooth");
-    } else if (e.type === "alarm") {
-      this.tone(640, 0.4, 0.12, "sine");
-    } else this.tone(880, 0.2, 0.16);
+      this.noiseBurst(750, 0.75, 0.9 * v, "lowpass", 0, true);
+      this.tone(45, 0.55, 0.5 * v);
+    } else if (e.type === "alarm") this.tone(640, 0.3, 0.12 * v);
+    else this.noiseBurst(2100, 0.08, 0.15 * v, "bandpass");
   }
 }

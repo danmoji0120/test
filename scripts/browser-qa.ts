@@ -199,7 +199,10 @@ try {
       average: fpsSamples.reduce((a, b) => a + b, 0) / fpsSamples.length,
     },
   };
-  writeFileSync("docs/browser-qa.json", JSON.stringify(report, null, 2));
+  writeFileSync(
+    (process.env.QA_REPORT_DIR || "docs") + "/browser-qa.json",
+    JSON.stringify(report, null, 2),
+  );
   if (stage !== "success") throw Error("Browser mission failed");
   const before = final.room.world.id;
   await pages[0].click('[data-action="return"]');
@@ -215,7 +218,10 @@ try {
   const again = await read(pages[0]);
   if (again.room.world.id === before) throw Error("Run ID reused");
   report.repeatDeployment = true;
-  writeFileSync("docs/browser-qa.json", JSON.stringify(report, null, 2));
+  writeFileSync(
+    (process.env.QA_REPORT_DIR || "docs") + "/browser-qa.json",
+    JSON.stringify(report, null, 2),
+  );
   console.log(JSON.stringify(report, null, 2));
   if (errors.length) throw Error("Browser errors recorded");
 } catch (e) {
@@ -224,7 +230,7 @@ try {
     .catch(() => {});
   const q = await read(pages[0]).catch(() => null);
   writeFileSync(
-    "docs/browser-failure.json",
+    (process.env.QA_REPORT_DIR || "docs") + "/browser-failure.json",
     JSON.stringify({ error: String(e), errors, state: q }, null, 2),
   );
   console.error(e);

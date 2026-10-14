@@ -102,31 +102,31 @@ export const ENEMIES = {
   rifle: {
     name: "소총병",
     hp: 65,
-    speed: 140,
+    speed: 170,
     range: 580,
-    damage: 9,
-    delay: 1.15,
-    windup: 0.42,
+    damage: 11,
+    delay: 0.9,
+    windup: 0.2,
     armor: 0.12,
   },
   rush: {
     name: "돌격병",
     hp: 48,
-    speed: 190,
+    speed: 235,
     range: 220,
-    damage: 12,
-    delay: 0.85,
-    windup: 0.3,
+    damage: 14,
+    delay: 0.7,
+    windup: 0.16,
     armor: 0.04,
   },
   heavy: {
     name: "지원 사수",
     hp: 105,
-    speed: 95,
+    speed: 125,
     range: 660,
-    damage: 8,
-    delay: 1.8,
-    windup: 0.85,
+    damage: 9,
+    delay: 1.5,
+    windup: 0.55,
     armor: 0.3,
   },
 } as const;
@@ -212,6 +212,9 @@ export interface Enemy extends Vec {
   zone: number;
   burst: number;
   home: Vec;
+  role: "assault" | "flank" | "anchor";
+  alert: number;
+  tactical: Vec | null;
 }
 export type ZoneKind =
   "warehouse" | "corridor" | "reactor" | "security" | "yard" | "extraction";

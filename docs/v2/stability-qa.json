@@ -1,0 +1,24 @@
+{
+  "runs": 40,
+  "successes": 40,
+  "failures": 0,
+  "maxEvents": 160,
+  "maxEnemies": 14,
+  "gcAvailable": true,
+  "heapMiB": [
+    7.8,
+    7.94,
+    7.99,
+    8,
+    8,
+    8.03,
+    8.02,
+    8.05
+  ],
+  "serverTickMs": {
+    "samples": 4456,
+    "median": 0.055373000002873596,
+    "p95": 0.34448800000245683,
+    "p99": 3.622390999997151
+  }
+}

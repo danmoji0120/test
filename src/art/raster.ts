@@ -32,3 +32,38 @@ export function operatorFrame(character: CharacterId, direction: number) {
     h: character === "aria" ? 424 : 463,
   };
 }
+
+export const enemyAtlasUrl = new URL(
+  "../../assets/enemies-atlas.png",
+  import.meta.url,
+).href;
+export function enemyImage() {
+  const img = new Image();
+  img.src = enemyAtlasUrl;
+  return img;
+}
+/** Alpha bounds measured on the actual imagegen result; the PNG is preserved unchanged. */
+const enemyFrames = {
+  rifle: [
+    [86, 8, 195, 333],
+    [438, 10, 270, 333],
+    [821, 9, 180, 330],
+    [1111, 11, 257, 330],
+  ],
+  rush: [
+    [84, 355, 179, 334],
+    [439, 352, 254, 334],
+    [825, 354, 180, 333],
+    [1137, 354, 278, 337],
+  ],
+  heavy: [
+    [50, 699, 302, 352],
+    [390, 698, 348, 374],
+    [785, 697, 241, 358],
+    [1071, 703, 340, 371],
+  ],
+};
+export function enemyFrame(kind: keyof typeof enemyFrames, direction: number) {
+  const [x, y, w, h] = enemyFrames[kind][direction];
+  return { x, y, w, h };
+}

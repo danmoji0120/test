@@ -1,5 +1,7 @@
 import { chromium } from "playwright";
-import { writeFileSync } from "node:fs";
+import { writeFileSync, mkdirSync } from "node:fs";
+const output = process.env.QA_OUTPUT || "docs/after";
+mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({
   headless: true,
   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
@@ -27,7 +29,10 @@ const n = result.frames.length,
     particles: result.particles,
     trails: result.trails,
   };
-await page.screenshot({ path: "docs/after/render-benchmark.png" });
-writeFileSync("docs/render-qa.json", JSON.stringify(report, null, 2));
+await page.screenshot({ path: output + "/render-benchmark.png" });
+writeFileSync(
+  (process.env.QA_REPORT_DIR || "docs") + "/render-qa.json",
+  JSON.stringify(report, null, 2),
+);
 console.log(report);
 await browser.close();

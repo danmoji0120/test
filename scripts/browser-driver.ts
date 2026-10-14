@@ -6,10 +6,10 @@ export async function drive(page: Page, input: Input) {
     if (!q.camera || q.room?.phase !== "playing") return;
     const p = q.room.players.find((p: any) => p.id === q.id),
       wanted = new Set<string>();
-    if (input.dx > 0.2) wanted.add("d");
-    if (input.dx < -0.2) wanted.add("a");
-    if (input.dy > 0.2) wanted.add("s");
-    if (input.dy < -0.2) wanted.add("w");
+    if (input.dx > 0.1) wanted.add("d");
+    if (input.dx < -0.1) wanted.add("a");
+    if (input.dy > 0.1) wanted.add("s");
+    if (input.dy < -0.1) wanted.add("w");
     if (input.sprint) wanted.add("Shift");
     if (input.reload) wanted.add("r");
     if (input.interact) wanted.add("e");

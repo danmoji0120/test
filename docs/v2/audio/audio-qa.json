@@ -1,0 +1,29 @@
+{
+  "method": "actual AudioEngine rendered by Chromium OfflineAudioContext; not a listening review",
+  "report": [
+    {
+      "weapon": "ar",
+      "sampleRate": 48000,
+      "peak": 0.05667150765657425,
+      "clipped": 0,
+      "attackRms": 0.011155878704623852,
+      "tailRms": 0.00023928536443280142
+    },
+    {
+      "weapon": "smg",
+      "sampleRate": 48000,
+      "peak": 0.03345052897930145,
+      "clipped": 0,
+      "attackRms": 0.004248640147838628,
+      "tailRms": 0.000006106603514838201
+    },
+    {
+      "weapon": "sg",
+      "sampleRate": 48000,
+      "peak": 0.07690392434597015,
+      "clipped": 0,
+      "attackRms": 0.025123555634491486,
+      "tailRms": 0.0035681247106397946
+    }
+  ]
+}

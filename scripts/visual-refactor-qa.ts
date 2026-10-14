@@ -10,7 +10,8 @@ const browser = await chromium.launch({
     "--disable-renderer-backgrounding",
   ],
 });
-mkdirSync("docs/after", { recursive: true });
+const output = process.env.QA_OUTPUT || "docs/after";
+mkdirSync(output, { recursive: true });
 const ctx = await browser.newContext({
     viewport: { width: 1920, height: 1080 },
   }),
@@ -22,13 +23,13 @@ await page.waitForFunction(() => (window as any).dollQA?.connected);
 await page.waitForFunction(() =>
   Array.from(document.images).every((i) => i.complete && i.naturalWidth > 0),
 );
-await page.screenshot({ path: "docs/after/lobby-1920.png" });
+await page.screenshot({ path: output + "/lobby-1920.png" });
 await page.click('[data-character="luna"]');
 await page.waitForTimeout(150);
-await page.screenshot({ path: "docs/after/luna-1920.png" });
+await page.screenshot({ path: output + "/luna-1920.png" });
 await page.click('[data-character="aria"]');
 await page.setViewportSize({ width: 1280, height: 720 });
-await page.screenshot({ path: "docs/after/lobby-1280.png", fullPage: true });
+await page.screenshot({ path: output + "/lobby-1280.png", fullPage: true });
 await page.click('[data-action="create"]');
 await page.waitForSelector('[data-action="ready"]');
 await page.fill("#seed", "42");
@@ -47,12 +48,12 @@ while (Date.now() - start < 40000) {
   if (p.kills >= 2) break;
   await page.waitForTimeout(60);
 }
-await page.screenshot({ path: "docs/after/firing-1280.png" });
+await page.screenshot({ path: output + "/firing-1280.png" });
 await page.setViewportSize({ width: 1920, height: 1080 });
 await page.waitForTimeout(100);
-await page.screenshot({ path: "docs/after/firing-1920.png" });
+await page.screenshot({ path: output + "/firing-1920.png" });
 writeFileSync(
-  "docs/visual-refactor-qa.json",
+  output + "/visual-qa.json",
   JSON.stringify(
     {
       errors,
