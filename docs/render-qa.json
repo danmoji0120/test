@@ -1,0 +1,13 @@
+{
+  "fixture": "synthetic renderer benchmark; not a gameplay screenshot",
+  "viewport": "1920x1080",
+  "browser": "154.0.8037.57",
+  "players": 4,
+  "enemies": 20,
+  "samples": 600,
+  "medianMs": 16.699999999254942,
+  "p95Ms": 16.899999998509884,
+  "averageMs": 16.666499999997516,
+  "particles": 47,
+  "trails": 0
+}

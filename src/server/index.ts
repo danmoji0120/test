@@ -1,6 +1,6 @@
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
-import { resolve, extname } from "node:path";
+import { resolve, extname, sep } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
 import { WebSocketServer, WebSocket } from "ws";
 import { Store } from "./store";
@@ -17,12 +17,28 @@ import {
 import { makePlayer, createWorld, tick } from "../game/simulation";
 const port = Number(process.env.PORT || 3000),
   production = process.env.NODE_ENV === "production";
-const store = new Store(process.env.DATA_DIR || "data");
+const saveDirectory = resolve(process.env.DATA_DIR || "data");
+const store = new Store(saveDirectory);
 const vite = production
   ? null
   : await (
       await import("vite")
-    ).createServer({ server: { middlewareMode: true }, appType: "spa" });
+    ).createServer({
+      server: {
+        middlewareMode: true,
+        fs: {
+          deny: [
+            ".env",
+            ".env.*",
+            "*.{crt,pem}",
+            "**/.git/**",
+            "**/data/**",
+            `${saveDirectory.replaceAll("\\", "/")}/**`,
+          ],
+        },
+      },
+      appType: "spa",
+    });
 const server = createServer(async (req, res) => {
   if (req.url === "/health") {
     res.setHeader("Content-Type", "application/json");
@@ -37,7 +53,7 @@ const server = createServer(async (req, res) => {
     const path = decodeURIComponent((req.url || "/").split("?")[0]),
       base = resolve("dist"),
       file = resolve(base, "." + (path === "/" ? "/index.html" : path));
-    if (!file.startsWith(base + "/")) {
+    if (!file.startsWith(base + sep)) {
       res.writeHead(403).end();
       return;
     }
@@ -194,6 +210,7 @@ wss.on("connection", (ws) => {
       }
       if (++c.messages > 100) return;
       c.last = Date.now();
+      if (m.type === "ping") return;
       if (m.type === "input") {
         const p = c.room?.players.find((p) => p.id === c!.id);
         if (p && c.room?.phase === "playing") {

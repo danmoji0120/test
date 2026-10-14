@@ -1,11 +1,11 @@
 import { beforeAll, afterAll, it, expect } from "vitest";
 import { spawn, type ChildProcess } from "node:child_process";
 import { mkdtempSync, rmSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+
+import { basename, join } from "node:path";
 import { WebSocket } from "ws";
 const port = 3107,
-  dir = mkdtempSync(join(tmpdir(), "doll-net-"));
+  dir = mkdtempSync(join(process.cwd(), ".qa-private-"));
 let server: ChildProcess;
 const sockets: WebSocket[] = [];
 const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -218,4 +218,33 @@ it("assigns leadership to a new joiner when every previous member is disconnecte
   second.send({ type: "start" });
   await second.wait((m) => m.type === "state" && m.room.phase === "playing");
   second.ws.close();
+});
+
+it("heartbeat messages do not trigger redundant room broadcasts", async () => {
+  const p = new Peer();
+  await p.wait((m) => m.type === "hello");
+  p.send({ type: "create", name: "Heartbeat" });
+  await p.wait((m) => m.type === "state");
+  p.clear();
+  for (let i = 0; i < 20; i++) p.send({ type: "ping" });
+  await pause(150);
+  expect(
+    p.messages.filter((m) => m.type === "state").length,
+  ).toBeLessThanOrEqual(5);
+  p.ws.close();
+});
+
+it("does not serve profile tokens through the development HTTP server", async () => {
+  const p = new Peer();
+  await p.wait((m) => m.type === "hello");
+  for (const path of [
+    "/" + basename(dir) + "/profiles.json",
+    "/@fs/" + dir.replaceAll("\\", "/") + "/profiles.json",
+  ]) {
+    const response = await fetch(`http://127.0.0.1:${port}${path}`);
+    const body = await response.text();
+    expect(response.status).toBe(403);
+    expect(body.includes(p.token)).toBe(false);
+  }
+  p.ws.close();
 });

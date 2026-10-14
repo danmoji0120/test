@@ -1,0 +1,31 @@
+{
+  "report": [
+    {
+      "players": 1,
+      "phase": "playing",
+      "elapsed": 30.20000000000066,
+      "kills": [
+        9
+      ],
+      "ammo": [
+        18
+      ],
+      "sameRun": true
+    },
+    {
+      "players": 2,
+      "phase": "playing",
+      "elapsed": 30.033333333333985,
+      "kills": [
+        7,
+        4
+      ],
+      "ammo": [
+        18,
+        30
+      ],
+      "sameRun": true
+    }
+  ],
+  "errors": []
+}

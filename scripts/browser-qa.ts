@@ -143,16 +143,6 @@ try {
     throw Error("Mission result mismatch");
   const stage = final.room.world.mission.stage;
   if (stage !== "success") throw Error("Browser mission failed");
-  const before = final.room.world.id;
-  await pages[0].click('[data-action="return"]');
-  await pages[0].waitForSelector('[data-action="ready"]');
-  await pages[0].reload();
-  await pages[0].waitForSelector('[data-action="ready"]');
-  for (const page of pages) await page.click('[data-action="ready"]');
-  await pages[0].click('[data-action="start"]');
-  await pages[0].waitForSelector("#battle");
-  const again = await read(pages[0]);
-  if (again.room.world.id === before) throw Error("Run ID reused");
   fpsSamples.sort((a, b) => a - b);
   const report = {
     date: new Date().toISOString(),
@@ -168,7 +158,7 @@ try {
       hp: p.hp,
     })),
     reconnect: reconnected,
-    repeatDeployment: true,
+    repeatDeployment: false,
     errors,
     frameMs: {
       samples: fpsSamples.length,
@@ -177,6 +167,21 @@ try {
       average: fpsSamples.reduce((a, b) => a + b, 0) / fpsSamples.length,
     },
   };
+  writeFileSync("docs/browser-qa.json", JSON.stringify(report, null, 2));
+  const before = final.room.world.id;
+  await pages[0].click('[data-action="return"]');
+  await pages[0].waitForSelector('[data-action="ready"]');
+  await pages[0].reload();
+  await pages[0].waitForSelector('[data-action="ready"]');
+  for (const page of pages) await page.click('[data-action="ready"]');
+  const readyStates = await Promise.all(pages.map(read));
+  const leaderIndex = readyStates.findIndex((q) => q.id === q.room.host);
+  if (leaderIndex < 0) throw Error("No connected squad leader");
+  await pages[leaderIndex].click('[data-action="start"]');
+  await pages[0].waitForSelector("#battle");
+  const again = await read(pages[0]);
+  if (again.room.world.id === before) throw Error("Run ID reused");
+  report.repeatDeployment = true;
   writeFileSync("docs/browser-qa.json", JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
   if (errors.length) throw Error("Browser errors recorded");

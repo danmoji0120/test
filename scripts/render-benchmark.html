@@ -37,12 +37,17 @@
         p.y = 920 + (i % 2) * 60;
         p.moving = true;
       });
-      for (let i = 0; i < 20; i++)
-        spawnEnemy(
-          w,
-          { x: 1175 + (i % 5) * 210, y: 475 + Math.floor(i / 5) * 220 },
-          ["rifle", "rush", "heavy"][i % 3],
-        );
+      for (let y = 550; y <= 1250 && w.enemies.length < 20; y += 110) {
+        for (let x = 975; x <= 2275 && w.enemies.length < 20; x += 110) {
+          spawnEnemy(
+            w,
+            { x, y },
+            ["rifle", "rush", "heavy"][w.enemies.length % 3],
+          );
+        }
+      }
+      if (w.enemies.length !== 20)
+        throw new Error("Benchmark requires exactly 20 enemies");
       const renderer = new Renderer(
         document.querySelector("canvas"),
         new AudioEngine(),
@@ -57,6 +62,13 @@
           p.angle = clock + i;
           p.x = 1750 + i * 55 + Math.sin(clock * 3 + i) * 20;
           p.recoil = 0.05;
+          if (Math.floor(clock * 15) % 5 === 0)
+            event(w, {
+              type: "hit",
+              actor: p.id,
+              x: p.x + Math.cos(p.angle) * 300,
+              y: p.y + Math.sin(p.angle) * 300,
+            });
           if (Math.floor(clock * 15) % 2 === 0)
             event(w, {
               type: "shot",

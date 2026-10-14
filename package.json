@@ -12,7 +12,8 @@
     "qa:sim": "tsx scripts/simulation-qa.ts",
     "qa:stability": "node --expose-gc --import tsx scripts/stability-qa.ts",
     "qa:render": "tsx scripts/render-qa.ts",
-    "format": "prettier --write src tests scripts *.json *.html *.md"
+    "format": "prettier --write src tests scripts *.json *.html *.md",
+    "qa:smoke": "tsx scripts/smoke-qa.ts"
   },
   "dependencies": {
     "vite": "^6.3.5",

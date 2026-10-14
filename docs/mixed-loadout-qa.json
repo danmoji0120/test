@@ -1,0 +1,51 @@
+{
+  "run": "four-browser mixed loadout",
+  "result": {
+    "stage": "failed",
+    "relays": [
+      6,
+      6
+    ],
+    "plant": 5.033333333333325,
+    "timer": -2.300505619334814e-11,
+    "extract": 0,
+    "elapsed": 409.3666666667767,
+    "intel": true,
+    "intelProgress": 3.0333333333333323,
+    "wave": 16,
+    "reward": 340,
+    "reason": "모든 오퍼레이터가 쓰러졌습니다"
+  },
+  "players": [
+    {
+      "name": "아리아",
+      "weapon": "ar",
+      "hp": 0,
+      "kills": 49,
+      "down": true
+    },
+    {
+      "name": "루나",
+      "weapon": "smg",
+      "hp": 0,
+      "kills": 6,
+      "down": true
+    },
+    {
+      "name": "스파크",
+      "weapon": "sg",
+      "hp": 0,
+      "kills": 6,
+      "down": true
+    },
+    {
+      "name": "에코",
+      "weapon": "ar",
+      "hp": 0,
+      "kills": 19,
+      "down": true
+    }
+  ],
+  "browserErrors": [],
+  "harnessError": "Error: page.evaluate: TypeError: Cannot read properties of null (reading 'x')\n    at eval (eval at evaluate (:370:30), <anonymous>:1:630)\n    at UtilityScript.evaluate (<anonymous>:372:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+}

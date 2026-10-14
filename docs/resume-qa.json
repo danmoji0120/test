@@ -1,0 +1,58 @@
+{
+  "completedMission": "success; four-client result equality was checked before the preceding harness timed out on stale host selection",
+  "previousPlayers": [
+    {
+      "name": "아리아",
+      "kills": 33,
+      "hp": 45
+    },
+    {
+      "name": "루나",
+      "kills": 21,
+      "hp": 84
+    },
+    {
+      "name": "스파크",
+      "kills": 17,
+      "hp": 100
+    },
+    {
+      "name": "에코",
+      "kills": 15,
+      "hp": 51
+    }
+  ],
+  "reconnect": true,
+  "ready": true,
+  "currentHostUsed": true,
+  "repeatDeployment": true,
+  "newRunId": "16736662-fac1-4988-be28-720a48faffc2",
+  "priorRunId": "f7d6ae69-b074-4475-ba83-e97e2ac010b1",
+  "room": "0C303",
+  "profiles": [
+    {
+      "name": "아리아",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    },
+    {
+      "name": "루나",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    },
+    {
+      "name": "스파크",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    },
+    {
+      "name": "에코",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+
+> project-doll-squad@0.1.0 build
+> tsc --noEmit && vite build && esbuild src/server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server.mjs
+
+vite v6.4.4 building for production...
+transforming...
+✓ 10 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                  0.71 kB │ gzip:  0.46 kB
+dist/assets/index-KYORUmOg.css  19.48 kB │ gzip:  5.28 kB
+dist/assets/index-fMl_unmO.js   45.97 kB │ gzip: 18.00 kB
+✓ built in 213ms
+
+  dist/server.mjs  35.2kb
+
+⚡ Done in 5ms
