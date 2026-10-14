@@ -4,6 +4,8 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { Pilot } from "./bot";
 import type { World, Input } from "../src/shared/data";
 const url = process.env.QA_URL || "http://localhost:3000";
+const output = process.env.QA_OUTPUT || "docs/after";
+mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
   headless: true,
@@ -29,14 +31,17 @@ for (let i = 0; i < 4; i++) {
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto(url);
   await page.waitForFunction(() => (window as any).dollQA?.connected);
+  await page.waitForFunction(() =>
+    Array.from(document.images).every((i) => i.complete && i.naturalWidth > 0),
+  );
   await page.fill("#name", ["아리아", "루나", "스파크", "에코"][i]);
 }
-await pages[0].screenshot({ path: "docs/screenshots/lobby-1920.png" });
+await pages[0].screenshot({ path: `${output}/lobby-1920.png` });
 await pages[0].click('[data-character="luna"]');
-await pages[0].screenshot({ path: "docs/screenshots/luna-1920.png" });
+await pages[0].screenshot({ path: `${output}/luna-1920.png` });
 await pages[0].click('[data-character="aria"]');
 await pages[1].screenshot({
-  path: "docs/screenshots/lobby-1280.png",
+  path: `${output}/lobby-1280.png`,
   fullPage: true,
 });
 await pages[0].click('[data-action="create"]');
@@ -55,18 +60,18 @@ if (process.env.QA_MIXED === "1") {
   await pages[2].click('[data-weapon="sg"]');
 }
 await pages[3].click('[data-character="luna"]');
-await pages[0].fill("#seed", "42");
+await pages[0].fill("#seed", process.env.QA_SEED || "42");
 await pages[0].locator("#seed").dispatchEvent("change");
 for (const page of pages) await page.click('[data-action="ready"]');
 await pages[0].screenshot({
-  path: "docs/screenshots/squad-4.png",
+  path: `${output}/squad-4.png`,
   fullPage: true,
 });
 await pages[0].click('[data-action="start"]');
 await Promise.all(pages.map((p) => p.waitForSelector("#battle")));
 await pages[0].waitForTimeout(800);
-await pages[0].screenshot({ path: "docs/screenshots/combat-1920.png" });
-await pages[1].screenshot({ path: "docs/screenshots/combat-1280.png" });
+await pages[0].screenshot({ path: `${output}/combat-1920.png` });
+await pages[1].screenshot({ path: `${output}/combat-1280.png` });
 let lastStage = "",
   lastLog = 0,
   iterations = 0,
@@ -76,6 +81,10 @@ const start = Date.now(),
   stageTimes: Record<string, number> = {};
 let final: any;
 const fpsSamples: number[] = [];
+const observedEvents = new Set<number>();
+const feedback: Record<string, number> = {};
+let downCount = 0;
+const downs = new Set<string>();
 
 try {
   while (Date.now() - start < 750000) {
@@ -86,12 +95,28 @@ try {
     }
     const w = state.room.world as World;
     if (!w) throw Error("Missing world");
+    for (const e of w.events)
+      if (!observedEvents.has(e.id)) {
+        observedEvents.add(e.id);
+        if (!e.pellet) {
+          const key =
+            e.type === "shot" ? `shot:${e.weapon ?? "enemy"}` : e.type;
+          feedback[key] = (feedback[key] ?? 0) + 1;
+        }
+      }
+    for (const p of w.players) {
+      if (p.down && !downs.has(p.id)) {
+        downCount++;
+        downs.add(p.id);
+      }
+      if (!p.down) downs.delete(p.id);
+    }
     if (w.mission.stage !== lastStage) {
       lastStage = w.mission.stage;
       stageTimes[lastStage] = w.mission.elapsed;
       console.log("STAGE", lastStage, w.mission.elapsed.toFixed(1));
       await pages[0].screenshot({
-        path: `docs/screenshots/stage-${lastStage}.png`,
+        path: `${output}/stage-${lastStage}.png`,
       });
     }
     if (Date.now() - lastLog > 30000) {
@@ -118,7 +143,7 @@ try {
     );
     iterations++;
     if (!fireCaptured && w.players.reduce((n, p) => n + p.kills, 0) > 3) {
-      await pages[0].screenshot({ path: "docs/screenshots/firing.png" });
+      await pages[0].screenshot({ path: `${output}/firing.png` });
       fireCaptured = true;
     }
     if (!reconnected && w.mission.elapsed > 60) {
@@ -136,19 +161,26 @@ try {
     await pages[0].waitForTimeout(65);
   }
   if (!final) throw Error("Browser mission timed out");
-  await pages[0].screenshot({ path: "docs/screenshots/result-1920.png" });
-  await pages[1].screenshot({ path: "docs/screenshots/result-1280.png" });
+  await pages[0].screenshot({ path: `${output}/result-1920.png` });
+  await pages[1].screenshot({ path: `${output}/result-1280.png` });
   const finals = await Promise.all(pages.map(read));
   if (new Set(finals.map((q) => q.room.world.mission.stage)).size !== 1)
     throw Error("Mission result mismatch");
   const stage = final.room.world.mission.stage;
-  if (stage !== "success") throw Error("Browser mission failed");
   fpsSamples.sort((a, b) => a - b);
   const report = {
     date: new Date().toISOString(),
     browser: browser.version(),
     viewports: ["1920x1080", "1280x720"],
     players: 4,
+    seed: final.room.seed,
+    loadout: final.room.players.map((p: any) => ({
+      character: p.character,
+      weapon: p.weapon,
+    })),
+    escapeSeconds: final.room.world.mission.elapsed - stageTimes.extract,
+    feedback,
+    downCount,
     stageTimes,
     elapsed: final.room.world.mission.elapsed,
     result: stage,
@@ -168,6 +200,7 @@ try {
     },
   };
   writeFileSync("docs/browser-qa.json", JSON.stringify(report, null, 2));
+  if (stage !== "success") throw Error("Browser mission failed");
   const before = final.room.world.id;
   await pages[0].click('[data-action="return"]');
   await pages[0].waitForSelector('[data-action="ready"]');
@@ -187,7 +220,7 @@ try {
   if (errors.length) throw Error("Browser errors recorded");
 } catch (e) {
   await pages[0]
-    .screenshot({ path: "docs/screenshots/qa-failure.png" })
+    .screenshot({ path: `${output}/qa-failure.png` })
     .catch(() => {});
   const q = await read(pages[0]).catch(() => null);
   writeFileSync(

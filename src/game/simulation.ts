@@ -19,7 +19,6 @@ import {
   wallDistance,
   findPath,
   blocked,
-  rng,
 } from "./map";
 export function makePlayer(id: string, name: string): Player {
   return {
@@ -72,6 +71,9 @@ export function spawnEnemy(w: World, pos: Vec, kind: EnemyKind) {
     path: [],
     repath: 0,
     hurt: 0,
+    stagger: 0,
+    zone: -1,
+    burst: 0,
     home: { ...pos },
   });
 }
@@ -105,9 +107,10 @@ export function createWorld(
     enemies: [],
     mission: {
       stage: "infiltrate",
-      relays: [0, 0],
-      plant: 0,
-      timer: RULES.defenseSeconds,
+      checkpoint: 0,
+      encounters: [],
+      pressure: 0,
+      timer: RULES.meltdownSeconds,
       extract: 0,
       elapsed: 0,
       intel: false,
@@ -121,35 +124,62 @@ export function createWorld(
     time: 0,
     random: seed >>> 0,
   };
-  const r = rng(seed + 7);
-  for (const [x, y] of [
-    [700, 280],
-    [750, 800],
-    [820, 1180],
-    [1170, 580],
-    [1330, 980],
-    [1330, 1550],
-    [1730, 250],
-    [1800, 730],
-    [1820, 1020],
-    [2150, 680],
-    [2180, 1370],
-    [360, 920],
-    [800, 1530],
-    [1280, 210],
-    [1740, 1480],
-  ]) {
-    const pos = { x: x + r() * 45, y: y + r() * 40 };
-    if (distance(pos, map.spawn) > 500)
-      spawnEnemy(
-        w,
-        pos,
-        (["rifle", "rifle", "rush", "heavy"] as EnemyKind[])[
-          Math.floor(r() * 4)
-        ],
-      );
-  }
+  w.mission.encounters = map.route.slice(1, 10).map((zone, index) => ({
+    zone,
+    wave: 0,
+    total: index === 4 || index === 8 ? 3 : 2,
+    spawned: false,
+    cleared: false,
+  }));
+  // Front guards are live from insertion; later fights wake when the squad approaches.
+  spawnEncounter(w, map.route[1], 0, players.length);
+  w.mission.encounters[0].spawned = true;
   return w;
+}
+export function spawnEncounter(
+  w: World,
+  zoneId: number,
+  wave: number,
+  team: number,
+  pursuit = false,
+) {
+  const zone = w.map.zones[zoneId];
+  if (!zone) return;
+  const count = pursuit ? 2 + team : 4 + team;
+  for (let i = 0; i < count && w.enemies.length < 30; i++) {
+    const pad = zone.pads[(i + wave * 2) % zone.pads.length];
+    const pos = {
+      x: pad.x + (Math.floor(i / zone.pads.length) % 2) * 45,
+      y: pad.y,
+    };
+    if (
+      w.players.some(
+        (p) =>
+          p.connected &&
+          !p.down &&
+          distance(p, pos) < 220 &&
+          visible(p, pos, w.map),
+      )
+    )
+      continue;
+    const before = w.enemies.length;
+    spawnEnemy(
+      w,
+      pos,
+      (i + wave) % 5 === 0 ? "heavy" : (i + wave) % 3 === 0 ? "rush" : "rifle",
+    );
+    if (w.enemies.length > before) {
+      const e = w.enemies.at(-1)!;
+      e.zone = zoneId;
+      if (pursuit) {
+        const p = w.players.find((p) => p.connected && !p.down);
+        if (p) {
+          e.lastSeen = { x: p.x, y: p.y };
+          e.memory = 12;
+        }
+      }
+    }
+  }
 }
 export function damagePlayer(w: World, p: Player, amount: number) {
   if (p.down) return;
@@ -165,6 +195,8 @@ export function damagePlayer(w: World, p: Player, amount: number) {
 export function fire(w: World, p: Player) {
   const gun = WEAPONS[p.weapon],
     moving = p.moving;
+  // Physics stays on the shared ground plane; the renderer projects rays to torso height.
+  const origin = p;
   let spread =
     (gun.spread + (moving ? gun.moving : 0) + p.recoil) *
     (p.input.aim ? 0.48 : 1) *
@@ -175,52 +207,117 @@ export function fire(w: World, p: Player) {
     0.12,
     p.recoil + gun.recoil * (p.mod === "stabilizer" ? 0.7 : 1),
   );
+  const impacts = new Map<
+    string,
+    { e: World["enemies"][number]; damage: number }
+  >();
   for (let n = 0; n < gun.pellets; n++) {
-    const a = p.angle + (random(w) - 0.5) * 2 * spread;
-    let length = wallDistance(p, a, gun.range * 1.25, w.map),
+    // Stratified pellets preserve the shotgun cone without lottery-like empty shots.
+    const offset =
+      gun.pellets > 1
+        ? ((n / (gun.pellets - 1)) * 2 - 1) * spread + (random(w) - 0.5) * 0.012
+        : (random(w) - 0.5) * 2 * spread;
+    const a = p.angle + offset;
+    const maximum = gun.range * 1.25;
+    let length = wallDistance(origin, a, maximum, w.map),
       hit: World["enemies"][number] | undefined;
     const dx = Math.cos(a),
       dy = Math.sin(a);
     for (const e of w.enemies) {
       if (e.hp <= 0) continue;
-      const ex = e.x - p.x,
-        ey = e.y - p.y,
+      const ex = e.x - origin.x,
+        ey = e.y - origin.y,
         along = ex * dx + ey * dy,
         perp = Math.abs(ex * dy - ey * dx);
-      if (along > 0 && perp < 22) {
-        const contact = along - Math.sqrt(22 * 22 - perp * perp);
+      if (along > 0 && perp < 27) {
+        const contact = along - Math.sqrt(27 * 27 - perp * perp);
         if (contact < length) {
           length = Math.max(0, contact);
           hit = e;
         }
       }
     }
+    let deviceHit: World["map"]["devices"][number] | undefined;
+    if (w.mission.stage === "destroy")
+      for (const device of w.map.devices) {
+        if (device.hp <= 0) continue;
+        const ex = device.x - origin.x,
+          ey = device.y - origin.y,
+          along = ex * dx + ey * dy,
+          perp = Math.abs(ex * dy - ey * dx);
+        if (along > 0 && perp < 32) {
+          const contact = along - Math.sqrt(32 * 32 - perp * perp);
+          if (contact < length) {
+            length = contact;
+            hit = undefined;
+            deviceHit = device;
+          }
+        }
+      }
+    if (deviceHit) {
+      deviceHit.hp = Math.max(0, deviceHit.hp - gun.damage);
+      event(w, {
+        type: deviceHit.hp === 0 ? "explode" : "hit",
+        ...deviceHit,
+        actor: p.id,
+        weapon: p.weapon,
+        damage: gun.damage,
+      });
+    }
     if (hit) {
       const falloff = Math.max(
-        0.3,
-        1 - Math.max(0, length - gun.range * 0.55) / (gun.range * 0.9),
+        gun.id === "sg" ? 0.15 : 0.3,
+        1 -
+          Math.max(0, length - gun.range * (gun.id === "sg" ? 0.3 : 0.55)) /
+            (gun.range * (gun.id === "sg" ? 0.6 : 0.9)),
       );
-      hit.hp -=
+      const damage =
         gun.damage *
         falloff *
         (1 - ENEMIES[hit.kind].armor * (1 - gun.penetration));
-      hit.hurt = 0.15;
-      event(w, { type: "hit", x: hit.x, y: hit.y, actor: p.id });
+      hit.hp -= damage;
+      hit.hurt = 0.18;
+      hit.stagger = Math.max(
+        hit.stagger,
+        gun.id === "sg" ? 0.22 : gun.id === "ar" ? 0.08 : 0.035,
+      );
+      const prior = impacts.get(hit.id);
+      impacts.set(hit.id, { e: hit, damage: (prior?.damage ?? 0) + damage });
       if (hit.hp <= 0) {
         p.kills++;
-        event(w, { type: "kill", x: hit.x, y: hit.y, actor: p.id });
+        event(w, {
+          type: "kill",
+          x: hit.x,
+          y: hit.y,
+          actor: p.id,
+          weapon: p.weapon,
+          angle: a,
+        });
       }
     }
     event(w, {
       type: "shot",
-      x: p.x,
-      y: p.y,
-      toX: p.x + dx * length,
-      toY: p.y + dy * length,
+      x: origin.x,
+      y: origin.y,
+      toX: origin.x + dx * length,
+      toY: origin.y + dy * length,
       weapon: p.weapon,
       actor: p.id,
+      pellet: n > 0,
+      impact: !!hit || !!deviceHit || length < maximum,
+      angle: a,
     });
   }
+  for (const { e, damage } of impacts.values())
+    event(w, {
+      type: "hit",
+      x: e.x,
+      y: e.y,
+      actor: p.id,
+      weapon: p.weapon,
+      damage,
+      angle: p.angle,
+    });
 }
 function enemyAI(w: World, dt: number, difficulty: number) {
   const live = w.players.filter((p) => p.connected && !p.down);
@@ -231,6 +328,8 @@ function enemyAI(w: World, dt: number, difficulty: number) {
     e.repath -= dt;
     e.hurt = Math.max(0, e.hurt - dt);
     e.memory -= dt;
+    e.stagger = Math.max(0, e.stagger - dt);
+    if (e.stagger > 0) continue;
     const seen = live
       .filter((p) => distance(e, p) < 760 && visible(e, p, w.map))
       .sort((a, b) => distance(e, a) - distance(e, b));
@@ -264,7 +363,13 @@ function enemyAI(w: World, dt: number, difficulty: number) {
           toY: e.y + Math.sin(e.angle) * len,
           enemy: true,
         });
-        e.cooldown = spec.delay;
+        if (e.kind === "heavy" && e.burst < 2) {
+          e.burst++;
+          e.windup = 0.14;
+        } else {
+          e.burst = 0;
+          e.cooldown = spec.delay;
+        }
       }
       continue;
     }
@@ -273,6 +378,27 @@ function enemyAI(w: World, dt: number, difficulty: number) {
         e.angle =
           Math.atan2(target.y - e.y, target.x - e.x) + (random(w) - 0.5) * 0.12;
         e.windup = spec.windup;
+      }
+      if (e.kind === "rush" && distance(e, target) > 90) {
+        const a = Math.atan2(target.y - e.y, target.x - e.x);
+        move(
+          e,
+          Math.cos(a) * spec.speed * dt,
+          Math.sin(a) * spec.speed * dt,
+          w.map,
+          19,
+        );
+      } else if (e.kind === "rifle" && distance(e, target) > 210) {
+        const sign = Number(e.id.slice(1)) % 2 ? 1 : -1;
+        const a =
+          Math.atan2(target.y - e.y, target.x - e.x) + (Math.PI / 2) * sign;
+        move(
+          e,
+          Math.cos(a) * spec.speed * 0.45 * dt,
+          Math.sin(a) * spec.speed * 0.45 * dt,
+          w.map,
+          19,
+        );
       }
       if (e.kind !== "rush" && distance(e, target) < 170) {
         const a = Math.atan2(e.y - target.y, e.x - target.x);
@@ -311,7 +437,7 @@ function enemyAI(w: World, dt: number, difficulty: number) {
           if (!blocked(candidate, w.map.obstacles, 20)) goal = candidate;
         }
       }
-      e.path = findPath(e, goal, w.map);
+      e.path = findPath(e, goal, w.map, 19);
       e.repath = 0.8 + random(w) * 0.6;
     }
     if (e.path.length) {
@@ -362,9 +488,9 @@ export function tick(w: World, dt: number, hard = false) {
     p.angle = input.angle;
     if (len) {
       const speed =
-        205 *
+        RULES.moveSpeed *
         CHARACTERS[p.character].speed *
-        (input.sprint ? 1.5 : input.aim ? 0.62 : 1) *
+        (input.sprint ? RULES.sprintSpeed : input.aim ? RULES.aimSpeed : 1) *
         (p.mod === "stabilizer" ? 0.96 : 1);
       move(
         p,
@@ -390,7 +516,13 @@ export function tick(w: World, dt: number, hard = false) {
       p.reload === 0
     ) {
       p.reload = WEAPONS[p.weapon].reload * (p.mod === "loader" ? 0.8 : 1);
-      event(w, { type: "reload", x: p.x, y: p.y, actor: p.id });
+      event(w, {
+        type: "reload",
+        x: p.x,
+        y: p.y,
+        actor: p.id,
+        weapon: p.weapon,
+      });
     }
     if (
       input.fire &&
@@ -452,56 +584,76 @@ export function tick(w: World, dt: number, hard = false) {
     m.intelProgress += dt;
     if (m.intelProgress >= 3) m.intel = true;
   }
-  if (m.stage === "infiltrate") {
-    m.relays = m.relays.map((progress, i) =>
-      Math.min(6, progress + (near(w.map.relays[i]) ? dt : 0)),
-    );
-    if (m.relays.every((v) => v >= 6)) {
-      m.stage = "plant";
-      event(w, { type: "alarm", ...w.map.core });
-    }
-  } else if (m.stage === "plant") {
-    if (near(w.map.core)) m.plant += dt;
-    if (m.plant >= 5) {
-      m.stage = "defend";
-      m.timer = RULES.defenseSeconds;
-      m.wave = 0;
-      event(w, { type: "alarm", ...w.map.core });
-    }
-  } else if (m.stage === "defend") {
-    m.timer -= dt;
-    const wave =
-      Math.floor((RULES.defenseSeconds - m.timer) / RULES.waveInterval) + 1;
-    if (m.timer > 0 && wave > m.wave) {
-      m.wave = wave;
-      const count = 2 + Math.ceil(live.length * 0.75);
-      const pads = [
-        { x: 1775, y: 300 },
-        { x: 2180, y: 900 },
-        { x: 1700, y: 1500 },
-        { x: 1220, y: 850 },
-      ];
-      for (let i = 0; i < count && w.enemies.length < 22; i++) {
-        const pos = pads[(wave + i) % pads.length];
-        spawnEnemy(
-          w,
-          { x: pos.x + (i % 2) * 45, y: pos.y + Math.floor(i / 2) * 45 },
-          i % 3 === 0 ? "heavy" : i % 2 === 0 ? "rifle" : "rush",
-        );
+  // A checkpoint advances through combat clearance, never a long interaction timer.
+  if (["infiltrate", "breach", "destroy"].includes(m.stage)) {
+    const encounter = m.encounters[m.checkpoint];
+    if (encounter && !encounter.cleared) {
+      const zone = w.map.zones[encounter.zone];
+      if (
+        !encounter.spawned &&
+        live.some((p) => distance(p, zone.center) < 670)
+      ) {
+        spawnEncounter(w, encounter.zone, encounter.wave, live.length);
+        encounter.spawned = true;
+        event(w, { type: "alarm", ...zone.center });
+      }
+      const guards = w.enemies.filter(
+        (e) => e.zone === encounter.zone && e.hp > 0,
+      );
+      if (encounter.spawned && guards.length === 0) {
+        encounter.wave++;
+        if (encounter.wave < encounter.total) {
+          spawnEncounter(w, encounter.zone, encounter.wave, live.length);
+        } else {
+          encounter.cleared = true;
+          m.checkpoint++;
+          event(w, { type: "supply", ...zone.center });
+        }
       }
     }
-    if (m.timer <= 0) {
+    const nextStage =
+      m.checkpoint < Math.min(2, m.encounters.length)
+        ? "infiltrate"
+        : m.checkpoint < m.encounters.length
+          ? "breach"
+          : "destroy";
+    if (m.stage !== nextStage) {
+      m.stage = nextStage;
+      event(w, { type: "alarm", ...w.map.core });
+    }
+    if (m.stage === "destroy" && w.map.devices.every((d) => d.hp <= 0)) {
       m.stage = "extract";
+      m.timer = RULES.meltdownSeconds;
+      m.pressure = 0;
+      spawnEncounter(w, w.map.route.at(-1)!, 0, live.length, true);
       event(w, { type: "explode", ...w.map.core });
     }
   } else if (m.stage === "extract") {
+    m.timer = Math.max(0, m.timer - dt);
+    m.pressure += dt;
+    if (m.pressure >= RULES.waveInterval) {
+      m.pressure = 0;
+      m.wave++;
+      const rear =
+        w.map.zones[w.map.route[Math.max(0, w.map.route.length - 3)]];
+      spawnEncounter(w, rear.id, m.wave, live.length, true);
+    }
     const connected = w.players.filter((p) => p.connected);
     const all =
       connected.length > 0 &&
-      connected.every((p) => !p.down && distance(p, w.map.extract) < 120);
+      connected.every((p) => !p.down && distance(p, w.map.extract) < 140);
     m.extract = all ? m.extract + dt : 0;
-    if (m.extract >= 5) finish(w, true, "핵심 시설 파괴 · 전원 복귀 완료");
+    if (m.extract >= RULES.extractSeconds)
+      finish(w, true, "발전 장치 파괴 · 돌파 및 분대 탈출 완료");
+    else if (m.timer <= 0)
+      finish(
+        w,
+        false,
+        `시설 붕괴 · ${RULES.meltdownSeconds}초 내 분대 탈출 실패`,
+      );
   }
+
+  if (["success", "failed"].includes(m.stage)) return;
   enemyAI(w, dt, hard ? 1.4 : 1);
-  if (m.elapsed > 900) finish(w, false, "작전 시간 15분 초과");
+  if (m.elapsed > RULES.timeLimit) finish(w, false, "작전 시간 14분 초과");
 }

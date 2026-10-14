@@ -1,5 +1,5 @@
 import { chromium, type Page } from "playwright";
-import { writeFileSync } from "node:fs";
+import { writeFileSync, mkdirSync } from "node:fs";
 import { Pilot } from "./bot";
 import { drive } from "./browser-driver";
 const browser = await chromium.launch({
@@ -11,6 +11,8 @@ const browser = await chromium.launch({
     "--disable-renderer-backgrounding",
   ],
 });
+const output = process.env.QA_OUTPUT || "docs/after";
+mkdirSync(output, { recursive: true });
 const report: any[] = [];
 const errors: string[] = [];
 for (const count of [1, 2]) {
@@ -56,7 +58,7 @@ for (const count of [1, 2]) {
     );
     await pages[0].waitForTimeout(70);
   }
-  await pages[0].screenshot({ path: `docs/screenshots/combat-${count}p.png` });
+  await pages[0].screenshot({ path: `${output}/combat-${count}p.png` });
   const states = await Promise.all(
     pages.map((p) => p.evaluate(() => (window as any).dollQA)),
   );

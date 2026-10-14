@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-14T10:49:08.031Z",
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "players": 4,
+  "feedback": {
+    "shot:enemy": 234,
+    "shot:ar": 216,
+    "hit": 158,
+    "shot:smg": 117,
+    "shot:sg": 27,
+    "kill": 35,
+    "reload": 20,
+    "supply": 3,
+    "alarm": 1
+  },
+  "downCount": 3,
+  "stageTimes": {
+    "infiltrate": 2.1000000000000023
+  },
+  "elapsed": 87.46666666666427,
+  "result": "failed",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 10,
+      "hp": 0
+    },
+    {
+      "name": "루나",
+      "kills": 7,
+      "hp": 0
+    },
+    {
+      "name": "스파크",
+      "kills": 9,
+      "hp": 0
+    },
+    {
+      "name": "에코",
+      "kills": 9,
+      "hp": 0
+    }
+  ],
+  "reconnect": true,
+  "repeatDeployment": false,
+  "errors": [],
+  "frameMs": {
+    "samples": 210,
+    "median": 27.600000001490116,
+    "p95": 86.89999999850988,
+    "average": 38.70666666669505
+  }
+}

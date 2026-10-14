@@ -1,3 +1,4 @@
+import { RULES } from "../shared/rules";
 import {
   CHARACTERS,
   WEAPONS,
@@ -7,8 +8,9 @@ import {
   type Enemy,
   type Vec,
   type GameEvent,
+  type Input,
 } from "../shared/data";
-import { headImage } from "../art/characters";
+import { operatorFrame, operatorImage } from "../art/raster";
 import { distance } from "../game/map";
 import type { AudioEngine } from "./audio";
 const TAU = Math.PI * 2;
@@ -32,17 +34,27 @@ export class Renderer {
   id = "";
   floor: HTMLCanvasElement | null = null;
   mapSeed = -1;
-  heads = { aria: headImage("aria"), luna: headImage("luna") };
-  hurtHeads = {
-    aria: headImage("aria", "hurt"),
-    luna: headImage("luna", "hurt"),
-  };
+  atlas = operatorImage();
   positions = new Map<string, Vec>();
   particles: Particle[] = [];
   trails: (GameEvent & { life: number })[] = [];
   lastEvent = 0;
   shake = 0;
   hit = 0;
+  kill = 0;
+  kick = 0;
+  flashes: {
+    x: number;
+    y: number;
+    angle: number;
+    weapon: string;
+    life: number;
+  }[] = [];
+  debris: { x: number; y: number; angle: number; life: number }[] = [];
+  numbers: { x: number; y: number; text: string; life: number }[] = [];
+  localInput: (() => Input | null) | null = null;
+  nextPreview = 0;
+  pendingPreview: number[] = [];
   frames: number[] = [];
   last = performance.now();
   running = false;
@@ -74,6 +86,11 @@ export class Renderer {
       this.positions.clear();
       this.particles = [];
       this.trails = [];
+      this.flashes = [];
+      this.debris = [];
+      this.numbers = [];
+      this.pendingPreview = [];
+      this.nextPreview = 0;
       const p = w.players.find((p) => p.id === id)!;
       this.camera = { x: p.x, y: p.y };
     }
@@ -88,29 +105,108 @@ export class Renderer {
       if (e.id <= this.lastEvent) continue;
       this.lastEvent = e.id;
       if (me && distance(e, me) < 1100) {
-        this.audio.play(e, distance(e, me));
+        const previewed =
+          e.type === "shot" &&
+          !e.pellet &&
+          e.actor === id &&
+          this.pendingPreview.length > 0 &&
+          performance.now() - this.pendingPreview[0] < 500;
+        if (previewed) this.pendingPreview.shift();
+        if (!previewed) this.audio.play(e, distance(e, me));
         if (e.type === "shot") {
-          this.trails.push({ ...e, life: 0.11 });
-          this.burst(
-            e.x + Math.cos(Math.atan2(e.toY! - e.y, e.toX! - e.x)) * 23,
-            e.y + Math.sin(Math.atan2(e.toY! - e.y, e.toX! - e.x)) * 23,
-            2,
-            "#f8d393",
-            25,
-          );
-          if (e.actor === id)
-            this.shake = Math.max(this.shake, e.weapon === "sg" ? 3.8 : 1.4);
+          this.trails.push({ ...e, life: e.weapon === "sg" ? 0.07 : 0.085 });
+          if (!e.pellet && !previewed) this.muzzle(e);
+          if (e.impact)
+            this.burst(
+              e.toX!,
+              e.toY! - RULES.muzzleHeight - 4,
+              e.weapon === "sg" ? 2 : 4,
+              "#f5d9a5",
+              105,
+            );
         } else if (e.type === "hit") {
-          this.burst(e.x, e.y, 6, "#fbd594", 90);
-          if (e.actor === id && !e.enemy) this.hit = 0.15;
+          if (e.actor === id && e.enemy) this.shake = Math.max(this.shake, 3);
+          this.burst(e.x, e.y - 12, e.weapon === "sg" ? 16 : 8, "#fbd594", 130);
+          if (e.actor === id && !e.enemy) {
+            this.hit = 0.18;
+            this.numbers.push({
+              x: e.x,
+              y: e.y - 55,
+              text: String(Math.round(e.damage ?? 0)),
+              life: 0.55,
+            });
+          }
         } else if (e.type === "kill") {
-          this.burst(e.x, e.y, 13, "#fd9a95", 140);
+          this.burst(e.x, e.y - 12, 22, "#fd9a95", 190);
+          this.debris.push({ x: e.x, y: e.y, angle: e.angle ?? 0, life: 3.5 });
+          if (this.debris.length > 28) this.debris.shift();
+          if (e.actor === id) {
+            this.kill = 0.24;
+            this.hit = 0.2;
+          }
         } else if (e.type === "explode") {
           this.burst(e.x, e.y, 65, "#ffb875", 250);
           this.shake = 7;
         }
       }
     }
+    // Background tabs may pause RAF while snapshots continue arriving.
+    this.trails = this.trails.slice(-120);
+    this.flashes = this.flashes.slice(-40);
+    this.numbers = this.numbers.slice(-28);
+  }
+  muzzle(e: GameEvent) {
+    const a = e.angle ?? Math.atan2(e.toY! - e.y, e.toX! - e.x);
+    this.flashes.push({
+      x: e.x,
+      y: e.y,
+      angle: a,
+      weapon: e.weapon ?? "enemy",
+      life: 0.075,
+    });
+    this.burst(
+      e.x - Math.sin(a) * 14,
+      e.y + Math.cos(a) * 14,
+      1,
+      "#ddbf78",
+      55,
+    );
+    if (e.actor === this.id) {
+      this.kick = e.weapon === "sg" ? 8 : e.weapon === "ar" ? 3 : 1.5;
+      this.shake = Math.max(
+        this.shake,
+        e.weapon === "sg" ? 5.5 : e.weapon === "ar" ? 2 : 0.85,
+      );
+    }
+  }
+  preview(p: Player, input: Input, now: number) {
+    this.pendingPreview = this.pendingPreview.filter((t) => now - t < 500);
+    if (
+      !input.fire ||
+      input.sprint ||
+      input.interact ||
+      input.revive ||
+      input.reload ||
+      p.down ||
+      p.reload > 0 ||
+      p.ammo <= this.pendingPreview.length ||
+      now < this.nextPreview
+    )
+      return;
+    this.nextPreview =
+      now + (Math.ceil(WEAPONS[p.weapon].rate * 30) / 30) * 1000;
+    this.pendingPreview.push(now);
+    const e: GameEvent = {
+      id: 0,
+      type: "shot",
+      x: p.x,
+      y: p.y,
+      angle: input.angle,
+      weapon: p.weapon,
+      actor: p.id,
+    };
+    this.muzzle(e);
+    this.audio.play(e, 0);
   }
   burst(x: number, y: number, count: number, color: string, speed: number) {
     for (let i = 0; i < count; i++) {
@@ -145,29 +241,50 @@ export class Renderer {
         g.fillRect(x + 7, y + 7, 2, 2);
         g.fillRect(x + 92, y + 92, 2, 2);
       }
-    // Road paint, loading lanes, industrial floor labels.
-    g.strokeStyle = "#91abb214";
-    g.lineWidth = 3;
-    for (const y of [175, 820, 1620]) {
-      g.beginPath();
-      g.moveTo(80, y);
-      g.lineTo(2320, y);
-      g.stroke();
+    for (const zone of w.map.zones) {
+      const palette = {
+        yard: "#343638",
+        warehouse: "#24343b",
+        security: "#292b40",
+        corridor: "#25343b",
+        reactor: "#263c40",
+        extraction: "#223d39",
+      };
+      g.fillStyle = palette[zone.kind];
+      g.fillRect(zone.x + 45, zone.y + 45, zone.w - 90, zone.h - 90);
+      g.strokeStyle = "#a6c4cc0c";
+      g.lineWidth = 1;
+      for (let x = zone.x + 50; x < zone.x + zone.w - 40; x += 50) {
+        g.beginPath();
+        g.moveTo(x, zone.y + 45);
+        g.lineTo(x, zone.y + zone.h - 45);
+        g.stroke();
+      }
+      for (let y = zone.y + 50; y < zone.y + zone.h - 40; y += 50) {
+        g.beginPath();
+        g.moveTo(zone.x + 45, y);
+        g.lineTo(zone.x + zone.w - 45, y);
+        g.stroke();
+      }
+      g.fillStyle = "#b8d6d21e";
+      g.font = "bold 35px sans-serif";
+      g.fillText(zone.label, zone.x + 70, zone.y + 105);
+      g.font = "15px monospace";
+      g.fillText(
+        `SECTOR ${String(zone.id + 1).padStart(2, "0")} // ${zone.kind.toUpperCase()}`,
+        zone.x + 70,
+        zone.y + 132,
+      );
+      g.strokeStyle = zone.kind === "extraction" ? "#7cdbc780" : "#e0c48b35";
+      g.lineWidth = 3;
+      g.setLineDash([18, 18]);
+      g.strokeRect(zone.x + 95, zone.y + 170, zone.w - 190, zone.h - 290);
+      g.setLineDash([]);
+      if (zone.kind === "reactor" || zone.kind === "security") {
+        g.fillStyle = zone.kind === "reactor" ? "#76ebc411" : "#ba9bfd10";
+        g.fillRect(zone.x + 390, zone.y + 320, 220, 260);
+      }
     }
-    g.setLineDash([20, 18]);
-    g.strokeStyle = "#a7a07638";
-    g.lineWidth = 3;
-    g.strokeRect(1590, 690, 355, 390);
-    g.setLineDash([]);
-    g.font = "bold 46px monospace";
-    g.fillStyle = "#9cb7bf16";
-    g.fillText("SECTOR 07", 650, 1550);
-    g.fillText("REACTOR", 1620, 670);
-    g.fillText("NO ENTRY", 2100, 520);
-    g.font = "14px monospace";
-    g.fillStyle = "#8a9b9d55";
-    g.fillText("NORTHSTAR // ENERGY COMPLEX", 650, 150);
-    g.fillText("AUTHORIZED PERSONNEL ONLY", 1100, 1700);
     for (const o of w.map.obstacles) {
       g.fillStyle = "#080f1690";
       g.fillRect(o.x + 10, o.y + 15, o.w, o.h);
@@ -249,6 +366,9 @@ export class Renderer {
     const g = this.ctx,
       p = w.players.find((p) => p.id === this.id);
     if (!p) return;
+    const local = this.localInput?.();
+    if (local) this.preview(p, local, performance.now());
+    this.kick = Math.max(0, this.kick - dt * 45);
     const target = {
       x: p.x + (this.mouse.x - this.width / 2) * 0.13,
       y: p.y + (this.mouse.y - this.height / 2) * 0.13,
@@ -269,48 +389,60 @@ export class Renderer {
     g.scale(this.zoom, this.zoom);
     g.translate(-this.camera.x, -this.camera.y);
     this.shake = Math.max(0, this.shake - dt * 14);
-    if (this.floor) g.drawImage(this.floor, 0, 0);
-    for (const [i, r] of w.map.relays.entries()) {
-      this.terminal(
-        r,
-        "0" + (i + 1),
-        w.mission.relays[i] / 6,
-        w.mission.relays[i] >= 6,
-        t,
-      );
+    if (this.floor) {
+      const x = Math.max(0, Math.floor(this.camera.x - halfW - 8)),
+        y = Math.max(0, Math.floor(this.camera.y - halfH - 8));
+      const width = Math.min(this.floor.width - x, Math.ceil(halfW * 2 + 16)),
+        height = Math.min(this.floor.height - y, Math.ceil(halfH * 2 + 16));
+      g.drawImage(this.floor, x, y, width, height, x, y, width, height);
     }
-    const core = w.map.core;
-    g.save();
-    g.translate(core.x, core.y);
-    g.fillStyle = "#080f17aa";
-    g.beginPath();
-    g.ellipse(0, 16, 68, 50, 0, 0, TAU);
-    g.fill();
-    g.fillStyle = "#354f5d";
-    g.fillRect(-52, -55, 104, 95);
-    g.fillStyle = "#516d7b";
-    g.fillRect(-52, -55, 104, 10);
-    g.fillStyle = "#172b36";
-    g.fillRect(-38, -40, 76, 59);
-    for (let i = -26; i <= 26; i += 26) {
-      g.fillStyle = w.mission.stage === "extract" ? "#443e4b" : "#7ce2cc";
-      g.shadowBlur = 12;
-      g.shadowColor = g.fillStyle;
-      g.fillRect(i - 5, -29, 10, 36);
-      g.shadowBlur = 0;
+    for (const d of this.debris) {
+      d.life -= dt;
+      g.save();
+      g.translate(d.x, d.y);
+      g.rotate(d.angle);
+      g.globalAlpha = Math.min(0.65, d.life);
+      g.fillStyle = "#463c41";
+      g.fillRect(-19, -12, 33, 23);
+      g.fillStyle = "#a66564";
+      g.fillRect(14, -6, 11, 8);
+      g.restore();
     }
-    g.fillStyle = "#eecc84";
-    g.font = "bold 11px monospace";
-    g.textAlign = "center";
-    g.fillText("POWER CORE", 0, 33);
-    g.restore();
-    if (w.mission.stage === "plant" || w.mission.stage === "defend")
+    this.debris = this.debris.filter((d) => d.life > 0);
+    const current = w.mission.encounters[w.mission.checkpoint];
+    if (current) {
+      const zone = w.map.zones[current.zone];
       this.marker(
-        core,
-        w.mission.stage === "plant" ? "폭약 설치" : "방어 중",
+        zone.center,
+        `${w.mission.checkpoint + 1} · ${zone.label} 돌파`,
         t,
-        "#f9cc7e",
+        "#ffd486",
       );
+      g.strokeStyle = "#edc98540";
+      g.setLineDash([8, 8]);
+      g.strokeRect(zone.x + 65, zone.y + 65, zone.w - 130, zone.h - 130);
+      g.setLineDash([]);
+    }
+    for (const device of w.map.devices) {
+      const active = w.mission.stage === "destroy",
+        dead = device.hp <= 0;
+      g.save();
+      g.translate(device.x, device.y);
+      g.fillStyle = "#0c1824";
+      g.fillRect(-35, -35, 70, 60);
+      g.fillStyle = dead ? "#563f44" : "#46616e";
+      g.fillRect(-35, -35, 70, 7);
+      g.fillStyle = dead ? "#6b4843" : active ? "#ffe49b" : "#77bcb0";
+      g.shadowColor = g.fillStyle;
+      g.shadowBlur = active ? 18 : 0;
+      for (let i = -18; i <= 18; i += 18) g.fillRect(i - 4, -22, 8, 32);
+      g.shadowBlur = 0;
+      g.fillStyle = "#ffd286";
+      g.fillRect(-32, 31, 64 * Math.max(0, device.hp / device.maxHp), 5);
+      g.restore();
+      if (active && !dead)
+        this.marker(device, "사격 · 발전 장치", t, "#ffe19c");
+    }
     for (const s of w.map.supplies) {
       if (s.used) continue;
       g.fillStyle = "#173f3c";
@@ -337,7 +469,7 @@ export class Renderer {
       g.fillStyle = "#75dec51a";
       g.lineWidth = 3;
       g.beginPath();
-      g.arc(e.x, e.y, 120, 0, TAU);
+      g.arc(e.x, e.y, 140, 0, TAU);
       g.fill();
       g.stroke();
       g.strokeRect(e.x - 42, e.y - 42, 84, 84);
@@ -356,7 +488,10 @@ export class Renderer {
         g.moveTo(e.x, e.y);
         g.lineTo(
           e.x + Math.cos(e.angle) * ENEMIES[e.kind].range,
-          e.y + Math.sin(e.angle) * ENEMIES[e.kind].range,
+          e.y -
+            RULES.muzzleHeight -
+            4 +
+            Math.sin(e.angle) * ENEMIES[e.kind].range,
         );
         g.stroke();
         g.setLineDash([]);
@@ -376,14 +511,19 @@ export class Renderer {
         Math.abs(pos.y - this.camera.y) > halfH + 100
       )
         continue;
-      if ("character" in a) this.player(a, pos, t);
+      if ("character" in a)
+        this.player(
+          a.id === this.id && local ? { ...a, angle: local.angle } : a,
+          pos,
+          t,
+        );
       else this.enemy(a, pos, t);
     }
     for (const id of this.positions.keys())
       if (!actors.some((a) => a.id === id)) this.positions.delete(id);
     for (const e of this.trails) {
       e.life -= dt;
-      g.globalAlpha = Math.max(0, e.life / 0.11);
+      g.globalAlpha = Math.max(0, Math.min(1, e.life / 0.06));
       g.strokeStyle = e.enemy
         ? "#ff8178"
         : e.weapon
@@ -391,22 +531,46 @@ export class Renderer {
           : "#ffe9ac";
       g.lineWidth = e.enemy ? 2 : 2.5;
       g.beginPath();
-      g.moveTo(e.x, e.y - 4);
-      g.lineTo(e.toX!, e.toY! - 4);
+      g.moveTo(e.x, e.y - RULES.muzzleHeight - 4);
+      g.lineTo(e.toX!, e.toY! - RULES.muzzleHeight - 4);
       g.stroke();
-      g.fillStyle = "#ffe8b0";
-      g.beginPath();
-      g.arc(
-        e.x + Math.cos(Math.atan2(e.toY! - e.y, e.toX! - e.x)) * 34,
-        e.y + Math.sin(Math.atan2(e.toY! - e.y, e.toX! - e.x)) * 34 - 4,
-        7,
-        0,
-        TAU,
-      );
-      g.fill();
     }
     g.globalAlpha = 1;
     this.trails = this.trails.filter((e) => e.life > 0);
+    for (const f of this.flashes) {
+      f.life -= dt;
+      g.save();
+      g.translate(f.x, f.y - RULES.muzzleHeight - 4);
+      g.rotate(f.angle);
+      const size = f.weapon === "sg" ? 27 : f.weapon === "ar" ? 18 : 11;
+      const light = g.createRadialGradient(32, 0, 0, 32, 0, size * 3);
+      light.addColorStop(0, "#ffc67b66");
+      light.addColorStop(1, "#ffc67b00");
+      g.fillStyle = light;
+      g.fillRect(32 - size * 3, -size * 3, size * 6, size * 6);
+      g.fillStyle = "#fff1bf";
+      g.beginPath();
+      g.moveTo(31, -3);
+      g.lineTo(40 + size, -1);
+      g.lineTo(38, 4);
+      g.lineTo(44, -size / 2);
+      g.lineTo(32, 3);
+      g.closePath();
+      g.fill();
+      g.restore();
+    }
+    this.flashes = this.flashes.filter((f) => f.life > 0);
+    for (const n of this.numbers) {
+      n.life -= dt;
+      n.y -= dt * 26;
+      g.globalAlpha = Math.min(1, n.life * 4);
+      g.fillStyle = "#fff0c4";
+      g.font = "bold 13px monospace";
+      g.textAlign = "center";
+      g.fillText(n.text, n.x, n.y);
+    }
+    g.globalAlpha = 1;
+    this.numbers = this.numbers.filter((n) => n.life > 0).slice(-28);
     for (const q of this.particles) {
       q.life -= dt;
       q.x += q.vx * dt;
@@ -439,7 +603,50 @@ export class Renderer {
       g.strokeRect(0, 0, this.width, this.height);
     }
     this.minimap(w);
+    this.objectivePointer(w, p);
     this.cursor(p, dt);
+  }
+  objectivePointer(w: World, p: Player) {
+    const encounter = w.mission.encounters[w.mission.checkpoint];
+    const goal =
+      w.mission.stage === "extract"
+        ? w.map.extract
+        : w.mission.stage === "destroy"
+          ? w.map.devices.find((d) => d.hp > 0)
+          : encounter
+            ? w.map.zones[encounter.zone].center
+            : undefined;
+    if (!goal) return;
+    const sx = (goal.x - this.camera.x) * this.zoom + this.width / 2,
+      sy = (goal.y - this.camera.y) * this.zoom + this.height / 2;
+    if (sx > 100 && sx < this.width - 100 && sy > 150 && sy < this.height - 130)
+      return;
+    const x = Math.max(170, Math.min(this.width - 240, sx)),
+      y = Math.max(190, Math.min(this.height - 190, sy));
+    const g = this.ctx,
+      label =
+        w.mission.stage === "extract"
+          ? "탈출"
+          : w.mission.stage === "destroy"
+            ? "발전 장치"
+            : w.map.zones[encounter!.zone].label;
+    g.save();
+    g.translate(x, y);
+    g.fillStyle = "#14222de6";
+    g.beginPath();
+    g.roundRect(-75, -17, 150, 34, 6);
+    g.fill();
+    g.fillStyle = "#ffe1a3";
+    g.font = "bold 11px sans-serif";
+    g.textAlign = "center";
+    g.fillText(`${label} · ${(distance(p, goal) / 100).toFixed(1)}m`, 0, 4);
+    g.rotate(Math.atan2(sy - y, sx - x));
+    g.beginPath();
+    g.moveTo(88, 0);
+    g.lineTo(79, -6);
+    g.lineTo(79, 6);
+    g.fill();
+    g.restore();
   }
   marker(v: Vec, label: string, t: number, color: string) {
     const g = this.ctx;
@@ -503,60 +710,45 @@ export class Renderer {
       g.rotate(-1.3);
       g.globalAlpha = 0.7;
     }
-    const step = p.moving ? Math.sin(t * 15) * 4 : 0;
-    g.fillStyle = "#202538";
-    g.fillRect(-12, 1 + step, 9, 15);
-    g.fillRect(3, 1 - step, 9, 15);
-    g.fillStyle = "#667182";
-    g.fillRect(-13, 12 + step, 11, 5);
-    g.fillRect(2, 12 - step, 11, 5);
-    g.translate(0, bob);
-    const gun = () => {
-      g.save();
-      g.rotate(p.angle);
-      g.translate(-p.recoil * 35, p.reload > 0 ? Math.sin(t * 9) * 3 : 0);
-      g.fillStyle = p.character === "aria" ? "#44465a" : "#dbddea";
-      g.fillRect(1, -10, 19, 8);
-      g.fillStyle = "#ffe4d3";
-      g.beginPath();
-      g.arc(18, -5, 5, 0, TAU);
-      g.fill();
-      g.fillStyle = "#0b1421";
-      g.fillRect(12, -7, p.weapon === "smg" ? 25 : 36, 9);
-      g.fillStyle = "#637884";
-      g.fillRect(14, -7, 22, 3);
-      g.fillStyle = c.color;
-      g.fillRect(23, -11, 8, 4);
-      g.fillStyle = "#242e40";
-      g.fillRect(24, 2, 7, 9);
-      g.restore();
-    };
-    if (Math.sin(p.angle) < 0) gun();
-    g.fillStyle = p.character === "aria" ? "#333344" : "#dadce9";
-    g.beginPath();
-    g.roundRect(-15, -19, 30, 28, 7);
-    g.fill();
-    g.fillStyle = "#394657";
-    g.fillRect(-11, -12, 8, 15);
-    g.fillRect(4, -12, 8, 15);
-    g.fillStyle = c.color;
-    g.fillRect(-2, -17, 4, 12);
-    g.fillStyle = "#161f30";
-    g.fillRect(-16, 4, 32, 5);
-    g.fillStyle = "#bbd4d1";
-    g.fillRect(-3, 4, 6, 5);
-    const img =
-      p.hurt > 3.5 || p.down
-        ? this.hurtHeads[p.character]
-        : this.heads[p.character];
-    if (img.complete) {
-      g.save();
-      g.translate(Math.cos(p.angle) * 2, -Math.abs(Math.sin(p.angle)));
-      g.rotate(Math.cos(p.angle) * 0.035);
-      g.drawImage(img, -33, -67, 66, 66);
-      g.restore();
+    const direction =
+      Math.abs(Math.sin(p.angle)) > Math.abs(Math.cos(p.angle))
+        ? Math.sin(p.angle) > 0
+          ? 0
+          : 2
+        : Math.cos(p.angle) > 0
+          ? 1
+          : 3;
+    const cardinal = [Math.PI / 2, 0, -Math.PI / 2, Math.PI][direction];
+    const delta = Math.atan2(
+      Math.sin(p.angle - cardinal),
+      Math.cos(p.angle - cardinal),
+    );
+    g.translate(
+      -Math.cos(p.angle) * (p.id === this.id ? this.kick * 0.4 : p.recoil * 20),
+      bob,
+    );
+    g.rotate(delta * 0.16 + (p.moving ? Math.sin(t * 14) * 0.025 : 0));
+    if (p.hurt > 3.7) g.filter = "brightness(1.8) saturate(0.7)";
+    if (this.atlas.complete && this.atlas.naturalWidth) {
+      const f = operatorFrame(p.character, direction),
+        width = (104 * f.w) / f.h;
+      g.drawImage(this.atlas, f.x, f.y, f.w, f.h, -width / 2, -86, width, 104);
     }
-    if (Math.sin(p.angle) >= 0) gun();
+    g.filter = "none";
+    if (p.reload > 0) {
+      g.strokeStyle = "#f4d391";
+      g.lineWidth = 3;
+      g.beginPath();
+      const total = WEAPONS[p.weapon].reload * (p.mod === "loader" ? 0.8 : 1);
+      g.arc(
+        0,
+        5,
+        30,
+        -Math.PI / 2,
+        -Math.PI / 2 + TAU * (1 - p.reload / total),
+      );
+      g.stroke();
+    }
     g.restore();
     g.save();
     g.textAlign = "center";
@@ -639,7 +831,7 @@ export class Renderer {
     const g = this.ctx,
       x = this.width - 204,
       y = 108,
-      s = 0.068;
+      s = Math.min(164 / w.map.width, 122 / w.map.height);
     g.fillStyle = "#111b29dd";
     g.fillRect(x - 10, y - 10, 184, 142);
     g.strokeStyle = "#b9d4d12b";
@@ -650,12 +842,15 @@ export class Renderer {
     g.fillStyle = "#54727b";
     for (const o of w.map.obstacles) g.fillRect(o.x, o.y, o.w, o.h);
     g.fillStyle = "#f0cb89";
+    const encounter = w.mission.encounters[w.mission.checkpoint];
     const goals =
-      w.mission.stage === "infiltrate"
-        ? w.map.relays
-        : w.mission.stage === "extract"
-          ? [w.map.extract]
-          : [w.map.core];
+      w.mission.stage === "extract"
+        ? [w.map.extract]
+        : w.mission.stage === "destroy"
+          ? w.map.devices.filter((d) => d.hp > 0)
+          : encounter
+            ? [w.map.zones[encounter.zone].center]
+            : [w.map.core];
     for (const o of goals) g.fillRect(o.x - 30, o.y - 30, 60, 60);
     for (const p of w.players) {
       g.fillStyle = p.down ? "#f2889f" : CHARACTERS[p.character].color;
@@ -684,9 +879,11 @@ export class Renderer {
     }
     g.fillStyle = "#eafff5";
     g.fillRect(x - 1, y - 1, 2, 2);
+    this.kill = Math.max(0, this.kill - dt);
     if (this.hit > 0) {
       this.hit -= dt;
-      g.strokeStyle = "#ffdfb1";
+      g.strokeStyle = this.kill > 0 ? "#fb90ae" : "#ffdfb1";
+      g.lineWidth = this.kill > 0 ? 3 : 2;
       g.beginPath();
       for (const [dx, dy] of [
         [1, 1],

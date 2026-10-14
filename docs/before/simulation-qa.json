@@ -1,0 +1,113 @@
+[
+  {
+    "count": 1,
+    "seed": 7,
+    "result": "success",
+    "elapsed": 353.5,
+    "kills": 51,
+    "hp": [
+      41
+    ],
+    "cpuMs": 349
+  },
+  {
+    "count": 1,
+    "seed": 42,
+    "result": "failed",
+    "elapsed": 355,
+    "kills": 51,
+    "hp": [
+      0
+    ],
+    "cpuMs": 292
+  },
+  {
+    "count": 1,
+    "seed": 103,
+    "result": "success",
+    "elapsed": 346,
+    "kills": 53,
+    "hp": [
+      63
+    ],
+    "cpuMs": 248
+  },
+  {
+    "count": 2,
+    "seed": 7,
+    "result": "success",
+    "elapsed": 342.7,
+    "kills": 63,
+    "hp": [
+      63,
+      61
+    ],
+    "cpuMs": 592
+  },
+  {
+    "count": 2,
+    "seed": 42,
+    "result": "success",
+    "elapsed": 352.7,
+    "kills": 70,
+    "hp": [
+      3,
+      71
+    ],
+    "cpuMs": 591
+  },
+  {
+    "count": 2,
+    "seed": 103,
+    "result": "success",
+    "elapsed": 350.1,
+    "kills": 66,
+    "hp": [
+      29,
+      48
+    ],
+    "cpuMs": 690
+  },
+  {
+    "count": 4,
+    "seed": 7,
+    "result": "success",
+    "elapsed": 339.1,
+    "kills": 68,
+    "hp": [
+      74,
+      74,
+      100,
+      100
+    ],
+    "cpuMs": 1203
+  },
+  {
+    "count": 4,
+    "seed": 42,
+    "result": "success",
+    "elapsed": 347,
+    "kills": 85,
+    "hp": [
+      87,
+      92,
+      61,
+      100
+    ],
+    "cpuMs": 1112
+  },
+  {
+    "count": 4,
+    "seed": 103,
+    "result": "success",
+    "elapsed": 348.1,
+    "kills": 79,
+    "hp": [
+      74,
+      100,
+      55,
+      74
+    ],
+    "cpuMs": 1391
+  }
+]

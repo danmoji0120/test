@@ -56,14 +56,15 @@ export class AudioEngine {
   }
   play(e: GameEvent, dist: number) {
     if (!this.ctx || !this.gain || dist > 1100) return;
+    if (e.pellet) return;
     const volume = Math.max(0.02, 1 - dist / 1200);
     if (e.type === "shot") {
       const gun = e.weapon ? WEAPONS[e.weapon] : null;
       this.tone(
         gun?.sound ?? 100,
-        gun?.id === "sg" ? 0.22 : 0.09,
-        0.24 * volume,
-        "triangle",
+        gun?.id === "sg" ? 0.3 : gun?.id === "smg" ? 0.055 : 0.12,
+        (gun?.id === "sg" ? 0.38 : gun?.id === "smg" ? 0.15 : 0.26) * volume,
+        gun?.id === "smg" ? "square" : "triangle",
       );
       const noise = this.ctx.createBufferSource(),
         g = this.ctx.createGain(),
@@ -72,20 +73,33 @@ export class AudioEngine {
       noise.buffer = this.noise;
       filter.type = "bandpass";
       filter.frequency.value =
-        gun?.id === "smg" ? 2100 : gun?.id === "sg" ? 700 : 1300;
-      g.gain.setValueAtTime(0.35 * volume, t);
+        gun?.id === "smg" ? 2900 : gun?.id === "sg" ? 550 : 1500;
+      filter.Q.value = gun?.id === "smg" ? 0.8 : 0.45;
+      g.gain.setValueAtTime((gun?.id === "sg" ? 0.7 : 0.42) * volume, t);
       g.gain.exponentialRampToValueAtTime(
         0.001,
-        t + (gun?.id === "sg" ? 0.22 : 0.085),
+        t + (gun?.id === "sg" ? 0.28 : gun?.id === "smg" ? 0.045 : 0.11),
       );
       noise.connect(filter).connect(g).connect(this.gain);
       noise.start();
-      noise.stop(t + 0.25);
-    } else if (e.type === "hit") this.tone(720, 0.035, 0.07 * volume, "square");
-    else if (e.type === "kill") this.tone(1100, 0.08, 0.09 * volume);
-    else if (e.type === "reload") {
+      noise.stop(t + 0.3);
+      if (gun?.id === "sg") {
+        this.tone(52, 0.24, 0.26 * volume);
+        setTimeout(() => this.tone(310, 0.07, 0.1 * volume, "square"), 190);
+      }
+    } else if (e.type === "hit")
+      this.tone(e.enemy ? 150 : 920, 0.045, 0.1 * volume, "triangle");
+    else if (e.type === "kill") {
+      this.tone(1250, 0.07, 0.14 * volume);
+      setTimeout(() => this.tone(1680, 0.065, 0.1 * volume), 45);
+    } else if (e.type === "reload") {
       this.tone(360, 0.08, 0.13);
-      setTimeout(() => this.tone(600, 0.07, 0.1), 500);
+      const duration = e.weapon ? WEAPONS[e.weapon].reload : 1.5;
+      setTimeout(() => this.tone(180, 0.05, 0.1, "square"), 180);
+      setTimeout(
+        () => this.tone(600, 0.07, 0.15),
+        Math.max(350, duration * 1000 - 160),
+      );
     } else if (e.type === "explode") {
       this.tone(70, 0.8, 0.4, "sawtooth");
     } else if (e.type === "alarm") {

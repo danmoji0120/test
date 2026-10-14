@@ -27,7 +27,7 @@ const n = result.frames.length,
     particles: result.particles,
     trails: result.trails,
   };
-await page.screenshot({ path: "docs/screenshots/render-benchmark.png" });
+await page.screenshot({ path: "docs/after/render-benchmark.png" });
 writeFileSync("docs/render-qa.json", JSON.stringify(report, null, 2));
 console.log(report);
 await browser.close();

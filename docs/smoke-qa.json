@@ -3,26 +3,26 @@
     {
       "players": 1,
       "phase": "playing",
-      "elapsed": 30.20000000000066,
+      "elapsed": 30.033333333333985,
       "kills": [
-        9
+        2
       ],
       "ammo": [
-        18
+        22
       ],
       "sameRun": true
     },
     {
       "players": 2,
       "phase": "playing",
-      "elapsed": 30.033333333333985,
+      "elapsed": 30.00000000000065,
       "kills": [
-        7,
-        4
+        21,
+        12
       ],
       "ammo": [
-        18,
-        30
+        13,
+        23
       ],
       "sameRun": true
     }

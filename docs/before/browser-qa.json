@@ -1,0 +1,54 @@
+{
+  "evidence": "Playwright full gameplay screenshots plus follow-up reconnect/redeployment report; not the lost per-frame sampling buffer",
+  "result": "success",
+  "elapsedDisplay": "07:31",
+  "teamKills": 86,
+  "intel": true,
+  "rewardPerPlayer": 580,
+  "players": 4,
+  "characters": 2,
+  "weapons": [
+    "AR-01"
+  ],
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "reconnect": true,
+  "resultEquality": true,
+  "repeatDeployment": true,
+  "persistedProfiles": [
+    {
+      "name": "아리아",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    },
+    {
+      "name": "루나",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    },
+    {
+      "name": "스파크",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    },
+    {
+      "name": "에코",
+      "credits": 880,
+      "runs": 1,
+      "wins": 1
+    }
+  ],
+  "frameMs": null,
+  "notes": [
+    "Full mission and four-client result equality passed.",
+    "Original harness then targeted the old leader after a lobby reload and timed out, as the game correctly migrated leadership.",
+    "The same room and four test profiles were reconnected within the grace period; the current leader successfully started a distinct new run.",
+    "The harness now selects the current leader and exports mission evidence before attempting redeployment.",
+    "Frame samples from that full gameplay run were not retained. See separate renderer benchmark for measured rendering performance."
+  ]
+}

@@ -5,9 +5,9 @@
   "players": 4,
   "enemies": 20,
   "samples": 600,
-  "medianMs": 16.699999999254942,
-  "p95Ms": 16.899999998509884,
-  "averageMs": 16.666499999997516,
-  "particles": 47,
+  "medianMs": 16.69999999552965,
+  "p95Ms": 17,
+  "averageMs": 16.728166666664183,
+  "particles": 49,
   "trails": 0
 }

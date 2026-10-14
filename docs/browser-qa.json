@@ -1,54 +1,81 @@
 {
-  "evidence": "Playwright full gameplay screenshots plus follow-up reconnect/redeployment report; not the lost per-frame sampling buffer",
-  "result": "success",
-  "elapsedDisplay": "07:31",
-  "teamKills": 86,
-  "intel": true,
-  "rewardPerPlayer": 580,
-  "players": 4,
-  "characters": 2,
-  "weapons": [
-    "AR-01"
-  ],
+  "date": "2026-10-14T12:07:55.995Z",
+  "browser": "154.0.8037.57",
   "viewports": [
     "1920x1080",
     "1280x720"
   ],
-  "reconnect": true,
-  "resultEquality": true,
-  "repeatDeployment": true,
-  "persistedProfiles": [
+  "players": 4,
+  "seed": 7,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "smg"
+    },
+    {
+      "character": "aria",
+      "weapon": "sg"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 54.30000000002775,
+  "feedback": {
+    "hit": 486,
+    "shot:enemy": 366,
+    "shot:ar": 958,
+    "shot:smg": 536,
+    "kill": 147,
+    "shot:sg": 110,
+    "reload": 79,
+    "supply": 15,
+    "alarm": 10,
+    "explode": 3
+  },
+  "downCount": 0,
+  "stageTimes": {
+    "infiltrate": 2.5666666666666673,
+    "breach": 48.09999999999983,
+    "destroy": 210.49999999999062,
+    "extract": 237.89999999998906
+  },
+  "elapsed": 292.2000000000168,
+  "result": "success",
+  "kills": [
     {
       "name": "아리아",
-      "credits": 880,
-      "runs": 1,
-      "wins": 1
+      "kills": 67,
+      "hp": 47
     },
     {
       "name": "루나",
-      "credits": 880,
-      "runs": 1,
-      "wins": 1
+      "kills": 19,
+      "hp": 45
     },
     {
       "name": "스파크",
-      "credits": 880,
-      "runs": 1,
-      "wins": 1
+      "kills": 34,
+      "hp": 45
     },
     {
       "name": "에코",
-      "credits": 880,
-      "runs": 1,
-      "wins": 1
+      "kills": 27,
+      "hp": 43.80000000000044
     }
   ],
-  "frameMs": null,
-  "notes": [
-    "Full mission and four-client result equality passed.",
-    "Original harness then targeted the old leader after a lobby reload and timed out, as the game correctly migrated leadership.",
-    "The same room and four test profiles were reconnected within the grace period; the current leader successfully started a distinct new run.",
-    "The harness now selects the current leader and exports mission evidence before attempting redeployment.",
-    "Frame samples from that full gameplay run were not retained. See separate renderer benchmark for measured rendering performance."
-  ]
+  "reconnect": true,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 810,
+    "median": 27.399999998509884,
+    "p95": 73.20000000298023,
+    "average": 35.032469135762
+  }
 }

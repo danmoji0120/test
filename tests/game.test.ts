@@ -19,11 +19,22 @@ import {
 import { WEAPONS, emptyInput, type WeaponId } from "../src/shared/data";
 import { Pilot } from "../scripts/bot";
 function setup(n = 1) {
-  return createWorld(
+  const w = createWorld(
     "test",
     42,
     Array.from({ length: n }, (_, i) => makePlayer("p" + i, "Test " + i)),
   );
+  w.map.obstacles = [{ x: 510, y: 220, w: 55, h: 420, kind: "wall" }];
+  w.players.forEach((p, i) =>
+    Object.assign(p, {
+      x: 240 + (i % 2) * 60,
+      y: 260 + Math.floor(i / 2) * 60,
+    }),
+  );
+  w.enemies = [];
+  w.mission.encounters = [];
+  w.mission.stage = "destroy";
+  return w;
 }
 function advance(w: ReturnType<typeof setup>, seconds: number) {
   for (let t = 0; t < seconds * 30; t++) tick(w, 1 / 30);
@@ -37,12 +48,15 @@ describe("seed and collision geometry", () => {
     for (let seed = 0; seed < 100; seed++) {
       const m = generateMap(seed);
       for (const goal of [
-        ...m.relays,
+        ...m.zones.map((z) => z.center),
+        ...m.devices,
         m.core,
         m.intel,
         m.extract,
         ...m.supplies,
-      ]) {
+      ].filter(
+        (goal) => Math.hypot(goal.x - m.spawn.x, goal.y - m.spawn.y) > 1,
+      )) {
         expect(blocked(goal, m.obstacles, 20)).toBe(false);
         expect(
           findPath(m.spawn, goal, m).length,
@@ -54,12 +68,14 @@ describe("seed and collision geometry", () => {
   it("blocks movement and supports sliding along walls", () => {
     const m = generateMap(1),
       p = { x: 490, y: 300 };
+    m.obstacles = [{ x: 510, y: 220, w: 55, h: 420, kind: "wall" }];
     move(p, 60, 25, m);
     expect(p.x).toBe(490);
     expect(p.y).toBe(325);
   });
   it("blocks lines of sight and rays at the closest surface", () => {
     const m = generateMap(1);
+    m.obstacles = [{ x: 510, y: 220, w: 55, h: 420, kind: "wall" }];
     expect(visible({ x: 490, y: 300 }, { x: 650, y: 300 }, m)).toBe(false);
     expect(
       rayRect(
@@ -135,7 +151,7 @@ describe("server combat rules", () => {
       y = p.y;
     p.input = { ...emptyInput(), dx: 1, dy: 1, sprint: true, fire: true };
     tick(w, 0.1);
-    expect(Math.hypot(p.x - x, p.y - y)).toBeLessThan(33);
+    expect(Math.hypot(p.x - x, p.y - y)).toBeLessThan(43);
     expect(p.ammo).toBe(30);
   });
   it("revives a teammate with continuous nearby input; support is faster", () => {
@@ -199,21 +215,32 @@ describe("server combat rules", () => {
   });
 });
 describe("mission objectives", () => {
-  it("simultaneous interaction does not accelerate timers or duplicate supplies", () => {
+  it("simultaneous supply interaction cannot duplicate resupply", () => {
     const w = setup(4);
-    w.enemies = [];
     for (const p of w.players) {
-      Object.assign(p, w.map.relays[0]);
+      Object.assign(p, w.map.supplies[0]);
       p.input = { ...emptyInput(), interact: true };
     }
-    advance(w, 3);
-    expect(w.mission.relays[0]).toBeCloseTo(3, 1);
-    for (const p of w.players) Object.assign(p, w.map.supplies[0]);
     advance(w, 0.1);
     const reserve = w.players[0].reserve;
     advance(w, 1);
     expect(w.players[0].reserve).toBe(reserve);
     expect(w.map.supplies[0].used).toBe(true);
+  });
+  it("advances checkpoints only after all guard waves are defeated", () => {
+    const w = createWorld("checkpoint", 42, [makePlayer("p", "Test")]);
+    const first = w.mission.encounters[0];
+    w.players[0].input = { ...emptyInput(), interact: true };
+    tick(w, 0.03);
+    expect(w.mission.checkpoint).toBe(0);
+    w.enemies = [];
+    tick(w, 0.03);
+    expect(first.wave).toBe(1);
+    expect(w.enemies.length).toBeGreaterThan(0);
+    w.enemies = [];
+    tick(w, 0.03);
+    expect(first.cleared).toBe(true);
+    expect(w.mission.checkpoint).toBe(1);
   });
   it("requires every connected teammate at extraction and ignores disconnected clients", () => {
     const w = setup(2);
@@ -227,7 +254,11 @@ describe("mission objectives", () => {
     expect(w.mission.stage).toBe("success");
   });
   it("runs the entire mission with 4 input-only pilots without modifying game state", () => {
-    const w = setup(4),
+    const w = createWorld(
+        "complete",
+        42,
+        Array.from({ length: 4 }, (_, i) => makePlayer("p" + i, "Test")),
+      ),
       pilots = w.players.map(() => new Pilot());
     let steps = 0;
     while (!["success", "failed"].includes(w.mission.stage) && steps < 27000) {
@@ -243,20 +274,39 @@ describe("mission objectives", () => {
       w.players.map((p) => ({ hp: p.hp, kills: p.kills, ammo: p.reserve })),
     );
     expect(w.mission.stage).toBe("success");
-    expect(w.mission.intel).toBe(true);
+    expect(w.map.devices.every((d) => d.hp <= 0)).toBe(true);
     expect(w.players.reduce((n, p) => n + p.kills, 0)).toBeGreaterThan(20);
   }, 30000);
 });
 
-it("does not spawn an extra wave on the exact defense-to-extraction boundary", () => {
-  const w = setup(4);
-  w.enemies = [];
-  w.mission.stage = "defend";
-  w.mission.timer = 0.01;
-  w.mission.wave = 15;
-  tick(w, 1 / 30);
+it("core damage is locked before breach and destruction starts extraction without defense", () => {
+  const w = setup();
+  w.map.obstacles = [];
+  const p = w.players[0],
+    d = w.map.devices[0];
+  Object.assign(p, { x: d.x - 110, y: d.y, angle: 0 });
+  w.mission.stage = "breach";
+  fire(w, p);
+  expect(d.hp).toBe(d.maxHp);
+  w.mission.stage = "destroy";
+  for (let n = 0; n < 10; n++) fire(w, p);
+  expect(d.hp).toBe(0);
+  w.map.devices[1].hp = 0;
+  tick(w, 0.03);
   expect(w.mission.stage).toBe("extract");
-  expect(w.enemies).toHaveLength(0);
+  expect(w.mission.timer).toBe(60);
+});
+it("shotgun has ten rays but one discharge and aggregated target impact", () => {
+  const w = setup(),
+    p = w.players[0];
+  p.weapon = "sg";
+  Object.assign(p, { x: 300, y: 800, angle: 0 });
+  spawnEnemy(w, { x: 370, y: 800 }, "heavy");
+  fire(w, p);
+  const shots = w.events.filter((e) => e.type === "shot");
+  expect(shots.length).toBe(10);
+  expect(shots.filter((e) => !e.pellet).length).toBe(1);
+  expect(w.events.filter((e) => e.type === "hit").length).toBe(1);
 });
 
 it("sustained automatic fire builds recoil and releasing the trigger recovers it", () => {
@@ -269,4 +319,108 @@ it("sustained automatic fire builds recoil and releasing the trigger recovers it
   p.input = emptyInput();
   advance(w, 3);
   expect(p.recoil).toBe(0);
+});
+
+it("meltdown is a real escape deadline and successful escape takes priority on its boundary", () => {
+  const w = setup();
+  w.mission.stage = "extract";
+  w.mission.timer = 0.01;
+  tick(w, 1 / 30);
+  expect(w.mission.stage).toBe("failed");
+  const safe = setup();
+  safe.mission.stage = "extract";
+  safe.mission.timer = 0.01;
+  safe.mission.extract = 2.99;
+  Object.assign(safe.players[0], safe.map.extract);
+  tick(safe, 1 / 30);
+  expect(safe.mission.stage).toBe("success");
+});
+it("different seeds change industrial modules and their entry traversal order", () => {
+  const maps = Array.from({ length: 20 }, (_, seed) => generateMap(seed));
+  expect(
+    new Set(maps.map((m) => JSON.stringify(m.route))).size,
+  ).toBeGreaterThanOrEqual(4);
+  expect(
+    new Set(maps.map((m) => m.zones.map((z) => z.kind + z.variant).join()))
+      .size,
+  ).toBeGreaterThan(15);
+});
+it("AR drops a close rifle guard in two shots while SMG needs a longer stream", () => {
+  for (const weapon of ["ar", "smg"] as const) {
+    const w = setup(),
+      p = w.players[0];
+    Object.assign(p, { x: 300, y: 800, angle: 0, weapon });
+    spawnEnemy(w, { x: 380, y: 800 }, "rifle");
+    fire(w, p);
+    fire(w, p);
+    expect(w.enemies[0].hp <= 0).toBe(weapon === "ar");
+  }
+});
+
+it("completes an operation with discrete WASD held for 100ms updates without waypoint oscillation", () => {
+  const w = createWorld(
+      "keyboard",
+      42,
+      Array.from({ length: 4 }, (_, i) => makePlayer("p" + i, "Keyboard")),
+    ),
+    pilots = w.players.map(() => new Pilot());
+  for (
+    let step = 0;
+    step < 18000 && !["success", "failed"].includes(w.mission.stage);
+    step++
+  ) {
+    if (step % 3 === 0)
+      w.players.forEach((p, i) => {
+        const input = pilots[i].input(w, p, i);
+        input.dx = Math.abs(input.dx) > 0.2 ? Math.sign(input.dx) : 0;
+        input.dy = Math.abs(input.dy) > 0.2 ? Math.sign(input.dy) : 0;
+        p.input = input;
+      });
+    tick(w, 1 / 30);
+  }
+  expect(w.mission.stage).toBe("success");
+  expect(w.mission.checkpoint).toBe(9);
+});
+
+it("hits the visible upper torso instead of requiring shots at an enemy's feet", () => {
+  const w = setup(),
+    p = w.players[0];
+  Object.assign(p, { x: 300, y: 800 });
+  spawnEnemy(w, { x: 400, y: 800 }, "rifle");
+  p.angle = Math.atan2(800 - 35 - (p.y - 16), 400 - p.x);
+  fire(w, p);
+  expect(w.enemies[0].hp).toBeLessThan(65);
+});
+
+it("connects a physically clear cover corner to a free navigation start cell", () => {
+  const m = generateMap(7),
+    p = { x: 1437, y: 255 },
+    goal = m.zones[2].center;
+  expect(blocked(p, m.obstacles, 16)).toBe(false);
+  const path = findPath(p, goal, m);
+  expect(path.length).toBeGreaterThan(0);
+  for (let step = 0; step < 4000 && path.length; step++) {
+    const v = path[0],
+      d = Math.hypot(v.x - p.x, v.y - p.y);
+    if (d < 8) {
+      path.shift();
+      continue;
+    }
+    move(p, ((v.x - p.x) / d) * 7, ((v.y - p.y) / d) * 7, m);
+  }
+  expect(Math.hypot(p.x - goal.x, p.y - goal.y)).toBeLessThan(100);
+});
+
+it("freezes combat immediately after boarding instead of damaging escaped teammates", () => {
+  const w = setup(),
+    p = w.players[0];
+  w.mission.stage = "extract";
+  w.mission.extract = 2.99;
+  Object.assign(p, { ...w.map.extract, hp: 7, hurt: 4 });
+  spawnEnemy(w, { x: p.x - 100, y: p.y }, "rifle");
+  Object.assign(w.enemies[0], { windup: 0.01, angle: 0 });
+  tick(w, 1 / 30);
+  expect(w.mission.stage).toBe("success");
+  expect(p.hp).toBe(7);
+  expect(w.events.some((e) => e.type === "shot" && e.enemy)).toBe(false);
 });

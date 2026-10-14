@@ -1,4 +1,4 @@
-import type { GameMap, Rect, Vec } from "../shared/data";
+import type { GameMap, Rect, Vec, Zone, ZoneKind } from "../shared/data";
 export function rng(seed: number) {
   let s = seed >>> 0;
   return () => {
@@ -57,63 +57,207 @@ export function visible(a: Vec, b: Vec, map: GameMap) {
   const d = distance(a, b);
   return wallDistance(a, Math.atan2(b.y - a.y, b.x - a.x), d, map) >= d - 1;
 }
+/** Connected industrial modules. Every boundary has two entrances; interiors vary by type and variant. */
 export function generateMap(seed: number): GameMap {
   const rand = rng(seed),
-    flip = rand() > 0.5;
+    cols = 4,
+    rows = 3,
+    mw = 1000,
+    mh = 900;
+  const width = cols * mw,
+    height = rows * mh;
   const obstacles: Rect[] = [
-    { x: 0, y: 0, w: 2400, h: 45, kind: "wall" },
-    { x: 0, y: 1755, w: 2400, h: 45, kind: "wall" },
-    { x: 0, y: 0, w: 45, h: 1800, kind: "wall" },
-    { x: 2355, y: 0, w: 45, h: 1800, kind: "wall" },
+    { x: 0, y: 0, w: width, h: 40, kind: "wall" },
+    { x: 0, y: height - 40, w: width, h: 40, kind: "wall" },
+    { x: 0, y: 0, w: 40, h: height, kind: "wall" },
+    { x: width - 40, y: 0, w: 40, h: height, kind: "wall" },
   ];
-  // Broad, fixed corridors keep every variation navigable. Props vary within reserved cells.
-  for (const [x, y, w, h] of [
-    [510, 220, 55, 420],
-    [510, 870, 55, 600],
-    [1030, 45, 55, 380],
-    [1030, 640, 55, 520],
-    [1510, 350, 55, 460],
-    [1510, 1050, 55, 520],
-    [2000, 45, 55, 480],
-    [2000, 770, 55, 650],
-  ])
-    obstacles.push({ x, y, w, h, kind: "wall" });
-  for (const [x, y] of [
-    [230, 550],
-    [730, 380],
-    [740, 1050],
-    [280, 1260],
-    [1240, 450],
-    [1220, 1380],
-    [1760, 560],
-    [1760, 1180],
-    [2160, 1000],
-  ]) {
-    obstacles.push({
-      x: x + Math.floor(rand() * 55),
-      y: y + Math.floor(rand() * 45),
-      w: rand() > 0.45 ? 130 : 90,
-      h: rand() > 0.5 ? 65 : 110,
-      kind: rand() > 0.45 ? "container" : "crate",
-    });
+  const route: number[] = [];
+  const vertical = rand() > 0.5,
+    reverse = rand() > 0.5;
+  if (!vertical)
+    for (let row = 0; row < rows; row++)
+      for (let col = 0; col < cols; col++)
+        route.push(row * cols + (row % 2 ? cols - 1 - col : col));
+  else
+    for (let col = 0; col < cols; col++)
+      for (let row = 0; row < rows; row++)
+        route.push((col % 2 ? rows - 1 - row : row) * cols + col);
+  if (reverse) route.reverse();
+  // Two independent doors at every shared edge make flanking a choice.
+  for (let col = 1; col < cols; col++)
+    for (let row = 0; row < rows; row++) {
+      const offset = rand() > 0.5 ? 0 : 45,
+        x = col * mw - 20,
+        y = row * mh;
+      for (const [a, b] of [
+        [0, 130 + offset],
+        [330 + offset, 570 - offset],
+        [770 - offset, 900],
+      ])
+        obstacles.push({ x, y: y + a, w: 40, h: b - a, kind: "wall" });
+    }
+  for (let row = 1; row < rows; row++)
+    for (let col = 0; col < cols; col++) {
+      const offset = rand() > 0.5 ? 0 : 40,
+        x = col * mw,
+        y = row * mh - 20;
+      for (const [a, b] of [
+        [0, 150 + offset],
+        [350 + offset, 650 - offset],
+        [850 - offset, 1000],
+      ])
+        obstacles.push({ x: x + a, y, w: b - a, h: 40, kind: "wall" });
+    }
+  const labels: Record<ZoneKind, string> = {
+    warehouse: "화물 창고",
+    corridor: "수송 회랑",
+    reactor: "발전실",
+    security: "보안 관제실",
+    yard: "야적장",
+    extraction: "추출 구역",
+  };
+  const kinds: ZoneKind[] = ["warehouse", "corridor", "security", "yard"];
+  const zones: Zone[] = [];
+  for (let id = 0; id < cols * rows; id++) {
+    const x = (id % cols) * mw,
+      y = Math.floor(id / cols) * mh,
+      index = route.indexOf(id);
+    const kind: ZoneKind =
+      index === 0
+        ? "yard"
+        : index === 10
+          ? "reactor"
+          : index === 11
+            ? "extraction"
+            : kinds[Math.floor(rand() * kinds.length)];
+    const variant = Math.floor(rand() * 3);
+    const zone: Zone = {
+      id,
+      x,
+      y,
+      w: mw,
+      h: mh,
+      kind,
+      label: labels[kind],
+      variant,
+      center: { x: x + 500, y: y + 450 },
+      entry: { x: x + 500, y: y + 450 },
+      pads: [],
+    };
+    const templates: Record<ZoneKind, number[][]> = {
+      warehouse: [
+        [230, 240, 190, 85],
+        [620, 550, 150, 100],
+        [230, 600, 140, 75],
+        [680, 220, 130, 100],
+      ],
+      corridor:
+        variant === 0
+          ? [
+              [300, 100, 40, 230],
+              [660, 570, 40, 230],
+              [390, 240, 200, 40],
+            ]
+          : variant === 1
+            ? [
+                [100, 320, 260, 40],
+                [640, 540, 260, 40],
+                [650, 170, 40, 150],
+              ]
+            : [
+                [310, 170, 40, 220],
+                [650, 520, 40, 220],
+                [170, 630, 150, 40],
+              ],
+      security: [
+        [220, 230, 200, 40],
+        [610, 600, 210, 40],
+        [270, 280, 40, 130],
+        [680, 450, 40, 140],
+      ],
+      yard:
+        variant === 0
+          ? [
+              [250, 220, 130, 220],
+              [640, 530, 140, 190],
+            ]
+          : variant === 1
+            ? [
+                [240, 230, 190, 80],
+                [620, 560, 200, 80],
+                [640, 230, 120, 90],
+              ]
+            : [
+                [230, 220, 140, 90],
+                [620, 520, 180, 150],
+                [200, 600, 170, 70],
+              ],
+      reactor: [
+        [240, 230, 150, 120],
+        [650, 560, 140, 140],
+        [640, 220, 140, 110],
+        [240, 590, 140, 90],
+      ],
+      extraction: [
+        [240, 230, 140, 85],
+        [640, 590, 150, 90],
+      ],
+    };
+    for (const [a, b, w, h] of templates[kind])
+      obstacles.push({
+        x: x + a,
+        y: y + b,
+        w,
+        h,
+        kind:
+          kind === "corridor" || kind === "security"
+            ? "wall"
+            : kind === "yard" || kind === "warehouse"
+              ? "container"
+              : "crate",
+      });
+    // Mid-lane cover creates a protected close-range approach instead of a long open firing lane.
+    if (kind !== "corridor")
+      for (const [a, b] of [
+        [430, 280],
+        [430, 570],
+      ])
+        obstacles.push({ x: x + a, y: y + b, w: 100, h: 60, kind: "crate" });
+    zone.pads = [
+      [150, 150],
+      [850, 150],
+      [150, 750],
+      [850, 750],
+      [500, 220],
+      [500, 700],
+    ]
+      .map(([a, b]) => ({ x: x + a, y: y + b }))
+      .filter((p) => !blocked(p, obstacles, 24));
+    zones.push(zone);
   }
+  const center = (index: number) => ({ ...zones[route[index]].center });
+  const core = center(10);
   return {
-    width: 2400,
-    height: 1800,
+    width,
+    height,
     obstacles,
-    spawn: { x: 240, y: flip ? 1520 : 260 },
-    core: { x: 1770, y: 880 },
-    relays: [
-      { x: 780, y: 700 },
-      { x: 1240, y: flip ? 230 : 1050 },
+    zones,
+    route,
+    spawn: center(0),
+    core,
+    extract: center(11),
+    devices: [
+      { x: core.x - 110, y: core.y - 70, hp: 240, maxHp: 240 },
+      { x: core.x + 110, y: core.y + 70, hp: 240, maxHp: 240 },
     ],
-    extract: { x: 2200, y: flip ? 250 : 1570 },
-    supplies: [
-      { x: 370, y: 870, used: false },
-      { x: 1310, y: 840, used: false },
-      { x: 1820, y: 1470, used: false },
-    ],
-    intel: { x: 1175, y: flip ? 1625 : 225 },
+    supplies: [0, 2, 4, 6, 8, 10].map((index) => ({
+      ...center(index),
+      x: center(index).x - 80,
+      y: center(index).y + 80,
+      used: false,
+    })),
+    intel: { ...center(7), x: center(7).x + 90 },
     seed,
   };
 }
@@ -121,10 +265,12 @@ const navigationGrids = new WeakMap<GameMap, Uint8Array>();
 function navigationGrid(map: GameMap) {
   let grid = navigationGrids.get(map);
   if (!grid) {
-    grid = new Uint8Array(48 * 36);
-    for (let y = 0; y < 36; y++)
-      for (let x = 0; x < 48; x++)
-        grid[y * 48 + x] = Number(
+    const cols = Math.ceil(map.width / 50),
+      rows = Math.ceil(map.height / 50);
+    grid = new Uint8Array(cols * rows);
+    for (let y = 0; y < rows; y++)
+      for (let x = 0; x < cols; x++)
+        grid[y * cols + x] = Number(
           blocked({ x: x * 50 + 25, y: y * 50 + 25 }, map.obstacles, 20),
         );
     navigationGrids.set(map, grid);
@@ -132,17 +278,56 @@ function navigationGrid(map: GameMap) {
   return grid;
 }
 /** Small-grid A*; diagonal corner-cutting is deliberately disallowed. */
-export function findPath(start: Vec, goal: Vec, map: GameMap): Vec[] {
+export function findPath(
+  start: Vec,
+  goal: Vec,
+  map: GameMap,
+  radius = 16,
+): Vec[] {
   const grid = navigationGrid(map);
   const cell = 50,
-    cols = 48,
-    rows = 36,
+    cols = Math.ceil(map.width / 50),
+    rows = Math.ceil(map.height / 50),
     key = (x: number, y: number) => y * cols + x;
-  const sx = Math.floor(start.x / cell),
-    sy = Math.floor(start.y / cell),
-    originalGx = Math.floor(goal.x / cell),
-    originalGy = Math.floor(goal.y / cell),
-    s = key(sx, sy);
+  let sx = Math.floor(start.x / cell),
+    sy = Math.floor(start.y / cell);
+  const originalGx = Math.floor(goal.x / cell),
+    originalGy = Math.floor(goal.y / cell);
+  let bridge: Vec | undefined;
+  if (grid[key(sx, sy)]) {
+    const candidates: Vec[] = [];
+    for (let dy = -2; dy <= 2; dy++)
+      for (let dx = -2; dx <= 2; dx++) {
+        const x = sx + dx,
+          y = sy + dy,
+          point = { x: x * cell + 25, y: y * cell + 25 };
+        if (x < 1 || y < 1 || x >= cols - 1 || y >= rows - 1 || grid[key(x, y)])
+          continue;
+        if (!visible(start, point, map)) continue;
+        let safe = true;
+        for (let i = 1; i <= 8; i++)
+          if (
+            blocked(
+              {
+                x: start.x + ((point.x - start.x) * i) / 8,
+                y: start.y + ((point.y - start.y) * i) / 8,
+              },
+              map.obstacles,
+              radius,
+            )
+          ) {
+            safe = false;
+            break;
+          }
+        if (safe) candidates.push(point);
+      }
+    candidates.sort((a, b) => distance(start, a) - distance(start, b));
+    bridge = candidates[0];
+    if (!bridge) return [];
+    sx = Math.floor(bridge.x / cell);
+    sy = Math.floor(bridge.y / cell);
+  }
+  const s = key(sx, sy);
   let gx = originalGx,
     gy = originalGy;
   if (grid[key(gx, gy)]) {
@@ -225,5 +410,7 @@ export function findPath(start: Vec, goal: Vec, map: GameMap): Vec[] {
     });
     end = came.get(end)!;
   }
-  return path.reverse();
+  path.reverse();
+  if (bridge) path.unshift(bridge);
+  return path;
 }

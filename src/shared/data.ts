@@ -27,14 +27,14 @@ export const WEAPONS = {
     name: "AR-01",
     label: "돌격소총",
     role: "안정적인 중거리 교전",
-    damage: 27,
-    rate: 0.13,
+    damage: 34,
+    rate: 0.12,
     mag: 30,
     reserve: 240,
-    reload: 1.8,
-    spread: 0.022,
-    moving: 0.045,
-    recoil: 0.014,
+    reload: 1.55,
+    spread: 0.014,
+    moving: 0.027,
+    recoil: 0.016,
     range: 700,
     penetration: 0.72,
     pellets: 1,
@@ -47,15 +47,15 @@ export const WEAPONS = {
     name: "SMG-02",
     label: "기관단총",
     role: "빠른 기동 · 근거리 제압",
-    damage: 17,
-    rate: 0.075,
+    damage: 24,
+    rate: 0.06,
     mag: 40,
     reserve: 320,
-    reload: 1.45,
-    spread: 0.037,
-    moving: 0.03,
-    recoil: 0.009,
-    range: 450,
+    reload: 1.15,
+    spread: 0.028,
+    moving: 0.009,
+    recoil: 0.006,
+    range: 430,
     penetration: 0.4,
     pellets: 1,
     sound: 230,
@@ -66,18 +66,18 @@ export const WEAPONS = {
     id: "sg",
     name: "SG-03",
     label: "산탄총",
-    role: "8발의 산탄 · 강력한 돌파",
-    damage: 15,
-    rate: 0.7,
+    role: "10발의 산탄 · 강력한 돌파",
+    damage: 14,
+    rate: 0.78,
     mag: 8,
     reserve: 64,
-    reload: 2.2,
-    spread: 0.17,
+    reload: 1.95,
+    spread: 0.15,
     moving: 0.03,
     recoil: 0.06,
     range: 340,
     penetration: 0.55,
-    pellets: 8,
+    pellets: 10,
     sound: 70,
     color: "#f6c779",
     price: 220,
@@ -102,31 +102,31 @@ export const ENEMIES = {
   rifle: {
     name: "소총병",
     hp: 65,
-    speed: 100,
-    range: 510,
-    damage: 8,
-    delay: 1.6,
-    windup: 0.55,
+    speed: 140,
+    range: 580,
+    damage: 9,
+    delay: 1.15,
+    windup: 0.42,
     armor: 0.12,
   },
   rush: {
     name: "돌격병",
     hp: 48,
-    speed: 155,
-    range: 180,
-    damage: 10,
-    delay: 1.1,
-    windup: 0.35,
+    speed: 190,
+    range: 220,
+    damage: 12,
+    delay: 0.85,
+    windup: 0.3,
     armor: 0.04,
   },
   heavy: {
     name: "지원 사수",
     hp: 105,
-    speed: 65,
-    range: 650,
-    damage: 13,
-    delay: 2.0,
-    windup: 1.0,
+    speed: 95,
+    range: 660,
+    damage: 8,
+    delay: 1.8,
+    windup: 0.85,
     armor: 0.3,
   },
 } as const;
@@ -208,7 +208,34 @@ export interface Enemy extends Vec {
   path: Vec[];
   repath: number;
   hurt: number;
+  stagger: number;
+  zone: number;
+  burst: number;
   home: Vec;
+}
+export type ZoneKind =
+  "warehouse" | "corridor" | "reactor" | "security" | "yard" | "extraction";
+export interface Zone extends Vec {
+  id: number;
+  w: number;
+  h: number;
+  kind: ZoneKind;
+  label: string;
+  variant: number;
+  center: Vec;
+  entry: Vec;
+  pads: Vec[];
+}
+export interface Encounter {
+  zone: number;
+  wave: number;
+  total: number;
+  spawned: boolean;
+  cleared: boolean;
+}
+export interface Device extends Vec {
+  hp: number;
+  maxHp: number;
 }
 export interface GameMap {
   width: number;
@@ -216,7 +243,9 @@ export interface GameMap {
   obstacles: Rect[];
   spawn: Vec;
   core: Vec;
-  relays: Vec[];
+  zones: Zone[];
+  route: number[];
+  devices: Device[];
   extract: Vec;
   supplies: (Vec & { used: boolean })[];
   intel: Vec;
@@ -238,11 +267,16 @@ export interface GameEvent extends Vec {
   weapon?: WeaponId;
   enemy?: boolean;
   actor?: string;
+  pellet?: boolean;
+  impact?: boolean;
+  damage?: number;
+  angle?: number;
 }
 export interface Mission {
-  stage: "infiltrate" | "plant" | "defend" | "extract" | "success" | "failed";
-  relays: number[];
-  plant: number;
+  stage: "infiltrate" | "breach" | "destroy" | "extract" | "success" | "failed";
+  checkpoint: number;
+  encounters: Encounter[];
+  pressure: number;
   timer: number;
   extract: number;
   elapsed: number;

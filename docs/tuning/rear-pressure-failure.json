@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-14T11:35:25.720Z",
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "players": 4,
+  "seed": 7,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "smg"
+    },
+    {
+      "character": "aria",
+      "weapon": "sg"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 59.83333333332993,
+  "feedback": {
+    "hit": 485,
+    "shot:enemy": 408,
+    "shot:ar": 832,
+    "shot:smg": 679,
+    "kill": 144,
+    "shot:sg": 100,
+    "supply": 15,
+    "reload": 84,
+    "alarm": 10,
+    "explode": 3
+  },
+  "downCount": 2,
+  "stageTimes": {
+    "infiltrate": 3.0666666666666655,
+    "breach": 50.933333333333,
+    "destroy": 180.73333333332565,
+    "extract": 190.59999999999175
+  },
+  "elapsed": 250.43333333332168,
+  "result": "failed",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 63,
+      "hp": 41
+    },
+    {
+      "name": "루나",
+      "kills": 22,
+      "hp": 0
+    },
+    {
+      "name": "스파크",
+      "kills": 29,
+      "hp": 65
+    },
+    {
+      "name": "에코",
+      "kills": 30,
+      "hp": 0
+    }
+  ],
+  "reconnect": true,
+  "repeatDeployment": false,
+  "errors": [],
+  "frameMs": {
+    "samples": 660,
+    "median": 24.19999999552965,
+    "p95": 72.69999999552965,
+    "average": 34.312727272747594
+  }
+}

@@ -134,7 +134,7 @@ it("enforces 4-player capacity, ready/start authority, validated input, synchron
   );
   for (const m of shots) {
     expect(m.room.players.every((p: any) => p.ammo < 40)).toBe(true);
-    expect(m.room.players[0].x - starts[0].room.players[0].x).toBeLessThan(65);
+    expect(m.room.players[0].x - starts[0].room.players[0].x).toBeLessThan(100);
   }
   const token = peers[2].token,
     oldId = peers[2].id;

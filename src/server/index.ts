@@ -1,3 +1,4 @@
+import { RULES } from "../shared/rules";
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { resolve, extname, sep } from "node:path";
@@ -375,7 +376,7 @@ const interval = setInterval(() => {
     ) {
       for (const p of r.players)
         if (now - p.inputAt > 250) p.input = emptyInput();
-      tick(r.world, 1 / 30, r.difficulty === "hard");
+      tick(r.world, 1 / RULES.tickRate, r.difficulty === "hard");
       if (["success", "failed"].includes(r.world.mission.stage)) {
         r.phase = "result";
         for (const p of r.players) {
@@ -399,11 +400,11 @@ const interval = setInterval(() => {
         }
       }
     }
-    if (count % 2 === 0) broadcast(r);
+    if (count % (RULES.tickRate / RULES.snapshotRate) === 0) broadcast(r);
   }
   count++;
   for (const c of clients.values()) if (now - c.last > 15000) c.ws.terminate();
-}, 1000 / 30);
+}, 1000 / RULES.tickRate);
 server.listen(port, "0.0.0.0", () =>
   console.log(`DOLL SQUAD ready: http://localhost:${port}`),
 );

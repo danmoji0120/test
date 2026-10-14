@@ -28,7 +28,7 @@ export async function drive(page: Page, input: Input) {
         (p.x + Math.cos(input.angle) * 250 - q.camera.x) * zoom +
         innerWidth / 2,
       y =
-        (p.y + Math.sin(input.angle) * 250 - q.camera.y) * zoom +
+        (p.y - 16 + Math.sin(input.angle) * 250 - q.camera.y) * zoom +
         innerHeight / 2;
     window.dispatchEvent(
       new MouseEvent("mousemove", { clientX: x, clientY: y, bubbles: true }),
