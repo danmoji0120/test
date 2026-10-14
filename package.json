@@ -1,0 +1,31 @@
+{
+  "name": "project-doll-squad",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server/index.ts",
+    "build": "tsc --noEmit && vite build && esbuild src/server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server.mjs",
+    "start": "node scripts/start.mjs",
+    "test": "vitest run",
+    "qa": "tsx scripts/browser-qa.ts",
+    "qa:sim": "tsx scripts/simulation-qa.ts",
+    "qa:stability": "node --expose-gc --import tsx scripts/stability-qa.ts",
+    "qa:render": "tsx scripts/render-qa.ts",
+    "format": "prettier --write src tests scripts *.json *.html *.md"
+  },
+  "dependencies": {
+    "vite": "^6.3.5",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.30",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.8.3",
+    "tsx": "^4.20.3",
+    "vitest": "^3.2.4",
+    "esbuild": "^0.25.5",
+    "playwright": "^1.52.0",
+    "prettier": "^3.6.2"
+  }
+}

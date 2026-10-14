@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Doll Squad synthetic render benchmark</title>
+    <style>
+      body {
+        margin: 0;
+        background: #10131e;
+      }
+      canvas {
+        position: fixed;
+        inset: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <script type="module">
+      import { Renderer } from "/src/client/render.ts";
+      import { AudioEngine } from "/src/client/audio.ts";
+      import {
+        createWorld,
+        makePlayer,
+        spawnEnemy,
+        event,
+      } from "/src/game/simulation.ts";
+      const players = Array.from({ length: 4 }, (_, i) => {
+        const p = makePlayer("p" + i, "BENCH " + i);
+        p.character = i % 2 ? "luna" : "aria";
+        return p;
+      });
+      const w = createWorld("render-benchmark", 42, players);
+      w.enemies = [];
+      players.forEach((p, i) => {
+        p.x = 1750 + i * 55;
+        p.y = 920 + (i % 2) * 60;
+        p.moving = true;
+      });
+      for (let i = 0; i < 20; i++)
+        spawnEnemy(
+          w,
+          { x: 1175 + (i % 5) * 210, y: 475 + Math.floor(i / 5) * 220 },
+          ["rifle", "rush", "heavy"][i % 3],
+        );
+      const renderer = new Renderer(
+        document.querySelector("canvas"),
+        new AudioEngine(),
+      );
+      renderer.set(w, "p0");
+      renderer.start();
+      let clock = 0;
+      setInterval(() => {
+        clock += 1 / 15;
+        w.time = clock;
+        for (const [i, p] of players.entries()) {
+          p.angle = clock + i;
+          p.x = 1750 + i * 55 + Math.sin(clock * 3 + i) * 20;
+          p.recoil = 0.05;
+          if (Math.floor(clock * 15) % 2 === 0)
+            event(w, {
+              type: "shot",
+              actor: p.id,
+              weapon: i === 2 ? "sg" : "ar",
+              x: p.x,
+              y: p.y,
+              toX: p.x + Math.cos(p.angle) * 480,
+              toY: p.y + Math.sin(p.angle) * 480,
+            });
+        }
+        for (const [i, e] of w.enemies.entries()) {
+          e.angle = clock + i;
+          e.windup = 0.5;
+        }
+        renderer.set(w, "p0");
+      }, 1000 / 15);
+      window.benchmark = () => ({
+        frames: renderer.frames,
+        players: players.length,
+        enemies: w.enemies.length,
+        particles: renderer.particles.length,
+        trails: renderer.trails.length,
+        positions: renderer.positions.size,
+      });
+    </script>
+  </body>
+</html>

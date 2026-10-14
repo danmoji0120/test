@@ -1,0 +1,272 @@
+import { describe, it, expect } from "vitest";
+import {
+  generateMap,
+  findPath,
+  blocked,
+  move,
+  visible,
+  rayRect,
+} from "../src/game/map";
+import {
+  createWorld,
+  makePlayer,
+  tick,
+  fire,
+  spawnEnemy,
+  damagePlayer,
+  finish,
+} from "../src/game/simulation";
+import { WEAPONS, emptyInput, type WeaponId } from "../src/shared/data";
+import { Pilot } from "../scripts/bot";
+function setup(n = 1) {
+  return createWorld(
+    "test",
+    42,
+    Array.from({ length: n }, (_, i) => makePlayer("p" + i, "Test " + i)),
+  );
+}
+function advance(w: ReturnType<typeof setup>, seconds: number) {
+  for (let t = 0; t < seconds * 30; t++) tick(w, 1 / 30);
+}
+describe("seed and collision geometry", () => {
+  it("reproduces the map and varies layout across seeds", () => {
+    expect(generateMap(9)).toEqual(generateMap(9));
+    expect(generateMap(9)).not.toEqual(generateMap(10));
+  });
+  it("keeps all objectives and extraction reachable for 100 seeds", () => {
+    for (let seed = 0; seed < 100; seed++) {
+      const m = generateMap(seed);
+      for (const goal of [
+        ...m.relays,
+        m.core,
+        m.intel,
+        m.extract,
+        ...m.supplies,
+      ]) {
+        expect(blocked(goal, m.obstacles, 20)).toBe(false);
+        expect(
+          findPath(m.spawn, goal, m).length,
+          `seed ${seed} goal ${goal.x},${goal.y}`,
+        ).toBeGreaterThan(0);
+      }
+    }
+  });
+  it("blocks movement and supports sliding along walls", () => {
+    const m = generateMap(1),
+      p = { x: 490, y: 300 };
+    move(p, 60, 25, m);
+    expect(p.x).toBe(490);
+    expect(p.y).toBe(325);
+  });
+  it("blocks lines of sight and rays at the closest surface", () => {
+    const m = generateMap(1);
+    expect(visible({ x: 490, y: 300 }, { x: 650, y: 300 }, m)).toBe(false);
+    expect(
+      rayRect(
+        { x: 0, y: 0 },
+        { x: 1, y: 0 },
+        { x: 10, y: -5, w: 10, h: 10, kind: "wall" },
+        100,
+      ),
+    ).toBe(10);
+  });
+});
+describe("server combat rules", () => {
+  it.each(["ar", "smg", "sg"] as WeaponId[])(
+    "%s consumes one shell/cartridge and emits the correct number of rays",
+    (weapon) => {
+      const w = setup(),
+        p = w.players[0];
+      w.enemies = [];
+      p.weapon = weapon;
+      p.ammo = WEAPONS[weapon].mag;
+      const before = p.ammo;
+      fire(w, p);
+      expect(p.ammo).toBe(before - 1);
+      expect(w.events.filter((e) => e.type === "shot")).toHaveLength(
+        WEAPONS[weapon].pellets,
+      );
+    },
+  );
+  it.each(["ar", "smg", "sg"] as WeaponId[])(
+    "%s deals damage with line of sight",
+    (weapon) => {
+      const w = setup(),
+        p = w.players[0];
+      w.enemies = [];
+      Object.assign(p, { x: 300, y: 800, weapon, angle: 0 });
+      spawnEnemy(w, { x: 380, y: 800 }, "heavy");
+      const hp = w.enemies[0].hp;
+      fire(w, p);
+      expect(w.enemies[0].hp).toBeLessThan(hp);
+    },
+  );
+  it("stops shots at cover and never damages friendlies", () => {
+    const w = setup(2),
+      p = w.players[0];
+    w.enemies = [];
+    Object.assign(p, { x: 470, y: 300, angle: 0 });
+    Object.assign(w.players[1], { x: 480, y: 300 });
+    spawnEnemy(w, { x: 600, y: 300 }, "rifle");
+    fire(w, p);
+    expect(w.enemies[0].hp).toBe(65);
+    expect(w.players[1].hp).toBe(100);
+  });
+  it("reload conserves total ammunition and cannot fire during reload", () => {
+    const w = setup(),
+      p = w.players[0];
+    w.enemies = [];
+    p.ammo = 5;
+    p.reserve = 13;
+    p.input = { ...emptyInput(), reload: true, fire: true };
+    tick(w, 1 / 30);
+    expect(p.reload).toBeGreaterThan(0);
+    expect(p.ammo).toBe(5);
+    p.input = emptyInput();
+    advance(w, 2);
+    expect(p.ammo).toBe(18);
+    expect(p.reserve).toBe(0);
+  });
+  it("sprinting disables fire and normalized diagonal speed stays bounded", () => {
+    const w = setup(),
+      p = w.players[0];
+    w.enemies = [];
+    const x = p.x,
+      y = p.y;
+    p.input = { ...emptyInput(), dx: 1, dy: 1, sprint: true, fire: true };
+    tick(w, 0.1);
+    expect(Math.hypot(p.x - x, p.y - y)).toBeLessThan(33);
+    expect(p.ammo).toBe(30);
+  });
+  it("revives a teammate with continuous nearby input; support is faster", () => {
+    const w = setup(2),
+      [p, q] = w.players;
+    w.enemies = [];
+    q.character = "luna";
+    damagePlayer(w, p, 100);
+    q.input = { ...emptyInput(), revive: true };
+    advance(w, 2.3);
+    expect(p.down).toBe(false);
+    expect(p.hp).toBe(55);
+  });
+  it("does not revive through a wall or from far away", () => {
+    const w = setup(2),
+      [p, q] = w.players;
+    w.enemies = [];
+    Object.assign(p, { x: 490, y: 300 });
+    Object.assign(q, { x: 580, y: 300 });
+    damagePlayer(w, p, 100);
+    q.input = { ...emptyInput(), revive: true };
+    advance(w, 4);
+    expect(p.down).toBe(true);
+  });
+  it("fails once all connected operators are down", () => {
+    const w = setup(2);
+    w.players.forEach((p) => damagePlayer(w, p, 100));
+    tick(w, 0.03);
+    expect(w.mission.stage).toBe("failed");
+    const reward = w.mission.reward;
+    finish(w, true, "invalid");
+    expect(w.mission.reward).toBe(reward);
+    expect(w.mission.stage).toBe("failed");
+  });
+  it("AI cannot see through a wall or walk into solid cover", () => {
+    const w = setup();
+    w.enemies = [];
+    Object.assign(w.players[0], { x: 480, y: 300 });
+    spawnEnemy(w, { x: 650, y: 300 }, "rifle");
+    advance(w, 3);
+    expect(w.players[0].hp).toBe(100);
+    expect(w.enemies[0].target).toBeNull();
+    for (let t = 0; t < 1800; t++) {
+      tick(w, 1 / 30);
+      for (const e of w.enemies)
+        expect(blocked(e, w.map.obstacles, 18)).toBe(false);
+    }
+  });
+  it("shot events and dead enemy state stay bounded under repeated combat", () => {
+    const w = setup(),
+      p = w.players[0];
+    w.enemies = [];
+    Object.assign(p, { x: 300, y: 800, angle: 0 });
+    for (let i = 0; i < 300; i++) {
+      spawnEnemy(w, { x: 380, y: 800 }, "rush");
+      for (let s = 0; s < 5; s++) fire(w, p);
+      tick(w, 1 / 30);
+    }
+    expect(w.events.length).toBeLessThanOrEqual(160);
+    expect(w.enemies.every((e) => e.hp > 0)).toBe(true);
+  });
+});
+describe("mission objectives", () => {
+  it("simultaneous interaction does not accelerate timers or duplicate supplies", () => {
+    const w = setup(4);
+    w.enemies = [];
+    for (const p of w.players) {
+      Object.assign(p, w.map.relays[0]);
+      p.input = { ...emptyInput(), interact: true };
+    }
+    advance(w, 3);
+    expect(w.mission.relays[0]).toBeCloseTo(3, 1);
+    for (const p of w.players) Object.assign(p, w.map.supplies[0]);
+    advance(w, 0.1);
+    const reserve = w.players[0].reserve;
+    advance(w, 1);
+    expect(w.players[0].reserve).toBe(reserve);
+    expect(w.map.supplies[0].used).toBe(true);
+  });
+  it("requires every connected teammate at extraction and ignores disconnected clients", () => {
+    const w = setup(2);
+    w.enemies = [];
+    w.mission.stage = "extract";
+    Object.assign(w.players[0], w.map.extract);
+    advance(w, 6);
+    expect(w.mission.stage).toBe("extract");
+    w.players[1].connected = false;
+    advance(w, 5.2);
+    expect(w.mission.stage).toBe("success");
+  });
+  it("runs the entire mission with 4 input-only pilots without modifying game state", () => {
+    const w = setup(4),
+      pilots = w.players.map(() => new Pilot());
+    let steps = 0;
+    while (!["success", "failed"].includes(w.mission.stage) && steps < 27000) {
+      w.players.forEach((p, i) => (p.input = pilots[i].input(w, p, i)));
+      tick(w, 1 / 30);
+      steps++;
+    }
+    console.log(
+      "Full input-only mission:",
+      w.mission.stage,
+      w.mission.elapsed.toFixed(1),
+      "seconds",
+      w.players.map((p) => ({ hp: p.hp, kills: p.kills, ammo: p.reserve })),
+    );
+    expect(w.mission.stage).toBe("success");
+    expect(w.mission.intel).toBe(true);
+    expect(w.players.reduce((n, p) => n + p.kills, 0)).toBeGreaterThan(20);
+  }, 30000);
+});
+
+it("does not spawn an extra wave on the exact defense-to-extraction boundary", () => {
+  const w = setup(4);
+  w.enemies = [];
+  w.mission.stage = "defend";
+  w.mission.timer = 0.01;
+  w.mission.wave = 15;
+  tick(w, 1 / 30);
+  expect(w.mission.stage).toBe("extract");
+  expect(w.enemies).toHaveLength(0);
+});
+
+it("sustained automatic fire builds recoil and releasing the trigger recovers it", () => {
+  const w = setup();
+  w.enemies = [];
+  const p = w.players[0];
+  p.input = { ...emptyInput(), fire: true };
+  advance(w, 2);
+  expect(p.recoil).toBeGreaterThan(0.06);
+  p.input = emptyInput();
+  advance(w, 3);
+  expect(p.recoil).toBe(0);
+});
