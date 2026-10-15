@@ -2,6 +2,7 @@ import { visibleWorld } from "./visibility";
 import { RULES } from "../shared/rules";
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
+import { writeFileSync } from "node:fs";
 import { resolve, extname, sep } from "node:path";
 import { randomBytes, randomUUID } from "node:crypto";
 import { WebSocketServer, WebSocket } from "ws";
@@ -348,6 +349,33 @@ wss.on("connection", (ws) => {
     }
   });
 });
+function saveTrace(r: Room) {
+  const file = process.env.QA_TRACE_FILE,
+    w = r.world;
+  if (!file || !w) return;
+  writeFileSync(
+    file,
+    JSON.stringify({
+      id: w.id,
+      seed: w.map.seed,
+      time: w.time,
+      mission: w.mission,
+      requests: w.reinforcements,
+      trajectories: w.trajectories,
+      sources: w.map.sources,
+      actors: w.enemies.map((e) => ({
+        id: e.id,
+        x: e.x,
+        y: e.y,
+        source: e.sourceId,
+        request: e.requestId,
+        reserve: e.reserve,
+        state: e.state,
+      })),
+      terrain: w.map.obstacles.filter((o) => o.kind === "door"),
+    }),
+  );
+}
 let count = 0;
 const interval = setInterval(() => {
   const now = Date.now();
@@ -372,7 +400,9 @@ const interval = setInterval(() => {
       for (const p of r.players)
         if (now - p.inputAt > 250) p.input = emptyInput();
       tick(r.world, 1 / RULES.tickRate, r.difficulty === "hard");
+      if (process.env.QA_TRACE_FILE && count % 150 === 0) saveTrace(r);
       if (["success", "failed"].includes(r.world.mission.stage)) {
+        saveTrace(r);
         r.phase = "result";
         for (const p of r.players) {
           const profile = [...store.profiles.values()].find((v) =>

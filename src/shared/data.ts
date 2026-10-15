@@ -228,6 +228,8 @@ export interface Enemy extends Vec {
   reserve: boolean;
   sourceId: string;
   requestId: string;
+  traveling: boolean;
+  stuck: number;
 }
 export type ZoneKind =
   "warehouse" | "corridor" | "reactor" | "security" | "yard" | "extraction";
@@ -286,6 +288,8 @@ export interface GameEvent extends Vec {
     | "supply"
     | "sound";
   cue?: "gunfire" | "radio" | "steps" | "engine";
+  uncertainty?: number;
+  at?: number;
   toX?: number;
   toY?: number;
   weapon?: WeaponId;
@@ -326,6 +330,12 @@ export interface World {
   noises: Noise[];
   noiseId: number;
   supportSignals: SupportSignal[];
+  reinforcements: Reinforcement[];
+  dispatchId: number;
+  dispatchKeys: Record<string, string>;
+  trajectories: Trajectory[];
+  director: { next: number; commsDown: boolean };
+  terrainRevision: number;
 }
 export interface RoomView {
   code: string;
@@ -354,6 +364,8 @@ export interface DispatchSource extends Vec {
   disabled: boolean;
   cooldown: number;
   warning: number;
+  blocked: boolean;
+  blockProgress: number;
   facility: string;
 }
 export interface Installation extends Vec {
@@ -410,4 +422,27 @@ export interface SupportSignal {
   squad: string;
   target: Vec;
   at: number;
+}
+
+export interface Reinforcement {
+  id: string;
+  key: string;
+  squad: string;
+  sourceId: string;
+  members: string[];
+  target: Vec;
+  path: Vec[];
+  requested: number;
+  departed: number;
+  arrived: number;
+  eta: number;
+  state: "queued" | "traveling" | "arriving" | "deployed" | "cancelled";
+  reason: string;
+}
+export interface Trajectory {
+  enemy: string;
+  source: string;
+  request: string;
+  born: Vec;
+  points: (Vec & { at: number })[];
 }

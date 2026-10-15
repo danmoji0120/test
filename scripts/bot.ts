@@ -10,6 +10,7 @@ import {
 import { distance, visible, findPath, blocked } from "../src/game/map";
 /** Observes authoritative state and emits normal input only; no teleport/damage/timer shortcuts. */
 export class Pilot {
+  destination: Vec | null = null;
   path: Vec[] = [];
   navMap: World["map"] | null = null;
   navRun = "";
@@ -112,6 +113,7 @@ export class Pilot {
       input.fire = false;
       return input;
     }
+    if (this.destination && !fallen) goal = this.destination;
     const stop =
       goal === device
         ? 130

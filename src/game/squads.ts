@@ -1,3 +1,4 @@
+import { lineOfSight } from "./visibility";
 import { ENEMIES, type World, type Vec, type Player } from "../shared/data";
 import {
   distance,
@@ -22,7 +23,12 @@ export function enemyAI(w: World, dt: number, difficulty: number) {
     e.stagger = Math.max(0, e.stagger - dt);
     if (e.stagger > 0) continue;
     e.radio = Math.max(0, e.radio - dt);
-    if (e.reserve) continue;
+    if (e.reserve) {
+      if (live.some((p) => lineOfSight(e, p, w.map, 450)) || e.hurt > 0)
+        e.reserve = false;
+      else continue;
+    }
+    if (e.traveling) continue;
     const target = perceive(w, e, live, dt);
     const squad = w.squads[e.squad];
     if (
@@ -180,6 +186,14 @@ export function enemyAI(w: World, dt: number, difficulty: number) {
           (e.state === "SUSPICIOUS" ? 0.35 : e.memory > 0 ? 1 : 0.5);
         if (!target && e.windup <= 0)
           e.angle = Math.atan2(point.y - e.y, point.x - e.x);
+        if (Math.floor((w.time - dt) / 1.2) !== Math.floor(w.time / 1.2))
+          event(w, {
+            type: "sound",
+            cue: "steps",
+            enemy: true,
+            x: e.x,
+            y: e.y,
+          });
         move(
           e,
           ((point.x - e.x) / d) * speed * dt,

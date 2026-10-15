@@ -302,6 +302,12 @@ function updateHud() {
       hint = "E · 보급품 확보 / 주변 분대 체력·탄약 회복";
     else if (!m.intel && distance(p, w.map.intel) < 90)
       hint = `E 길게 · 기밀 자료 회수 ${m.intelProgress.toFixed(1)} / 3`;
+    else if (
+      w.map.sources.some(
+        (s) => !s.disabled && !s.blocked && distance(p, s.entry) < 85,
+      )
+    )
+      hint = "E 길게 · 출동 출입구 봉쇄 / 3초";
     else if (m.stage === "destroy" && distance(p, w.map.core) < 250)
       hint = "좌클릭 · 노출된 발전 장치를 사격해 파괴";
   }

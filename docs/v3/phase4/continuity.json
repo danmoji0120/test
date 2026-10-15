@@ -1,0 +1,50 @@
+{
+  "method": "actual 2-browser observer plus private server audit, no state mutation",
+  "checks": [
+    {
+      "enemy": "e15",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 3,
+      "validOrigin": true,
+      "continuous": true,
+      "observedByBrowser": true
+    },
+    {
+      "enemy": "e16",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 2,
+      "validOrigin": true,
+      "continuous": true,
+      "observedByBrowser": true
+    },
+    {
+      "enemy": "e368",
+      "source": "external-1",
+      "request": "dispatch-2",
+      "samples": 63,
+      "validOrigin": true,
+      "continuous": true,
+      "observedByBrowser": false
+    },
+    {
+      "enemy": "e369",
+      "source": "external-1",
+      "request": "dispatch-2",
+      "samples": 63,
+      "validOrigin": true,
+      "continuous": true,
+      "observedByBrowser": false
+    },
+    {
+      "enemy": "e370",
+      "source": "external-1",
+      "request": "dispatch-2",
+      "samples": 63,
+      "validOrigin": true,
+      "continuous": true,
+      "observedByBrowser": false
+    }
+  ]
+}

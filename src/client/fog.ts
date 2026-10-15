@@ -87,7 +87,7 @@ export class Fog {
   minimap(g: CanvasRenderingContext2D, w: World) {
     this.update(w);
     g.save();
-    g.globalAlpha = 0.8;
+    g.globalAlpha = 1;
     g.fillStyle = "#02050b";
     const v = w.visibility;
     for (let y = 0; y < v.rows; y++)

@@ -121,7 +121,12 @@ export class Renderer {
           this.pendingPreview.length > 0 &&
           performance.now() - this.pendingPreview[0] < 500;
         if (previewed) this.pendingPreview.shift();
-        if (!previewed) this.audio.play(e, distance(e, me));
+        if (!previewed)
+          this.audio.play(
+            e,
+            distance(e, me),
+            (e.x - me.x) / Math.max(1, distance(e, me)),
+          );
         if (e.type === "shot") {
           this.trails.push({ ...e, life: e.weapon === "sg" ? 0.07 : 0.085 });
           if (!e.pellet && !previewed) this.muzzle(e);
@@ -312,6 +317,7 @@ export class Renderer {
       }
     }
     for (const o of w.map.obstacles) {
+      if (o.kind === "door") continue;
       g.fillStyle = "#080f1690";
       g.fillRect(o.x + 10, o.y + 15, o.w, o.h);
       g.fillStyle =
@@ -450,6 +456,23 @@ export class Renderer {
       g.restore();
     }
     this.debris = this.debris.filter((d) => d.life > 0);
+    for (const d of w.map.obstacles.filter((o) => o.kind === "door")) {
+      g.fillStyle = d.open ? "#6ee4bc45" : "#ab8450";
+      g.fillRect(d.x, d.y, d.w, d.h);
+      g.strokeStyle = "#f4cd91";
+      g.strokeRect(d.x, d.y, d.w, d.h);
+    }
+    for (const s of w.map.sources) {
+      g.fillStyle = s.disabled
+        ? "#5c5554"
+        : s.warning > w.time
+          ? Math.floor(t * 5) % 2
+            ? "#ff926e"
+            : "#7a4c40"
+          : "#a29a76";
+      g.fillRect(s.entry.x - 13, s.entry.y - 13, 26, 26);
+      if (s.warning > w.time) this.marker(s.entry, "출동 경보", t, "#ffb58d");
+    }
     const current = w.mission.encounters[w.mission.checkpoint];
     if (current) {
       const zone = w.map.zones[current.zone];
@@ -463,6 +486,36 @@ export class Renderer {
       g.setLineDash([8, 8]);
       g.strokeRect(zone.x + 65, zone.y + 65, zone.w - 130, zone.h - 130);
       g.setLineDash([]);
+    }
+    for (const d of w.map.installations.filter((d) => d.kind !== "generator")) {
+      g.save();
+      g.translate(d.x, d.y);
+      g.fillStyle = d.hp > 0 ? "#4f6369" : "#433b3c";
+      g.fillRect(-30, -30, 60, 50);
+      g.strokeStyle = d.kind === "comms" ? "#b9aff0" : "#eeab86";
+      g.lineWidth = 3;
+      g.strokeRect(-30, -30, 60, 50);
+      if (d.kind === "comms") {
+        g.beginPath();
+        g.moveTo(0, -20);
+        g.lineTo(0, -90);
+        g.moveTo(-22, -65);
+        g.lineTo(22, -65);
+        g.stroke();
+      }
+      g.fillStyle = "#e1bd8b";
+      g.fillRect(-30, 25, (60 * d.hp) / d.maxHp, 4);
+      g.restore();
+      this.marker(
+        d,
+        (d.kind === "comms"
+          ? "통신탑"
+          : d.kind === "outpost"
+            ? "전초 지휘장치"
+            : "병영 관제") + (d.hp > 0 ? " · 사격" : " · 무력화"),
+        t,
+        "#e5bd9a",
+      );
     }
     for (const device of w.map.devices) {
       const active = w.mission.stage === "destroy",

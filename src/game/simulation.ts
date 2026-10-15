@@ -1,3 +1,5 @@
+import { initializeTheatre } from "./reinforcements";
+import { tickDirector } from "./director";
 import { enemyAI } from "./squads";
 import { initialAlert, tickAlert, raiseAlert } from "./alert";
 import { noise } from "./perception";
@@ -57,7 +59,7 @@ export function random(w: World) {
   return w.random / 4294967296;
 }
 export function event(w: World, e: Omit<GameEvent, "id">) {
-  w.events.push({ ...e, id: ++w.eventId });
+  w.events.push({ ...e, id: ++w.eventId, at: w.time });
   if (w.events.length > 160) w.events.splice(0, w.events.length - 160);
 }
 export function spawnEnemy(
@@ -99,6 +101,8 @@ export function spawnEnemy(
     reserve: false,
     sourceId: "initial",
     requestId: "",
+    traveling: false,
+    stuck: 0,
     ...options,
   });
   const e = w.enemies.at(-1)!;
@@ -167,65 +171,17 @@ export function createWorld(
     noises: [],
     noiseId: 0,
     supportSignals: [],
+    reinforcements: [],
+    dispatchId: 0,
+    dispatchKeys: {},
+    trajectories: [],
+    director: { next: 30, commsDown: false },
+    terrainRevision: 0,
   };
-  w.mission.encounters = map.route.slice(1, 10).map((zone, index) => ({
-    zone,
-    wave: 0,
-    total: index === 4 || index === 8 ? 3 : 2,
-    spawned: false,
-    cleared: false,
-  }));
-  // Front guards are live from insertion; later fights wake when the squad approaches.
-  spawnEncounter(w, map.route[1], 0, players.length);
-  w.mission.encounters[0].spawned = true;
+  w.mission.stage = "destroy";
+  initializeTheatre(w);
   updateVision(w, true);
   return w;
-}
-export function spawnEncounter(
-  w: World,
-  zoneId: number,
-  wave: number,
-  team: number,
-  pursuit = false,
-) {
-  const zone = w.map.zones[zoneId];
-  if (!zone) return;
-  const count = pursuit ? 2 + team : 3 + team;
-  for (let i = 0; i < count && w.enemies.length < 30; i++) {
-    const pad = zone.pads[(i + wave * 2) % zone.pads.length];
-    if (!pad) continue;
-    const pos = {
-      x: pad.x + (Math.floor(i / zone.pads.length) % 2) * 45,
-      y: pad.y,
-    };
-    if (
-      w.players.some(
-        (p) =>
-          p.connected &&
-          !p.down &&
-          distance(p, pos) < 220 &&
-          visible(p, pos, w.map),
-      )
-    )
-      continue;
-    const before = w.enemies.length;
-    spawnEnemy(
-      w,
-      pos,
-      (i + wave) % 5 === 0 ? "heavy" : (i + wave) % 3 === 0 ? "rush" : "rifle",
-    );
-    if (w.enemies.length > before) {
-      const e = w.enemies.at(-1)!;
-      e.zone = zoneId;
-      if (pursuit) {
-        const p = w.players.find((p) => p.connected && !p.down);
-        if (p) {
-          e.lastSeen = { x: p.x, y: p.y };
-          e.memory = 12;
-        }
-      }
-    }
-  }
 }
 export function damagePlayer(w: World, p: Player, amount: number) {
   if (p.down) return;
@@ -287,7 +243,10 @@ export function fire(w: World, p: Player) {
     }
     let deviceHit: World["map"]["devices"][number] | undefined;
     if (w.mission.stage === "destroy")
-      for (const device of w.map.devices) {
+      for (const device of [
+        ...w.map.devices,
+        ...w.map.installations.filter((d) => d.kind !== "generator"),
+      ]) {
         if (device.hp <= 0) continue;
         const ex = device.x - origin.x,
           ey = device.y - origin.y,
@@ -303,7 +262,10 @@ export function fire(w: World, p: Player) {
         }
       }
     if (deviceHit) {
+      const wasAlive = deviceHit.hp > 0;
       deviceHit.hp = Math.max(0, deviceHit.hp - gun.damage);
+      if (wasAlive && deviceHit.hp === 0)
+        raiseAlert(w, 35, "시설 파괴", deviceHit, 1);
       event(w, {
         type: deviceHit.hp === 0 ? "explode" : "hit",
         ...deviceHit,
@@ -494,86 +456,26 @@ export function tick(w: World, dt: number, hard = false) {
     m.intelProgress += dt;
     if (m.intelProgress >= 3) m.intel = true;
   }
-  // A checkpoint advances through combat clearance, never a long interaction timer.
-  if (["infiltrate", "breach", "destroy"].includes(m.stage)) {
-    const nextPatrol = m.encounters[m.checkpoint + 1];
-    if (
-      nextPatrol &&
-      !nextPatrol.spawned &&
-      live.some((p) => distance(p, w.map.zones[nextPatrol.zone].center) < 1050)
-    ) {
-      spawnEncounter(w, nextPatrol.zone, 0, live.length);
-      nextPatrol.spawned = true;
-    }
-    const encounter = m.encounters[m.checkpoint];
-    if (encounter && !encounter.cleared) {
-      const zone = w.map.zones[encounter.zone];
-      if (
-        !encounter.spawned &&
-        live.some((p) => distance(p, zone.center) < 670)
-      ) {
-        spawnEncounter(w, encounter.zone, encounter.wave, live.length);
-        encounter.spawned = true;
-        event(w, { type: "alarm", ...zone.center });
-      }
-      const guards = w.enemies.filter(
-        (e) => e.zone === encounter.zone && e.hp > 0,
-      );
-      if (encounter.spawned && guards.length === 0) {
-        encounter.wave++;
-        if (encounter.wave < encounter.total) {
-          spawnEncounter(w, encounter.zone, encounter.wave, live.length);
-        } else {
-          encounter.cleared = true;
-          m.checkpoint++;
-          event(w, { type: "supply", ...zone.center });
-        }
-      }
-    }
-    const nextStage =
-      m.checkpoint < Math.min(2, m.encounters.length)
-        ? "infiltrate"
-        : m.checkpoint < m.encounters.length
-          ? "breach"
-          : "destroy";
-    if (m.stage !== nextStage) {
-      m.stage = nextStage;
-      event(w, { type: "alarm", ...w.map.core });
-    }
-    if (m.stage === "destroy" && w.map.devices.every((d) => d.hp <= 0)) {
-      m.stage = "extract";
-      m.timer = RULES.meltdownSeconds;
-      m.pressure = 0;
-      spawnEncounter(w, w.map.route.at(-1)!, 0, live.length, true);
-      event(w, { type: "explode", ...w.map.core });
-    }
-  } else if (m.stage === "extract") {
-    m.timer = Math.max(0, m.timer - dt);
-    m.pressure += dt;
-    if (m.pressure >= RULES.waveInterval) {
-      m.pressure = 0;
-      m.wave++;
-      const rear =
-        w.map.zones[w.map.route[Math.max(0, w.map.route.length - 3)]];
-      spawnEncounter(w, rear.id, m.wave, live.length, true);
-    }
-    const connected = w.players.filter((p) => p.connected);
-    const all =
-      connected.length > 0 &&
-      connected.every((p) => !p.down && distance(p, w.map.extract) < 140);
-    m.extract = all ? m.extract + dt : 0;
-    if (m.extract >= RULES.extractSeconds)
-      finish(w, true, "발전 장치 파괴 · 돌파 및 분대 탈출 완료");
-    else if (m.timer <= 0)
-      finish(
-        w,
-        false,
-        `시설 붕괴 · ${RULES.meltdownSeconds}초 내 분대 탈출 실패`,
-      );
+  // Transitional objective bridge; phase5 migrates the mission schema and explicit extraction request.
+  if (m.stage === "destroy" && w.map.devices.every((d) => d.hp <= 0)) {
+    m.stage = "extract";
+    m.timer = 60;
+    w.director.next = w.time;
   }
-
+  if (m.stage === "extract") {
+    m.timer -= dt;
+    const connected = w.players.filter((p) => p.connected);
+    m.extract =
+      connected.length &&
+      connected.every((p) => !p.down && distance(p, w.map.extract) < 140)
+        ? m.extract + dt
+        : 0;
+    if (m.extract >= RULES.extractSeconds) finish(w, true, "분대 탈출 완료");
+    else if (m.timer <= 0) finish(w, false, "탈출 기한 초과");
+  }
   if (["success", "failed"].includes(m.stage)) return;
   tickAlert(w, dt);
+  tickDirector(w, dt);
   enemyAI(w, dt, hard ? 1.4 : 1);
   updateVision(w);
   if (m.elapsed > RULES.timeLimit) finish(w, false, "작전 시간 14분 초과");

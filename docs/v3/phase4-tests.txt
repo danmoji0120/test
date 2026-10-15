@@ -1,0 +1,15 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/network.test.ts (5 tests) 4090ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2601ms
+ ✓ tests/reinforcements.test.ts (5 tests) 814ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  596ms
+ ✓ tests/region.test.ts (2 tests) 2280ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  2256ms
+
+ Test Files  3 passed (3)
+      Tests  12 passed (12)
+   Start at  05:57:19
+   Duration  7.86s (transform 186ms, setup 0ms, collect 239ms, tests 7.18s, environment 0ms, prepare 139ms)
+

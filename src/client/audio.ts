@@ -5,6 +5,7 @@ export class AudioEngine {
   gain: GainNode | null = null;
   volume = 0.35;
   private noise: AudioBuffer | null = null;
+  private output: AudioNode | null = null;
   private room: ConvolverNode | null = null;
   start() {
     if (!this.ctx) {
@@ -35,7 +36,7 @@ export class AudioEngine {
       this.room.buffer = impulse;
       const wet = ctx.createGain();
       wet.gain.value = 0.13;
-      this.room.connect(wet).connect(this.gain);
+      this.room.connect(wet).connect(this.output ?? this.gain);
     }
     void this.ctx.resume();
   }
@@ -64,7 +65,10 @@ export class AudioEngine {
     env.gain.setValueAtTime(0.001, t);
     env.gain.linearRampToValueAtTime(volume, t + 0.002);
     env.gain.exponentialRampToValueAtTime(0.001, t + duration);
-    source.connect(filter).connect(env).connect(this.gain);
+    source
+      .connect(filter)
+      .connect(env)
+      .connect(this.output ?? this.gain);
     if (reverb && this.room) env.connect(this.room);
     source.start(t, Math.random() * 0.2);
     source.stop(t + duration + 0.01);
@@ -84,13 +88,20 @@ export class AudioEngine {
     g.gain.setValueAtTime(0.001, t);
     g.gain.linearRampToValueAtTime(volume, t + 0.003);
     g.gain.exponentialRampToValueAtTime(0.001, t + duration);
-    o.connect(g).connect(this.gain);
+    o.connect(g).connect(this.output ?? this.gain);
     o.start();
     o.stop(t + duration);
   }
-  play(e: GameEvent, dist: number) {
+  play(e: GameEvent, dist: number, pan = 0) {
     if (!this.ctx || !this.gain || dist > 1100 || e.pellet) return;
-    const v = Math.max(0.025, 1 / (1 + Math.pow(dist / 380, 2)));
+    const panner = this.ctx.createStereoPanner();
+    panner.pan.value = Math.max(-0.8, Math.min(0.8, pan));
+    panner.connect(this.gain);
+    this.output = panner;
+    setTimeout(() => panner.disconnect(), 1200);
+    const v =
+      (e.type === "sound" ? 0.5 : 1) *
+      Math.max(0.025, 1 / (1 + Math.pow(dist / 380, 2)));
     if (e.type === "sound") {
       this.noiseBurst(
         e.cue === "gunfire" ? 500 : 1200,
@@ -137,5 +148,6 @@ export class AudioEngine {
       this.tone(45, 0.55, 0.5 * v);
     } else if (e.type === "alarm") this.tone(640, 0.3, 0.12 * v);
     else this.noiseBurst(2100, 0.08, 0.15 * v, "bandpass");
+    this.output = null;
   }
 }

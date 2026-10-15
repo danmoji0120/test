@@ -271,6 +271,8 @@ export function region(seed: number): GameMap {
       disabled: false,
       cooldown: 0,
       warning: 0,
+      blocked: false,
+      blockProgress: 0,
       facility: "facility-" + z.id,
     };
   });
@@ -298,6 +300,15 @@ export function region(seed: number): GameMap {
         { ...o, y: y + 110, h: o.y + o.h - y - 110 },
       );
     }
+    obstacles.push({
+      id: "border-" + i,
+      x: right ? width - 40 : 0,
+      y: y - 110,
+      w: 40,
+      h: 220,
+      kind: "door",
+      open: true,
+    });
     sources.push({
       id: "external-" + i,
       kind: "external",
@@ -316,6 +327,8 @@ export function region(seed: number): GameMap {
       disabled: false,
       cooldown: 0,
       warning: 0,
+      blocked: false,
+      blockProgress: 0,
       facility: "",
     });
   }
