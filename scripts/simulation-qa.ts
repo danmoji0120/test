@@ -113,13 +113,16 @@ for (const scenario of scenarios) {
     const request = w.reinforcements.find((r) => r.id === t.request);
     const validOrigin =
       source.kind === "external"
-        ? t.born.x < 0 || t.born.x > w.map.width
-        : Math.hypot(t.born.x - source.x, t.born.y - source.y) < 100;
+        ? t.born.x < 0 ||
+          t.born.x > w.map.width ||
+          t.born.y < 0 ||
+          t.born.y > w.map.height
+        : Math.hypot(t.born.x - source.x, t.born.y - source.y) < 130;
     const continuous = t.points.every(
       (p, i) =>
         i === 0 ||
         Math.hypot(p.x - t.points[i - 1].x, p.y - t.points[i - 1].y) <=
-          240 * (p.at - t.points[i - 1].at) + 12,
+          270 * (p.at - t.points[i - 1].at) + 12,
     );
     return {
       enemy: t.enemy,

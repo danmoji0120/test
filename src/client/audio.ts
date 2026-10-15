@@ -145,6 +145,11 @@ export class AudioEngine {
       if (sg) this.noiseBurst(1700, 0.09, 0.12 * v, "bandpass", 0.23);
       if (e.impact) this.noiseBurst(3900, 0.065, 0.13 * v, "bandpass", 0.025);
     } else if (e.type === "hit") {
+      if (e.armored) {
+        this.noiseBurst(4700, 0.11, 0.36 * v, "bandpass", 0, true);
+        this.output = null;
+        return;
+      }
       this.noiseBurst(
         e.enemy ? 480 : 2300,
         0.065,

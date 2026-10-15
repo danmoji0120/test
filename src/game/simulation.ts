@@ -301,8 +301,8 @@ export function fire(w: World, p: Player) {
     if (deviceHit) {
       const wasAlive = deviceHit.hp > 0;
       deviceHit.hp = Math.max(0, deviceHit.hp - gun.damage);
-      if (wasAlive && deviceHit.hp === 0)
-        raiseAlert(w, 35, "시설 파괴", deviceHit, 1);
+      if (wasAlive && deviceHit.hp === 0 && deviceHit.kind === "barracks")
+        raiseAlert(w, 24, "정비 병영 파괴", deviceHit, 2);
       event(w, {
         type: deviceHit.hp === 0 ? "explode" : "hit",
         x: deviceHit.x,
@@ -357,6 +357,7 @@ export function fire(w: World, p: Player) {
       actor: p.id,
       weapon: p.weapon,
       damage,
+      armored: armored(e.kind) && armorMultiplier(e, p) < 0.2,
       angle: p.angle,
     });
 }
@@ -406,13 +407,24 @@ export function tick(w: World, dt: number) {
         (input.sprint ? RULES.sprintSpeed : input.aim ? RULES.aimSpeed : 1) *
         (p.mod === "stabilizer" ? 0.96 : 1) *
         (p.tactical === "launcher" ? 0.96 : 1);
+      const beforeMove = { x: p.x, y: p.y };
       move(
         p,
         (input.dx / Math.max(1, len)) * speed * dt,
         (input.dy / Math.max(1, len)) * speed * dt,
         w.map,
       );
-      p.moving = true;
+      if (
+        w.enemies.some(
+          (e) =>
+            e.hp > 0 &&
+            armored(e.kind) &&
+            distance(p, e) < enemyRadius(e.kind) + 16 &&
+            distance(p, e) < distance(beforeMove, e),
+        )
+      )
+        Object.assign(p, beforeMove);
+      p.moving = distance(p, beforeMove) > 0.01;
       if (Math.floor((w.time - dt) / 0.8) !== Math.floor(w.time / 0.8))
         noise(w, p, input.sprint ? 360 : 150, "steps");
     }

@@ -161,7 +161,7 @@ export class Renderer {
             this.numbers.push({
               x: e.x,
               y: e.y - 55,
-              text: String(Math.round(e.damage ?? 0)),
+              text: e.armored ? "장갑 도탄" : String(Math.round(e.damage ?? 0)),
               life: 0.55,
             });
           }
@@ -314,7 +314,7 @@ export class Renderer {
         local?.aim ? 0.32 : 0.23,
         165 / Math.max(1, aimLength),
       ),
-      movement = local ?? p.input ?? {dx:0,dy:0};
+      movement = local ?? p.input ?? { dx: 0, dy: 0 };
     const leadX = aimX * aimScale + movement.dx * 48,
       leadY = aimY * aimScale + movement.dy * 48,
       cap = Math.min(1, 195 / Math.max(1, Math.hypot(leadX, leadY)));

@@ -1,3 +1,4 @@
+import { forceBudget } from "../game/budgets";
 import { visibleWorld } from "./visibility";
 import { RULES } from "../shared/rules";
 import { difficulty } from "../shared/difficulty";
@@ -389,6 +390,7 @@ function saveTrace(r: Room) {
     time: w.time,
     mission: w.mission,
     metrics: w.metrics,
+    budgets: forceBudget(w),
     requests: w.reinforcements,
     difficulty: w.difficulty,
     alert: w.alertState,

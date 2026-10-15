@@ -63,7 +63,7 @@ export function visionPolygon(
       p.y > o.y + o.h + range
     )
       continue;
-    for (const v of [
+    for (const v of o.polygon ?? [
       { x: o.x, y: o.y },
       { x: o.x + o.w, y: o.y },
       { x: o.x, y: o.y + o.h },

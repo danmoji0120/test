@@ -1,3 +1,4 @@
+import { strategicAI } from "./strategic";
 import { special } from "./armor";
 import { heavyAI } from "./heavy-ai";
 import { lineOfSight } from "./visibility";
@@ -17,6 +18,11 @@ import { raiseAlert } from "./alert";
 export function enemyAI(w: World, dt: number) {
   const config = difficulty(w.difficulty, w.players.length);
   const live = w.players.filter((p) => p.connected && !p.down);
+  const livingSquads = new Set(
+    w.enemies.filter((e) => e.hp > 0).map((e) => e.squad),
+  );
+  for (const id of Object.keys(w.squads))
+    if (!livingSquads.has(id)) delete w.squads[id];
   for (const squad of Object.values(w.squads))
     if (!w.enemies.some((e) => e.id === squad.leader && e.hp > 0))
       squad.leader =
@@ -38,6 +44,7 @@ export function enemyAI(w: World, dt: number) {
       else continue;
     }
     if (e.traveling) continue;
+    if (strategicAI(w, e, dt)) continue;
     const target = perceive(w, e, live, dt);
     const squad = w.squads[e.squad];
     if (
@@ -47,7 +54,7 @@ export function enemyAI(w: World, dt: number) {
       e.stateTime > 1.5
     ) {
       transition(e, "REQUEST_SUPPORT");
-      raiseAlert(w, 50, "지원 요청", e);
+
       squad.callAt = w.time;
       w.supportSignals = w.supportSignals.slice(-31);
       w.supportSignals.push({
@@ -90,7 +97,7 @@ export function enemyAI(w: World, dt: number) {
           e.windup = e.kind === "rifle" ? 0.16 : 0.14;
         } else {
           e.burst = 0;
-          e.cooldown = spec.delay;
+          e.cooldown = spec.delay * (e.elite ? 0.72 : 1);
         }
       }
       if (e.windup > 0 && e.kind === "heavy") continue;
@@ -120,7 +127,7 @@ export function enemyAI(w: World, dt: number) {
         if (e.role === "flank" && distance(e, goal) > 160) {
           const side = Number(e.id.slice(1)) % 2 ? 1 : -1;
           // A* chooses an actual bypass; candidates on walls are discarded.
-          for (const offset of [260, 180, 100]) {
+          for (const offset of e.elite ? [360, 260, 180] : [260, 180, 100]) {
             const candidate = {
               x: goal.x - Math.sin(angle) * offset * side,
               y: goal.y + Math.cos(angle) * offset * side,

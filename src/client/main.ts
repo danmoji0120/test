@@ -264,7 +264,11 @@ function updateHud() {
         ? "주 목표 완료 · 탈출 시점은 분대가 결정"
         : "자유 작전 · 핵심 발전기 " + done + " / 2";
   document.querySelector("#clock")!.textContent = time(m.elapsed);
-  const notice = (w.notices || []).at(-1);
+  const notice =
+    [...(w.notices || [])]
+      .reverse()
+      .find((n) => n.text.includes("중장갑") && w.time - n.at < 18) ??
+    (w.notices || []).at(-1);
   const noticeEl = document.querySelector("#response-notice") as HTMLElement;
   if (noticeEl) {
     noticeEl.textContent =

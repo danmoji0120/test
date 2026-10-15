@@ -351,7 +351,7 @@ export interface GameEvent extends Vec {
 }
 export interface Objective {
   id: string;
-  kind: "generator" | "comms" | "outpost" | "intel";
+  kind: "generator" | "comms" | "outpost" | "barracks" | "intel";
   label: string;
   position: Vec;
   optional: boolean;

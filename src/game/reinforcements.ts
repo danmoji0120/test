@@ -1,4 +1,6 @@
-import { enemyRadius } from "./armor";
+import { dispatchBlock } from "./budgets";
+import { audit } from "./alert";
+import { enemyRadius, armored } from "./armor";
 import {
   ENEMIES,
   type World,
@@ -10,9 +12,7 @@ import { distance, findPath, move, blocked, invalidateNavigation } from "./map";
 import { spawnEnemy, event } from "./simulation";
 import { lineOfSight } from "./visibility";
 import { difficulty } from "../shared/difficulty";
-export const MAX_ACTORS = 30;
-const active = (w: World) =>
-  w.enemies.filter((e) => e.hp > 0 && !e.reserve).length;
+export { MAX_ACTORS } from "./budgets";
 function door(w: World, id: string, open: boolean) {
   const d = w.map.obstacles.find((o) => o.id === id);
   if (d && d.open !== open) {
@@ -30,6 +30,13 @@ export function initializeTheatre(w: World) {
     s.prepare *= config.prepare;
     s.interval = config.interval + (s.kind === "external" ? 12 : 0);
     s.batch = config.batch;
+    if (s.kind === "external" || s.kind === "barracks") {
+      if (w.difficulty >= 5) s.supports.push("juggernaut");
+      if (w.difficulty >= 7) s.supports.push("drone");
+      if (w.difficulty >= 8) s.supports.push("walker");
+      if (w.difficulty >= 9 && s.kind === "external")
+        s.supports.push("artillery");
+    }
   }
   for (const z of w.map.zones.slice(0, 6))
     for (
@@ -116,7 +123,7 @@ export function initializeTheatre(w: World) {
     for (let i = 0; i < 2; i++)
       spawnEnemy(
         w,
-        { x: s.x - 18 + i * 36, y: s.y - 20 },
+        { x: s.x - 55 + i * 110, y: s.y - 90 },
         i ? "rush" : "rifle",
         {
           squad: "reserve-" + s.id,
@@ -125,78 +132,168 @@ export function initializeTheatre(w: World) {
           patrol: [{ x: s.x, y: s.y }],
         },
       );
+    if (s.kind === "barracks" && w.difficulty >= 5) {
+      const kind = w.difficulty >= 8 ? "walker" : "juggernaut";
+      const e = spawnEnemy(w, { x: s.x, y: s.y + 35 }, kind, {
+        squad: "motorpool-" + s.id,
+        reserve: true,
+        sourceId: s.id,
+        patrol: [{ x: s.x, y: s.y }],
+      });
+      if (e) {
+        s.stock++;
+        s.capacity++;
+      }
+    }
   }
 }
-/** Idempotent dispatch; selection uses a known target, not hidden player coordinates. */
+export interface DispatchPlan {
+  heavy?: boolean;
+  task?: Reinforcement["task"];
+  roster?: import("../shared/data").EnemyKind[];
+}
+/** Every request reserves a real local soldier or an external roster and a width-valid physical route. */
 export function requestSupport(
   w: World,
   key: string,
   target: Vec,
   squad = "director",
   preferred?: string,
+  plan: DispatchPlan = {},
 ): Reinforcement | undefined {
   if (w.dispatchKeys[key])
     return w.reinforcements.find((r) => r.id === w.dispatchKeys[key]);
-  if (Object.keys(w.dispatchKeys).length >= 2048) return;
-  const old = w.reinforcements.find((r) => r.key === key);
-  if (old) return old;
-  if (w.reinforcements.filter((r) => r.state === "queued").length >= 8) return;
+  if (
+    Object.keys(w.dispatchKeys).length >= 2048 ||
+    w.reinforcements.filter((r) => r.state === "queued").length >= 8
+  )
+    return;
   const candidates = w.map.sources.filter(
     (s) =>
       !s.disabled &&
       !s.blocked &&
       s.cooldown <= 0 &&
       s.stock > 0 &&
-      (preferred ? s.id === preferred : s.response <= w.alertState.level),
+      (preferred ? s.id === preferred : s.response <= w.alertState.level) &&
+      (!plan.heavy || s.supports.some(armored)),
   );
   candidates.sort(
     (a, b) => distance(a.entry, target) - distance(b.entry, target),
   );
   for (const s of candidates) {
-    const path = findPath(s.entry, target, w.map, 19);
+    const members =
+      s.kind === "external"
+        ? []
+        : w.enemies
+            .filter(
+              (e) =>
+                e.hp > 0 &&
+                e.reserve &&
+                e.sourceId === s.id &&
+                !e.requestId &&
+                (!plan.heavy || armored(e.kind)) &&
+                (plan.heavy || !armored(e.kind) || w.alertState.level >= 3),
+            )
+            .slice(0, plan.heavy ? 1 : s.batch);
+    if (s.kind !== "external" && !members.length) continue;
+    let roster: import("../shared/data").EnemyKind[];
+    if (members.length) roster = members.map((e) => e.kind);
+    else if (plan.roster)
+      roster = plan.roster.filter((k) => s.supports.includes(k));
+    else if (plan.heavy) {
+      const kinds = s.supports.filter(armored);
+      const kind =
+        kinds[(w.dispatchId + (w.difficulty >= 8 ? 1 : 0)) % kinds.length];
+      roster = [kind, ...(w.difficulty >= 7 ? ["drone" as const] : [])];
+    } else
+      roster = Array.from({ length: s.batch }, (_, i) =>
+        i === 0 && w.difficulty >= 7 && w.alertState.level >= 3
+          ? "drone"
+          : i % 3 === 2
+            ? "heavy"
+            : i % 2
+              ? "rush"
+              : "rifle",
+      );
+    if (!roster.length) continue;
+    const radius = Math.max(...roster.map(enemyRadius)),
+      path = findPath(s.entry, target, w.map, radius);
     if (!path.length && distance(s.entry, target) > 70) continue;
     const r: Reinforcement = {
       id: "dispatch-" + ++w.dispatchId,
       key,
       squad,
       sourceId: s.id,
-      members: [],
+      members: members.map((e) => e.id),
+      roster,
+      task: plan.task ?? "assault",
+      radius,
       target: { x: target.x, y: target.y },
       path: [{ ...s.entry }, ...path],
       requested: w.time,
       departed: -1,
       arrived: -1,
-      eta: w.time + s.prepare + (path.length * 50) / 150,
+      eta:
+        w.time +
+        s.prepare +
+        (path.length * 50) /
+          (Math.min(...roster.map((k) => ENEMIES[k].speed)) * 0.9),
       state: "queued",
       reason: "",
     };
-    if (s.kind !== "external")
-      r.members = w.enemies
-        .filter(
-          (e) => e.hp > 0 && e.reserve && e.sourceId === s.id && !e.requestId,
-        )
-        .slice(0, s.batch)
-        .map((e) => {
-          e.requestId = r.id;
-          return e.id;
-        });
-    if (s.kind !== "external" && !r.members.length) {
-      s.stock = 0;
-      continue;
-    }
+    for (const e of members) e.requestId = r.id;
     s.cooldown = s.interval;
     s.warning = w.time + s.prepare;
     w.reinforcements.push(r);
     w.dispatchKeys[key] = r.id;
+    audit(w, "queued", `${r.id} ${s.id} ${roster.join("+")} ${r.task}`);
+    const team = w.players.filter((p) => p.connected && !p.down),
+      center = team.length
+        ? {
+            x: team.reduce((n, p) => n + p.x, 0) / team.length,
+            y: team.reduce((n, p) => n + p.y, 0) / team.length,
+          }
+        : w.map.spawn;
+    const sector = Math.round(
+        Math.atan2(s.entry.y - center.y, s.entry.x - center.x) / (Math.PI / 4),
+      ),
+      direction = [
+        "동쪽",
+        "남동쪽",
+        "남쪽",
+        "남서쪽",
+        "서쪽",
+        "북서쪽",
+        "북쪽",
+        "북동쪽",
+      ][(sector + 8) % 8];
+    if (w.alertState.level >= 2) {
+      w.notices.push({
+        at: w.time,
+        text: roster.some(armored)
+          ? "중장갑 대응 전력 출동 준비"
+          : w.alertState.level >= 3
+            ? "정예 대응 분대 출동 준비"
+            : "지원 병력 출동 준비",
+        direction,
+        eta: r.eta,
+      });
+      w.notices = w.notices.slice(-12);
+    }
     return r;
   }
+  audit(w, "declined", `${key}: 유효 출동지·재고·경로 없음`);
 }
 export function cancelRequest(w: World, r: Reinforcement, reason: string) {
   if (r.state !== "queued") return;
   r.state = "cancelled";
   r.reason = reason;
+  audit(w, "cancelled", `${r.id}: ${reason}`);
   for (const e of w.enemies)
     if (e.requestId === r.id && e.reserve) e.requestId = "";
+}
+function doorState(w: World, s: World["map"]["sources"][number]) {
+  door(w, s.doorId, true);
 }
 function trace(w: World, e: Enemy, r: Reinforcement) {
   let a = w.trajectories.find((t) => t.enemy === e.id && t.request === r.id);
@@ -233,10 +330,10 @@ export function tickReinforcements(w: World, dt: number) {
         s.blocked = true;
         s.warning = 0;
         door(w, s.doorId, false);
-        event(w, { type: "alarm", x: s.entry.x, y: s.entry.y });
+        audit(w, "source-blocked", s.id);
+        event(w, { type: "alarm", ...s.entry });
       }
     } else if (!s.blocked) s.blockProgress = Math.max(0, s.blockProgress - dt);
-
     s.cooldown = Math.max(0, s.cooldown - dt);
     if (
       s.facility &&
@@ -247,37 +344,65 @@ export function tickReinforcements(w: World, dt: number) {
     }
   }
   for (const r of w.reinforcements) {
-    const s = w.map.sources.find((s) => s.id === r.sourceId)!;
+    const s = w.map.sources.find((s) => s.id === r.sourceId);
+    if (!s) {
+      cancelRequest(w, r, "출동지 소실");
+      continue;
+    }
     if (r.state === "queued") {
       if (s.disabled || s.blocked) {
         cancelRequest(w, r, "출동지 무력화");
         continue;
       }
       const comms = w.map.installations.some(
-        (d) => d.kind === "comms" && d.hp > 0,
-      );
-      const prep = s.prepare * (comms ? 1 : 1.8);
-      if (
-        w.time - r.requested < prep ||
-        active(w) + (r.members.length || s.batch) >
-          difficulty(w.difficulty, w.players.length).activeCap ||
-        w.enemies.length + (s.kind === "external" ? s.batch : 0) > MAX_ACTORS
-      )
+          (d) => d.kind === "comms" && d.hp > 0,
+        ),
+        motorpool = w.map.installations.some(
+          (d) => d.kind === "barracks" && d.hp > 0,
+        ),
+        prep =
+          s.prepare *
+          (comms ? 1 : 1.8) *
+          (w.alertState.level >= 3 ? 0.7 : 1) *
+          (s.kind === "external" && r.roster?.some(armored) && !motorpool
+            ? 2.3
+            : 1);
+      if (w.time - r.requested < Math.max(3, prep)) continue;
+      const roster =
+          r.roster ??
+          r.members.map((id) => w.enemies.find((e) => e.id === id)!.kind),
+        block = dispatchBlock(w, roster, s.kind === "external");
+      if (block) {
+        if (r.reason !== block) {
+          r.reason = block;
+          audit(w, "waiting", `${r.id}: ${block}`);
+        }
         continue;
-      const route = findPath(s.entry, r.target, w.map, 19);
+      }
+      const radius = r.radius ?? 19,
+        route = findPath(s.entry, r.target, w.map, radius);
       if (!route.length && distance(s.entry, r.target) > 70) {
         cancelRequest(w, r, "경로 차단");
         continue;
       }
       r.path = [{ ...s.entry }, ...route];
-      door(w, s.doorId, true);
+      doorState(w, s);
       if (s.kind === "external")
-        for (let i = 0; i < s.batch; i++) {
+        for (let i = 0; i < roster.length; i++) {
           const e = spawnEnemy(
             w,
-            { x: s.x, y: s.y + (i - 1) * 38 },
-            s.supports[(i + Math.floor(w.time)) % s.supports.length],
-            { squad: r.id, sourceId: s.id, requestId: r.id },
+            {
+              x: s.x + (s.y < 0 || s.y > w.map.height ? (i - 1) * 65 : 0),
+              y: s.y + (s.x < 0 || s.x > w.map.width ? (i - 1) * 65 : 0),
+            },
+            roster[i],
+            {
+              squad: r.id,
+              sourceId: s.id,
+              requestId: r.id,
+              elite: w.alertState.level >= 3 && w.difficulty >= 5,
+              role: r.task === "block" ? "anchor" : i % 2 ? "flank" : "assault",
+            },
           );
           if (e) r.members.push(e.id);
         }
@@ -289,10 +414,14 @@ export function tickReinforcements(w: World, dt: number) {
         e.state = "PURSUE";
         e.path =
           s.kind === "external"
-            ? [...r.path]
-            : [...findPath(e, s.entry, w.map, 19), ...r.path];
+            ? r.path.map((p) => ({ ...p }))
+            : [
+                ...findPath(e, s.entry, w.map, enemyRadius(e.kind)),
+                ...r.path.map((p) => ({ ...p })),
+              ];
         e.home = { ...r.target };
         e.memory = 0;
+        e.role = r.task === "block" ? "anchor" : e.role;
         trace(w, e, r);
       }
       if (
@@ -304,9 +433,26 @@ export function tickReinforcements(w: World, dt: number) {
       if (s.kind !== "external")
         s.stock = Math.max(0, s.stock - r.members.length);
       r.state = "traveling";
+      r.reason = "";
       r.departed = w.time;
-      r.eta = w.time + (r.path.length * 50) / 150;
-      event(w, { type: "alarm", x: s.entry.x, y: s.entry.y });
+      r.eta =
+        w.time +
+        (r.path.length * 50) /
+          (Math.min(...roster.map((k) => ENEMIES[k].speed)) * 0.9);
+      audit(
+        w,
+        "departed",
+        `${r.id} ${s.id} ${r.members.join(",")} ${roster.join("+")}`,
+      );
+      event(w, { type: "alarm", ...s.entry, heavy: roster.some(armored) });
+      if (roster.some(armored))
+        event(w, {
+          type: "sound",
+          cue: "engine",
+          ...s.entry,
+          enemy: true,
+          heavy: true,
+        });
     }
     if (r.state === "traveling") {
       for (const id of r.members) {
@@ -317,10 +463,15 @@ export function tickReinforcements(w: World, dt: number) {
           continue;
         }
         const contact = w.players.some(
-          (p) => p.connected && !p.down && lineOfSight(e, p, w.map, 620),
+          (p) =>
+            p.connected &&
+            !p.down &&
+            lineOfSight(e, p, w.map, e.kind === "drone" ? 950 : 620),
         );
         if (contact && distance(e, s) > 150) {
           e.traveling = false;
+          e.lastSeen = { ...r.target };
+          e.memory = 5;
           r.arrived = w.time;
           trace(w, e, r);
           continue;
@@ -329,33 +480,37 @@ export function tickReinforcements(w: World, dt: number) {
         const point = e.path[0];
         if (point) {
           const d = distance(e, point),
-            speed = ENEMIES[e.kind].speed * 0.9;
-          const before = { x: e.x, y: e.y };
+            speed = ENEMIES[e.kind].speed * 0.9,
+            step = Math.min(d, speed * dt),
+            before = { x: e.x, y: e.y };
           e.angle = Math.atan2(point.y - e.y, point.x - e.x);
           if (Math.floor((w.time - dt) / 1.2) !== Math.floor(w.time / 1.2))
             event(w, {
               type: "sound",
-              cue: "steps",
-              enemy: true,
+              cue: armored(e.kind) ? "engine" : "steps",
               x: e.x,
               y: e.y,
+              enemy: true,
+              heavy: armored(e.kind),
+              kind: e.kind,
             });
           move(
             e,
-            ((point.x - e.x) / d) * speed * dt,
-            ((point.y - e.y) / d) * speed * dt,
+            ((point.x - e.x) / d) * step,
+            ((point.y - e.y) / d) * step,
             w.map,
-            19,
+            enemyRadius(e.kind),
           );
           if (distance(e, before) < 0.05) e.stuck += dt;
           else e.stuck = 0;
           if (e.stuck > 1.5) {
-            e.path = findPath(e, r.target, w.map, 19);
+            e.path = findPath(e, r.target, w.map, enemyRadius(e.kind));
             e.stuck = 0;
             if (!e.path.length) {
               r.reason = "행군 경로 차단";
               e.traveling = false;
               e.state = "INVESTIGATE";
+              audit(w, "interrupted", `${r.id} ${e.id}: 경로 차단`);
             }
           }
         } else {
@@ -372,6 +527,7 @@ export function tickReinforcements(w: World, dt: number) {
       ) {
         r.state = "cancelled";
         r.reason = "행군 병력 손실";
+        audit(w, "cancelled", `${r.id}: ${r.reason}`);
         continue;
       }
       if (
@@ -388,10 +544,11 @@ export function tickReinforcements(w: World, dt: number) {
           r.arrived = w.time;
         }
       }
-    } else if (r.state === "arriving" && w.time - r.arrived > 0.5)
+    } else if (r.state === "arriving" && w.time - r.arrived > 0.5) {
       r.state = "deployed";
+      audit(w, "deployed", `${r.id}: ${r.task}`);
+    }
   }
-  // Bounded history. IDs are monotonic and old idempotence keys are time-bucketed by callers.
   if (w.reinforcements.length > 96)
     w.reinforcements = w.reinforcements
       .filter(

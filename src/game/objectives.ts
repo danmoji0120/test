@@ -5,25 +5,25 @@ import { raiseAlert } from "./alert";
 import { event } from "./simulation";
 export function objectives(map: GameMap): Objective[] {
   return [
-    ...map.installations
-      .filter((d) => d.kind !== "barracks")
-      .map((d) => ({
-        id: d.id,
-        kind: d.kind as "generator" | "comms" | "outpost",
-        label:
-          d.kind === "generator"
-            ? "핵심 발전기 " + (d.id.endsWith("0") ? "A" : "B")
-            : d.kind === "comms"
-              ? "통신탑 파괴"
+    ...map.installations.map((d) => ({
+      id: d.id,
+      kind: d.kind as "generator" | "comms" | "outpost" | "barracks",
+      label:
+        d.kind === "generator"
+          ? "핵심 발전기 " + (d.id.endsWith("0") ? "A" : "B")
+          : d.kind === "comms"
+            ? "통신탑 파괴"
+            : d.kind === "barracks"
+              ? "중장비 정비 병영 파괴"
               : "전초기지 무력화",
-        position: { x: d.x, y: d.y },
-        optional: d.kind !== "generator",
-        state: "available" as const,
-        progress: 0,
-        total: d.maxHp,
-        reward: d.kind === "generator" ? 100 : 120,
-        discovered: d.kind === "generator",
-      })),
+      position: { x: d.x, y: d.y },
+      optional: d.kind !== "generator",
+      state: "available" as const,
+      progress: 0,
+      total: d.maxHp,
+      reward: d.kind === "generator" ? 100 : 120,
+      discovered: d.kind === "generator",
+    })),
     {
       id: "intel",
       kind: "intel",
@@ -70,7 +70,17 @@ export function tickObjectives(w: World, dt: number) {
       if (d.hp <= 0) {
         o.state = "complete";
         w.metrics.objectiveOrder.push(o.id);
-        if (o.kind === "generator") raiseAlert(w, 35, "발전기 파괴", d, 2);
+        raiseAlert(
+          w,
+          o.kind === "generator" ? 35 : 18,
+          o.kind === "generator"
+            ? "발전기 파괴"
+            : o.kind === "comms"
+              ? "통신 시설 파괴"
+              : "전초기지 파괴",
+          d,
+          o.kind === "generator" ? 2 : 1,
+        );
       } else if (o.progress > 0) o.state = "active";
     }
   }

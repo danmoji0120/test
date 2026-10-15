@@ -43,6 +43,17 @@ export function move(p: Vec, dx: number, dy: number, map: GameMap, r = 16) {
   );
   if (!blocked({ x: p.x, y }, map.obstacles, r)) p.y = y;
 }
+/** Substeps for strategic updates: never jump through thin walls after a long AI interval. */
+export function moveSwept(
+  p: Vec,
+  dx: number,
+  dy: number,
+  map: GameMap,
+  r = 16,
+) {
+  const steps = Math.max(1, Math.ceil(Math.hypot(dx, dy) / 8));
+  for (let i = 0; i < steps; i++) move(p, dx / steps, dy / steps, map, r);
+}
 /** Ray vs AABB slab intersection; distance in [0,max], Infinity for a miss. */
 export function rayRect(p: Vec, dir: Vec, o: Rect, max: number) {
   let near = 0,

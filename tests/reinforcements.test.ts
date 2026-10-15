@@ -1,3 +1,4 @@
+import { MAX_ACTORS } from "../src/game/budgets";
 import { it, expect } from "vitest";
 import { createWorld, makePlayer, spawnEnemy } from "../src/game/simulation";
 import { requestSupport, tickReinforcements } from "../src/game/reinforcements";
@@ -87,11 +88,12 @@ it("holds at the actor limit and cancels when a route is cut", () => {
     s = w.map.sources.find((s) => s.kind === "external" && s.x < 0)!;
   w.map.obstacles = [];
   invalidateNavigation(w.map);
-  while (w.enemies.length < 30) spawnEnemy(w, { x: 2500, y: 1600 }, "rifle");
+  while (w.enemies.length < MAX_ACTORS)
+    spawnEnemy(w, { x: 2500, y: 1600 }, "rifle");
   const r = requestSupport(w, "cap", { x: 3000, y: 1650 }, "director", s.id)!;
   march(w, 30);
   expect(r.state).toBe("queued");
-  expect(w.enemies).toHaveLength(30);
+  expect(w.enemies).toHaveLength(MAX_ACTORS);
   w.enemies = w.enemies.slice(0, 10);
   w.map.obstacles = [{ x: 2000, y: 0, w: 100, h: w.map.height, kind: "wall" }];
   invalidateNavigation(w.map);

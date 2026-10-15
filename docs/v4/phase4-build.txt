@@ -1,0 +1,22 @@
+
+> project-doll-squad@0.3.0 build
+> tsc --noEmit && vite build && esbuild src/server/index.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/server.mjs
+
+vite v6.4.4 building for production...
+transforming...
+✓ 22 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                      0.71 kB │ gzip:  0.46 kB
+dist/assets/aria-tactical-operator-DSg1myvu.png  1,502.05 kB
+dist/assets/enemies-atlas-Bq6dqRDp.png           1,557.50 kB
+dist/assets/operators-atlas-BsJDefIA.png         1,763.82 kB
+dist/assets/v4-enemies-atlas-ClXva3bZ.png        2,286.88 kB
+dist/assets/v4-environment-atlas-0a1YvfBU.png    2,675.40 kB
+dist/assets/index-BY3L1XTd.css                      21.64 kB │ gzip:  5.77 kB
+dist/assets/index-Bg2ElA_Q.js                       65.58 kB │ gzip: 25.76 kB
+✓ built in 323ms
+
+  dist/server.mjs  107.6kb
+
+⚡ Done in 11ms

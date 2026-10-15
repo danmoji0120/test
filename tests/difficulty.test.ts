@@ -1,3 +1,4 @@
+import { MAX_ACTORS } from "../src/game/budgets";
 import { it, expect } from "vitest";
 import { difficulty } from "../src/shared/difficulty";
 import { createWorld, makePlayer } from "../src/game/simulation";
@@ -18,7 +19,7 @@ it("scales response, composition and pressure across ten levels without health i
         Array.from({ length: team }, (_, i) => makePlayer("p" + i, "Pilot")),
         level,
       );
-      expect(w.enemies.length).toBeLessThanOrEqual(36);
+      expect(w.enemies.length).toBeLessThanOrEqual(MAX_ACTORS);
       expect(w.enemies.length).toBeGreaterThan(0);
       for (const e of w.enemies) expect(e.hp).toBe(ENEMIES[e.kind].hp);
       previous = config;
