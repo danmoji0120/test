@@ -1,6 +1,6 @@
 {
   "name": "project-doll-squad",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -17,7 +17,9 @@
     "qa:audio": "tsx scripts/audio-qa.ts",
     "qa:session": "tsx scripts/qa-session.ts",
     "qa:suite": "tsx scripts/browser-suite.ts",
-    "qa:dev": "tsx scripts/dev-qa-session.ts"
+    "qa:dev": "tsx scripts/dev-qa-session.ts",
+    "qa:v4": "tsx scripts/v4-simulation-qa.ts",
+    "qa:server-stress": "tsx scripts/v4-server-stress.ts"
   },
   "dependencies": {
     "vite": "^6.3.5",

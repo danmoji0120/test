@@ -95,11 +95,16 @@ export function initializeTheatre(w: World) {
           ? w.map.sources.find((s) => s.kind === "external")!.entry
           : site.entry;
     for (let n = 0; n < 24; n++) {
-      const a = n * 2.399,
+      const a = n * 2.399 + i * 1.3,
         r = kind === "artillery" ? 130 + n * 15 : 120 + n * 12,
         p = { x: anchor.x + Math.cos(a) * r, y: anchor.y + Math.sin(a) * r };
       if (
         !blocked(p, w.map.obstacles, enemyRadius(kind)) &&
+        !w.enemies.some(
+          (e) =>
+            e.hp > 0 &&
+            distance(e, p) < enemyRadius(kind) + enemyRadius(e.kind) + 20,
+        ) &&
         p.x > 100 &&
         p.y > 100 &&
         p.x < w.map.width - 100 &&

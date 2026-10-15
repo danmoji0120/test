@@ -1,0 +1,74 @@
+[
+  {
+    enemy: 'e25',
+    kind: 'rifle',
+    source: 'source-5',
+    request: 'dispatch-1',
+    samples: 4,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e26',
+    kind: 'rush',
+    source: 'source-5',
+    request: 'dispatch-1',
+    samples: 4,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e23',
+    kind: 'rifle',
+    source: 'source-4',
+    request: 'dispatch-2',
+    samples: 21,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e24',
+    kind: 'rush',
+    source: 'source-4',
+    request: 'dispatch-2',
+    samples: 21,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e21',
+    kind: 'rifle',
+    source: 'source-3',
+    request: 'dispatch-3',
+    samples: 3,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e22',
+    kind: 'rush',
+    source: 'source-3',
+    request: 'dispatch-3',
+    samples: 3,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  }
+]

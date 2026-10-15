@@ -1,3 +1,4 @@
+import { armored, armorMultiplier } from "../src/game/armor";
 import {
   WEAPONS,
   ENEMIES,
@@ -12,6 +13,8 @@ import { distance, visible, findPath, blocked } from "../src/game/map";
 export class Pilot {
   strategy: "primary" | "all" | "evade" = "primary";
   reverse = false;
+  reckless = false;
+  avoidArmor = false;
   navRevision = -1;
   destination: Vec | null = null;
   path: Vec[] = [];
@@ -19,12 +22,15 @@ export class Pilot {
   navRun = "";
   goal: Vec | null = null;
   repath = 0;
+  lastObservation = 0;
+  approached = new Set<string>();
   input(w: World, p: Player, index = 0): Input {
     if (this.navRun !== w.id) {
       this.navMap = w.map;
       this.navRun = w.id;
       this.path = [];
       this.goal = null;
+      this.approached.clear();
     }
     if (this.navRevision !== w.terrainRevision) {
       this.navMap = w.map;
@@ -32,6 +38,8 @@ export class Pilot {
       this.path = [];
       this.repath = 0;
     }
+    const sample = Math.min(0.6, Math.max(0.1, w.time - this.lastObservation));
+    this.lastObservation = w.time;
     const input = emptyInput();
     if (p.down) return input;
     const m = w.mission,
@@ -62,7 +70,8 @@ export class Pilot {
           distance(a.center, objective.position) -
           distance(b.center, objective.position),
       )[0];
-      goal = distance(p, zone.entry) > 75 ? zone.entry : zone.center;
+      if (distance(p, zone.entry) < 95) this.approached.add(objective.id);
+      goal = this.approached.has(objective.id) ? zone.center : zone.entry;
     }
     const fallen = w.players.find((v) => v.down && v.connected);
     const medic = fallen
@@ -95,7 +104,11 @@ export class Pilot {
       .filter(
         (e) =>
           e.hp > 0 &&
-          distance(p, e) < WEAPONS[p.weapon].range * 0.95 &&
+          distance(p, e) <
+            (armored(e.kind) && p.rockets > 0
+              ? 950
+              : WEAPONS[p.weapon].range * 0.95) &&
+          (!this.avoidArmor || !armored(e.kind) || distance(p, e) < 240) &&
           visible(p, e, w.map),
       )
       .sort((a, b) => distance(p, a) - distance(p, b));
@@ -120,6 +133,17 @@ export class Pilot {
     input.fire = !!shot && p.recoil < (p.weapon === "sg" ? 0.12 : 0.075);
     input.aim = !!shot && p.weapon !== "smg";
     input.angle = shot ? Math.atan2(shot.y - p.y, shot.x - p.x) : p.angle;
+    if (
+      target &&
+      armored(target.kind) &&
+      p.rockets > 0 &&
+      p.tacticalCooldown <= 0 &&
+      distance(p, target) > 140
+    ) {
+      input.tactical = true;
+      input.fire = false;
+      input.aim = true;
+    }
     input.reload = p.ammo < (shot ? 1 : WEAPONS[p.weapon].mag * 0.45);
     if (goal === supply && distance(p, goal) < 85) input.interact = true;
     if (atIntel || atExtract) input.interact = true;
@@ -142,6 +166,23 @@ export class Pilot {
       distance(p, anchor) > 360
     )
       goal = { x: anchor.x, y: anchor.y };
+    if (
+      target &&
+      armored(target.kind) &&
+      !this.reckless &&
+      p.rockets <= 0 &&
+      armorMultiplier(target, p) < 0.3 &&
+      distance(p, target) < 650 &&
+      !down
+    ) {
+      const side = index % 2 ? 1 : -1,
+        a = target.angle + Math.PI + side * 0.5;
+      const flank = {
+        x: target.x + Math.cos(a) * 290,
+        y: target.y + Math.sin(a) * 290,
+      };
+      if (!blocked(flank, w.map.obstacles, 20)) goal = flank;
+    }
     if (this.destination && !fallen) goal = this.destination;
     const stop =
       goal === supply || objective?.kind === "intel"
@@ -162,8 +203,31 @@ export class Pilot {
         this.repath = 16;
         this.goal = { ...goal };
       }
-      while (this.path.length && distance(p, this.path[0]) < 42)
+      while (
+        this.path.length &&
+        distance(p, this.path[0]) < Math.max(42, 280 * sample * 0.6)
+      )
         this.path.shift();
+      // String-pull along already validated corridors so slow browser sampling cannot oscillate at50px nodes.
+      let forward = this.path[0];
+      for (const candidate of this.path.slice(0, 8)) {
+        if (distance(p, candidate) > 420) break;
+        if (
+          visible(p, candidate, w.map) &&
+          visible(
+            { x: p.x - 23, y: p.y - 23 },
+            { x: candidate.x - 23, y: candidate.y - 23 },
+            w.map,
+          ) &&
+          visible(
+            { x: p.x + 23, y: p.y + 23 },
+            { x: candidate.x + 23, y: candidate.y + 23 },
+            w.map,
+          )
+        )
+          forward = candidate;
+        else break;
+      }
       const point =
         visible(p, goal, w.map) &&
         visible(
@@ -178,12 +242,12 @@ export class Pilot {
         ) &&
         !blocked(goal, w.map.obstacles, 20)
           ? goal
-          : this.path[0];
+          : forward;
       if (point) {
         const d = distance(p, point);
         input.dx = (point.x - p.x) / Math.max(1, d);
         input.dy = (point.y - p.y) / Math.max(1, d);
-        input.sprint = !shot;
+        input.sprint = !shot && (sample < 0.2 || distance(p, point) > 160);
         // DOM input is sampled more slowly than simulation pilots. Approach boarding zones at a walk.
         if (m.stage === "extract" && distance(p, goal) < 300)
           input.sprint = false;
@@ -201,9 +265,10 @@ export class Pilot {
       );
     if (
       danger &&
+      !this.reckless &&
       !input.interact &&
       !input.revive &&
-      !(m.stage === "extract" && distance(p, extract) < 100)
+      !(m.stage === "extract" && distance(p, extract) < 220)
     ) {
       const side = { x: -Math.sin(danger.angle), y: Math.cos(danger.angle) };
       const intent =
@@ -231,6 +296,20 @@ export class Pilot {
       input.aim = false;
       input.fire = false;
     }
+    const shell = (w.projectiles || []).find(
+      (q) => q.kind === "mortar" && distance(p, q.target) < q.radius + 45,
+    );
+    if (shell && !this.reckless && !input.revive) {
+      const a =
+        Math.atan2(p.y - shell.target.y, p.x - shell.target.x) +
+        (index % 2 ? 0.2 : -0.2);
+      input.dx = Math.cos(a);
+      input.dy = Math.sin(a);
+      input.sprint = true;
+      input.fire = false;
+      input.tactical = false;
+    }
+    if (input.tactical) input.sprint = false;
     return input;
   }
 }

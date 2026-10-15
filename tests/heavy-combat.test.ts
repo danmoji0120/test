@@ -1,3 +1,4 @@
+import { heavyAI } from "../src/game/heavy-ai";
 import { it, expect } from "vitest";
 import {
   createWorld,
@@ -170,4 +171,31 @@ it("does not reconstruct an unseen cannon origin from projectile timestamps or d
   expect(publicQ.traveled).toBe(0);
   expect(publicQ.at).toBe(w.time);
   expect(publicQ.target).toEqual(publicQ.origin);
+});
+
+it("records facility destruction once regardless of a bullet or explosive final hit", () => {
+  const w = fixture(),
+    d = w.map.installations.find((d) => d.kind === "barracks")!;
+  d.hp = 0;
+  // Objective transition owns the escalation and settlement, never each pellet/projectile.
+  tick(w, 1 / 30);
+  const heat = w.alertState.heat;
+  tick(w, 1 / 30);
+  expect(w.alertState.heat).toBe(heat);
+  expect(w.mission.objectives.find((o) => o.id === d.id)!.state).toBe(
+    "complete",
+  );
+});
+
+it("moves a walker around cover toward its dated sighting instead of idling inside gun range", () => {
+  const w = fixture(),
+    e = spawnEnemy(w, { x: 1400, y: 1000 }, "walker")!;
+  w.map.obstacles = [{ x: 1200, y: 880, w: 60, h: 240, kind: "wall" }];
+  invalidateNavigation(w.map);
+  e.lastSeen = { x: 1000, y: 1000 };
+  e.memory = 9;
+  heavyAI(w, e, undefined, 1 / 30);
+  expect(e.path.length).toBeGreaterThan(0);
+  expect(w.projectiles).toHaveLength(0);
+  expect(e.lastSeen).toEqual({ x: 1000, y: 1000 });
 });

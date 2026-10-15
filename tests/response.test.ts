@@ -1,3 +1,4 @@
+import { redirectPatrols } from "../src/game/maneuvers";
 import { it, expect } from "vitest";
 import {
   createWorld,
@@ -148,4 +149,51 @@ it("blocks walking through a large live enemy body", () => {
   // Body overlap is rejected by ordinary server movement, independent of its PNG size.
   for (let i = 0; i < 20; i++) tick(w, 1 / 30);
   expect(distance(p, e)).toBeGreaterThanOrEqual(69);
+});
+
+it("redirects an existing distant patrol at regional saturation without deleting, spawning or teleporting it", () => {
+  const w = make(10);
+  w.players[0].connected = false;
+  w.map.obstacles = [];
+  invalidateNavigation(w.map);
+  const e = w.enemies.find((e) => e.sourceId.startsWith("patrol-"))!;
+  const before = { x: e.x, y: e.y },
+    n = w.enemies.length;
+  expect(redirectPatrols(w, { x: 3000, y: 2200 })).toBeGreaterThan(0);
+  expect(w.enemies.length).toBe(n);
+  expect(e).toMatchObject(before);
+  expect(w.responseLog.some((r) => r.event === "redirected")).toBe(true);
+  for (let i = 0; i < 90; i++) {
+    w.time += 1 / 30;
+    enemyAI(w, 1 / 30);
+  }
+  expect(distance(e, before)).toBeGreaterThan(10);
+});
+
+it("destroyed motorpool delays new external armor while retaining valid external routes", () => {
+  const a = make(),
+    b = make();
+  for (const w of [a, b]) {
+    w.players[0].connected = false;
+    w.alertState.level = 4;
+  }
+  b.map.installations.find((d) => d.kind === "barracks")!.hp = 0;
+  const request = (w: ReturnType<typeof make>) =>
+    requestSupport(
+      w,
+      "armor",
+      w.map.zones[0].entry,
+      "test",
+      w.map.sources.find((s) => s.kind === "external")!.id,
+      { heavy: true },
+    )!;
+  const ra = request(a),
+    rb = request(b);
+  march(a, 6);
+  march(b, 6);
+  expect(ra.departed).toBeGreaterThan(0);
+  expect(rb.state).toBe("queued");
+  march(b, 7);
+  expect(rb.departed).toBeGreaterThan(ra.departed);
+  expect(rb.path.length).toBeGreaterThan(0);
 });

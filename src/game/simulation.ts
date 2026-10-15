@@ -299,10 +299,7 @@ export function fire(w: World, p: Player) {
       }
     }
     if (deviceHit) {
-      const wasAlive = deviceHit.hp > 0;
       deviceHit.hp = Math.max(0, deviceHit.hp - gun.damage);
-      if (wasAlive && deviceHit.hp === 0 && deviceHit.kind === "barracks")
-        raiseAlert(w, 24, "정비 병영 파괴", deviceHit, 2);
       event(w, {
         type: deviceHit.hp === 0 ? "explode" : "hit",
         x: deviceHit.x,

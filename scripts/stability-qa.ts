@@ -17,8 +17,14 @@ let successes = 0,
   failures = 0,
   maxEvents = 0,
   maxEnemies = 0;
-for (let run = 0; run < 40; run++) {
-  const w = createWorld("stability-" + run, run % 10, wPlayers()),
+const runs = Number(process.env.QA_RUNS || 40);
+for (let run = 0; run < runs; run++) {
+  const w = createWorld(
+      "stability-" + run,
+      process.env.QA_V4 ? [7, 42, 103, 211][run % 4] : run % 10,
+      wPlayers(),
+      process.env.QA_V4 ? [1, 3, 5, 7, 8, 10][run % 6] : 3,
+    ),
     pilots = w.players.map(() => new Pilot());
   for (
     let t = 0;
@@ -40,7 +46,7 @@ for (let run = 0; run < 40; run++) {
   if (w.mission.stage === "success") successes++;
   else if (w.mission.stage === "failed") failures++;
   else throw Error("Unfinished mission");
-  if (run % 5 === 4) {
+  if (run % 4 === 3) {
     gc?.();
     heap.push(process.memoryUsage().heapUsed);
     console.log(
@@ -52,11 +58,18 @@ for (let run = 0; run < 40; run++) {
   }
 }
 function wPlayers() {
-  return Array.from({ length: 4 }, (_, i) => makePlayer("p" + i, "Pilot"));
+  return Array.from({ length: 4 }, (_, i) => {
+    const p = makePlayer("p" + i, "Pilot");
+    if (process.env.QA_V4) p.tactical = "launcher";
+    return p;
+  });
 }
 times.sort((a, b) => a - b);
 const report = {
-  runs: 40,
+  runs,
+  mode: process.env.QA_V4
+    ? "mixed V4 levels1/3/5/7/8/10, seeded prepared4-input pilots"
+    : "V3 regression",
   successes,
   failures,
   maxEvents,

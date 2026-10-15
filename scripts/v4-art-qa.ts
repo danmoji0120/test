@@ -36,5 +36,5 @@ for (const kind of ["juggernaut", "drone", "walker", "artillery"]) {
   if (errors.length) throw Error(errors.join("\n"));
   await page.close();
 }
-writeFileSync(output + "/report.json", JSON.stringify(report, null, 2));
+writeFileSync(output + "/enemy-report.json", JSON.stringify(report, null, 2));
 await browser.close();

@@ -1,0 +1,395 @@
+{
+  "method": "private source/path/trajectory audit plus independent two-browser public observations and actual video; ordinary inputs only",
+  "checks": [
+    {
+      "enemy": "e25",
+      "kind": "rifle",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 25,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e26",
+      "kind": "rush",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 23,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e21",
+      "kind": "rifle",
+      "source": "source-3",
+      "request": "dispatch-2",
+      "samples": 49,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e22",
+      "kind": "rush",
+      "source": "source-3",
+      "request": "dispatch-2",
+      "samples": 49,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e23",
+      "kind": "rifle",
+      "source": "source-4",
+      "request": "dispatch-3",
+      "samples": 55,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e24",
+      "kind": "rush",
+      "source": "source-4",
+      "request": "dispatch-3",
+      "samples": 53,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e278",
+      "kind": "drone",
+      "source": "external-1",
+      "request": "dispatch-4",
+      "samples": 49,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e279",
+      "kind": "rush",
+      "source": "external-1",
+      "request": "dispatch-4",
+      "samples": 42,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e280",
+      "kind": "heavy",
+      "source": "external-1",
+      "request": "dispatch-4",
+      "samples": 49,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e281",
+      "kind": "rush",
+      "source": "external-1",
+      "request": "dispatch-4",
+      "samples": 40,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e494",
+      "kind": "drone",
+      "source": "external-3",
+      "request": "dispatch-5",
+      "samples": 36,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e495",
+      "kind": "rush",
+      "source": "external-3",
+      "request": "dispatch-5",
+      "samples": 36,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e496",
+      "kind": "heavy",
+      "source": "external-3",
+      "request": "dispatch-5",
+      "samples": 36,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e497",
+      "kind": "rush",
+      "source": "external-3",
+      "request": "dispatch-5",
+      "samples": 36,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e544",
+      "kind": "drone",
+      "source": "external-2",
+      "request": "dispatch-6",
+      "samples": 77,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e545",
+      "kind": "rush",
+      "source": "external-2",
+      "request": "dispatch-6",
+      "samples": 77,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e546",
+      "kind": "heavy",
+      "source": "external-2",
+      "request": "dispatch-6",
+      "samples": 77,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e547",
+      "kind": "rush",
+      "source": "external-2",
+      "request": "dispatch-6",
+      "samples": 77,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e569",
+      "kind": "drone",
+      "source": "external-0",
+      "request": "dispatch-7",
+      "samples": 76,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e570",
+      "kind": "rush",
+      "source": "external-0",
+      "request": "dispatch-7",
+      "samples": 76,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e571",
+      "kind": "heavy",
+      "source": "external-0",
+      "request": "dispatch-7",
+      "samples": 76,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e572",
+      "kind": "rush",
+      "source": "external-0",
+      "request": "dispatch-7",
+      "samples": 76,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e27",
+      "kind": "walker",
+      "source": "source-5",
+      "request": "dispatch-8",
+      "samples": 50,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e1466",
+      "kind": "walker",
+      "source": "external-1",
+      "request": "dispatch-9",
+      "samples": 8,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e1467",
+      "kind": "drone",
+      "source": "external-1",
+      "request": "dispatch-9",
+      "samples": 8,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    }
+  ],
+  "requests": [
+    {
+      "id": "dispatch-1",
+      "source": "source-5",
+      "state": "deployed",
+      "requested": 8.333333333333314,
+      "departed": 13.16666666666663,
+      "arrived": 25.40000000000042
+    },
+    {
+      "id": "dispatch-2",
+      "source": "source-3",
+      "state": "deployed",
+      "requested": 8.566666666666647,
+      "departed": 13.399999999999963,
+      "arrived": 38.06666666666707
+    },
+    {
+      "id": "dispatch-3",
+      "source": "source-4",
+      "state": "deployed",
+      "requested": 8.566666666666647,
+      "departed": 13.399999999999963,
+      "arrived": 41.6000000000002
+    },
+    {
+      "id": "dispatch-4",
+      "source": "external-1",
+      "state": "deployed",
+      "requested": 15.866666666666621,
+      "departed": 21.766666666666907,
+      "arrived": 46.8999999999999
+    },
+    {
+      "id": "dispatch-5",
+      "source": "external-3",
+      "state": "deployed",
+      "requested": 26.93333333333383,
+      "departed": 32.83333333333403,
+      "arrived": 51.99999999999961
+    },
+    {
+      "id": "dispatch-6",
+      "source": "external-2",
+      "state": "traveling",
+      "requested": 28.86666666666726,
+      "departed": 34.766666666667255,
+      "arrived": 57.466666666665965
+    },
+    {
+      "id": "dispatch-7",
+      "source": "external-0",
+      "state": "traveling",
+      "requested": 28.86666666666726,
+      "departed": 35.10000000000057,
+      "arrived": 64.73333333333223
+    },
+    {
+      "id": "dispatch-8",
+      "source": "source-5",
+      "state": "traveling",
+      "requested": 45.76666666666663,
+      "departed": 49.133333333333105,
+      "arrived": -1
+    },
+    {
+      "id": "dispatch-9",
+      "source": "external-1",
+      "state": "traveling",
+      "requested": 65.7666666666655,
+      "departed": 71.66666666666517,
+      "arrived": -1
+    },
+    {
+      "id": "dispatch-10",
+      "source": "external-2",
+      "state": "queued",
+      "requested": 72.2333333333318,
+      "departed": -1,
+      "arrived": -1
+    },
+    {
+      "id": "dispatch-11",
+      "source": "external-3",
+      "state": "queued",
+      "requested": 72.2333333333318,
+      "departed": -1,
+      "arrived": -1
+    }
+  ]
+}

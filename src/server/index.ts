@@ -1,3 +1,9 @@
+import {
+  timerSample,
+  tickSample,
+  packetSample,
+  measurements,
+} from "./measurements";
 import { forceBudget } from "../game/budgets";
 import { visibleWorld } from "./visibility";
 import { RULES } from "../shared/rules";
@@ -128,8 +134,11 @@ function broadcast(r: Room) {
     const c = clients.get(p.id);
     if (c && c.room === r) {
       const next = packRoom(publicRoom, c.cursor);
-      if (send(c.ws, { type: "state", room: next.room }))
+      const packet = { type: "state", room: next.room };
+      if (send(c.ws, packet)) {
         c.cursor = next.cursor;
+        if (r.world) packetSample(r.world, packet);
+      }
     }
   }
 }
@@ -387,10 +396,13 @@ function saveTrace(r: Room) {
   const traceText = JSON.stringify({
     id: w.id,
     seed: w.map.seed,
+    width: w.map.width,
+    height: w.map.height,
     time: w.time,
     mission: w.mission,
     metrics: w.metrics,
     budgets: forceBudget(w),
+    measurements: measurements(w),
     requests: w.reinforcements,
     difficulty: w.difficulty,
     alert: w.alertState,
@@ -416,6 +428,7 @@ function saveTrace(r: Room) {
 }
 let count = 0;
 const interval = setInterval(() => {
+  timerSample();
   const now = Date.now();
   for (const [code, r] of rooms) {
     if (r.emptyAt && now - r.emptyAt > graceMs) {
@@ -437,7 +450,9 @@ const interval = setInterval(() => {
     ) {
       for (const p of r.players)
         if (now - p.inputAt > 250) p.input = emptyInput();
+      const tickStart = performance.now();
       tick(r.world, 1 / RULES.tickRate);
+      tickSample(r.world, performance.now() - tickStart);
       if (process.env.QA_TRACE_FILE && count % 150 === 0) saveTrace(r);
       if (["success", "failed"].includes(r.world.mission.stage)) {
         saveTrace(r);

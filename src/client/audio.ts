@@ -103,7 +103,13 @@ export class AudioEngine {
       (e.uncertainty ? 0.38 : e.type === "sound" ? 0.65 : 1) *
       Math.max(0.025, 1 / (1 + Math.pow(dist / 380, 2)));
     if (e.type === "sound") {
-      if (e.cue === "engine") {
+      if (e.cue === "shell") {
+        this.noiseBurst(1900, 1.6, 0.2 * v, "bandpass");
+        this.tone(1400, 1.4, 0.045 * v);
+      } else if (e.cue === "gunfire" && e.heavy) {
+        this.noiseBurst(900, 0.3, 0.8 * v, "lowpass", 0, true);
+        this.tone(40, 0.28, 0.5 * v);
+      } else if (e.cue === "engine") {
         this.noiseBurst(320, 0.65, 0.4 * v, "lowpass");
         this.tone(58, 0.55, 0.12 * v);
       } else if (e.cue === "steps") {
@@ -167,8 +173,13 @@ export class AudioEngine {
     } else if (e.type === "explode") {
       this.noiseBurst(750, 0.75, 0.9 * v, "lowpass", 0, true);
       this.tone(45, 0.55, 0.5 * v);
-    } else if (e.type === "alarm") this.tone(640, 0.3, 0.12 * v);
-    else this.noiseBurst(2100, 0.08, 0.15 * v, "bandpass");
+    } else if (e.type === "alarm") {
+      if (e.heavy) {
+        this.noiseBurst(1500, 0.2, 0.2 * v, "bandpass");
+        this.tone(310, 0.65, 0.16 * v, "triangle");
+        this.noiseBurst(500, 0.5, 0.22 * v, "lowpass", 0.45);
+      } else this.tone(640, 0.3, 0.12 * v);
+    } else this.noiseBurst(2100, 0.08, 0.15 * v, "bandpass");
     this.output = null;
   }
 }

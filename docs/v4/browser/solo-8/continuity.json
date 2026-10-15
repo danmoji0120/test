@@ -1,0 +1,103 @@
+{
+  "method": "private source/path/trajectory audit plus independent two-browser public observations and actual video; ordinary inputs only",
+  "checks": [
+    {
+      "enemy": "e25",
+      "kind": "rifle",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 4,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e26",
+      "kind": "rush",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 4,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e23",
+      "kind": "rifle",
+      "source": "source-4",
+      "request": "dispatch-2",
+      "samples": 21,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e24",
+      "kind": "rush",
+      "source": "source-4",
+      "request": "dispatch-2",
+      "samples": 21,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e21",
+      "kind": "rifle",
+      "source": "source-3",
+      "request": "dispatch-3",
+      "samples": 3,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e22",
+      "kind": "rush",
+      "source": "source-3",
+      "request": "dispatch-3",
+      "samples": 3,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    }
+  ],
+  "requests": [
+    {
+      "id": "dispatch-1",
+      "source": "source-5",
+      "state": "deployed",
+      "requested": 12.999999999999964,
+      "departed": 17.800000000000043,
+      "arrived": 19.766666666666808
+    },
+    {
+      "id": "dispatch-2",
+      "source": "source-4",
+      "state": "traveling",
+      "requested": 20.700000000000188,
+      "departed": 25.500000000000426,
+      "arrived": -1
+    },
+    {
+      "id": "dispatch-3",
+      "source": "source-3",
+      "state": "traveling",
+      "requested": 30.00000000000065,
+      "departed": 34.83333333333392,
+      "arrived": -1
+    }
+  ]
+}

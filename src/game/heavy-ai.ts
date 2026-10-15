@@ -118,7 +118,11 @@ export function heavyAI(
             : e.kind === "walker"
               ? 600
               : 500;
-    if (range > desired + 100) goal = observation;
+    if (
+      (!target && e.kind !== "artillery" && range > 90) ||
+      range > desired + 100
+    )
+      goal = observation;
     else if (range < desired * 0.5) {
       const a = Math.atan2(observation.y - e.y, observation.x - e.x);
       goal = { x: e.x - Math.cos(a) * 180, y: e.y - Math.sin(a) * 180 };

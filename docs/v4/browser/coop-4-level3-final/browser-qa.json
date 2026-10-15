@@ -1,0 +1,323 @@
+{
+  "date": "2026-10-15T14:10:35.812Z",
+  "runId": "1fd43fe5-d7c4-402d-b871-772b352ce63b",
+  "metrics": {
+    "firstContact": 14.433333333333293,
+    "combatSeconds": 34.766666666667255,
+    "revives": 2,
+    "primaryAt": 94.16666666666389,
+    "peakActors": 21,
+    "objectiveOrder": [
+      "facility-0",
+      "facility-1"
+    ]
+  },
+  "timeline": [
+    {
+      "at": 3.73333333333333,
+      "alert": 0,
+      "hp": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "rockets": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notices": []
+    },
+    {
+      "at": 28.73333333333392,
+      "alert": 2,
+      "hp": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "rockets": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notices": [
+        {
+          "at": 19.133333333333443,
+          "text": "지원 병력 출동 준비",
+          "direction": "북서쪽",
+          "eta": 36.75686274509815
+        }
+      ]
+    },
+    {
+      "at": 44.80000000000002,
+      "alert": 2,
+      "hp": [
+        89,
+        100,
+        45,
+        31
+      ],
+      "rockets": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notices": [
+        {
+          "at": 30.00000000000065,
+          "text": "지원 병력 출동 준비",
+          "direction": "남쪽",
+          "eta": 58.08104575163463
+        },
+        {
+          "at": 31.40000000000072,
+          "text": "지원 병력 출동 준비",
+          "direction": "남서쪽",
+          "eta": 71.24575163398765
+        }
+      ]
+    },
+    {
+      "at": 50.999999999999666,
+      "event": "maximum-alert",
+      "reason": "발전기 파괴"
+    },
+    {
+      "at": 64.19999999999892,
+      "alert": 4,
+      "hp": [
+        89,
+        100,
+        45,
+        45
+      ],
+      "rockets": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notices": [
+        {
+          "at": 52.89999999999956,
+          "text": "정예 대응 분대 출동 준비",
+          "direction": "서쪽",
+          "eta": 74.96666666666623
+        }
+      ]
+    },
+    {
+      "at": 84.66666666666443,
+      "alert": 4,
+      "hp": [
+        0,
+        80,
+        18,
+        0
+      ],
+      "rockets": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notices": [
+        {
+          "at": 71.19999999999852,
+          "text": "정예 대응 분대 출동 준비",
+          "direction": "남쪽",
+          "eta": 116.82222222222074
+        },
+        {
+          "at": 71.46666666666518,
+          "text": "정예 대응 분대 출동 준비",
+          "direction": "북동쪽",
+          "eta": 121.0888888888874
+        },
+        {
+          "at": 82.7333333333312,
+          "text": "정예 대응 분대 출동 준비",
+          "direction": "동쪽",
+          "eta": 140.35555555555342
+        }
+      ]
+    },
+    {
+      "at": 103.33333333333003,
+      "alert": 4,
+      "hp": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "rockets": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "notices": []
+    },
+    {
+      "at": 118.59999999999583,
+      "alert": 4,
+      "hp": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "rockets": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "notices": []
+    }
+  ],
+  "visualCaptured": [
+    "maximum"
+  ],
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "players": 4,
+  "seed": 7,
+  "contract": "blackout",
+  "credits": {
+    "before": 300,
+    "after": 1363,
+    "awarded": 1063,
+    "persisted": true
+  },
+  "difficulty": 3,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    },
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 26.799999999998477,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "available"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-5",
+      "kind": "barracks",
+      "state": "active"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "available"
+    }
+  ],
+  "extraction": {
+    "state": "departing",
+    "site": {
+      "x": 260,
+      "y": 1897.4143356550485
+    },
+    "requested": 100.9666666666635,
+    "eta": 124.9666666666635,
+    "departure": 189.9666666666635,
+    "boarding": 3.0333333333333323
+  },
+  "feedback": {
+    "alarm": 3,
+    "sound": 59,
+    "shot:enemy": 122,
+    "shot:ar": 382,
+    "reload": 18,
+    "hit": 96,
+    "kill": 15,
+    "explode": 2,
+    "revive": 2,
+    "supply": 1
+  },
+  "downCount": 2,
+  "stageTimes": {
+    "recon": 3.73333333333333,
+    "operate": 14.866666666666625,
+    "extract": 101.19999999999682
+  },
+  "elapsed": 127.9999999999953,
+  "result": "success",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 5,
+      "hp": 100
+    },
+    {
+      "name": "루나",
+      "kills": 6,
+      "hp": 100
+    },
+    {
+      "name": "스파크",
+      "kills": 4,
+      "hp": 100
+    },
+    {
+      "name": "에코",
+      "kills": 1,
+      "hp": 100
+    }
+  ],
+  "reconnect": true,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 240,
+    "median": 68.39999999850988,
+    "p95": 179.89999999850988,
+    "average": 73.04166666663562
+  }
+}

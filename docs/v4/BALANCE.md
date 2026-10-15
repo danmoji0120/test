@@ -1,0 +1,9 @@
+# V4 balance ledger (work in progress)
+
+Basic rifle/rush/support HP stays65/48/105 at every difficulty and team size. New threats are distinct rather than HP inflation: juggernaut240, drone50, walker650, artillery450. Widths52/28/108/100. Directional armor multiplies ordinary weapon damage: juggernaut front.11/side.48/rear1.1; walker.045/.24/.95; artillery.18/.48/1.05. Orange rear arc identifies the weak quarter. Explosives multiply by.68/.95/1.25; rocket460 base vs armor,22% base vs infantry. Front walker requires3 rockets; rear2, or one rear rocket and gunfire. Every operator can obtain a finite shared supply rocket; launcher loadout starts2 in exchange for60 reserve rounds and4% speed.
+
+Spinup/counterplay: juggernaut1.1s,14×9 bullets at.085s,3.8s overheat; walker1.1s,5×24 cannon projectiles600u/s at.17s,3.6s reload; artillery1s commitment then2.6s marked incoming shell,48 max splash/125 radius,8.5s reload/minimum380 range. Shell target is fixed to dated sensed/radio information. Cover blocks blasts; no offscreen homing.
+
+Threat unlocks:5 juggernaut,7 drone,8 walker,9 artillery.10 starts additional recon/armor and higher elite fraction. Regular infantry health/damage are unchanged; elite infantry use shorter burst gaps, more accurate aim and larger actual flank offsets. All tiers remain solo-attemptable.
+
+Initial tuning public-state pilots (prior to final budget/physics polish): level10 prepared solo seed7 failed24s,seed42 failed56s; four prepared pilots succeeded50/55s with149/36 aggregate incoming damage,8 rockets each,alert4 and6/8 physical departures. This is automated aim/navigation and accelerated simulation, **not a human win rate or human operation duration**. No defeat trigger was inserted. Raw rows retained in `tuning/first/matrix.json`. Final broader matrix pending.

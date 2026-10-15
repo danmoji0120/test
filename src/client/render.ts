@@ -56,6 +56,7 @@ export class Renderer {
   particles: Particle[] = [];
   trails: (GameEvent & { life: number })[] = [];
   lastEvent = 0;
+  lastNotice = "";
   shake = 0;
   hit = 0;
   kill = 0;
@@ -118,6 +119,18 @@ export class Renderer {
       this.mapSeed = w.map.seed;
     }
     const me = w.players.find((p) => p.id === id);
+    const notice = [...(w.notices || [])]
+      .reverse()
+      .find((n) => n.text.includes("중장갑") && w.time - n.at < 18);
+    const noticeKey = notice ? `${w.id}/${notice.at}/${notice.text}` : "";
+    if (me && notice && noticeKey !== this.lastNotice) {
+      this.lastNotice = noticeKey;
+      this.audio.play(
+        { id: 0, type: "alarm", x: me.x, y: me.y, heavy: true },
+        0,
+      );
+    }
+
     for (const e of w.events) {
       if (e.id <= this.lastEvent) continue;
       this.lastEvent = e.id;
@@ -609,39 +622,6 @@ export class Renderer {
         g.fill();
       }
     }
-    const actors = [...w.players, ...w.enemies].sort((a, b) => a.y - b.y);
-    for (const a of actors) {
-      let pos = this.positions.get(a.id);
-      if (!pos) {
-        pos = { x: a.x, y: a.y };
-        this.positions.set(a.id, pos);
-      }
-      pos.x += (a.x - pos.x) * Math.min(1, dt * 22);
-      pos.y += (a.y - pos.y) * Math.min(1, dt * 22);
-      if (
-        Math.abs(pos.x - this.camera.x) > halfW + 100 ||
-        Math.abs(pos.y - this.camera.y) > halfH + 100
-      )
-        continue;
-      if ("character" in a)
-        this.player(
-          a.id === this.id && local ? { ...a, angle: local.angle } : a,
-          pos,
-          t,
-        );
-      else if (
-        w.players.some(
-          (ally) =>
-            ally.connected &&
-            !ally.down &&
-            distance(ally, a) < 950 &&
-            lineOfSight(ally, a, w.map),
-        )
-      )
-        this.enemy(a, pos, t);
-    }
-    for (const id of this.positions.keys())
-      if (!actors.some((a) => a.id === id)) this.positions.delete(id);
     for (const e of this.trails) {
       e.life -= dt;
       g.globalAlpha = Math.max(0, Math.min(1, e.life / 0.06));
@@ -713,6 +693,41 @@ export class Renderer {
       }
     }
     this.fog.draw(g, w, this.camera, halfW, halfH);
+    // Only server-disclosed, exact-LOS actors. Their elevated raster bodies must not be cut by the cached ground-plane fog.
+    const actors = [...w.players, ...w.enemies].sort((a, b) => a.y - b.y);
+    for (const a of actors) {
+      let pos = this.positions.get(a.id);
+      if (!pos) {
+        pos = { x: a.x, y: a.y };
+        this.positions.set(a.id, pos);
+      }
+      pos.x += (a.x - pos.x) * Math.min(1, dt * 22);
+      pos.y += (a.y - pos.y) * Math.min(1, dt * 22);
+      if (
+        Math.abs(pos.x - this.camera.x) > halfW + 100 ||
+        Math.abs(pos.y - this.camera.y) > halfH + 100
+      )
+        continue;
+      if ("character" in a)
+        this.player(
+          a.id === this.id && local ? { ...a, angle: local.angle } : a,
+          pos,
+          t,
+        );
+      else if (
+        w.players.some(
+          (ally) =>
+            ally.connected &&
+            !ally.down &&
+            distance(ally, a) < 850 &&
+            lineOfSight(ally, a, w.map),
+        )
+      )
+        this.enemy(a, pos, t);
+    }
+    for (const id of this.positions.keys())
+      if (!actors.some((a) => a.id === id)) this.positions.delete(id);
+
     g.restore();
     // A restrained vignette leaves targets readable at screen edges.
     const shade = g.createRadialGradient(

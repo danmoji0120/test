@@ -1,43 +1,76 @@
 import { chromium } from "playwright";
-import { writeFileSync, mkdirSync } from "node:fs";
-const output = process.env.QA_OUTPUT || "docs/v3/manual-render";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+const output = process.env.QA_OUTPUT || "docs/v4/performance/render",
+  count = Number(process.env.QA_RENDER_PAGES || 1),
+  width = Number(process.env.QA_WIDTH || 1920),
+  height = Number(process.env.QA_HEIGHT || 1080);
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({
-  headless: true,
   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
-  args: ["--no-sandbox"],
+  args: [
+    "--no-sandbox",
+    "--disable-background-timer-throttling",
+    "--disable-renderer-backgrounding",
+    "--disable-backgrounding-occluded-windows",
+  ],
 });
-const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
-await page.goto(
-  (process.env.QA_URL || "http://localhost:3000") +
-    "/scripts/render-benchmark.html",
-);
-await page.waitForTimeout(15000);
-const result = await page.evaluate(() => (window as any).benchmark());
-result.frames.sort((a: number, b: number) => a - b);
-const n = result.frames.length,
-  report = {
-    fixture: "synthetic renderer benchmark; not a gameplay screenshot",
-    viewport: "1920x1080",
-    browser: browser.version(),
+const pages = [];
+const errors: string[] = [];
+for (let i = 0; i < count; i++) {
+  const page = await browser.newPage({ viewport: { width, height } });
+  page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto(
+    (process.env.QA_URL || "http://localhost:3304") +
+      "/scripts/render-benchmark.html",
+  );
+  pages.push(page);
+}
+await pages[0].waitForTimeout(15000);
+const measurements = [];
+for (const page of pages) {
+  const result = await page.evaluate(() => (window as any).benchmark()),
+    a = result.frames.sort((a: number, b: number) => a - b);
+  measurements.push({
     players: result.players,
     enemies: result.enemies,
-    samples: n,
-    medianMs: result.frames[Math.floor(n * 0.5)],
-    p95Ms: result.frames[Math.floor(n * 0.95)],
-    averageMs: result.frames.reduce((a: number, b: number) => a + b, 0) / n,
-    particles: result.particles,
-    trails: result.trails,
-    backgroundBurst: await page.evaluate(() =>
-      (window as any).backgroundStress(),
+    roster: result.roster,
+    samples: a.length,
+    medianMs: a[Math.floor(a.length * 0.5)],
+    p95Ms: a[Math.floor(a.length * 0.95)],
+    averageMs: a.reduce((n: number, v: number) => n + v, 0) / a.length,
+    heapMiB: await page.evaluate(
+      () => (performance as any).memory?.usedJSHeapSize / 1024 / 1024,
     ),
-  };
-if (report.backgroundBurst.particles > 400)
-  throw Error("Background snapshot effects grew without a bound");
-await page.screenshot({ path: output + "/render-benchmark.png" });
-writeFileSync(
-  (process.env.QA_REPORT_DIR || output) + "/render-qa.json",
-  JSON.stringify(report, null, 2),
+  });
+}
+const rss =
+  spawnSync("ps", ["-eo", "stat=,comm=,rss="], { encoding: "utf8" })
+    .stdout.split("\n")
+    .reduce((n, line) => {
+      const [stat, comm, kib] = line.trim().split(/\s+/);
+      return (
+        n +
+        (comm === "chromium" && !stat.startsWith("Z") ? Number(kib) || 0 : 0)
+      );
+    }, 0) / 1024;
+const background = await pages[0].evaluate(() =>
+  (window as any).backgroundStress(),
 );
+if (background.particles > 400) throw Error("Effect bound exceeded");
+if (errors.length) throw Error(errors.join("\n"));
+await pages[0].screenshot({ path: output + "/render-benchmark.png" });
+const report = {
+  fixture:
+    "Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence",
+  browser: browser.version(),
+  viewport: `${width}x${height}`,
+  windows: count,
+  measurements,
+  chromiumAllProcessesRSSMiB: rss,
+  backgroundBurst: background,
+  errors,
+};
+writeFileSync(output + "/render-qa.json", JSON.stringify(report, null, 2));
 console.log(report);
 await browser.close();

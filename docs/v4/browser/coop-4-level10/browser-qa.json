@@ -1,0 +1,231 @@
+{
+  "date": "2026-10-15T14:05:19.164Z",
+  "runId": "1c721525-3f10-42b5-b016-d3eb62ec6c41",
+  "metrics": {
+    "firstContact": 7.0999999999999845,
+    "combatSeconds": 40.26666666666694,
+    "revives": 2,
+    "primaryAt": -1,
+    "peakActors": 42,
+    "objectiveOrder": [
+      "facility-1"
+    ]
+  },
+  "timeline": [
+    {
+      "at": 2.6333333333333337,
+      "alert": 0,
+      "hp": [
+        100,
+        100,
+        100,
+        100
+      ],
+      "rockets": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "notices": []
+    },
+    {
+      "at": 8.69999999999998,
+      "event": "visual-encounter",
+      "kind": "drone",
+      "hp": 100
+    },
+    {
+      "at": 27.433333333333856,
+      "alert": 3,
+      "hp": [
+        100,
+        100,
+        45,
+        100
+      ],
+      "rockets": [
+        3,
+        3,
+        2,
+        3
+      ],
+      "notices": [
+        {
+          "at": 27.233333333333846,
+          "text": "정예 대응 분대 출동 준비",
+          "direction": "북서쪽",
+          "eta": 48.011111111111624
+        }
+      ]
+    },
+    {
+      "at": 43.90000000000007,
+      "event": "maximum-alert",
+      "reason": "병력 접촉"
+    },
+    {
+      "at": 45.1,
+      "alert": 4,
+      "hp": [
+        100,
+        78,
+        18.400000000000247,
+        100
+      ],
+      "rockets": [
+        3,
+        3,
+        2,
+        3
+      ],
+      "notices": [
+        {
+          "at": 27.233333333333846,
+          "text": "정예 대응 분대 출동 준비",
+          "direction": "북서쪽",
+          "eta": 48.011111111111624
+        },
+        {
+          "at": 43.766666666666744,
+          "text": "정예 대응 분대 출동 준비",
+          "direction": "서쪽",
+          "eta": 70.76666666666674
+        }
+      ]
+    }
+  ],
+  "visualCaptured": [
+    "drone",
+    "maximum"
+  ],
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "players": 4,
+  "seed": 42,
+  "contract": "blackout",
+  "credits": {
+    "before": 300,
+    "after": 604,
+    "awarded": 304,
+    "persisted": true
+  },
+  "difficulty": 10,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    },
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": null,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "available"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "available"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-5",
+      "kind": "barracks",
+      "state": "available"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "available"
+    }
+  ],
+  "extraction": {
+    "state": "locked",
+    "site": null,
+    "requested": 0,
+    "eta": 0,
+    "departure": 0,
+    "boarding": 0
+  },
+  "feedback": {
+    "sound": 95,
+    "hit": 112,
+    "shot:enemy": 185,
+    "shot:ar": 352,
+    "kill": 15,
+    "reload": 18,
+    "revive": 2,
+    "supply": 1,
+    "explode": 1,
+    "alarm": 2
+  },
+  "downCount": 5,
+  "stageTimes": {
+    "recon": 2.6333333333333337,
+    "operate": 7.233333333333317
+  },
+  "elapsed": 54.83333333333278,
+  "result": "failed",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 1,
+      "hp": 0
+    },
+    {
+      "name": "루나",
+      "kills": 4,
+      "hp": 0
+    },
+    {
+      "name": "스파크",
+      "kills": 3,
+      "hp": 0
+    },
+    {
+      "name": "에코",
+      "kills": 9,
+      "hp": 0
+    }
+  ],
+  "reconnect": true,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 90,
+    "median": 96.80000000447035,
+    "p95": 195.80000000447035,
+    "average": 105.972222222305
+  }
+}

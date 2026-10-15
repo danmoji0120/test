@@ -78,6 +78,15 @@ export function launch(
     actor: enemy ? undefined : owner,
     heavy: true,
   });
+  if (kind === "mortar")
+    event(w, {
+      type: "sound",
+      cue: "shell",
+      x: target.x,
+      y: target.y,
+      enemy: true,
+      heavy: true,
+    });
   noise(w, origin, 1100, "gunfire");
 }
 export function fireLauncher(w: World, p: Player) {

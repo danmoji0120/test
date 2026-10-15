@@ -1,0 +1,313 @@
+[
+  {
+    enemy: 'e25',
+    kind: 'rifle',
+    source: 'source-5',
+    request: 'dispatch-1',
+    samples: 25,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e26',
+    kind: 'rush',
+    source: 'source-5',
+    request: 'dispatch-1',
+    samples: 23,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e21',
+    kind: 'rifle',
+    source: 'source-3',
+    request: 'dispatch-2',
+    samples: 49,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e22',
+    kind: 'rush',
+    source: 'source-3',
+    request: 'dispatch-2',
+    samples: 49,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e23',
+    kind: 'rifle',
+    source: 'source-4',
+    request: 'dispatch-3',
+    samples: 55,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e24',
+    kind: 'rush',
+    source: 'source-4',
+    request: 'dispatch-3',
+    samples: 53,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e278',
+    kind: 'drone',
+    source: 'external-1',
+    request: 'dispatch-4',
+    samples: 49,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e279',
+    kind: 'rush',
+    source: 'external-1',
+    request: 'dispatch-4',
+    samples: 42,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e280',
+    kind: 'heavy',
+    source: 'external-1',
+    request: 'dispatch-4',
+    samples: 49,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e281',
+    kind: 'rush',
+    source: 'external-1',
+    request: 'dispatch-4',
+    samples: 40,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e494',
+    kind: 'drone',
+    source: 'external-3',
+    request: 'dispatch-5',
+    samples: 36,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e495',
+    kind: 'rush',
+    source: 'external-3',
+    request: 'dispatch-5',
+    samples: 36,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e496',
+    kind: 'heavy',
+    source: 'external-3',
+    request: 'dispatch-5',
+    samples: 36,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e497',
+    kind: 'rush',
+    source: 'external-3',
+    request: 'dispatch-5',
+    samples: 36,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e544',
+    kind: 'drone',
+    source: 'external-2',
+    request: 'dispatch-6',
+    samples: 77,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: true,
+    observedTravel: true
+  },
+  {
+    enemy: 'e545',
+    kind: 'rush',
+    source: 'external-2',
+    request: 'dispatch-6',
+    samples: 77,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e546',
+    kind: 'heavy',
+    source: 'external-2',
+    request: 'dispatch-6',
+    samples: 77,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e547',
+    kind: 'rush',
+    source: 'external-2',
+    request: 'dispatch-6',
+    samples: 77,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e569',
+    kind: 'drone',
+    source: 'external-0',
+    request: 'dispatch-7',
+    samples: 76,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e570',
+    kind: 'rush',
+    source: 'external-0',
+    request: 'dispatch-7',
+    samples: 76,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e571',
+    kind: 'heavy',
+    source: 'external-0',
+    request: 'dispatch-7',
+    samples: 76,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e572',
+    kind: 'rush',
+    source: 'external-0',
+    request: 'dispatch-7',
+    samples: 76,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e27',
+    kind: 'walker',
+    source: 'source-5',
+    request: 'dispatch-8',
+    samples: 50,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e1466',
+    kind: 'walker',
+    source: 'external-1',
+    request: 'dispatch-9',
+    samples: 8,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  },
+  {
+    enemy: 'e1467',
+    kind: 'drone',
+    source: 'external-1',
+    request: 'dispatch-9',
+    samples: 8,
+    validOrigin: true,
+    validRoute: true,
+    continuous: true,
+    observedByBrowser: false,
+    observedTravel: false
+  }
+]
+/workspace/doll-squad/scripts/source-audit.ts:83
+  throw Error("No heavy dispatch trajectory observed by browser");
+        ^
+
+Error: No heavy dispatch trajectory observed by browser
+    at <anonymous> (/workspace/doll-squad/scripts/source-audit.ts:83:9)
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0

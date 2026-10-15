@@ -31,6 +31,14 @@ const read = (p: Page) =>
 for (let i = 0; i < count; i++) {
   const context = await browser.newContext({
     viewport: { width: i === 0 ? 1920 : 1280, height: i === 0 ? 1080 : 720 },
+    ...(process.env.QA_VIDEO === "1" && i === 0
+      ? {
+          recordVideo: {
+            dir: output + "/video",
+            size: { width: 1280, height: 720 },
+          },
+        }
+      : {}),
   });
   const page = await context.newPage();
   pages.push(page);
@@ -75,6 +83,8 @@ if (process.env.QA_DIFFICULTY) {
 }
 if (process.env.QA_CONTRACT)
   await pages[0].selectOption("#contract", process.env.QA_CONTRACT);
+if (process.env.QA_PREPARED === "1")
+  for (const page of pages) await page.selectOption("#tactical", "launcher");
 for (const page of pages) await page.click('[data-action="ready"]');
 await pages[0].screenshot({
   path: `${output}/squad-4.png`,
@@ -99,6 +109,11 @@ const feedback: Record<string, number> = {};
 let downCount = 0;
 let landedCaptured = false;
 const downs = new Set<string>();
+const visibleCounts = new Map<string, number>();
+const visualCaptured = new Set<string>(),
+  timeline: any[] = [];
+const observedActors: any[] = [];
+let lastObservedAt = -1;
 
 try {
   while (Date.now() - start < 750000) {
@@ -109,6 +124,83 @@ try {
     }
     const w = state.room.world as World;
     if (!w) throw Error("Missing world");
+    const me = w.players.find((p) => p.id === state.id)!;
+    if (w.time - lastObservedAt >= 0.3) {
+      lastObservedAt = w.time;
+      observedActors.push({
+        time: w.time,
+        enemies: w.enemies.map((e) => ({
+          id: e.id,
+          kind: e.kind,
+          x: e.x,
+          y: e.y,
+        })),
+      });
+    }
+
+    for (const e of w.enemies)
+      visibleCounts.set(e.id, (visibleCounts.get(e.id) ?? 0) + 1);
+    for (const kind of ["juggernaut", "drone", "walker", "artillery"])
+      if (
+        !visualCaptured.has(kind) &&
+        w.enemies.some(
+          (e) =>
+            e.kind === kind &&
+            (visibleCounts.get(e.id) ?? 0) >= 3 &&
+            Math.abs(e.x - me.x) < 750 &&
+            Math.abs(e.y - me.y) < 340,
+        )
+      ) {
+        visualCaptured.add(kind);
+        await pages[0].screenshot({ path: `${output}/encounter-${kind}.png` });
+        timeline.push({
+          at: w.time,
+          event: "visual-encounter",
+          kind,
+          hp: me.hp,
+        });
+      }
+    if (w.alertState.level === 4 && !visualCaptured.has("maximum")) {
+      visualCaptured.add("maximum");
+      await pages[0].screenshot({ path: `${output}/alert-4.png` });
+      timeline.push({
+        at: w.time,
+        event: "maximum-alert",
+        reason: w.alertState.reason,
+      });
+    }
+    if (iterations % 40 === 0)
+      timeline.push({
+        at: w.time,
+        alert: w.alertState.level,
+        hp: w.players.map((p) => p.hp),
+        rockets: w.players.map((p) => p.rockets),
+        notices: w.notices,
+      });
+
+    if (
+      process.env.QA_CAPTURE_ONLY === "1" &&
+      visualCaptured.has("walker") &&
+      visualCaptured.has("juggernaut")
+    ) {
+      writeFileSync(
+        output + "/capture-only.json",
+        JSON.stringify(
+          {
+            method:
+              "Real network game, ordinary DOM inputs; deliberately stopped after both armored enemies were visibly captured. Not a completed operation.",
+            elapsed: w.time,
+            observed: observedActors,
+            timeline,
+            errors,
+          },
+          null,
+          2,
+        ),
+      );
+      await browser.close();
+      process.exit(0);
+    }
     for (const e of w.events)
       if (!observedEvents.has(e.id)) {
         observedEvents.add(e.id);
@@ -155,7 +247,21 @@ try {
             ? state.id
             : await page.evaluate(() => (window as any).dollQA.id);
         const p = w.players.find((p) => p.id === ownId);
-        if (p) await drive(page, pilots[i].input(w, p, i));
+        if (p) {
+          const input = pilots[i].input(w, p, i);
+          if (
+            process.env.QA_OBSERVE_ARMOR === "1" &&
+            w.enemies.some(
+              (e) =>
+                ["walker", "juggernaut"].includes(e.kind) &&
+                !visualCaptured.has(e.kind),
+            )
+          ) {
+            input.fire = false;
+            input.tactical = false;
+          }
+          await drive(page, input);
+        }
       }),
     );
     iterations++;
@@ -193,6 +299,8 @@ try {
   const finals = await Promise.all(pages.map(read));
   if (new Set(finals.map((q) => q.room.world.mission.stage)).size !== 1)
     throw Error("Mission result mismatch");
+  for (const p of final.room.players)
+    if (p.down && !downs.has(p.id)) downCount++;
   const stage = final.room.world.mission.stage;
   const creditsAfter = Number(await pages[0].locator(".credits b").innerText()),
     awarded = Number(
@@ -203,6 +311,9 @@ try {
     date: new Date().toISOString(),
     runId: final.room.world.id,
     metrics: final.room.world.metrics,
+    timeline,
+    observed: observedActors,
+    visualCaptured: [...visualCaptured],
     browser: browser.version(),
     viewports: count > 1 ? ["1920x1080", "1280x720"] : ["1920x1080"],
     players: count,
@@ -250,7 +361,8 @@ try {
     (process.env.QA_REPORT_DIR || output) + "/browser-qa.json",
     JSON.stringify(report, null, 2),
   );
-  if (stage !== "success") throw Error("Browser mission failed");
+  if (stage !== "success" && process.env.QA_ALLOW_FAILURE !== "1")
+    throw Error("Browser mission failed");
   if (creditsAfter - creditsBefore !== awarded)
     throw Error("Reward amount differs from profile settlement");
   const before = final.room.world.id;
@@ -274,7 +386,14 @@ try {
     (process.env.QA_REPORT_DIR || output) + "/browser-qa.json",
     JSON.stringify(report, null, 2),
   );
-  console.log(JSON.stringify(report, null, 2));
+  console.log({
+    result: report.result,
+    elapsed: report.elapsed,
+    reconnect: report.reconnect,
+    repeatDeployment: report.repeatDeployment,
+    errors: report.errors,
+    frameMs: report.frameMs,
+  });
   if (errors.length) throw Error("Browser errors recorded");
 } catch (e) {
   await pages[0]

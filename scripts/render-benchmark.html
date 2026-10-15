@@ -17,6 +17,7 @@
   <body>
     <canvas></canvas>
     <script type="module">
+      import { launch, tickProjectiles } from "/src/game/projectiles.ts";
       import { updateVision } from "/src/game/visibility.ts";
       import { Renderer } from "/src/client/render.ts";
       import { AudioEngine } from "/src/client/audio.ts";
@@ -31,7 +32,8 @@
         p.character = i % 2 ? "luna" : "aria";
         return p;
       });
-      const w = createWorld("render-benchmark", 42, players);
+      const w = createWorld("render-benchmark", 42, players, 10);
+      w.alertState.level = 4;
       w.enemies = [];
       // Explicit open stress fixture: all twenty enemies remain visible to exercise raster rendering.
       w.map.obstacles = [];
@@ -45,7 +47,15 @@
           spawnEnemy(
             w,
             { x, y },
-            ["rifle", "rush", "heavy"][w.enemies.length % 3],
+            [
+              "rifle",
+              "rush",
+              "heavy",
+              "juggernaut",
+              "drone",
+              "walker",
+              "artillery",
+            ][w.enemies.length % 7],
           );
         }
       }
@@ -88,10 +98,29 @@
           e.angle = clock + i;
           e.windup = 0.5;
         }
+        if (Math.floor(clock * 15) % 15 === 0) {
+          for (const [i, e] of w.enemies
+            .filter((e) => e.kind === "walker" || e.kind === "artillery")
+            .entries())
+            launch(
+              w,
+              e,
+              players[i % 4],
+              e.kind === "artillery" ? "mortar" : "cannon",
+              "bench",
+              true,
+            );
+          for (const q of w.projectiles) q.damage = 0;
+        }
+        tickProjectiles(w, 1 / 15);
         updateVision(w);
         renderer.set(w, "p0");
       }, 1000 / 15);
       window.benchmark = () => ({
+        roster: w.enemies.reduce(
+          (a, e) => ((a[e.kind] = (a[e.kind] || 0) + 1), a),
+          {},
+        ),
         frames: renderer.frames,
         players: players.length,
         enemies: w.enemies.length,

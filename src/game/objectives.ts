@@ -72,14 +72,16 @@ export function tickObjectives(w: World, dt: number) {
         w.metrics.objectiveOrder.push(o.id);
         raiseAlert(
           w,
-          o.kind === "generator" ? 35 : 18,
+          o.kind === "generator" ? 35 : o.kind === "barracks" ? 24 : 18,
           o.kind === "generator"
             ? "발전기 파괴"
             : o.kind === "comms"
               ? "통신 시설 파괴"
-              : "전초기지 파괴",
+              : o.kind === "barracks"
+                ? "정비 병영 파괴"
+                : "전초기지 파괴",
           d,
-          o.kind === "generator" ? 2 : 1,
+          o.kind === "generator" || o.kind === "barracks" ? 2 : 1,
         );
       } else if (o.progress > 0) o.state = "active";
     }

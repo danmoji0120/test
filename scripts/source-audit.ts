@@ -1,26 +1,38 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { distance } from "../src/game/map";
 const dir = process.env.QA_OUTPUT || "docs/v3/final-source";
 const server = JSON.parse(readFileSync(dir + "/server-trace.json", "utf8"));
-const observer = JSON.parse(readFileSync(dir + "/observer.json", "utf8"));
+const observer = JSON.parse(
+  readFileSync(
+    dir +
+      (existsSync(dir + "/observer.json")
+        ? "/observer.json"
+        : "/browser-qa.json"),
+    "utf8",
+  ),
+);
 const checks = server.trajectories.map((t: any) => {
   const s = server.sources.find((s: any) => s.id === t.source),
     r = server.requests.find((r: any) => r.id === t.request);
   return {
     enemy: t.enemy,
+    kind: r?.roster?.[r.members.indexOf(t.enemy)],
     source: t.source,
     request: t.request,
     samples: t.points.length,
     validOrigin:
       !!s &&
       (s.kind === "external"
-        ? t.born.x < 0 || t.born.x > 5000
-        : distance(t.born, s) < 100),
+        ? t.born.x < 0 ||
+          t.born.x > (server.width || 6400) ||
+          t.born.y < 0 ||
+          t.born.y > (server.height || 4200)
+        : distance(t.born, s) < 130),
     validRoute: !!r?.path.length,
     continuous: t.points.every(
       (p: any, i: number) =>
         i === 0 ||
-        distance(p, t.points[i - 1]) <= 240 * (p.at - t.points[i - 1].at) + 12,
+        distance(p, t.points[i - 1]) <= 270 * (p.at - t.points[i - 1].at) + 12,
     ),
     observedByBrowser: observer.observed.some((o: any) =>
       o.enemies.some((e: any) => e.id === t.enemy),
@@ -58,3 +70,14 @@ if (
   throw Error("Dispatch continuity audit failed");
 if (!checks.some((c: any) => c.observedByBrowser && c.observedTravel))
   throw Error("No marching reinforcement was observed by a real browser");
+
+if (
+  process.env.QA_REQUIRE_HEAVY === "1" &&
+  !checks.some(
+    (c: any) =>
+      ["walker", "artillery", "juggernaut"].includes(c.kind) &&
+      c.observedByBrowser &&
+      c.observedTravel,
+  )
+)
+  throw Error("No heavy dispatch trajectory observed by browser");

@@ -11,7 +11,17 @@ const page = await browser.newPage();
 await page.addInitScript("window.__name = (value) => value;");
 await page.goto(process.env.QA_URL || "http://localhost:3000");
 const report = [];
-for (const weapon of ["ar", "smg", "sg"]) {
+for (const weapon of [
+  "ar",
+  "smg",
+  "sg",
+  "hmg",
+  "engine",
+  "shell",
+  "armor",
+  "explosion",
+  "maximum",
+]) {
   const samples = await page.evaluate(async (weapon) => {
     const context = new OfflineAudioContext(2, 48000, 48000);
     Object.defineProperty(context, "resume", {
@@ -25,7 +35,21 @@ for (const weapon of ["ar", "smg", "sg"]) {
       { AudioEngine } = await import(url);
     const audio = new AudioEngine();
     audio.start();
-    audio.play({ id: 1, type: "shot", weapon, x: 0, y: 0 }, 0);
+    const event =
+      weapon === "hmg"
+        ? { type: "shot", heavy: true }
+        : weapon === "engine"
+          ? { type: "sound", cue: "engine", heavy: true }
+          : weapon === "shell"
+            ? { type: "sound", cue: "shell", heavy: true }
+            : weapon === "armor"
+              ? { type: "hit", armored: true }
+              : weapon === "explosion"
+                ? { type: "explode", heavy: true }
+                : weapon === "maximum"
+                  ? { type: "alarm", heavy: true }
+                  : { type: "shot", weapon };
+    audio.play({ id: 1, x: 0, y: 0, ...event }, 0);
     (window as any).AudioContext = Original;
     const buffer = await context.startRendering();
     return Array.from(buffer.getChannelData(0));

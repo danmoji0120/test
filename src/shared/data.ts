@@ -332,7 +332,7 @@ export interface GameEvent extends Vec {
     | "revive"
     | "supply"
     | "sound";
-  cue?: "gunfire" | "radio" | "steps" | "engine";
+  cue?: "gunfire" | "radio" | "steps" | "engine" | "shell";
   uncertainty?: number;
   obscured?: boolean;
   at?: number;
@@ -403,7 +403,7 @@ export interface World {
   dispatchId: number;
   dispatchKeys: Record<string, string>;
   trajectories: Trajectory[];
-  director: { next: number; commsDown: boolean };
+  director: { next: number; commsDown: boolean; redirectAt?: number };
   metrics: {
     firstContact: number;
     combatSeconds: number;

@@ -1,3 +1,5 @@
+import { forceBudget } from "./budgets";
+import { redirectPatrols } from "./maneuvers";
 import type { World, Vec, Reinforcement } from "../shared/data";
 import { difficulty } from "../shared/difficulty";
 import {
@@ -73,6 +75,7 @@ export function tickDirector(w: World, dt: number) {
       task = "search";
     }
     if (target) {
+      if (forceBudget(w).regional >= 50) redirectPatrols(w, target);
       const heavy = level === 4 && w.difficulty >= 5;
       const r = requestSupport(
         w,

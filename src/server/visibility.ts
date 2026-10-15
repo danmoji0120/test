@@ -97,7 +97,7 @@ export function visibleWorld(w: World) {
         (p) =>
           p.connected &&
           !p.down &&
-          distance(p, e) < (e.cue === "steps" ? 450 : 1100),
+          distance(p, e) < (e.cue === "steps" ? (e.heavy ? 800 : 450) : 1100),
       );
       if (hear)
         events.push({
@@ -106,6 +106,7 @@ export function visibleWorld(w: World) {
           x: Math.floor(e.x / 400) * 400 + 200,
           y: Math.floor(e.y / 400) * 400 + 200,
           enemy: true,
+          heavy: e.heavy,
           uncertainty: 283,
           cue: e.cue ?? (e.type === "shot" ? "gunfire" : "radio"),
           at: e.at,

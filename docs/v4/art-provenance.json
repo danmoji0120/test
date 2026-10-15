@@ -1,0 +1,14 @@
+[
+  {
+    "file": "assets/v4-enemies-atlas.png",
+    "sha256": "7ce4eb0206150af72d4c25f63bb16bfe47998cf2661f32330fb187ca81d235ea",
+    "original": "/workspace/generated_images/exec-8daf2542-2df7-42a4-b034-65d0de4f4172.png",
+    "unchanged": true
+  },
+  {
+    "file": "assets/v4-environment-atlas.png",
+    "sha256": "c6178f66c588be158276e0f4e1ab1f034089974c83e5f08b333cb222cb0947a9",
+    "original": "/workspace/generated_images/exec-aa32c444-c524-4f32-8ea7-1d837c8962c0.png",
+    "unchanged": true
+  }
+]

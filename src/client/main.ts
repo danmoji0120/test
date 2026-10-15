@@ -134,20 +134,20 @@ function connect() {
   socket.onerror = () => {};
 }
 function logo() {
-  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>OPERATIONAL WARZONE / V3</small></span></a>`;
+  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>TOTAL WARFARE / V4</small></span></a>`;
 }
 function header() {
   return `<header>${logo()}<nav><span class="nav-active">작전 준비</span><button data-action="help" class="text-button">필드 가이드 <span>↗</span></button></nav><div class="account"><span class="connection ${connected ? "online" : ""}">${connected ? "서버 연결됨" : "재연결 중"}</span><span class="credits">◈ <b>${profile?.credits ?? "—"}</b><small> CR</small></span></div></header>`;
 }
 function briefing() {
   const map = generateMap(room?.seed ?? 42);
-  const plan = `<svg viewBox="0 0 ${map.width} ${map.height}" role="img" aria-label="위성 개요 · 실내 미확인"><rect width="${map.width}" height="${map.height}" fill="#14272e"/>${map.roads.map((r) => `<polyline points="${r.points.map((p) => `${p.x},${p.y}`).join(" ")}" stroke="#627a7d" stroke-width="32" fill="none" opacity=".45"/>`).join("")}${map.installations
+  const plan = `<svg viewBox="0 0 ${map.width} ${map.height}" role="img" aria-label="위성 개요 · 황무지 정찰 미완료"><rect width="${map.width}" height="${map.height}" fill="#14272e"/>${map.roads.map((r) => `<polyline points="${r.points.map((p) => `${p.x},${p.y}`).join(" ")}" stroke="#627a7d" stroke-width="32" fill="none" opacity=".45"/>`).join("")}${map.installations
     .filter((d) => d.kind === "generator")
     .map((d) => `<circle cx="${d.x}" cy="${d.y}" r="110" fill="#ebc77d"/>`)
     .join(
       "",
     )}<circle cx="${map.spawn.x}" cy="${map.spawn.y}" r="100" fill="#80d9c5"/>${map.extractions.map((p) => `<circle cx="${p.x}" cy="${p.y}" r="85" fill="none" stroke="#80d9c5" stroke-width="25"/>`).join("")}</svg>`;
-  return `<div class="brief-map">${plan}<span>${map.seed} / 위성 개요 · 실내 미확인</span></div><div class="brief-body"><div class="eyebrow">OPERATIONAL WARZONE <span class="tag">1–4인 협동</span></div><h2>BLACKOUT<span class="pink">.</span></h2><p>발전기 두 기. 진입 방향과 파괴 순서는 자유.<br>교전을 피하거나 통신·출동 능력부터 끊으세요.</p><div class="mission-steps"><span><b>01</b> 자유 정찰</span><span><b>02</b> 발전기 2기</span><span><b>03</b> 수송 요청</span></div><div class="brief-meta"><span>전멸 조건 없음</span><span>주 목표 8–14분 목표</span></div></div>`;
+  return `<div class="brief-map">${plan}<span>${map.seed} / 위성 개요 · 황무지 정찰 미완료</span></div><div class="brief-body"><div class="eyebrow">BARREN FRONTIER <span class="tag">1–4인 협동</span></div><h2>BLACKOUT<span class="pink">.</span></h2><p>발전기 두 기. 진입 방향과 파괴 순서는 자유.<br>교전을 피하거나 통신·출동 능력부터 끊으세요.</p><div class="mission-steps"><span><b>01</b> 자유 정찰</span><span><b>02</b> 발전기 2기</span><span><b>03</b> 수송 요청</span></div><div class="brief-meta"><span>전멸 조건 없음</span><span>장갑 후면 취약 · G 대장갑</span></div></div>`;
 }
 function lobby() {
   const c = CHARACTERS[character],
@@ -263,7 +263,7 @@ function updateHud() {
       : x.state === "available"
         ? "주 목표 완료 · 탈출 시점은 분대가 결정"
         : "자유 작전 · 핵심 발전기 " + done + " / 2";
-  document.querySelector("#clock")!.textContent = time(m.elapsed);
+  document.querySelector("#clock")!.textContent = time(m.elapsed) + " / 30:00";
   const notice =
     [...(w.notices || [])]
       .reverse()
