@@ -1,0 +1,42 @@
+7:07:58 AM [vite] (client) Re-optimizing dependencies because vite config has changed
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'synthetic renderer benchmark; not a gameplay screenshot',
+  viewport: '1920x1080',
+  browser: '154.0.8037.57',
+  players: 4,
+  enemies: 20,
+  samples: 600,
+  medianMs: 16.600000001490116,
+  p95Ms: 19.399999998509884,
+  averageMs: 16.667666666662942,
+  particles: 51,
+  trails: 0,
+  backgroundBurst: { events: 10000, particles: 400, trails: 4 }
+}
+[
+  {
+    weapon: 'ar',
+    sampleRate: 48000,
+    peak: 0.044011861085891724,
+    clipped: 0,
+    attackRms: 0.008031042411389314,
+    tailRms: 0.00016241851844979655
+  },
+  {
+    weapon: 'smg',
+    sampleRate: 48000,
+    peak: 0.031205184757709503,
+    clipped: 0,
+    attackRms: 0.0031907998155019292,
+    tailRms: 0.0000054584568225439415
+  },
+  {
+    weapon: 'sg',
+    sampleRate: 48000,
+    peak: 0.056721240282058716,
+    clipped: 0,
+    attackRms: 0.0178643582108832,
+    tailRms: 0.0024443390264273592
+  }
+]

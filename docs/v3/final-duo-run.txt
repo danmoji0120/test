@@ -1,0 +1,132 @@
+DOLL SQUAD ready: http://localhost:3302
+STAGE recon 1.7
+PLAY 2 아리아:100hp/0k@4850,2200 루나:100hp/0k@4910,2200 enemies 0
+STAGE operate 9.3
+RECONNECT PASS
+PLAY 31 아리아:89hp/2k@1964,2390 루나:100hp/5k@2174,2334 enemies 1
+PLAY 61 아리아:89hp/6k@3638,497 루나:91hp/8k@3624,524 enemies 0
+STAGE extract 71.0
+PLAY 91 아리아:89hp/7k@2459,232 루나:91hp/8k@2516,214 enemies 0
+{
+  "date": "2026-10-15T07:06:36.489Z",
+  "runId": "152296ff-a161-45fd-a2c3-0a72033447ce",
+  "metrics": {
+    "firstContact": 5.099999999999992,
+    "combatSeconds": 22.433333333333607,
+    "revives": 0,
+    "primaryAt": 54.96666666666611,
+    "peakActors": 19,
+    "objectiveOrder": [
+      "facility-1",
+      "facility-0"
+    ]
+  },
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "players": 2,
+  "seed": 103,
+  "contract": "blackout",
+  "credits": {
+    "before": 300,
+    "after": 1361,
+    "awarded": 1061,
+    "persisted": true
+  },
+  "difficulty": 3,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 27.033333333331797,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "available"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "available"
+    }
+  ],
+  "extraction": {
+    "state": "departing",
+    "site": {
+      "x": 2500,
+      "y": 220
+    },
+    "requested": 70.99999999999854,
+    "eta": 94.99999999999854,
+    "departure": 159.99999999999852,
+    "boarding": 3.0333333333333323
+  },
+  "feedback": {
+    "sound": 59,
+    "alarm": 5,
+    "shot:ar": 177,
+    "hit": 70,
+    "shot:enemy": 51,
+    "kill": 15,
+    "reload": 7,
+    "explode": 2
+  },
+  "downCount": 0,
+  "stageTimes": {
+    "recon": 1.6666666666666685,
+    "operate": 9.266666666666644,
+    "extract": 70.99999999999854
+  },
+  "elapsed": 98.03333333333033,
+  "result": "success",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 7,
+      "hp": 89
+    },
+    {
+      "name": "루나",
+      "kills": 8,
+      "hp": 91
+    }
+  ],
+  "reconnect": true,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 510,
+    "median": 17.300000000745058,
+    "p95": 40.30000000074506,
+    "average": 22.026470588249904
+  }
+}

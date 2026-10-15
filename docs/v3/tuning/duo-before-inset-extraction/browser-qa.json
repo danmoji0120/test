@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-15T06:46:57.374Z",
+  "runId": "00fd36b6-4a9f-4316-9781-a05b28ff066f",
+  "metrics": {
+    "firstContact": 2.8999999999999995,
+    "combatSeconds": 8.69999999999998,
+    "revives": 0,
+    "primaryAt": 35.000000000000576,
+    "peakActors": 19,
+    "objectiveOrder": [
+      "facility-1",
+      "facility-0"
+    ]
+  },
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "players": 2,
+  "seed": 103,
+  "difficulty": 3,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 26.93333333333181,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "available"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "active"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "available"
+    }
+  ],
+  "extraction": {
+    "state": "departing",
+    "site": {
+      "x": 4910,
+      "y": 2850
+    },
+    "requested": 43.96666666666673,
+    "eta": 67.96666666666673,
+    "departure": 132.96666666666673,
+    "boarding": 3.0333333333333323
+  },
+  "feedback": {
+    "sound": 28,
+    "shot:ar": 98,
+    "hit": 61,
+    "kill": 10,
+    "alarm": 6,
+    "shot:enemy": 15,
+    "reload": 4,
+    "explode": 2
+  },
+  "downCount": 0,
+  "stageTimes": {
+    "recon": 1.6000000000000016,
+    "operate": 5.133333333333325,
+    "extract": 44.06666666666673
+  },
+  "elapsed": 70.99999999999854,
+  "result": "success",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 5,
+      "hp": 80
+    },
+    {
+      "name": "루나",
+      "kills": 5,
+      "hp": 100
+    }
+  ],
+  "reconnect": true,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 390,
+    "median": 16.90000000037253,
+    "p95": 37.90000000037253,
+    "average": 20.82153846153464
+  }
+}

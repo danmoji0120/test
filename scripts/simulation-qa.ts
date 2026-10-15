@@ -79,13 +79,28 @@ for (const scenario of scenarios) {
         }
         p.input = input;
       });
-      if (step % 30 === 0) {
-        const next = packRoom({ world: publicWorld }, cursor);
-        const size = Buffer.byteLength(JSON.stringify(next.room));
-        if (!cursor) initialBytes = size;
-        else bytes.push(size);
-        cursor = next.cursor;
-      }
+    }
+    if (step % 2 === 0) {
+      const publicWorld = visibleWorld(w);
+      const next = packRoom(
+        {
+          code: "QA001",
+          host: players[0].id,
+          phase: "playing",
+          seed,
+          difficulty: level,
+          contract: w.contract,
+          players: publicWorld.players,
+          world: publicWorld,
+        },
+        cursor,
+      );
+      const size = Buffer.byteLength(
+        JSON.stringify({ type: "state", room: next.room }),
+      );
+      if (!cursor) initialBytes = size;
+      else bytes.push(size);
+      cursor = next.cursor;
     }
     const before = performance.now();
     tick(w, 1 / 30);
@@ -147,6 +162,7 @@ for (const scenario of scenarios) {
       initial: initialBytes,
       median: bytes[Math.floor(bytes.length * 0.5)],
       p95: bytes[Math.floor(bytes.length * 0.95)],
+      bytesPerSecond: bytes.reduce((a, b) => a + b, 0) / w.time,
     },
   };
   report.push(row);
@@ -166,7 +182,7 @@ for (const scenario of scenarios) {
     JSON.stringify(
       {
         method:
-          "sanitized team public state at 10Hz, discrete held WASD, ordinary authoritative input; not human play or browser rendering",
+          "sanitized team public state and discrete held WASD at 10Hz; real snapshot encoder sampled at15Hz including room metadata; ordinary authoritative input, not human play or browser rendering",
         report,
       },
       null,

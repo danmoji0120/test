@@ -1,0 +1,3 @@
+final-four PASS
+final-solo PASS
+final-duo PASS

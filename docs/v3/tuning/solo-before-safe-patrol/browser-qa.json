@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-15T06:44:40.184Z",
+  "runId": "a150df24-fbde-45c6-9f5c-43a2d507ba9b",
+  "metrics": {
+    "firstContact": 0.03333333333333333,
+    "combatSeconds": 11.39999999999997,
+    "revives": 0,
+    "primaryAt": 54.03333333333283,
+    "peakActors": 14,
+    "objectiveOrder": [
+      "facility-2",
+      "intel",
+      "facility-4",
+      "facility-3",
+      "facility-1",
+      "facility-0"
+    ]
+  },
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080"
+  ],
+  "players": 1,
+  "seed": 7,
+  "difficulty": 1,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 27.033333333331804,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "complete"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "complete"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "complete"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "complete"
+    }
+  ],
+  "extraction": {
+    "state": "departing",
+    "site": {
+      "x": 4910,
+      "y": 2850
+    },
+    "requested": 57.99999999999927,
+    "eta": 81.99999999999926,
+    "departure": 146.99999999999926,
+    "boarding": 3.0333333333333323
+  },
+  "feedback": {
+    "shot:enemy": 22,
+    "sound": 29,
+    "hit": 71,
+    "shot:ar": 97,
+    "supply": 2,
+    "kill": 8,
+    "alarm": 4,
+    "reload": 4,
+    "explode": 5
+  },
+  "downCount": 0,
+  "stageTimes": {
+    "operate": 1.6666666666666685,
+    "extract": 57.99999999999927
+  },
+  "elapsed": 85.03333333333107,
+  "result": "success",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 8,
+      "hp": 89
+    }
+  ],
+  "reconnect": false,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 600,
+    "median": 15.900000000372529,
+    "p95": 25.5,
+    "average": 17.377000000001864
+  }
+}

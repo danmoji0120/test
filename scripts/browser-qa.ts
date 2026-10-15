@@ -4,7 +4,7 @@ import { writeFileSync, mkdirSync } from "node:fs";
 import { Pilot } from "./bot";
 import type { World, Input } from "../src/shared/data";
 const url = process.env.QA_URL || "http://localhost:3000";
-const output = process.env.QA_OUTPUT || "docs/after";
+const output = process.env.QA_OUTPUT || "docs/v3/manual";
 const count = Math.max(1, Math.min(4, Number(process.env.QA_PLAYERS || 4)));
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({
@@ -46,10 +46,11 @@ await pages[0].screenshot({ path: `${output}/lobby-1920.png` });
 await pages[0].click('[data-character="luna"]');
 await pages[0].screenshot({ path: `${output}/luna-1920.png` });
 await pages[0].click('[data-character="aria"]');
-await (pages[1] ?? pages[0]).screenshot({
-  path: `${output}/lobby-1280.png`,
-  fullPage: true,
-});
+if (pages[1])
+  await pages[1].screenshot({
+    path: `${output}/lobby-1280.png`,
+    fullPage: true,
+  });
 await pages[0].click('[data-action="create"]');
 await pages[0].waitForSelector('[data-action="ready"]');
 const creditsBefore = Number(await pages[0].locator(".credits b").innerText());
@@ -83,7 +84,7 @@ await pages[0].click('[data-action="start"]');
 await Promise.all(pages.map((p) => p.waitForSelector("#battle")));
 await pages[0].waitForTimeout(800);
 await pages[0].screenshot({ path: `${output}/combat-1920.png` });
-await (pages[1] ?? pages[0]).screenshot({ path: `${output}/combat-1280.png` });
+if (pages[1]) await pages[1].screenshot({ path: `${output}/combat-1280.png` });
 let lastStage = "",
   lastLog = 0,
   iterations = 0,
@@ -185,9 +186,10 @@ try {
   }
   if (!final) throw Error("Browser mission timed out");
   await pages[0].screenshot({ path: `${output}/result-1920.png` });
-  await (pages[1] ?? pages[0]).screenshot({
-    path: `${output}/result-1280.png`,
-  });
+  if (pages[1])
+    await pages[1].screenshot({
+      path: `${output}/result-1280.png`,
+    });
   const finals = await Promise.all(pages.map(read));
   if (new Set(finals.map((q) => q.room.world.mission.stage)).size !== 1)
     throw Error("Mission result mismatch");
@@ -202,7 +204,7 @@ try {
     runId: final.room.world.id,
     metrics: final.room.world.metrics,
     browser: browser.version(),
-    viewports: ["1920x1080", "1280x720"],
+    viewports: count > 1 ? ["1920x1080", "1280x720"] : ["1920x1080"],
     players: count,
     seed: final.room.seed,
     contract: final.room.contract,
@@ -245,7 +247,7 @@ try {
     },
   };
   writeFileSync(
-    (process.env.QA_REPORT_DIR || "docs") + "/browser-qa.json",
+    (process.env.QA_REPORT_DIR || output) + "/browser-qa.json",
     JSON.stringify(report, null, 2),
   );
   if (stage !== "success") throw Error("Browser mission failed");
@@ -269,7 +271,7 @@ try {
   if (again.room.world.id === before) throw Error("Run ID reused");
   report.repeatDeployment = true;
   writeFileSync(
-    (process.env.QA_REPORT_DIR || "docs") + "/browser-qa.json",
+    (process.env.QA_REPORT_DIR || output) + "/browser-qa.json",
     JSON.stringify(report, null, 2),
   );
   console.log(JSON.stringify(report, null, 2));
@@ -280,7 +282,7 @@ try {
     .catch(() => {});
   const q = await read(pages[0]).catch(() => null);
   writeFileSync(
-    (process.env.QA_REPORT_DIR || "docs") + "/browser-failure.json",
+    (process.env.QA_REPORT_DIR || output) + "/browser-failure.json",
     JSON.stringify({ error: String(e), errors, state: q }, null, 2),
   );
   console.error(e);

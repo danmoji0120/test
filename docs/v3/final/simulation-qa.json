@@ -1,0 +1,1586 @@
+{
+  "method": "sanitized team public state and discrete held WASD at 10Hz; real snapshot encoder sampled at15Hz including room metadata; ordinary authoritative input, not human play or browser rendering",
+  "report": [
+    {
+      "count": 1,
+      "seed": 7,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 46.46666666666659,
+      "kills": 11,
+      "remaining": 9,
+      "metrics": {
+        "firstContact": 1.1333333333333335,
+        "combatSeconds": 4.233333333333328,
+        "revives": 0,
+        "primaryAt": 18.133333333333393,
+        "peakActors": 18,
+        "objectiveOrder": [
+          "facility-1",
+          "facility-0"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "traveling",
+          "source": "external-1",
+          "requested": 11.699999999999969,
+          "departed": 27.100000000000506,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-2",
+          "state": "deployed",
+          "source": "source-5",
+          "requested": 12.366666666666633,
+          "departed": 21.166666666666877,
+          "arrived": 30.500000000000675
+        },
+        {
+          "id": "dispatch-3",
+          "state": "deployed",
+          "source": "source-3",
+          "requested": 19.433333333333458,
+          "departed": 28.233333333333896,
+          "arrived": 43.100000000000115
+        },
+        {
+          "id": "dispatch-4",
+          "state": "traveling",
+          "source": "source-4",
+          "requested": 37.43333333333377,
+          "departed": 46.2666666666666,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e17",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 19,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e18",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 15,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e301",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 37,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e302",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 37,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e13",
+          "source": "source-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 29,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e14",
+          "source": "source-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 21,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e15",
+          "source": "source-4",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e16",
+          "source": "source-4",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 481.88773100000003,
+      "tickMs": {
+        "median": 0.19416200000000572,
+        "p95": 0.8469949999999926,
+        "p99": 1.769632999999999
+      },
+      "snapshotBytes": {
+        "initial": 39272,
+        "median": 3745,
+        "p95": 30740,
+        "bytesPerSecond": 95350.52367288394
+      }
+    },
+    {
+      "count": 1,
+      "seed": 42,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 51.666666666666295,
+      "kills": 8,
+      "remaining": 12,
+      "metrics": {
+        "firstContact": 3.3333333333333313,
+        "combatSeconds": 4.66666666666666,
+        "revives": 0,
+        "primaryAt": 23.733333333333672,
+        "peakActors": 18,
+        "objectiveOrder": [
+          "facility-1",
+          "facility-0"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "deployed",
+          "source": "external-0",
+          "requested": 19.866666666666813,
+          "departed": 35.26666666666723,
+          "arrived": 48.899999999999785
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-5",
+          "requested": 24.633333333333717,
+          "departed": 33.433333333334,
+          "arrived": 46.86666666666657
+        },
+        {
+          "id": "dispatch-3",
+          "state": "traveling",
+          "source": "source-3",
+          "requested": 42.666666666666806,
+          "departed": 51.49999999999964,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e17",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 35,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e18",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 26,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e381",
+          "source": "external-0",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 26,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e382",
+          "source": "external-0",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 20,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e13",
+          "source": "source-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e14",
+          "source": "source-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 442.8570840000001,
+      "tickMs": {
+        "median": 0.14723100000003342,
+        "p95": 0.9975309999999808,
+        "p99": 1.557313000000022
+      },
+      "snapshotBytes": {
+        "initial": 42605,
+        "median": 3084,
+        "p95": 32740,
+        "bytesPerSecond": 99134.98064516201
+      }
+    },
+    {
+      "count": 1,
+      "seed": 103,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 57.56666666666596,
+      "kills": 8,
+      "remaining": 12,
+      "metrics": {
+        "firstContact": 0.39999999999999997,
+        "combatSeconds": 5.966666666666655,
+        "revives": 0,
+        "primaryAt": 28.53333333333391,
+        "peakActors": 18,
+        "objectiveOrder": [
+          "facility-0",
+          "facility-1"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "active"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "deployed",
+          "source": "source-3",
+          "requested": 5.966666666666655,
+          "departed": 14.799999999999958,
+          "arrived": 24.00000000000035
+        },
+        {
+          "id": "dispatch-2",
+          "state": "deployed",
+          "source": "source-4",
+          "requested": 25.13333333333374,
+          "departed": 33.93333333333397,
+          "arrived": 42.70000000000014
+        },
+        {
+          "id": "dispatch-3",
+          "state": "traveling",
+          "source": "external-0",
+          "requested": 30.00000000000065,
+          "departed": 45.433333333333316,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-4",
+          "state": "queued",
+          "source": "external-1",
+          "requested": 48.56666666666647,
+          "departed": -1,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e13",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 19,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e14",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 19,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e15",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 17,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e16",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 17,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e428",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 23,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e429",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 23,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 618.3444849999998,
+      "tickMs": {
+        "median": 0.20632000000000517,
+        "p95": 1.1513119999999617,
+        "p99": 1.6422509999999875
+      },
+      "snapshotBytes": {
+        "initial": 39675,
+        "median": 4799,
+        "p95": 33608,
+        "bytesPerSecond": 123847.55645628409
+      }
+    },
+    {
+      "count": 2,
+      "seed": 7,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 39.73333333333364,
+      "kills": 7,
+      "remaining": 14,
+      "metrics": {
+        "firstContact": 1.0333333333333332,
+        "combatSeconds": 2.666666666666667,
+        "revives": 0,
+        "primaryAt": 11.49999999999997,
+        "peakActors": 19,
+        "objectiveOrder": [
+          "facility-1",
+          "facility-0"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "traveling",
+          "source": "external-1",
+          "requested": 12.733333333333299,
+          "departed": 28.13333333333389,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-5",
+          "requested": 30.73333333333402,
+          "departed": 39.56666666666698,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e312",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 23,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e313",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 23,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e18",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e19",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 492.9520160000002,
+      "tickMs": {
+        "median": 0.18201399999998102,
+        "p95": 0.9834799999998722,
+        "p99": 2.9944560000001275
+      },
+      "snapshotBytes": {
+        "initial": 51793,
+        "median": 4290,
+        "p95": 45235,
+        "bytesPerSecond": 125101.81208053595
+      }
+    },
+    {
+      "count": 2,
+      "seed": 42,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 44.63333333333336,
+      "kills": 7,
+      "remaining": 14,
+      "metrics": {
+        "firstContact": 3.3333333333333313,
+        "combatSeconds": 2.7666666666666666,
+        "revives": 0,
+        "primaryAt": 16.83333333333333,
+        "peakActors": 19,
+        "objectiveOrder": [
+          "facility-1",
+          "facility-0"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "cancelled",
+          "source": "external-0",
+          "requested": 17.63333333333337,
+          "departed": 33.03333333333402,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-5",
+          "requested": 35.63333333333387,
+          "departed": 44.466666666666704,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e380",
+          "source": "external-0",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 13,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e381",
+          "source": "external-0",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 10,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e18",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e19",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 559.9083099999998,
+      "tickMs": {
+        "median": 0.11952000000019325,
+        "p95": 2.122483999999986,
+        "p99": 2.9452320000000327
+      },
+      "snapshotBytes": {
+        "initial": 57347,
+        "median": 3631,
+        "p95": 48592,
+        "bytesPerSecond": 136672.27035100813
+      }
+    },
+    {
+      "count": 2,
+      "seed": 103,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 48.26666666666649,
+      "kills": 12,
+      "remaining": 7,
+      "metrics": {
+        "firstContact": 0.39999999999999997,
+        "combatSeconds": 3.5666666666666638,
+        "revives": 0,
+        "primaryAt": 19.233333333333448,
+        "peakActors": 19,
+        "objectiveOrder": [
+          "facility-0",
+          "facility-1"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "cancelled",
+          "source": "source-4",
+          "requested": 21.233333333333547,
+          "departed": 30.033333333333985,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-3",
+          "requested": 39.23333333333367,
+          "departed": 48.0666666666665,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e16",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 11,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e17",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 9,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e14",
+          "source": "source-3",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e15",
+          "source": "source-3",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 593.3226869999999,
+      "tickMs": {
+        "median": 0.07989999999972497,
+        "p95": 2.2343219999997928,
+        "p99": 3.0499189999995906
+      },
+      "snapshotBytes": {
+        "initial": 50401,
+        "median": 5419,
+        "p95": 50714,
+        "bytesPerSecond": 170958.9571823211
+      }
+    },
+    {
+      "count": 4,
+      "seed": 7,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 36.833333333333805,
+      "kills": 7,
+      "remaining": 17,
+      "metrics": {
+        "firstContact": 0.03333333333333333,
+        "combatSeconds": 1.8666666666666691,
+        "revives": 0,
+        "primaryAt": 8.733333333333313,
+        "peakActors": 21,
+        "objectiveOrder": [
+          "facility-1",
+          "facility-0"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "traveling",
+          "source": "external-1",
+          "requested": 9.833333333333309,
+          "departed": 25.233333333333746,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-5",
+          "requested": 27.833333333333876,
+          "departed": 36.66666666666715,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e337",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 23,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e338",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 23,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e339",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 23,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e20",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e21",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 643.7849930000002,
+      "tickMs": {
+        "median": 0.1967660000000251,
+        "p95": 1.1605359999998655,
+        "p99": 5.1569790000003195
+      },
+      "snapshotBytes": {
+        "initial": 75454,
+        "median": 5609,
+        "p95": 72521,
+        "bytesPerSecond": 172365.0407239797
+      }
+    },
+    {
+      "count": 4,
+      "seed": 42,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 43.03333333333345,
+      "kills": 9,
+      "remaining": 15,
+      "metrics": {
+        "firstContact": 3.0999999999999988,
+        "combatSeconds": 2.1666666666666687,
+        "revives": 0,
+        "primaryAt": 15.166666666666623,
+        "peakActors": 21,
+        "objectiveOrder": [
+          "facility-1",
+          "facility-0"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "cancelled",
+          "source": "external-0",
+          "requested": 16.03333333333329,
+          "departed": 31.433333333334055,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-5",
+          "requested": 34.033333333333964,
+          "departed": 42.866666666666795,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e413",
+          "source": "external-0",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 10,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e414",
+          "source": "external-0",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 17,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e415",
+          "source": "external-0",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 13,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e20",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e21",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 859.494905,
+      "tickMs": {
+        "median": 0.22720199999912438,
+        "p95": 3.5892809999995734,
+        "p99": 5.474216999999953
+      },
+      "snapshotBytes": {
+        "initial": 84959,
+        "median": 4884,
+        "p95": 80133,
+        "bytesPerSecond": 200584.69403563073
+      }
+    },
+    {
+      "count": 4,
+      "seed": 103,
+      "level": 3,
+      "strategy": "primary",
+      "fail": false,
+      "reverse": false,
+      "result": "success",
+      "elapsed": 46.76666666666657,
+      "kills": 15,
+      "remaining": 6,
+      "metrics": {
+        "firstContact": 0.39999999999999997,
+        "combatSeconds": 6.799999999999986,
+        "revives": 0,
+        "primaryAt": 17.800000000000043,
+        "peakActors": 21,
+        "objectiveOrder": [
+          "facility-0",
+          "facility-1"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "active"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "cancelled",
+          "source": "source-4",
+          "requested": 19.733333333333473,
+          "departed": 28.53333333333391,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-3",
+          "requested": 37.73333333333375,
+          "departed": 46.566666666666585,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e18",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 11,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e19",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 9,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e16",
+          "source": "source-3",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e17",
+          "source": "source-3",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 1,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 885.1758150000005,
+      "tickMs": {
+        "median": 0.07078600000022561,
+        "p95": 3.8340289999996457,
+        "p99": 5.449118000000453
+      },
+      "snapshotBytes": {
+        "initial": 72234,
+        "median": 6424,
+        "p95": 87312,
+        "bytesPerSecond": 252441.66072701404
+      }
+    },
+    {
+      "count": 4,
+      "seed": 42,
+      "level": 1,
+      "strategy": "all",
+      "fail": false,
+      "reverse": true,
+      "result": "success",
+      "elapsed": 62.566666666665675,
+      "kills": 11,
+      "remaining": 6,
+      "metrics": {
+        "firstContact": 3.299999999999998,
+        "combatSeconds": 4.333333333333328,
+        "revives": 0,
+        "primaryAt": 34.70000000000059,
+        "peakActors": 17,
+        "objectiveOrder": [
+          "facility-2",
+          "intel",
+          "facility-4",
+          "facility-3",
+          "facility-1",
+          "facility-0"
+        ]
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "complete"
+        },
+        {
+          "id": "facility-1",
+          "state": "complete"
+        },
+        {
+          "id": "facility-2",
+          "state": "complete"
+        },
+        {
+          "id": "facility-3",
+          "state": "complete"
+        },
+        {
+          "id": "facility-4",
+          "state": "complete"
+        },
+        {
+          "id": "intel",
+          "state": "complete"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "queued",
+          "source": "external-1",
+          "requested": 30.00000000000065,
+          "departed": -1,
+          "arrived": -1
+        }
+      ],
+      "provenance": [],
+      "cpuMs": 1229.691202,
+      "tickMs": {
+        "median": 0.06929500000023836,
+        "p95": 4.222082999999657,
+        "p99": 5.408198000000084
+      },
+      "snapshotBytes": {
+        "initial": 84955,
+        "median": 5497,
+        "p95": 86465,
+        "bytesPerSecond": 278221.3106020289
+      }
+    },
+    {
+      "count": 1,
+      "seed": 42,
+      "level": 3,
+      "strategy": "primary",
+      "fail": true,
+      "reverse": false,
+      "result": "failed",
+      "elapsed": 17.800000000000043,
+      "kills": 0,
+      "remaining": 18,
+      "metrics": {
+        "firstContact": 3.3333333333333313,
+        "combatSeconds": 12.633333333333299,
+        "revives": 0,
+        "primaryAt": -1,
+        "peakActors": 18,
+        "objectiveOrder": []
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "available"
+        },
+        {
+          "id": "facility-1",
+          "state": "available"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "traveling",
+          "source": "source-3",
+          "requested": 4.866666666666659,
+          "departed": 13.699999999999962,
+          "arrived": 17.5666666666667
+        },
+        {
+          "id": "dispatch-2",
+          "state": "queued",
+          "source": "source-5",
+          "requested": 11.333333333333304,
+          "departed": -1,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e13",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 8,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e14",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 8,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 223.8297990000001,
+      "tickMs": {
+        "median": 0.14215299999978015,
+        "p95": 1.285374000000047,
+        "p99": 1.7861370000000534
+      },
+      "snapshotBytes": {
+        "initial": 42604,
+        "median": 3874,
+        "p95": 33348,
+        "bytesPerSecond": 163948.65168539286
+      }
+    },
+    {
+      "count": 2,
+      "seed": 42,
+      "level": 3,
+      "strategy": "primary",
+      "fail": true,
+      "reverse": false,
+      "result": "failed",
+      "elapsed": 27.166666666667176,
+      "kills": 0,
+      "remaining": 19,
+      "metrics": {
+        "firstContact": 3.3333333333333313,
+        "combatSeconds": 23.700000000000337,
+        "revives": 0,
+        "primaryAt": -1,
+        "peakActors": 19,
+        "objectiveOrder": []
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "available"
+        },
+        {
+          "id": "facility-1",
+          "state": "available"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "deployed",
+          "source": "source-3",
+          "requested": 4.866666666666659,
+          "departed": 13.699999999999962,
+          "arrived": 19.300000000000118
+        },
+        {
+          "id": "dispatch-2",
+          "state": "traveling",
+          "source": "source-5",
+          "requested": 10.299999999999974,
+          "departed": 19.100000000000108,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-3",
+          "state": "queued",
+          "source": "external-0",
+          "requested": 23.066666666666972,
+          "departed": -1,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e14",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 11,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e15",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 11,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e18",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 17,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e19",
+          "source": "source-5",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 17,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 497.7637569999997,
+      "tickMs": {
+        "median": 0.22137300000031246,
+        "p95": 2.192809999999554,
+        "p99": 2.69400399999995
+      },
+      "snapshotBytes": {
+        "initial": 57346,
+        "median": 5020,
+        "p95": 49730,
+        "bytesPerSecond": 232960.82208588521
+      }
+    },
+    {
+      "count": 4,
+      "seed": 42,
+      "level": 3,
+      "strategy": "primary",
+      "fail": true,
+      "reverse": false,
+      "result": "failed",
+      "elapsed": 19.966666666666818,
+      "kills": 0,
+      "remaining": 21,
+      "metrics": {
+        "firstContact": 3.0999999999999988,
+        "combatSeconds": 16.76666666666666,
+        "revives": 0,
+        "primaryAt": -1,
+        "peakActors": 21,
+        "objectiveOrder": []
+      },
+      "objectives": [
+        {
+          "id": "facility-0",
+          "state": "available"
+        },
+        {
+          "id": "facility-1",
+          "state": "available"
+        },
+        {
+          "id": "facility-2",
+          "state": "available"
+        },
+        {
+          "id": "facility-3",
+          "state": "available"
+        },
+        {
+          "id": "facility-4",
+          "state": "available"
+        },
+        {
+          "id": "intel",
+          "state": "available"
+        }
+      ],
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "state": "deployed",
+          "source": "source-3",
+          "requested": 4.7666666666666595,
+          "departed": 13.599999999999962,
+          "arrived": 19.433333333333458
+        },
+        {
+          "id": "dispatch-2",
+          "state": "queued",
+          "source": "source-5",
+          "requested": 11.433333333333303,
+          "departed": -1,
+          "arrived": -1
+        },
+        {
+          "id": "dispatch-3",
+          "state": "queued",
+          "source": "external-0",
+          "requested": 17.600000000000033,
+          "departed": -1,
+          "arrived": -1
+        }
+      ],
+      "provenance": [
+        {
+          "enemy": "e16",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 12,
+          "plannedRoute": true
+        },
+        {
+          "enemy": "e17",
+          "source": "source-3",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "continuous": true,
+          "samples": 12,
+          "plannedRoute": true
+        }
+      ],
+      "cpuMs": 726.9410810000008,
+      "tickMs": {
+        "median": 0.4426659999990079,
+        "p95": 4.35482200000024,
+        "p99": 5.146944000000076
+      },
+      "snapshotBytes": {
+        "initial": 84958,
+        "median": 6769,
+        "p95": 84577,
+        "bytesPerSecond": 403344.04006677493
+      }
+    }
+  ]
+}

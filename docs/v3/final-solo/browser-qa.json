@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-15T07:04:52.047Z",
+  "runId": "ea57e73f-0feb-499d-8e6c-a6305072fcf5",
+  "metrics": {
+    "firstContact": 2.833333333333333,
+    "combatSeconds": 11.099999999999971,
+    "revives": 0,
+    "primaryAt": 57.96666666666594,
+    "peakActors": 14,
+    "objectiveOrder": [
+      "facility-2",
+      "intel",
+      "facility-4",
+      "facility-3",
+      "facility-1",
+      "facility-0"
+    ]
+  },
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080"
+  ],
+  "players": 1,
+  "seed": 7,
+  "contract": "recon",
+  "credits": {
+    "before": 300,
+    "after": 1989,
+    "awarded": 1689,
+    "persisted": true
+  },
+  "difficulty": 1,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 26.93333333333181,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "complete"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "complete"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "complete"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "complete"
+    }
+  ],
+  "extraction": {
+    "state": "departing",
+    "site": {
+      "x": 4650,
+      "y": 2200
+    },
+    "requested": 59.69999999999917,
+    "eta": 83.69999999999916,
+    "departure": 148.69999999999916,
+    "boarding": 3.0333333333333323
+  },
+  "feedback": {
+    "sound": 33,
+    "shot:ar": 112,
+    "hit": 70,
+    "alarm": 4,
+    "shot:enemy": 9,
+    "kill": 9,
+    "reload": 5,
+    "explode": 5,
+    "supply": 1
+  },
+  "downCount": 0,
+  "stageTimes": {
+    "recon": 1.6000000000000016,
+    "operate": 4.266666666666661,
+    "extract": 59.799999999999166
+  },
+  "elapsed": 86.73333333333098,
+  "result": "success",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 9,
+      "hp": 89
+    }
+  ],
+  "reconnect": false,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 570,
+    "median": 16.199999999254942,
+    "p95": 28.300000000745058,
+    "average": 18.978421052643345
+  }
+}

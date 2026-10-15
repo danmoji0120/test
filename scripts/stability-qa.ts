@@ -7,7 +7,9 @@ import {
 import { visibleWorld } from "../src/server/visibility";
 import type { World } from "../src/shared/data";
 import { Pilot } from "./bot";
-import { writeFileSync } from "node:fs";
+import { writeFileSync, mkdirSync } from "node:fs";
+const output = process.env.QA_REPORT_DIR || "docs/v3/final";
+mkdirSync(output, { recursive: true });
 const gc = (globalThis as any).gc as (() => void) | undefined;
 const heap: number[] = [];
 const times: number[] = [];
@@ -68,8 +70,5 @@ const report = {
     p99: times[Math.floor(times.length * 0.99)],
   },
 };
-writeFileSync(
-  (process.env.QA_REPORT_DIR || "docs") + "/stability-qa.json",
-  JSON.stringify(report, null, 2),
-);
+writeFileSync(output + "/stability-qa.json", JSON.stringify(report, null, 2));
 console.log(report);

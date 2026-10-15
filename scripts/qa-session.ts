@@ -2,6 +2,8 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { resolve } from "node:path";
 import { existsSync, copyFileSync, mkdirSync } from "node:fs";
 const port = process.env.QA_PORT || "3302";
+const reportDir =
+  process.env.QA_REPORT_DIR || process.env.QA_OUTPUT || "docs/v3/manual";
 // Keep the server in the same foreground QA process tree; detached jobs may be reclaimed by cloud tooling.
 const dataDir = resolve(".qa-private-session-" + process.pid),
   trace = resolve(dataDir, "trace.json");
@@ -44,7 +46,12 @@ try {
     process.execPath,
     ["--import", "tsx", process.env.QA_SCRIPT || "scripts/browser-qa.ts"],
     {
-      env: { ...process.env, QA_URL: `http://localhost:${port}` },
+      env: {
+        ...process.env,
+        QA_URL: `http://localhost:${port}`,
+        QA_OUTPUT: process.env.QA_OUTPUT || reportDir,
+        QA_REPORT_DIR: reportDir,
+      },
       stdio: "inherit",
     },
   );
@@ -54,12 +61,9 @@ try {
 } finally {
   const completed = trace.replace(/\.json$/, "-completed.json"),
     evidence = existsSync(completed) ? completed : trace;
-  if (process.env.QA_REPORT_DIR && existsSync(evidence)) {
-    mkdirSync(process.env.QA_REPORT_DIR, { recursive: true });
-    copyFileSync(
-      evidence,
-      resolve(process.env.QA_REPORT_DIR, "server-trace.json"),
-    );
+  if (existsSync(evidence)) {
+    mkdirSync(reportDir, { recursive: true });
+    copyFileSync(evidence, resolve(reportDir, "server-trace.json"));
   }
   stop();
 }

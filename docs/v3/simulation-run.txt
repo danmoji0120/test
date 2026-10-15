@@ -1,0 +1,143 @@
+{
+  count: 1,
+  seed: 7,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 46,
+  kills: 11,
+  remaining: 9
+}
+{
+  count: 1,
+  seed: 42,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 52,
+  kills: 8,
+  remaining: 12
+}
+{
+  count: 1,
+  seed: 103,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 58,
+  kills: 8,
+  remaining: 12
+}
+{
+  count: 2,
+  seed: 7,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 40,
+  kills: 7,
+  remaining: 14
+}
+{
+  count: 2,
+  seed: 42,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 45,
+  kills: 7,
+  remaining: 14
+}
+{
+  count: 2,
+  seed: 103,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 48,
+  kills: 12,
+  remaining: 7
+}
+{
+  count: 4,
+  seed: 7,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 37,
+  kills: 7,
+  remaining: 17
+}
+{
+  count: 4,
+  seed: 42,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 43,
+  kills: 9,
+  remaining: 15
+}
+{
+  count: 4,
+  seed: 103,
+  level: 3,
+  strategy: 'primary',
+  fail: false,
+  result: 'success',
+  seconds: 47,
+  kills: 15,
+  remaining: 6
+}
+{
+  count: 4,
+  seed: 42,
+  level: 1,
+  strategy: 'all',
+  fail: false,
+  result: 'success',
+  seconds: 63,
+  kills: 11,
+  remaining: 6
+}
+{
+  count: 1,
+  seed: 42,
+  level: 3,
+  strategy: 'primary',
+  fail: true,
+  result: 'failed',
+  seconds: 18,
+  kills: 0,
+  remaining: 18
+}
+{
+  count: 2,
+  seed: 42,
+  level: 3,
+  strategy: 'primary',
+  fail: true,
+  result: 'failed',
+  seconds: 27,
+  kills: 0,
+  remaining: 19
+}
+{
+  count: 4,
+  seed: 42,
+  level: 3,
+  strategy: 'primary',
+  fail: true,
+  result: 'failed',
+  seconds: 20,
+  kills: 0,
+  remaining: 21
+}

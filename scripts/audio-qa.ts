@@ -1,6 +1,6 @@
 import { chromium } from "playwright";
 import { mkdirSync, writeFileSync } from "node:fs";
-const output = process.env.QA_OUTPUT || "docs/v2/audio";
+const output = process.env.QA_OUTPUT || "docs/v3/manual-audio";
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
