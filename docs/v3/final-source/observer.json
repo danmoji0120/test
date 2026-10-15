@@ -1,0 +1,2032 @@
+{
+  "method": "two real browsers; static observation route; hold fire for the first 2.1s of observed contact to allow the guard to call; normal DOM inputs; server provenance recorded separately",
+  "source": "source-5",
+  "elapsed": 70.99999999999854,
+  "result": "operate",
+  "errors": [],
+  "observed": [
+    {
+      "time": 0.26666666666666666,
+      "enemies": [],
+      "sources": []
+    },
+    {
+      "time": 1.0666666666666667,
+      "enemies": [],
+      "sources": []
+    },
+    {
+      "time": 1.3333333333333341,
+      "enemies": [],
+      "sources": []
+    },
+    {
+      "time": 1.6666666666666685,
+      "enemies": [
+        {
+          "id": "e9",
+          "x": 2937.1071206451797,
+          "y": 2829.266764690585
+        }
+      ],
+      "sources": []
+    },
+    {
+      "time": 2.1333333333333355,
+      "enemies": [
+        {
+          "id": "e9",
+          "x": 2869.4743002946875,
+          "y": 2825.194320446789
+        }
+      ],
+      "sources": []
+    },
+    {
+      "time": 2.533333333333334,
+      "enemies": [
+        {
+          "id": "e9",
+          "x": 2914.8076089050087,
+          "y": 2825.022074590752
+        }
+      ],
+      "sources": []
+    },
+    {
+      "time": 2.8666666666666663,
+      "enemies": [
+        {
+          "id": "e9",
+          "x": 2924.5616860186874,
+          "y": 2870.15849035859
+        }
+      ],
+      "sources": []
+    },
+    {
+      "time": 3.266666666666665,
+      "enemies": [
+        {
+          "id": "e9",
+          "x": 2924.9725168450414,
+          "y": 2926.8235272902184
+        }
+      ],
+      "sources": []
+    },
+    {
+      "time": 3.599999999999997,
+      "enemies": [
+        {
+          "id": "e9",
+          "x": 2930.6559062083375,
+          "y": 2972.4785464666597
+        }
+      ],
+      "sources": []
+    },
+    {
+      "time": 3.933333333333329,
+      "enemies": [
+        {
+          "id": "e9",
+          "x": 2930.6204570174054,
+          "y": 2974.848825266964
+        }
+      ],
+      "sources": []
+    },
+    {
+      "time": 4.266666666666661,
+      "enemies": [],
+      "sources": []
+    },
+    {
+      "time": 4.599999999999993,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 4.933333333333326,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 5.333333333333324,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 5.733333333333323,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 6.133333333333321,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 6.53333333333332,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 6.9333333333333185,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 7.46666666666665,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 7.733333333333316,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 8.199999999999982,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 8.59999999999998,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 8.933333333333312,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 9.266666666666644,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 9.599999999999977,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 9.866666666666642,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 10.26666666666664,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 11.066666666666638,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 11.39999999999997,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 11.733333333333302,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 12.066666666666634,
+      "enemies": [
+        {
+          "id": "e18",
+          "x": 3518.2347088420997,
+          "y": 2730.9176002519916
+        },
+        {
+          "id": "e19",
+          "x": 3524.6338339847057,
+          "y": 2785.8967084923124
+        }
+      ],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 13.333333333333297,
+      "enemies": [
+        {
+          "id": "e19",
+          "x": 3650.259151061532,
+          "y": 2924.9912925627227
+        }
+      ],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 13.733333333333295,
+      "enemies": [
+        {
+          "id": "e19",
+          "x": 3665.9258162730894,
+          "y": 2924.999633447313
+        }
+      ],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 14.19999999999996,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 14.599999999999959,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 14.999999999999957,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 15.33333333333329,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 15.799999999999955,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 16.266666666666634,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 16.599999999999984,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 17.066666666666674,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 17.466666666666693,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 17.800000000000043,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 18.200000000000063,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 18.466666666666743,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 18.800000000000093,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 19.133333333333443,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 19.466666666666793,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 19.866666666666813,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 20.266666666666833,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 20.933333333333533,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 21.400000000000222,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 21.800000000000242,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 22.200000000000262,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 22.600000000000282,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 22.933333333333632,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 23.200000000000312,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 23.533333333333662,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 24.00000000000035,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 24.3333333333337,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 24.80000000000039,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 25.20000000000041,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 25.53333333333376,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 26.06666666666712,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 26.53333333333381,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 26.93333333333383,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 27.40000000000052,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 27.86666666666721,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 28.26666666666723,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 28.80000000000059,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 29.26666666666728,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 29.6666666666673,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 30.06666666666732,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 30.73333333333402,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 31.0000000000007,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 31.26666666666738,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 31.60000000000073,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 31.93333333333408,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 32.33333333333406,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 32.60000000000071,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 32.933333333334026,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 33.333333333334004,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 33.800000000000644,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 34.066666666667295,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 34.46666666666727,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 34.66666666666726,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 35.000000000000576,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 35.40000000000055,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 35.73333333333387,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 36.06666666666718,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 36.400000000000496,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 36.80000000000047,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 37.20000000000045,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 37.60000000000043,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 38.000000000000405,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 38.33333333333372,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 38.60000000000037,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 38.933333333333685,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 39.266666666667,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 39.53333333333365,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 40.00000000000029,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 40.60000000000026,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 41.000000000000234,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 41.33333333333355,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 41.6000000000002,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 41.933333333333515,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 42.33333333333349,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 42.666666666666806,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 43.066666666666784,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 43.4000000000001,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 43.73333333333341,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 44.06666666666673,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 44.466666666666704,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 44.80000000000002,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 45.06666666666667,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 45.399999999999984,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 45.666666666666636,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 46.06666666666661,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 46.46666666666659,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 46.93333333333323,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 47.33333333333321,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 47.733333333333185,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 48.13333333333316,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 48.46666666666648,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 48.79999999999979,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 49.19999999999977,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 49.53333333333308,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 49.8666666666664,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 50.266666666666374,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 50.933333333333,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 51.199999999999655,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 51.59999999999963,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 51.933333333332946,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 52.333333333332924,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 52.66666666666624,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 53.066666666666215,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 53.33333333333287,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 53.66666666666618,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 54.06666666666616,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 54.39999999999947,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 54.933333333332776,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 55.33333333333275,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 55.599999999999405,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 55.866666666666056,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 56.26666666666603,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 56.73333333333267,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 57.13333333333265,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 57.59999999999929,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 57.99999999999927,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 58.399999999999245,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 58.866666666665886,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 59.26666666666586,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 59.59999999999918,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 59.999999999999154,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 60.33333333333247,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 60.933333333332435,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 61.26666666666575,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 61.666666666665726,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 61.99999999999904,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 62.333333333332355,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 62.66666666666567,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 62.999999999998984,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 63.3333333333323,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 63.66666666666561,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 63.99999999999893,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 64.39999999999891,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 64.79999999999889,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 65.1333333333322,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 65.53333333333218,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 65.93333333333216,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 66.33333333333213,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 66.73333333333211,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 67.06666666666543,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 67.4666666666654,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 67.73333333333206,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 67.9999999999987,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 68.33333333333202,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 68.66666666666534,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 68.99999999999865,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 69.33333333333196,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 69.59999999999862,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 69.9999999999986,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 70.33333333333191,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    },
+    {
+      "time": 70.99999999999854,
+      "enemies": [],
+      "sources": [
+        {
+          "id": "source-5",
+          "warning": 11.799999999999997,
+          "blocked": false
+        }
+      ]
+    }
+  ]
+}

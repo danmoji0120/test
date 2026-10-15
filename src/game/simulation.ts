@@ -7,6 +7,7 @@ import { initialAlert, tickAlert, raiseAlert } from "./alert";
 import { noise } from "./perception";
 import { initialVision, updateVision } from "./visibility";
 import { RULES } from "../shared/rules";
+import { difficulty as difficultyConfig } from "../shared/difficulty";
 import {
   CHARACTERS,
   WEAPONS,
@@ -75,6 +76,8 @@ export function spawnEnemy(
     ...pos,
     id: `e${++w.eventId}`,
     kind,
+    elite:
+      w.difficulty >= 7 && random(w) < difficultyConfig(w.difficulty).elite,
     hp: ENEMIES[kind].hp,
     angle: 0,
     cooldown: 0,
@@ -89,7 +92,12 @@ export function spawnEnemy(
     zone: -1,
     burst: 0,
     home: { ...pos },
-    role: kind === "heavy" ? "anchor" : random(w) < 0.4 ? "flank" : "assault",
+    role:
+      kind === "heavy"
+        ? "anchor"
+        : random(w) < difficultyConfig(w.difficulty).flank
+          ? "flank"
+          : "assault",
     alert: 0,
     tactical: null,
     squad: "squad-" + Math.floor(w.eventId / 3),
@@ -116,7 +124,7 @@ export function spawnEnemy(
     direction: { x: 0, y: 0 },
     observedAt: -100,
     confidence: "heard",
-    callAt: -20,
+    callAt: -100,
   });
   squad.members.push(e.id);
   return e;
@@ -168,7 +176,7 @@ export function createWorld(
       reward: 0,
       reason: "",
     },
-    difficulty,
+    difficulty: difficultyConfig(difficulty).level,
     contract,
     events: [],
     eventId: 0,
@@ -365,7 +373,7 @@ export function finish(w: World, success: boolean, reason: string) {
 
   event(w, { type: success ? "explode" : "alarm", ...w.map.spawn });
 }
-export function tick(w: World, dt: number, hard = false) {
+export function tick(w: World, dt: number) {
   if (["success", "failed"].includes(w.mission.stage)) return;
   dt = Math.min(0.1, Math.max(0, dt));
   w.time += dt;
@@ -481,7 +489,7 @@ export function tick(w: World, dt: number, hard = false) {
   if (["success", "failed"].includes(m.stage)) return;
   tickAlert(w, dt);
   tickDirector(w, dt);
-  enemyAI(w, dt, hard ? 1.4 : 1);
+  enemyAI(w, dt);
   if (w.enemies.some((e) => e.seenAt === w.time)) w.metrics.combatSeconds += dt;
   w.metrics.peakActors = Math.max(w.metrics.peakActors, w.enemies.length);
   updateVision(w);

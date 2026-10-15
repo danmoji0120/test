@@ -2,6 +2,7 @@ import type { World, Enemy, Player, Vec } from "../shared/data";
 import { distance } from "./map";
 import { lineOfSight } from "./visibility";
 import { raiseAlert } from "./alert";
+import { difficulty } from "../shared/difficulty";
 export function noise(
   w: World,
   p: Vec,
@@ -71,7 +72,7 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
     const radius = w.map.installations.some(
       (d) => d.kind === "comms" && d.hp > 0,
     )
-      ? 620
+      ? difficulty(w.difficulty).radio
       : 320;
     for (const ally of w.enemies) {
       if (

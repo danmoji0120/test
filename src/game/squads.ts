@@ -10,8 +10,15 @@ import {
 } from "./map";
 import { event, random, damagePlayer } from "./simulation";
 import { perceive, transition } from "./perception";
-export function enemyAI(w: World, dt: number, difficulty: number) {
+import { difficulty } from "../shared/difficulty";
+import { raiseAlert } from "./alert";
+export function enemyAI(w: World, dt: number) {
+  const config = difficulty(w.difficulty, w.players.length);
   const live = w.players.filter((p) => p.connected && !p.down);
+  for (const squad of Object.values(w.squads))
+    if (!w.enemies.some((e) => e.id === squad.leader && e.hp > 0))
+      squad.leader =
+        w.enemies.find((e) => e.squad === squad.id && e.hp > 0)?.id ?? "";
   for (const e of w.enemies) {
     if (e.hp <= 0) continue;
     const spec = ENEMIES[e.kind];
@@ -34,10 +41,11 @@ export function enemyAI(w: World, dt: number, difficulty: number) {
     if (
       target &&
       squad?.leader === e.id &&
-      w.time - squad.callAt > 28 &&
+      w.time - squad.callAt > config.interval * 0.65 &&
       e.stateTime > 1.5
     ) {
       transition(e, "REQUEST_SUPPORT");
+      raiseAlert(w, 50, "지원 요청", e);
       squad.callAt = w.time;
       w.supportSignals = w.supportSignals.slice(-31);
       w.supportSignals.push({
@@ -62,7 +70,7 @@ export function enemyAI(w: World, dt: number, difficulty: number) {
             victim = p;
           }
         }
-        if (victim) damagePlayer(w, victim, spec.damage * difficulty);
+        if (victim) damagePlayer(w, victim, spec.damage);
         event(w, {
           type: "shot",
           x: e.x,
@@ -84,14 +92,23 @@ export function enemyAI(w: World, dt: number, difficulty: number) {
     const inRange = target && distance(e, target) < spec.range;
     if (inRange && e.cooldown <= 0 && e.windup <= 0) {
       e.angle =
-        Math.atan2(target.y - e.y, target.x - e.x) + (random(w) - 0.5) * 0.16;
-      e.windup = spec.windup;
+        Math.atan2(target.y - e.y, target.x - e.x) +
+        (random(w) - 0.5) * (e.elite ? 0.11 : 0.16);
+      e.windup = spec.windup * config.reaction * (e.elite ? 0.8 : 1);
       // Lock the firing direction before locomotion can turn the sprite.
       if (e.kind === "heavy") continue;
     }
     let goal: Vec | undefined;
     if (e.memory > 0 && e.lastSeen) {
       goal = { ...e.lastSeen };
+      if (!target && e.state === "PURSUE" && squad) {
+        const lead = Math.min(150, Math.max(0, w.time - e.seenAt) * 80),
+          anticipated = {
+            x: goal.x + squad.direction.x * lead,
+            y: goal.y + squad.direction.y * lead,
+          };
+        if (!blocked(anticipated, w.map.obstacles, 22)) goal = anticipated;
+      }
       if (e.repath <= 0) {
         const angle = Math.atan2(goal.y - e.y, goal.x - e.x);
         if (e.role === "flank" && distance(e, goal) > 160) {

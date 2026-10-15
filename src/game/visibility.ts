@@ -12,7 +12,7 @@ export interface Vision {
   updated: number;
 }
 export const occludes = (o: Rect) =>
-  o.kind !== "crate" && !(o.kind === "door" && o.open);
+  o.kind !== "crate" && o.kind !== "fence" && !(o.kind === "door" && o.open);
 export function sightDistance(
   p: Vec,
   angle: number,

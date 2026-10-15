@@ -1,0 +1,7 @@
+# Phase 6 — difficulty and verification
+
+Numeric1–10 settings replace V2 normal/hard damage scaling. Keep all three enemy HP and basic damage values fixed. Scale garrisons/patrol groups, role composition, first reaction, radio, alert sensitivity, preparation, dispatch size/cadence and active population. Reuse the same raster types for more alert high-level elite variants. Solo is allowed at all levels. Total actor cap30.
+
+Shared fog texture is precomposed only on vision revision. Static terrain is sent once per ordered connection/run, dynamic map fields update at15Hz and shared sight only on revision. Hidden door changes are remembered until observed, and newly seen openings advance the public terrain revision. Hidden hit confirmation no longer creates particles/debris at the shooter's feet. Audio separates radio/footsteps/transport engines. Patrols begin at the farther road end to avoid opening fire on the insertion UI. Extraction candidates are inset so the actual landed transport fits on screen.
+
+Build and68 tests pass, including100 Seed navigation, initial placement, all ten difficulty levels for1/2/4 teams, shared sight/privacy, streamed reconstruction and reconnect. Actual1/2/4 browser operations succeeded on three seeds, with full optional completion, reverse main order, reconnect and repeat deployment. Final evidence and performance figures are in QA.md; intermediate combat, navigation and boarding-pilot failures remain under docs/v3/tuning and phase5. Human fun and target operation length are not certified by the automatic pilots.

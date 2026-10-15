@@ -1,4 +1,5 @@
 import type { World, Vec } from "../shared/data";
+import { difficulty } from "../shared/difficulty";
 import {
   requestSupport,
   tickReinforcements,
@@ -17,6 +18,7 @@ export function tickDirector(w: World, dt: number) {
       requestSupport(w, call.id, call.target, call.squad);
   if (w.time >= w.director.next) {
     let target: Vec | undefined;
+    let patrol = false;
     if (w.mission.stage === "extract")
       target = w.mission.extraction.site ?? undefined; // Explicit broadcast extraction beacon, not hidden player tracking.
     else {
@@ -24,14 +26,32 @@ export function tickDirector(w: World, dt: number) {
         .filter((s) => s.lastSeen && w.time - s.observedAt < 25)
         .sort((a, b) => b.observedAt - a.observedAt)[0];
       if (intel && w.alertState.level >= 2) target = intel.lastSeen!;
-      else if (w.time > 90)
+      else if (w.time > difficulty(w.difficulty).patrolPeriod) {
+        patrol = true;
         target =
           w.map.patrols[Math.floor(w.time / 90) % w.map.patrols.length]?.at(-1);
+      }
     }
     if (target)
-      requestSupport(w, "director-" + Math.floor(w.time / 12), target);
+      requestSupport(
+        w,
+        "director-" + Math.floor(w.time / 12),
+        target,
+        "director",
+        patrol
+          ? w.map.sources.find(
+              (s) =>
+                s.kind === "external" &&
+                !s.blocked &&
+                !s.disabled &&
+                s.cooldown <= 0,
+            )?.id
+          : undefined,
+      );
     w.director.next =
-      w.time + (w.mission.stage === "extract" ? 18 : 40) + (comms ? 0 : 25);
+      w.time +
+      (w.mission.stage === "extract" ? 18 : difficulty(w.difficulty).interval) +
+      (comms ? 0 : 25);
   }
   tickReinforcements(w, dt);
 }

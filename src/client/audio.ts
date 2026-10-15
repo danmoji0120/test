@@ -100,15 +100,18 @@ export class AudioEngine {
     this.output = panner;
     setTimeout(() => panner.disconnect(), 1200);
     const v =
-      (e.type === "sound" ? 0.5 : 1) *
+      (e.uncertainty ? 0.38 : e.type === "sound" ? 0.65 : 1) *
       Math.max(0.025, 1 / (1 + Math.pow(dist / 380, 2)));
     if (e.type === "sound") {
-      this.noiseBurst(
-        e.cue === "gunfire" ? 500 : 1200,
-        0.16,
-        0.22 * v,
-        "lowpass",
-      );
+      if (e.cue === "engine") {
+        this.noiseBurst(320, 0.65, 0.4 * v, "lowpass");
+        this.tone(58, 0.55, 0.12 * v);
+      } else if (e.cue === "steps")
+        this.noiseBurst(230, 0.065, 0.22 * v, "lowpass");
+      else if (e.cue === "radio") {
+        this.noiseBurst(1600, 0.1, 0.23 * v, "bandpass");
+        this.noiseBurst(2100, 0.05, 0.12 * v, "bandpass", 0.14);
+      } else this.noiseBurst(500, 0.16, 0.22 * v, "lowpass");
     } else if (e.type === "shot") {
       const sg = e.weapon === "sg",
         smg = e.weapon === "smg";

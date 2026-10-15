@@ -1,4 +1,6 @@
 import { RULES } from "../shared/rules";
+import { difficulty } from "../shared/difficulty";
+import { unpackRoom } from "../shared/snapshot";
 import "./style.css";
 import {
   CHARACTERS,
@@ -97,7 +99,7 @@ function connect() {
       render();
     }
     if (m.type === "state") {
-      room = m.room;
+      room = unpackRoom(m.room, room);
       const me = room?.players.find((p) => p.id === id);
       if (me) {
         character = me.character;
@@ -176,7 +178,7 @@ function lobby() {
             : `<div class="empty-member"><span>＋</span> 코드로 동료 초대</div>`;
         }).join(
           "",
-        )}</div><div class="room-settings"><label>SEED <input id="seed" aria-label="작전 시드" type="number" min="0" max="999999" value="${room.seed}" ${room.host !== id ? "disabled" : ""}></label><select id="contract" aria-label="계약" ${room.host !== id ? "disabled" : ""}><option value="blackout">BLACKOUT · 기본 계약</option><option value="recon" ${room.contract === "recon" ? "selected" : ""}>BLACKOUT · 정찰 보너스</option></select><select id="difficulty" aria-label="난이도" ${room.host !== id ? "disabled" : ""}><option value="normal">일반 작전</option><option value="hard" ${room.difficulty === "hard" ? "selected" : ""}>위험 작전 +30%</option></select></div><div class="deploy-row"><button class="secondary ${me?.ready ? "is-ready" : ""}" data-action="ready">${me?.ready ? "✓ 준비 완료" : "준비하기"}</button><button class="primary" data-action="start" ${room.host !== id || !room.players.filter((p) => p.connected).every((p) => p.ready) ? "disabled" : ""}>출격 <span>↗</span></button></div><button class="leave" data-action="leave">분대 나가기</button>`
+        )}</div><div class="room-settings"><label>SEED <input id="seed" aria-label="작전 시드" type="number" min="0" max="999999" value="${room.seed}" ${room.host !== id ? "disabled" : ""}></label><select id="contract" aria-label="계약" ${room.host !== id ? "disabled" : ""}><option value="blackout">BLACKOUT · 기본 계약</option><option value="recon" ${room.contract === "recon" ? "selected" : ""}>BLACKOUT · 정찰 보너스</option></select><select id="difficulty" aria-label="난이도" ${room.host !== id ? "disabled" : ""}>${Array.from({ length: 10 }, (_, i) => `<option value="${i + 1}" ${room!.difficulty === i + 1 ? "selected" : ""}>${i + 1} · ${i < 2 ? "입문" : i < 4 ? "보통" : i < 6 ? "어려움" : i < 9 ? "극한" : "절망"}</option>`).join("")}</select></div><div class="deploy-row"><button class="secondary ${me?.ready ? "is-ready" : ""}" data-action="ready">${me?.ready ? "✓ 준비 완료" : "준비하기"}</button><button class="primary" data-action="start" ${room.host !== id || !room.players.filter((p) => p.connected).every((p) => p.ready) ? "disabled" : ""}>출격 <span>↗</span></button></div><button class="leave" data-action="leave">분대 나가기</button>`
       : `<div class="entry-fields"><label for="name">콜사인</label><input id="name" maxlength="14" placeholder="오퍼레이터 이름" value="${escape(stored("doll-name") || "오퍼레이터")}"></div><button class="primary create" data-action="create" ${!connected ? "disabled" : ""}>새 분대 만들기 <span>↗</span></button><div class="join-row"><input id="code" maxlength="5" placeholder="분대 코드" aria-label="분대 코드"><button class="secondary" data-action="join" ${!connected ? "disabled" : ""}>참가</button></div><p class="entry-note">혼자 출격하거나, 코드로 친구들과 함께하세요.</p>`
   }</section></aside></div></main><footer><span><i></i> PROJECT DOLL SQUAD <span class="muted">/ FIRST DEPLOYMENT</span></span><span>작게 귀엽게, 빠르고 위험하게.</span><button class="text-button" data-action="audio">${audio.volume ? "◖ 사운드 켜짐" : "◖ 사운드 꺼짐"}</button></footer>`;
 }
@@ -186,7 +188,7 @@ function combat() {
 function result() {
   const m = room!.world!.mission,
     success = m.stage === "success",
-    reward = Math.round(m.reward * (room!.difficulty === "hard" ? 1.3 : 1));
+    reward = Math.round(m.reward * difficulty(room!.difficulty).reward);
   return `${header()}<main class="result-page"><div class="result-portrait">${portrait(character, success ? "happy" : "hurt")}</div><section class="result-card"><div class="eyebrow">OPERATION BLACKOUT / AFTER ACTION REPORT</div><div class="result-seal">${success ? "✦" : "×"}</div><h1>${success ? "모두, 무사히 귀환." : "다음 작전을 기약하며."}</h1><p>${escape(m.reason)}</p><div class="result-grade">${success ? (m.intel ? "S" : "A") : "D"}<span>${success ? "MISSION COMPLETE" : "MISSION FAILED"}</span></div><div class="result-stats"><div><small>작전 시간</small><b>${time(m.elapsed)}</b></div><div><small>분대 처치</small><b>${room!.players.reduce((v, p) => v + p.kills, 0)}</b></div><div><small>기밀 자료</small><b>${m.intel ? "회수 완료" : "미회수"}</b></div></div><div class="reward"><span>획득 크레딧</span><b>+ ${reward} <small>CR</small></b></div><p class="save-note">진행도가 서버에 저장되었습니다 · 현재 ${profile?.credits ?? 0} CR</p><button class="primary" data-action="return" ${room!.host !== id ? "disabled" : ""}>${room!.host === id ? "다음 작전 준비" : "분대장의 복귀를 기다리는 중"} <span>↗</span></button><button class="leave" data-action="leave">분대 나가기</button></section></main>`;
 }
 function time(s: number) {
@@ -463,8 +465,9 @@ document.addEventListener("change", (e) => {
       contract: (document.querySelector("#contract") as HTMLSelectElement)
         .value,
       seed: Number((document.querySelector("#seed") as HTMLInputElement).value),
-      difficulty: (document.querySelector("#difficulty") as HTMLSelectElement)
-        .value,
+      difficulty: Number(
+        (document.querySelector("#difficulty") as HTMLSelectElement).value,
+      ),
     });
 });
 window.addEventListener("keydown", (e) => {

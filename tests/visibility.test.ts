@@ -94,3 +94,30 @@ it("uses blocker intersections in the exact current polygon", () => {
       .every((v) => v.x <= 500.001),
   ).toBe(true);
 });
+
+it("remembers hidden door state and transmits its newly observed opening once seen", () => {
+  const w = fixture();
+  w.map.obstacles = [
+    {
+      id: "test-door",
+      x: 500,
+      y: 100,
+      w: 60,
+      h: 700,
+      kind: "door",
+      open: false,
+    },
+  ];
+  const before = visibleWorld(w);
+  w.players.forEach((p) => Object.assign(p, { x: 2500, y: 1500 }));
+  w.map.obstacles[0].open = true;
+  w.terrainRevision++;
+  const hidden = visibleWorld(w);
+  expect(hidden.map.obstacles[0].open).toBe(false);
+  w.players[0].x = 350;
+  w.players[0].y = 350;
+  const observed = visibleWorld(w);
+  expect(observed.map.obstacles[0].open).toBe(true);
+  expect(observed.terrainRevision).toBeGreaterThan(hidden.terrainRevision);
+  expect(before.map.obstacles[0].open).toBe(false);
+});

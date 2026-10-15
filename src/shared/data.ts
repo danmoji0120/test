@@ -138,7 +138,7 @@ export interface Vec {
 export interface Rect extends Vec {
   w: number;
   h: number;
-  kind: "wall" | "crate" | "container" | "door";
+  kind: "wall" | "crate" | "container" | "door" | "rock" | "fence";
   open?: boolean;
   id?: string;
 }
@@ -198,6 +198,7 @@ export interface Player extends Vec {
   inputAt: number;
 }
 export interface Enemy extends Vec {
+  elite?: boolean;
   id: string;
   kind: EnemyKind;
   hp: number;
@@ -278,6 +279,7 @@ export interface GameEvent extends Vec {
     | "sound";
   cue?: "gunfire" | "radio" | "steps" | "engine";
   uncertainty?: number;
+  obscured?: boolean;
   at?: number;
   toX?: number;
   toY?: number;
@@ -357,7 +359,7 @@ export interface RoomView {
   phase: "lobby" | "playing" | "result";
   players: Player[];
   seed: number;
-  difficulty: "normal" | "hard";
+  difficulty: number;
   contract: "blackout" | "recon";
   world: World | null;
 }

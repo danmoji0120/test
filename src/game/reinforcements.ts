@@ -8,6 +8,7 @@ import {
 import { distance, findPath, move, blocked, invalidateNavigation } from "./map";
 import { spawnEnemy, event } from "./simulation";
 import { lineOfSight } from "./visibility";
+import { difficulty } from "../shared/difficulty";
 export const MAX_ACTORS = 30;
 const active = (w: World) =>
   w.enemies.filter((e) => e.hp > 0 && !e.reserve).length;
@@ -23,14 +24,30 @@ export function initializeTheatre(w: World) {
   w.enemies = [];
   w.squads = {};
   const team = w.players.length;
+  const config = difficulty(w.difficulty, team);
+  for (const s of w.map.sources) {
+    s.prepare *= config.prepare;
+    s.interval = config.interval + (s.kind === "external" ? 12 : 0);
+    s.batch = config.batch;
+  }
   for (const z of w.map.zones.slice(0, 6))
-    for (let i = 0; i < (team >= 3 ? 2 : 1); i++) {
+    for (
+      let i = 0;
+      i <
+      Math.floor(config.guardCount / 6) +
+        (z.id < config.guardCount % 6 ? 1 : 0);
+      i++
+    ) {
       const p = z.pads[i % z.pads.length];
       if (!p) continue;
       spawnEnemy(
         w,
         p,
-        i === 1 && z.id % 2 === 0 ? "heavy" : z.id === 4 ? "rush" : "rifle",
+        i > 0 && z.id / 6 < config.heavy
+          ? "heavy"
+          : z.id === 4
+            ? "rush"
+            : "rifle",
         {
           squad: "guard-" + z.id,
           patrol: [{ ...p }, { ...z.entry }],
@@ -39,10 +56,15 @@ export function initializeTheatre(w: World) {
       );
     }
   for (const [i, route] of w.map.patrols
-    .slice(0, team >= 3 ? 3 : 2)
+    .filter((r) => r.some((p) => distance(p, w.map.spawn) > 900))
+    .slice(0, config.patrolGroups)
     .entries()) {
-    const start = route[0],
-      end = route.at(-1)!;
+    const ordered =
+      distance(route[0], w.map.spawn) > distance(route.at(-1)!, w.map.spawn)
+        ? route
+        : [...route].reverse();
+    const start = ordered[0],
+      end = ordered.at(-1)!;
     const path = findPath(start, end, w.map);
     const patrol = [start, ...path.filter((_, i) => i % 5 === 0), end];
     for (let n = 0; n < 2; n++)
@@ -202,7 +224,8 @@ export function tickReinforcements(w: World, dt: number) {
       const prep = s.prepare * (comms ? 1 : 1.8);
       if (
         w.time - r.requested < prep ||
-        active(w) + Math.max(r.members.length, s.batch) > 26 ||
+        active(w) + (r.members.length || s.batch) >
+          difficulty(w.difficulty, w.players.length).activeCap ||
         w.enemies.length + (s.kind === "external" ? s.batch : 0) > MAX_ACTORS
       )
         continue;
@@ -274,6 +297,14 @@ export function tickReinforcements(w: World, dt: number) {
             speed = ENEMIES[e.kind].speed * 0.9;
           const before = { x: e.x, y: e.y };
           e.angle = Math.atan2(point.y - e.y, point.x - e.x);
+          if (Math.floor((w.time - dt) / 1.2) !== Math.floor(w.time / 1.2))
+            event(w, {
+              type: "sound",
+              cue: "steps",
+              enemy: true,
+              x: e.x,
+              y: e.y,
+            });
           move(
             e,
             ((point.x - e.x) / d) * speed * dt,

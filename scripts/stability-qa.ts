@@ -4,6 +4,8 @@ import {
   tick,
   spawnEnemy,
 } from "../src/game/simulation";
+import { visibleWorld } from "../src/server/visibility";
+import type { World } from "../src/shared/data";
 import { Pilot } from "./bot";
 import { writeFileSync } from "node:fs";
 const gc = (globalThis as any).gc as (() => void) | undefined;
@@ -21,7 +23,12 @@ for (let run = 0; run < 40; run++) {
     t < 27001 && !["success", "failed"].includes(w.mission.stage);
     t++
   ) {
-    w.players.forEach((p, i) => (p.input = pilots[i].input(w, p, i)));
+    if (t % 3 === 0) {
+      const publicWorld = visibleWorld(w) as unknown as World;
+      w.players.forEach(
+        (p, i) => (p.input = pilots[i].input(publicWorld, p, i)),
+      );
+    }
     const before = performance.now();
     tick(w, 1 / 30);
     if (t % 15 === 0) times.push(performance.now() - before);

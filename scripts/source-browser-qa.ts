@@ -19,6 +19,14 @@ const pages: Page[] = [],
 for (let i = 0; i < 2; i++) {
   const ctx = await browser.newContext({
       viewport: { width: 1280, height: 720 },
+      ...(i === 0
+        ? {
+            recordVideo: {
+              dir: output + "/video",
+              size: { width: 1280, height: 720 },
+            },
+          }
+        : {}),
     }),
     page = await ctx.newPage();
   page.on("pageerror", (e) => errors.push(e.message));
@@ -53,17 +61,27 @@ pilots.forEach(
 const observed: any[] = [],
   captured = new Set<number>(),
   start = Date.now();
+const emergence = new Set<string>();
 let q: any;
+let firstContact = -1;
 try {
   while (Date.now() - start < 85000) {
     q = await read();
     if (q.room.phase !== "playing") break;
     const w = q.room.world;
+    if (firstContact < 0 && w.enemies.length) firstContact = w.time;
     await Promise.all(
       pages.map(async (page, i) => {
         const own = i ? await read(i) : q;
         const p = w.players.find((p: any) => p.id === own.id);
-        await drive(page, pilots[i].input(w, p, i));
+        const input = pilots[i].input(w, p, i);
+        // Observe the guard's first radio call before returning fire; all actions remain ordinary inputs.
+        if (firstContact >= 0 && w.time - firstContact < 2.1) {
+          input.fire = false;
+          input.dx = input.dy = 0;
+          input.sprint = false;
+        }
+        await drive(page, input);
       }),
     );
     observed.push({
@@ -75,6 +93,18 @@ try {
         blocked: s.blocked,
       })),
     });
+    for (const e of w.enemies) {
+      if (
+        emergence.size < 16 &&
+        !emergence.has(e.id) &&
+        distance(e, source.entry) < 230
+      ) {
+        emergence.add(e.id);
+        await pages[0].screenshot({
+          path: `${output}/emergence-${e.id}-${w.time.toFixed(1)}.png`,
+        });
+      }
+    }
     const bucket = Math.floor(w.time / 10);
     if (!captured.has(bucket)) {
       captured.add(bucket);
@@ -88,7 +118,7 @@ try {
     JSON.stringify(
       {
         method:
-          "two real browsers; static seed observation route, normal DOM inputs; server provenance recorded separately",
+          "two real browsers; static observation route; hold fire for the first 2.1s of observed contact to allow the guard to call; normal DOM inputs; server provenance recorded separately",
         source: source.id,
         elapsed: q?.room.world.time,
         result: q?.room.world.mission.stage,

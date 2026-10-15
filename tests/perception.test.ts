@@ -53,7 +53,7 @@ it("runs a short rifle burst while moving instead of announcing every shot with 
   const start = { x: e.x, y: e.y };
   for (let i = 0; i < 30; i++) {
     w.time += 1 / 30;
-    enemyAI(w, 1 / 30, 1);
+    enemyAI(w, 1 / 30);
   }
   expect(
     w.events.filter((e) => e.type === "shot" && e.enemy).length,
@@ -67,4 +67,21 @@ it("raises through five alert levels, then decays to a persistent destruction fl
   w.time = 100;
   tickAlert(w, 100);
   expect(w.alertState.level).toBe(2);
+});
+
+it("allows the first observed guard contact to request support without an artificial initial cooldown", () => {
+  const p = makePlayer("first", "First"),
+    w = createWorld("first-call", 7, [p]);
+  w.enemies = [];
+  w.squads = {};
+  w.map.obstacles = [];
+  Object.assign(p, { x: 2000, y: 1600 });
+  spawnEnemy(w, { x: 2300, y: 1600 }, "rifle");
+  for (let i = 0; i < 65; i++) {
+    w.time += 1 / 30;
+    enemyAI(w, 1 / 30);
+  }
+  expect(w.supportSignals).toHaveLength(1);
+  expect(w.alertState.level).toBeGreaterThanOrEqual(2);
+  expect(w.supportSignals[0].target).toEqual({ x: p.x, y: p.y });
 });

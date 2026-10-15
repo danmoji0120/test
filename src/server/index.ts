@@ -1,5 +1,7 @@
 import { visibleWorld } from "./visibility";
 import { RULES } from "../shared/rules";
+import { difficulty } from "../shared/difficulty";
+import { packRoom, type StreamCursor } from "../shared/snapshot";
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
 import { writeFileSync } from "node:fs";
@@ -90,6 +92,7 @@ interface Client {
   last: number;
   messages: number;
   window: number;
+  cursor?: StreamCursor;
 }
 const rooms = new Map<string, Room>(),
   clients = new Map<string, Client>();
@@ -97,8 +100,11 @@ const disconnectedAt = new Map<string, number>();
 const graceMs = Number(process.env.ROOM_GRACE_MS || 60000);
 const wss = new WebSocketServer({ server, path: "/ws", maxPayload: 4096 });
 const send = (ws: WebSocket, data: unknown) => {
-  if (ws.readyState === WebSocket.OPEN && ws.bufferedAmount < 1e6)
+  if (ws.readyState === WebSocket.OPEN && ws.bufferedAmount < 1e6) {
     ws.send(JSON.stringify(data));
+    return true;
+  }
+  return false;
 };
 function error(c: Client, message: string) {
   send(c.ws, { type: "error", message });
@@ -116,10 +122,14 @@ function view(room: Room) {
   };
 }
 function broadcast(r: Room) {
-  const snapshot = { type: "state", room: view(r) };
+  const publicRoom = view(r);
   for (const p of r.players) {
     const c = clients.get(p.id);
-    if (c && c.room === r) send(c.ws, snapshot);
+    if (c && c.room === r) {
+      const next = packRoom(publicRoom, c.cursor);
+      if (send(c.ws, { type: "state", room: next.room }))
+        c.cursor = next.cursor;
+    }
   }
 }
 function leave(c: Client) {
@@ -257,7 +267,7 @@ wss.on("connection", (ws) => {
             phase: "lobby",
             players: [],
             seed: Math.floor(Math.random() * 999999),
-            difficulty: "normal",
+            difficulty: 3,
             contract: "blackout",
             world: null,
             emptyAt: 0,
@@ -309,7 +319,12 @@ wss.on("connection", (ws) => {
           r.seed = m.seed;
         if (m.contract === "blackout" || m.contract === "recon")
           r.contract = m.contract;
-        if (m.difficulty === "normal" || m.difficulty === "hard")
+        if (
+          typeof m.difficulty === "number" &&
+          Number.isInteger(m.difficulty) &&
+          m.difficulty >= 1 &&
+          m.difficulty <= 10
+        )
           r.difficulty = m.difficulty;
       }
       if (m.type === "start" && r.phase === "lobby" && r.host === c.id) {
@@ -321,7 +336,7 @@ wss.on("connection", (ws) => {
           randomUUID(),
           r.seed,
           r.players,
-          r.difficulty === "hard" ? 7 : 3,
+          r.difficulty,
           r.contract,
         );
         r.phase = "playing";
@@ -410,7 +425,7 @@ const interval = setInterval(() => {
     ) {
       for (const p of r.players)
         if (now - p.inputAt > 250) p.input = emptyInput();
-      tick(r.world, 1 / RULES.tickRate, r.difficulty === "hard");
+      tick(r.world, 1 / RULES.tickRate);
       if (process.env.QA_TRACE_FILE && count % 150 === 0) saveTrace(r);
       if (["success", "failed"].includes(r.world.mission.stage)) {
         saveTrace(r);
@@ -421,7 +436,7 @@ const interval = setInterval(() => {
           );
           if (profile) {
             const reward = Math.round(
-              r.world.mission.reward * (r.difficulty === "hard" ? 1.3 : 1),
+              r.world.mission.reward * difficulty(r.difficulty).reward,
             );
             store.settle(
               profile,

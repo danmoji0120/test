@@ -1,0 +1,67 @@
+{
+  "method": "private source/path/trajectory audit plus independent two-browser public observations and actual video; ordinary inputs only",
+  "checks": [
+    {
+      "enemy": "e18",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 2,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e19",
+      "source": "source-5",
+      "request": "dispatch-1",
+      "samples": 2,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": true,
+      "observedTravel": true
+    },
+    {
+      "enemy": "e519",
+      "source": "external-1",
+      "request": "dispatch-2",
+      "samples": 42,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    },
+    {
+      "enemy": "e520",
+      "source": "external-1",
+      "request": "dispatch-2",
+      "samples": 42,
+      "validOrigin": true,
+      "validRoute": true,
+      "continuous": true,
+      "observedByBrowser": false,
+      "observedTravel": false
+    }
+  ],
+  "requests": [
+    {
+      "id": "dispatch-1",
+      "source": "source-5",
+      "state": "deployed",
+      "requested": 2.999999999999999,
+      "departed": 11.833333333333302,
+      "arrived": 12.633333333333299
+    },
+    {
+      "id": "dispatch-2",
+      "source": "external-1",
+      "state": "traveling",
+      "requested": 30.00000000000065,
+      "departed": 45.433333333333316,
+      "arrived": -1
+    }
+  ]
+}

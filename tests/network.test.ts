@@ -115,6 +115,15 @@ it("enforces 4-player capacity, ready/start authority, validated input, synchron
   );
   expect(new Set(starts.map((m) => m.room.world.id)).size).toBe(1);
   expect(
+    new Set(starts.map((m) => JSON.stringify(m.room.world.visibility))).size,
+  ).toBe(1);
+  for (const m of starts) {
+    expect(m.room.world.reinforcements).toBeUndefined();
+    expect(m.room.world.squads).toBeUndefined();
+    expect(m.room.world.noises).toBeUndefined();
+    for (const e of m.room.world.enemies) expect(e.path).toBeUndefined();
+  }
+  expect(
     starts.every((m) => !JSON.stringify(m.room).includes(peers[0].token)),
   ).toBe(true);
   for (const p of peers.slice(0, 4))

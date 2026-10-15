@@ -129,6 +129,13 @@ export class Renderer {
             distance(e, me),
             (e.x - me.x) / Math.max(1, distance(e, me)),
           );
+        if (e.obscured) {
+          if (e.actor === id) {
+            this.hit = 0.18;
+            if (e.type === "kill") this.kill = 0.24;
+          }
+          continue;
+        }
         if (e.type === "shot") {
           this.trails.push({ ...e, life: e.weapon === "sg" ? 0.07 : 0.085 });
           if (!e.pellet && !previewed) this.muzzle(e);
@@ -320,6 +327,52 @@ export class Renderer {
     }
     for (const o of w.map.obstacles) {
       if (o.kind === "door") continue;
+      if (o.kind === "rock") {
+        g.fillStyle = "#111b20";
+        g.fillRect(o.x + 9, o.y + 11, o.w, o.h);
+        g.beginPath();
+        g.moveTo(o.x + o.w * 0.18, o.y);
+        g.lineTo(o.x + o.w * 0.78, o.y + 4);
+        g.lineTo(o.x + o.w, o.y + o.h * 0.42);
+        g.lineTo(o.x + o.w * 0.83, o.y + o.h);
+        g.lineTo(o.x + 6, o.y + o.h * 0.85);
+        g.lineTo(o.x, o.y + o.h * 0.25);
+        g.closePath();
+        g.fillStyle = "#3b494c";
+        g.fill();
+        g.strokeStyle = "#65716f";
+        g.lineWidth = 3;
+        g.stroke();
+        g.beginPath();
+        g.moveTo(o.x + o.w * 0.18, o.y + 6);
+        g.lineTo(o.x + o.w * 0.4, o.y + o.h * 0.5);
+        g.lineTo(o.x + o.w * 0.83, o.y + o.h - 8);
+        g.strokeStyle = "#26363b";
+        g.stroke();
+        continue;
+      }
+      if (o.kind === "fence") {
+        g.fillStyle = "#1b2b3270";
+        g.fillRect(o.x, o.y, o.w, o.h);
+        g.strokeStyle = "#80919270";
+        g.lineWidth = 1;
+        for (let x = o.x + 8; x < o.x + o.w; x += 12) {
+          g.beginPath();
+          g.moveTo(x, o.y);
+          g.lineTo(x, o.y + o.h);
+          g.stroke();
+        }
+        for (let y = o.y + 8; y < o.y + o.h; y += 12) {
+          g.beginPath();
+          g.moveTo(o.x, y);
+          g.lineTo(o.x + o.w, y);
+          g.stroke();
+        }
+        g.fillStyle = "#a1aaa2";
+        g.fillRect(o.x, o.y, 5, o.h);
+        g.fillRect(o.x + o.w - 5, o.y, 5, o.h);
+        continue;
+      }
       g.fillStyle = "#080f1690";
       g.fillRect(o.x + 10, o.y + 15, o.w, o.h);
       g.fillStyle =
@@ -953,7 +1006,11 @@ export class Renderer {
       );
     g.filter = "none";
     // A compact red foot arc identifies hostility even when the visor faces away.
-    g.strokeStyle = e.kind === "heavy" ? "#efad65bb" : "#eb6570aa";
+    g.strokeStyle = e.elite
+      ? "#ffcf60"
+      : e.kind === "heavy"
+        ? "#efad65bb"
+        : "#eb6570aa";
     g.lineWidth = 1.5;
     g.beginPath();
     g.ellipse(0, 7, 17, 7, 0, 0, Math.PI);

@@ -17,6 +17,7 @@
   <body>
     <canvas></canvas>
     <script type="module">
+      import { updateVision } from "/src/game/visibility.ts";
       import { Renderer } from "/src/client/render.ts";
       import { AudioEngine } from "/src/client/audio.ts";
       import {
@@ -54,6 +55,7 @@
         document.querySelector("canvas"),
         new AudioEngine(),
       );
+      updateVision(w, true);
       renderer.set(w, "p0");
       renderer.start();
       let clock = 0;
@@ -86,6 +88,7 @@
           e.angle = clock + i;
           e.windup = 0.5;
         }
+        updateVision(w);
         renderer.set(w, "p0");
       }, 1000 / 15);
       window.benchmark = () => ({

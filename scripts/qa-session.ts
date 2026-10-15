@@ -40,15 +40,20 @@ try {
     }
   }
   if (!ready) throw Error("QA server did not start");
-  qa = spawn(process.execPath, ["--import", "tsx", "scripts/browser-qa.ts"], {
-    env: { ...process.env, QA_URL: `http://localhost:${port}` },
-    stdio: "inherit",
-  });
+  qa = spawn(
+    process.execPath,
+    ["--import", "tsx", process.env.QA_SCRIPT || "scripts/browser-qa.ts"],
+    {
+      env: { ...process.env, QA_URL: `http://localhost:${port}` },
+      stdio: "inherit",
+    },
+  );
   process.exitCode = await new Promise<number>((r) =>
     qa!.on("exit", (code) => r(code ?? 1)),
   );
 } finally {
-  const evidence = trace.replace(/\.json$/, "-completed.json");
+  const completed = trace.replace(/\.json$/, "-completed.json"),
+    evidence = existsSync(completed) ? completed : trace;
   if (process.env.QA_REPORT_DIR && existsSync(evidence)) {
     mkdirSync(process.env.QA_REPORT_DIR, { recursive: true });
     copyFileSync(

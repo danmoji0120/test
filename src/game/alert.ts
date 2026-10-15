@@ -1,5 +1,6 @@
 import type { World, Vec } from "../shared/data";
 import { event } from "./simulation";
+import { difficulty } from "../shared/difficulty";
 export const initialAlert = () => ({
   level: 0,
   heat: 0,
@@ -20,7 +21,10 @@ export function raiseAlert(
   a.lastRaise = w.time;
   a.lastContact = w.time;
   a.floor = Math.max(a.floor, floor);
-  a.heat = Math.min(100, a.heat + amount);
+  a.heat = Math.min(
+    100,
+    a.heat + amount * difficulty(w.difficulty).sensitivity,
+  );
   a.reason = reason;
   const level = Math.max(a.floor, Math.min(4, Math.floor(a.heat / 22)));
   if (level > a.level) {

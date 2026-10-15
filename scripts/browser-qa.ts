@@ -5,6 +5,7 @@ import { Pilot } from "./bot";
 import type { World, Input } from "../src/shared/data";
 const url = process.env.QA_URL || "http://localhost:3000";
 const output = process.env.QA_OUTPUT || "docs/after";
+const count = Math.max(1, Math.min(4, Number(process.env.QA_PLAYERS || 4)));
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({
   executablePath: process.env.CHROMIUM_PATH || "/usr/bin/chromium",
@@ -18,7 +19,7 @@ const browser = await chromium.launch({
 });
 const errors: string[] = [],
   pages: Page[] = [],
-  pilots = Array.from({ length: 4 }, () => {
+  pilots = Array.from({ length: count }, () => {
     const p = new Pilot();
     if (process.env.QA_STRATEGY === "all") p.strategy = "all";
     if (process.env.QA_REVERSE === "1") p.reverse = true;
@@ -27,7 +28,7 @@ const errors: string[] = [],
 mkdirSync("docs/screenshots", { recursive: true });
 const read = (p: Page) =>
   p.evaluate(() => JSON.parse(JSON.stringify((window as any).dollQA)));
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < count; i++) {
   const context = await browser.newContext({
     viewport: { width: i === 0 ? 1920 : 1280, height: i === 0 ? 1080 : 720 },
   });
@@ -45,28 +46,34 @@ await pages[0].screenshot({ path: `${output}/lobby-1920.png` });
 await pages[0].click('[data-character="luna"]');
 await pages[0].screenshot({ path: `${output}/luna-1920.png` });
 await pages[0].click('[data-character="aria"]');
-await pages[1].screenshot({
+await (pages[1] ?? pages[0]).screenshot({
   path: `${output}/lobby-1280.png`,
   fullPage: true,
 });
 await pages[0].click('[data-action="create"]');
 await pages[0].waitForSelector('[data-action="ready"]');
+const creditsBefore = Number(await pages[0].locator(".credits b").innerText());
 const code = (await read(pages[0])).room.code;
-for (let i = 1; i < 4; i++) {
+for (let i = 1; i < count; i++) {
   await pages[i].fill("#code", code);
   await pages[i].click('[data-action="join"]');
   await pages[i].waitForSelector('[data-action="ready"]');
 }
-await pages[1].click('[data-character="luna"]');
-if (process.env.QA_MIXED === "1") {
+if (pages[1]) await pages[1].click('[data-character="luna"]');
+if (process.env.QA_MIXED === "1" && count >= 3) {
   await pages[1].click('[data-weapon="smg"]');
   await pages[2].click('[data-weapon="sg"]');
   await pages[2].waitForTimeout(200);
   await pages[2].click('[data-weapon="sg"]');
 }
-await pages[3].click('[data-character="luna"]');
+if (pages[3]) await pages[3].click('[data-character="luna"]');
 await pages[0].fill("#seed", process.env.QA_SEED || "42");
 await pages[0].locator("#seed").dispatchEvent("change");
+if (process.env.QA_DIFFICULTY) {
+  await pages[0].selectOption("#difficulty", process.env.QA_DIFFICULTY);
+}
+if (process.env.QA_CONTRACT)
+  await pages[0].selectOption("#contract", process.env.QA_CONTRACT);
 for (const page of pages) await page.click('[data-action="ready"]');
 await pages[0].screenshot({
   path: `${output}/squad-4.png`,
@@ -76,7 +83,7 @@ await pages[0].click('[data-action="start"]');
 await Promise.all(pages.map((p) => p.waitForSelector("#battle")));
 await pages[0].waitForTimeout(800);
 await pages[0].screenshot({ path: `${output}/combat-1920.png` });
-await pages[1].screenshot({ path: `${output}/combat-1280.png` });
+await (pages[1] ?? pages[0]).screenshot({ path: `${output}/combat-1280.png` });
 let lastStage = "",
   lastLog = 0,
   iterations = 0,
@@ -89,6 +96,7 @@ const fpsSamples: number[] = [];
 const observedEvents = new Set<number>();
 const feedback: Record<string, number> = {};
 let downCount = 0;
+let landedCaptured = false;
 const downs = new Set<string>();
 
 try {
@@ -141,12 +149,19 @@ try {
     }
     await Promise.all(
       pages.map(async (page, i) => {
-        const q = i === 0 ? state : await read(page);
-        const p = w.players.find((p) => p.id === q.id);
+        const ownId =
+          i === 0
+            ? state.id
+            : await page.evaluate(() => (window as any).dollQA.id);
+        const p = w.players.find((p) => p.id === ownId);
         if (p) await drive(page, pilots[i].input(w, p, i));
       }),
     );
     iterations++;
+    if (!landedCaptured && w.mission.extraction.state === "landed") {
+      landedCaptured = true;
+      await pages[0].screenshot({ path: `${output}/transport-landed.png` });
+    }
     if (
       !fireCaptured &&
       (feedback["shot:ar"] ?? 0) + (feedback["shot:sg"] ?? 0) > 5
@@ -154,11 +169,11 @@ try {
       await pages[0].screenshot({ path: `${output}/firing.png` });
       fireCaptured = true;
     }
-    if (!reconnected && w.mission.elapsed > 20) {
-      const old = await read(pages[3]);
-      await pages[3].reload();
-      await pages[3].waitForSelector("#battle");
-      const restored = await read(pages[3]);
+    if (!reconnected && count > 1 && w.mission.elapsed > 20) {
+      const old = await read(pages[count - 1]);
+      await pages[count - 1].reload();
+      await pages[count - 1].waitForSelector("#battle");
+      const restored = await read(pages[count - 1]);
       if (restored.id !== old.id || restored.room.world.id !== w.id)
         throw Error("Reconnect identity/run mismatch");
       reconnected = true;
@@ -170,11 +185,17 @@ try {
   }
   if (!final) throw Error("Browser mission timed out");
   await pages[0].screenshot({ path: `${output}/result-1920.png` });
-  await pages[1].screenshot({ path: `${output}/result-1280.png` });
+  await (pages[1] ?? pages[0]).screenshot({
+    path: `${output}/result-1280.png`,
+  });
   const finals = await Promise.all(pages.map(read));
   if (new Set(finals.map((q) => q.room.world.mission.stage)).size !== 1)
     throw Error("Mission result mismatch");
   const stage = final.room.world.mission.stage;
+  const creditsAfter = Number(await pages[0].locator(".credits b").innerText()),
+    awarded = Number(
+      (await pages[0].locator(".reward b").innerText()).replace(/[^0-9]/g, ""),
+    );
   fpsSamples.sort((a, b) => a - b);
   const report = {
     date: new Date().toISOString(),
@@ -182,8 +203,16 @@ try {
     metrics: final.room.world.metrics,
     browser: browser.version(),
     viewports: ["1920x1080", "1280x720"],
-    players: 4,
+    players: count,
     seed: final.room.seed,
+    contract: final.room.contract,
+    credits: {
+      before: creditsBefore,
+      after: creditsAfter,
+      awarded,
+      persisted: false,
+    },
+    difficulty: final.room.difficulty,
     loadout: final.room.players.map((p: any) => ({
       character: p.character,
       weapon: p.weapon,
@@ -220,11 +249,16 @@ try {
     JSON.stringify(report, null, 2),
   );
   if (stage !== "success") throw Error("Browser mission failed");
+  if (creditsAfter - creditsBefore !== awarded)
+    throw Error("Reward amount differs from profile settlement");
   const before = final.room.world.id;
   await pages[0].click('[data-action="return"]');
   await pages[0].waitForSelector('[data-action="ready"]');
   await pages[0].reload();
   await pages[0].waitForSelector('[data-action="ready"]');
+  if (Number(await pages[0].locator(".credits b").innerText()) !== creditsAfter)
+    throw Error("Settled credits did not survive reload");
+  report.credits.persisted = true;
   for (const page of pages) await page.click('[data-action="ready"]');
   const readyStates = await Promise.all(pages.map(read));
   const leaderIndex = readyStates.findIndex((q) => q.id === q.room.host);

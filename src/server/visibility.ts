@@ -3,17 +3,45 @@ import type {
   World,
   Installation,
   DispatchSource,
+  Rect,
 } from "../shared/data";
 import { distance } from "../game/map";
 import { squadSees, SIGHT_RANGE } from "../game/visibility";
 const knowledge = new WeakMap<
   World,
-  { fac: Map<string, Installation>; sources: Map<string, DispatchSource> }
+  {
+    fac: Map<string, Installation>;
+    sources: Map<string, DispatchSource>;
+    doors: Map<string, Rect>;
+    supplies: Map<number, boolean>;
+    revision: number;
+  }
 >();
 /** Team-shared remembered facilities; hidden military state and precise sound origins never cross the wire. */
 export function visibleWorld(w: World) {
-  const k = knowledge.get(w) ?? { fac: new Map(), sources: new Map() };
+  const k = knowledge.get(w) ?? {
+    fac: new Map(),
+    sources: new Map(),
+    doors: new Map(),
+    supplies: new Map(),
+    revision: 0,
+  };
   knowledge.set(w, k);
+  for (const d of w.map.obstacles.filter((o) => o.kind === "door"))
+    if (
+      [
+        { x: d.x - 1, y: d.y + d.h / 2 },
+        { x: d.x + d.w + 1, y: d.y + d.h / 2 },
+        { x: d.x + d.w / 2, y: d.y - 1 },
+        { x: d.x + d.w / 2, y: d.y + d.h + 1 },
+      ].some((p) => squadSees(w, p))
+    ) {
+      if ((k.doors.get(d.id!)?.open ?? false) !== d.open) k.revision++;
+      k.doors.set(d.id!, { ...d });
+    }
+  w.map.supplies.forEach((s, i) => {
+    if (squadSees(w, s)) k.supplies.set(i, s.used);
+  });
   for (const d of w.map.installations)
     if (d.kind === "generator" || squadSees(w, d))
       k.fac.set(d.id, { ...d, discovered: true });
@@ -54,7 +82,13 @@ export function visibleWorld(w: World) {
         });
       } else events.push(e);
     } else if (own && (e.type === "hit" || e.type === "kill"))
-      events.push({ ...e, x: own.x, y: own.y, angle: undefined });
+      events.push({
+        ...e,
+        x: own.x,
+        y: own.y,
+        angle: undefined,
+        obscured: true,
+      });
     else if (
       (e.type === "shot" || e.type === "alarm" || e.type === "sound") &&
       !e.pellet
@@ -85,6 +119,13 @@ export function visibleWorld(w: World) {
       : {}),
     map: {
       ...w.map,
+      obstacles: w.map.obstacles.map((o) =>
+        o.kind === "door" ? (k.doors.get(o.id!) ?? { ...o, open: false }) : o,
+      ),
+      supplies: w.map.supplies.map((s, i) => ({
+        ...s,
+        used: k.supplies.get(i) ?? false,
+      })),
       zones: w.map.zones.map(({ pads, ...z }) => ({ ...z, pads: [] })),
       patrols: [],
       installations: [...k.fac.values()],
@@ -110,14 +151,15 @@ export function visibleWorld(w: World) {
     time: w.time,
     eventId: w.eventId,
     visibility: w.visibility,
-    terrainRevision: w.terrainRevision,
+    terrainRevision: w.terrainRevision + k.revision,
     alertState: { level: w.alertState.level, reason: w.alertState.reason },
     players: w.players.map(({ input, inputAt, ...p }) => p),
     enemies: w.enemies
       .filter((e) => e.hp > 0 && squadSees(w, e))
-      .map(({ id, kind, x, y, hp, angle, windup, hurt, state }) => ({
+      .map(({ id, kind, x, y, hp, angle, windup, hurt, state, elite }) => ({
         id,
         kind,
+        elite,
         x,
         y,
         hp,

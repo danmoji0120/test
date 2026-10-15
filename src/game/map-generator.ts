@@ -129,11 +129,11 @@ export function region(seed: number): GameMap {
             ? { x: width / 2, y: 220 }
             : { x: width / 2, y: height - 220 };
   const extractions = [
-    { x: 90, y: 450 },
-    { x: width - 90, y: height - 450 },
+    { x: 350, y: 1100 },
+    { x: width - 350, y: 2200 },
     { x: width / 2, y: height - 220 },
+    { x: width / 2, y: 220 },
   ].filter((p) => distance(p, spawn) > 500);
-  if (extractions.length < 3) extractions.push({ x: width / 2, y: 220 });
   const nodes = [...zones.map((z) => z.entry), spawn, ...extractions];
   const roads: Road[] = [];
   const connect = (a: number, b: number) => {
@@ -370,7 +370,14 @@ export function region(seed: number): GameMap {
       y: p.y - 30,
       w: 60 + random() * 70,
       h: 60 + random() * 60,
-      kind: i % 3 === 0 ? "crate" : i % 3 === 1 ? "wall" : "container",
+      kind:
+        i % 5 === 0
+          ? "crate"
+          : i % 5 === 1
+            ? "rock"
+            : i % 5 === 4
+              ? "fence"
+              : "container",
     });
   }
   const patrols = roads
