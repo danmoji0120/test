@@ -219,14 +219,15 @@ export class Renderer {
           );
           if (e.actor === id && !e.enemy) {
             this.hit = 0.18;
+            const victim = w.enemies.find((target) => target.id === e.target);
             this.numbers.push({
-              x: e.x,
-              y: e.y - 55,
+              x: victim?.x ?? e.x,
+              y: victim ? victim.y - enemyHeight(victim.kind) - 26 : e.y - 55,
               text:
                 e.quality === "component"
                   ? "부품 파괴"
                   : e.quality === "weakpoint"
-                    ? `약점 ${Math.round(e.damage ?? 0)}`
+                    ? `${e.penetrationResult === "partial" ? "부분·" : ""}약점 ${Math.round(e.damage ?? 0)}`
                     : e.quality === "partial"
                       ? `부분 ${Math.round(e.damage ?? 0)}`
                       : e.armored
@@ -287,7 +288,7 @@ export class Renderer {
   preview(p: Player, input: Input, now: number) {
     this.pendingPreview = this.pendingPreview.filter((t) => now - t < 500);
     if (
-      (input.slot!==undefined&&input.slot!==p.activeSlot)||
+      (input.slot !== undefined && input.slot !== p.activeSlot) ||
       p.activeSlot === 3 ||
       p.switching > 0 ||
       p.weapon === "at" ||
@@ -852,17 +853,6 @@ export class Renderer {
       g.restore();
     }
     this.flashes = this.flashes.filter((f) => f.life > 0);
-    for (const n of this.numbers) {
-      n.life -= dt;
-      n.y -= dt * 26;
-      g.globalAlpha = Math.min(1, n.life * 4);
-      g.fillStyle = "#fff0c4";
-      g.font = "bold 13px monospace";
-      g.textAlign = "center";
-      g.fillText(n.text, n.x, n.y);
-    }
-    g.globalAlpha = 1;
-    this.numbers = this.numbers.filter((n) => n.life > 0).slice(-28);
     for (const q of this.particles) {
       q.life -= dt;
       q.x += q.vx * dt;
@@ -919,6 +909,17 @@ export class Renderer {
     for (const id of this.positions.keys())
       if (!actors.some((a) => a.id === id)) this.positions.delete(id);
 
+    for (const n of this.numbers) {
+      n.life -= dt;
+      n.y -= dt * 26;
+      g.globalAlpha = Math.min(1, n.life * 4);
+      g.fillStyle = "#fff0c4";
+      g.font = "bold 13px monospace";
+      g.textAlign = "center";
+      g.fillText(n.text, n.x, n.y);
+    }
+    g.globalAlpha = 1;
+    this.numbers = this.numbers.filter((n) => n.life > 0).slice(-28);
     g.restore();
     // A restrained vignette leaves targets readable at screen edges.
     if (this.vignette) g.drawImage(this.vignette, 0, 0);
@@ -1041,7 +1042,8 @@ export class Renderer {
       -Math.cos(p.angle) * (p.id === this.id ? this.kick * 0.4 : p.recoil * 20),
       bob,
     );
-    g.rotate(delta * 0.16 + (p.moving ? Math.sin(t * 14) * 0.025 : 0));
+    const poseTilt = delta * 0.16 + (p.moving ? Math.sin(t * 14) * 0.025 : 0);
+    g.rotate(poseTilt);
     if (p.hurt > 3.7) g.filter = "brightness(1.8) saturate(0.7)";
     if (this.atlas.complete && this.atlas.naturalWidth) {
       const f = operatorFrame(p.character, direction),
@@ -1066,7 +1068,7 @@ export class Renderer {
           height = (width * sprite.naturalHeight) / sprite.naturalWidth;
         g.save();
         g.translate(Math.cos(p.angle) * 13, -18 + Math.sin(p.angle) * 7);
-        if (p.activeSlot !== 3) g.rotate(p.angle);
+        if (p.activeSlot !== 3) g.rotate(p.angle - poseTilt);
         this.rasterCache.draw(
           g,
           sprite,

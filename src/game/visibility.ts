@@ -18,6 +18,7 @@ export function sightDistance(
   angle: number,
   max: number,
   map: GameMap,
+  includeSmoke = true,
 ) {
   const dir = { x: Math.cos(angle), y: Math.sin(angle) };
   const endX = p.x + dir.x * max,
@@ -36,7 +37,7 @@ export function sightDistance(
       o.y + o.h >= minY
     )
       length = Math.min(length, rayRect(p, dir, o, max));
-  for (const smoke of map.smokes ?? []) {
+  for (const smoke of includeSmoke ? (map.smokes ?? []) : []) {
     const x = smoke.x - p.x,
       y = smoke.y - p.y,
       along = x * dir.x + y * dir.y,
@@ -51,11 +52,18 @@ export function sightDistance(
   }
   return length;
 }
-export function lineOfSight(a: Vec, b: Vec, map: GameMap, range = Infinity) {
+export function lineOfSight(
+  a: Vec,
+  b: Vec,
+  map: GameMap,
+  range = Infinity,
+  includeSmoke = true,
+) {
   const d = distance(a, b);
   return (
     d <= range &&
-    sightDistance(a, Math.atan2(b.y - a.y, b.x - a.x), d, map) >= d - 0.01
+    sightDistance(a, Math.atan2(b.y - a.y, b.x - a.x), d, map, includeSmoke) >=
+      d - 0.01
   );
 }
 export function visionPolygon(

@@ -92,6 +92,10 @@ function connect() {
     if (m.type === "hello") {
       id = m.id;
       profile = m.profile;
+      character =
+        profile?.character && Object.hasOwn(CHARACTERS, profile.character)
+          ? profile.character
+          : "aria";
       weapon = profile?.loadout?.primary ?? "ar";
       consumable = profile?.loadout?.consumable ?? "antiarmor";
       save("doll-token", profile!.token);
@@ -190,7 +194,7 @@ function lobby() {
       ? `<div class="roster">${Array.from({ length: 4 }, (_, i) => {
           const p = room!.players[i];
           return p
-            ? `<div class="squad-member"><span class="member-avatar" style="--accent:${CHARACTERS[p.character].color}">${p.character === "aria" ? "A" : "L"}</span><span><b>${escape(p.name)} ${p.id === room!.host ? "<em>LEAD</em>" : ""}</b><small>${WEAPONS[p.weapon].name} / ${CHARACTERS[p.character].name}</small></span><i class="${p.ready ? "ready" : ""}">${!p.connected ? "연결 끊김" : p.ready ? "준비 완료" : "준비 중"}</i></div>`
+            ? `<div class="squad-member"><span class="member-avatar" style="--accent:${CHARACTERS[p.character].color}">${p.character === "aria" ? "A" : "L"}</span><span><b>${escape(p.name)} ${p.id === room!.host ? "<em>LEAD</em>" : ""}</b><small>${WEAPONS[p.primary ?? p.weapon].name} / P-01 / ${CONSUMABLES[p.consumable].name}</small></span><i class="${p.ready ? "ready" : ""}">${!p.connected ? "연결 끊김" : p.ready ? "준비 완료" : "준비 중"}</i></div>`
             : `<div class="empty-member"><span>＋</span> 코드로 동료 초대</div>`;
         }).join(
           "",

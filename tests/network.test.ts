@@ -263,16 +263,21 @@ it("authoritatively rejects forged slots/ammunition, prevents switch-fire and re
   await p.wait((m) => m.type === "hello");
   p.send({
     type: "create",
+    character: "luna",
     loadout: { primary: "at", secondary: "pistol", consumable: "frag" },
   });
   await p.wait((m) => m.type === "state");
   p.clear();
   p.send({
     type: "loadout",
+    character: "aria",
     loadout: { primary: "ar", secondary: "at", consumable: "frag" },
     ammo: 999,
   });
   expect((await p.wait((m) => m.type === "error")).message).toContain("장비");
+  p.clear();
+  const unchanged = await p.wait((m) => m.type === "state");
+  expect(unchanged.room.players[0].character).toBe("luna");
   p.clear();
   p.send({ type: "ready" });
   await p.wait((m) => m.type === "state" && m.room.players[0].ready);
@@ -305,8 +310,15 @@ it("authoritatively rejects forged slots/ammunition, prevents switch-fire and re
   const ammo = fired.room.players[0].ammo;
   expect(ammo).toBeGreaterThan(0);
   expect(fired.room.players[0].reserve).toBe(84);
+  p.clear();
   p.send({ type: "input", slot: 3, fire: false });
-  await pause(400);
+  await p.wait(
+    (m) =>
+      m.type === "state" &&
+      m.room.players[0].activeSlot === 3 &&
+      m.room.players[0].switching === 0 &&
+      !m.room.players[0].fireHeld,
+  );
   p.clear();
   const timer = setInterval(
     () => p.send({ type: "input", slot: 3, fire: true, consumableCount: 999 }),
@@ -325,7 +337,8 @@ it("authoritatively rejects forged slots/ammunition, prevents switch-fire and re
   p.ws.close();
   await pause(100);
   const r = new Peer(p.token);
-  await r.wait((m) => m.type === "hello");
+  const hello = await r.wait((m) => m.type === "hello");
+  expect(hello.profile.character).toBe("luna");
   const resumed = await r.wait(
     (m) => m.type === "state" && m.room.phase === "playing",
   );

@@ -314,6 +314,11 @@ wss.on("connection", (ws) => {
             .trim()
             .slice(0, 14) || "오퍼레이터",
         );
+        if (
+          c.profile.character &&
+          Object.hasOwn(CHARACTERS, c.profile.character)
+        )
+          p.character = c.profile.character;
         if (Object.hasOwn(CHARACTERS, String(m.character)))
           p.character = m.character;
         const selection = m.loadout
@@ -333,6 +338,7 @@ wss.on("connection", (ws) => {
         p.primary = selection.primary;
         p.secondary = selection.secondary;
         p.consumable = selection.consumable;
+        c.profile.character = p.character;
         c.profile.loadout = selection;
         store.save();
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;
@@ -349,8 +355,6 @@ wss.on("connection", (ws) => {
         p = r?.players.find((p) => p.id === c!.id);
       if (!r || !p) return;
       if (m.type === "loadout" && r.phase === "lobby") {
-        if (Object.hasOwn(CHARACTERS, String(m.character)))
-          p.character = m.character;
         const selection = m.loadout
           ? validateLoadout(m.loadout, c.profile)
           : migrateLoadout(
@@ -364,10 +368,13 @@ wss.on("connection", (ws) => {
           error(c, "유효하지 않거나 해금되지 않은 장비입니다.");
           return;
         }
+        if (Object.hasOwn(CHARACTERS, String(m.character)))
+          p.character = m.character;
         p.weapon = selection.primary;
         p.primary = selection.primary;
         p.secondary = selection.secondary;
         p.consumable = selection.consumable;
+        c.profile.character = p.character;
         c.profile.loadout = selection;
         store.save();
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;

@@ -51,7 +51,8 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
         (n) =>
           n.id > e.heardNoise &&
           w.time - n.at < 2 &&
-          distance(e, n) < n.radius * (lineOfSight(e, n, w.map) ? 1 : 0.5),
+          distance(e, n) <
+            n.radius * (lineOfSight(e, n, w.map, Infinity, false) ? 1 : 0.5),
       )
       .sort((a, b) => b.id - a.id)[0];
     if (heard) {

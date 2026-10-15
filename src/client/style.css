@@ -1731,3 +1731,75 @@ kbd {
 .weapon-art > .equipment-icon {
   height: 30px;
 }
+/* Keep equipment selection within a PC viewport rather than stretching item cards. */
+.weapons .weapon-card {
+  display: block;
+  height: 112px;
+  min-height: 112px;
+  overflow: hidden;
+}
+.weapons .weapon-art {
+  height: 22px;
+  margin-bottom: 6px;
+}
+.weapons .weapon-card b small {
+  display: inline;
+  margin-left: 4px;
+}
+.weapons .weapon-card p {
+  min-height: 0;
+  margin: 4px 0;
+  line-height: 1.35;
+}
+.weapons .weapon-stats {
+  white-space: nowrap;
+  font-size: 8px;
+  letter-spacing: 0;
+}
+#interaction {
+  bottom: 205px;
+}
+@media (min-width: 1100px) and (max-height: 850px) {
+  header {
+    height: 64px;
+  }
+  .lobby {
+    padding-top: 15px;
+  }
+  .page-heading {
+    margin-bottom: 12px;
+  }
+  .page-heading h1 {
+    font-size: 23px;
+  }
+  .character-card {
+    height: 55px;
+  }
+  .mini-portrait {
+    height: 54px;
+  }
+  .weapon-title {
+    margin-top: 12px;
+  }
+  .section-title {
+    margin-bottom: 10px;
+  }
+  .weapons .weapon-card {
+    height: 100px;
+    min-height: 100px;
+    padding: 8px;
+  }
+  .mod-row {
+    margin-top: 8px;
+  }
+  .mod-row select {
+    padding: 7px;
+    font-size: 10px;
+  }
+  .mod-description {
+    margin: 4px 0;
+  }
+  .tactical-select {
+    margin-top: 6px;
+  }
+}

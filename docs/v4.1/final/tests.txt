@@ -6,40 +6,42 @@
  RUN  v3.2.7 /workspace/doll-squad
 
 stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
-Full input-only mission: success 46.8 seconds [
-  { hp: 100, kills: 1, ammo: 219 },
-  { hp: 100, kills: 2, ammo: 219 },
-  { hp: 100, kills: 3, ammo: 220 },
-  { hp: 100, kills: 2, ammo: 219 }
+Full input-only mission: success 49.4 seconds [
+  { hp: 100, kills: 1, ammo: 221 },
+  { hp: 100, kills: 3, ammo: 221 },
+  { hp: 100, kills: 1, ammo: 222 },
+  { hp: 100, kills: 3, ammo: 221 }
 ]
 
- ✓ tests/game.test.ts (35 tests) 15787ms
-   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  8977ms
-   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  3335ms
-   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  2216ms
- ✓ tests/reinforcements.test.ts (5 tests) 2679ms
-   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  2305ms
- ✓ tests/terrain.test.ts (3 tests) 9125ms
-   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2349ms
-   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  6774ms
- ✓ tests/region.test.ts (3 tests) 9810ms
-   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  8996ms
-   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  729ms
- ✓ tests/network.test.ts (6 tests) 6595ms
-   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2642ms
-   ✓ authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect  2356ms
- ✓ tests/heavy-combat.test.ts (13 tests) 840ms
- ✓ tests/difficulty.test.ts (1 test) 729ms
-   ✓ scales response, composition and pressure across ten levels without health inflation  728ms
- ✓ tests/response.test.ts (9 tests) 487ms
- ✓ tests/combat-system.test.ts (21 tests) 480ms
- ✓ tests/objectives.test.ts (5 tests) 264ms
- ✓ tests/visibility.test.ts (6 tests) 203ms
- ✓ tests/perception.test.ts (5 tests) 181ms
- ✓ tests/snapshot.test.ts (1 test) 119ms
+ ✓ tests/game.test.ts (35 tests) 15276ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  8586ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  3334ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  2132ms
+ ✓ tests/region.test.ts (3 tests) 10257ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  9409ms
+   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  766ms
+ ✓ tests/terrain.test.ts (3 tests) 9527ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2447ms
+   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  7076ms
+ ✓ tests/network.test.ts (6 tests) 6542ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2650ms
+   ✓ authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect  2401ms
+ ✓ tests/objective-armor-paths.test.ts (1 test) 3704ms
+   ✓ keeps an AP1-accessible reachable rear core for both generators across100 seeds, so non-AT primaries are never equipment-locked  3703ms
+ ✓ tests/reinforcements.test.ts (5 tests) 4492ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  4105ms
+ ✓ tests/heavy-combat.test.ts (13 tests) 899ms
+ ✓ tests/difficulty.test.ts (1 test) 690ms
+   ✓ scales response, composition and pressure across ten levels without health inflation  689ms
+ ✓ tests/response.test.ts (9 tests) 548ms
+ ✓ tests/combat-system.test.ts (24 tests) 499ms
+ ✓ tests/objectives.test.ts (5 tests) 215ms
+ ✓ tests/visibility.test.ts (6 tests) 244ms
+ ✓ tests/perception.test.ts (5 tests) 156ms
+ ✓ tests/snapshot.test.ts (1 test) 123ms
  ✓ tests/store.test.ts (2 tests) 4ms
 
- Test Files  14 passed (14)
-      Tests  115 passed (115)
-   Start at  18:30:35
-   Duration  50.05s (transform 274ms, setup 0ms, collect 725ms, tests 47.30s, environment 2ms, prepare 605ms)
+ Test Files  15 passed (15)
+      Tests  119 passed (119)
+   Start at  19:16:07
+   Duration  56.19s (transform 338ms, setup 0ms, collect 863ms, tests 53.18s, environment 2ms, prepare 640ms)

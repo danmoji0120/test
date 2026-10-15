@@ -110,6 +110,8 @@ export function applyHit(
     weapon,
     damage: main,
     quality,
+    penetrationResult:
+      multi === 0 ? "failed" : multi === 0.65 ? "partial" : "full",
     part: part.id,
     target: t.id,
     armored: quality === "ricochet",

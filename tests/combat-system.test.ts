@@ -452,3 +452,40 @@ it("finds a real lateral attack angle when a generator blocks the observed firin
   expect(peek).toBeTruthy();
   expect(Math.abs(peek!.y - e.y)).toBeGreaterThan(100);
 });
+
+it("does not treat smoke as an acoustic wall or reveal the heard shooter exactly", async () => {
+  const { noise } = await import("../src/game/perception");
+  const { p, w } = arena(),
+    e = spawnEnemy(w, { x: 1700, y: 1000 }, "rifle")!;
+  w.map.smokes = [{ id: "cloud", x: 1400, y: 1000, radius: 180, until: 20 }];
+  noise(w, p, 900, "gunfire");
+  expect(perceive(w, e, [p], 1 / 30)).toBeUndefined();
+  expect(e.state).toBe("SUSPICIOUS");
+  expect(e.lastSeen).not.toEqual({ x: p.x, y: p.y });
+});
+
+it("reports both weakpoint and partial-penetration facts instead of pretending a partial weak hit is full penetration", () => {
+  const { p, w } = arena(),
+    e = spawnEnemy(w, { x: 1300, y: 1000 }, "walker", { angle: 0 })!;
+  const hit = rayHit(e, p, 0, 600)!;
+  applyHit(w, e, hit, { normal: 30, durable: 10, ap: 2 }, p, "ar");
+  const feedback = w.events.find((e) => e.type === "hit")!;
+  expect(feedback.quality).toBe("weakpoint");
+  expect(feedback.penetrationResult).toBe("partial");
+  expect(feedback.damage).toBeCloseTo(7.41);
+});
+
+it("keeps infantry head hit geometry aligned with the upward-projected PNG face at every heading", () => {
+  const { w } = arena(),
+    e = spawnEnemy(w, { x: 1300, y: 1000 }, "rifle")!;
+  for (const angle of [0, Math.PI / 2, Math.PI, -Math.PI / 2]) {
+    e.angle = angle;
+    const part = hitRegions(e).find((p) => p.id === "head")!,
+      head = worldPoint(e, part);
+    expect(head.x).toBeCloseTo(e.x);
+    expect(head.y).toBeCloseTo(e.y - 25);
+    const ray = rayHit(e, { x: e.x - 200, y: head.y }, 0, 400)!;
+    expect(ray.region.id).toBe("head");
+    expect(ray.region.av).toBe(0);
+  }
+});

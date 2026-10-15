@@ -354,6 +354,7 @@ export interface Profile {
   wins: number;
   kills: number;
   settled: string[];
+  character?: CharacterId;
   loadout?: Loadout;
   schema?: 2;
 }
@@ -520,6 +521,7 @@ export interface GameEvent extends Vec {
   armored?: boolean;
   angle?: number;
   quality?: HitQuality;
+  penetrationResult?: "failed" | "partial" | "full";
   part?: PartId;
   target?: string;
 }

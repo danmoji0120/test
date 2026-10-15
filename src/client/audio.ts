@@ -160,7 +160,7 @@ export class AudioEngine {
         this.output = null;
         return;
       }
-      if (e.quality === "partial")
+      if (e.quality === "partial" || e.penetrationResult === "partial")
         this.noiseBurst(3500, 0.08, 0.2 * v, "bandpass");
       if (e.quality === "weakpoint")
         this.noiseBurst(1200, 0.11, 0.25 * v, "lowpass");

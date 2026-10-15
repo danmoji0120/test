@@ -148,7 +148,17 @@ export function hitRegions(t: ArmoredTarget): HitRegion[] {
       t.kind === "heavy" ? 2 : 1,
       t.kind === "heavy" ? 0.18 : 0.05,
     ),
-    region("head", 4, -17, 9, 0, 0, 0, 1, 1.65),
+    region(
+      "head",
+      -Math.sin(t.angle) * 25,
+      -Math.cos(t.angle) * 25,
+      9,
+      0,
+      0,
+      0,
+      1,
+      1.65,
+    ),
   ];
 }
 export function ensureComponents(t: ArmoredTarget) {
