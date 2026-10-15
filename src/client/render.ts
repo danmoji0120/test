@@ -522,6 +522,7 @@ export class Renderer {
     }
     for (const e of w.enemies) {
       if (
+        e.kind === "heavy" &&
         e.windup > 0 &&
         w.players.some(
           (ally) =>

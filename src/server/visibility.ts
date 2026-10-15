@@ -23,11 +23,29 @@ export function visibleWorld(w: World) {
     }
   }
   return {
-    ...w,
+    id: w.id,
+    map: w.map,
+    mission: w.mission,
+    time: w.time,
+    eventId: w.eventId,
+    visibility: w.visibility,
+    alertState: { level: w.alertState.level, reason: w.alertState.reason },
     players: w.players.map(({ input, inputAt, ...p }) => p),
     enemies: w.enemies
       .filter((e) => e.hp > 0 && squadSees(w, e))
-      .map(({ path, home, lastSeen, target, tactical, ...e }) => e),
+      .map(
+        ({
+          path,
+          home,
+          lastSeen,
+          target,
+          tactical,
+          patrol,
+          heardNoise,
+          radio,
+          ...e
+        }) => e,
+      ),
     events,
     random: 0,
   };

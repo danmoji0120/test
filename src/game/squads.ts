@@ -1,0 +1,194 @@
+import { ENEMIES, type World, type Vec, type Player } from "../shared/data";
+import {
+  distance,
+  wallDistance,
+  move,
+  blocked,
+  findPath,
+  visible,
+} from "./map";
+import { event, random, damagePlayer } from "./simulation";
+import { perceive, transition } from "./perception";
+export function enemyAI(w: World, dt: number, difficulty: number) {
+  const live = w.players.filter((p) => p.connected && !p.down);
+  for (const e of w.enemies) {
+    if (e.hp <= 0) continue;
+    const spec = ENEMIES[e.kind];
+    e.cooldown -= dt;
+    e.repath -= dt;
+    e.hurt = Math.max(0, e.hurt - dt);
+    e.memory = Math.max(0, e.memory - dt);
+    e.alert = Math.max(0, e.alert - dt);
+    e.stagger = Math.max(0, e.stagger - dt);
+    if (e.stagger > 0) continue;
+    e.radio = Math.max(0, e.radio - dt);
+    if (e.reserve) continue;
+    const target = perceive(w, e, live, dt);
+    const squad = w.squads[e.squad];
+    if (
+      target &&
+      squad?.leader === e.id &&
+      w.time - squad.callAt > 28 &&
+      e.stateTime > 1.5
+    ) {
+      transition(e, "REQUEST_SUPPORT");
+      squad.callAt = w.time;
+      w.supportSignals = w.supportSignals.slice(-31);
+      w.supportSignals.push({
+        id: "call-" + e.id + "-" + Math.floor(w.time),
+        squad: e.squad,
+        target: { ...e.lastSeen! },
+        at: w.time,
+      });
+    }
+    if (e.windup > 0) {
+      e.windup -= dt;
+      if (e.windup <= 0) {
+        let len = wallDistance(e, e.angle, spec.range, w.map);
+        let victim: Player | undefined;
+        for (const p of live) {
+          const dx = p.x - e.x,
+            dy = p.y - e.y,
+            along = dx * Math.cos(e.angle) + dy * Math.sin(e.angle),
+            perp = Math.abs(dx * Math.sin(e.angle) - dy * Math.cos(e.angle));
+          if (along > 0 && along < len && perp < 17) {
+            len = along;
+            victim = p;
+          }
+        }
+        if (victim) damagePlayer(w, victim, spec.damage * difficulty);
+        event(w, {
+          type: "shot",
+          x: e.x,
+          y: e.y,
+          toX: e.x + Math.cos(e.angle) * len,
+          toY: e.y + Math.sin(e.angle) * len,
+          enemy: true,
+        });
+        if ((e.kind === "heavy" || e.kind === "rifle") && e.burst < 2) {
+          e.burst++;
+          e.windup = e.kind === "rifle" ? 0.16 : 0.14;
+        } else {
+          e.burst = 0;
+          e.cooldown = spec.delay;
+        }
+      }
+      if (e.windup > 0 && e.kind === "heavy") continue;
+    }
+    const inRange = target && distance(e, target) < spec.range;
+    if (inRange && e.cooldown <= 0 && e.windup <= 0) {
+      e.angle =
+        Math.atan2(target.y - e.y, target.x - e.x) + (random(w) - 0.5) * 0.16;
+      e.windup = spec.windup;
+      // Lock the firing direction before locomotion can turn the sprite.
+      if (e.kind === "heavy") continue;
+    }
+    let goal: Vec | undefined;
+    if (e.memory > 0 && e.lastSeen) {
+      goal = { ...e.lastSeen };
+      if (e.repath <= 0) {
+        const angle = Math.atan2(goal.y - e.y, goal.x - e.x);
+        if (e.role === "flank" && distance(e, goal) > 160) {
+          const side = Number(e.id.slice(1)) % 2 ? 1 : -1;
+          // A* chooses an actual bypass; candidates on walls are discarded.
+          for (const offset of [260, 180, 100]) {
+            const candidate = {
+              x: goal.x - Math.sin(angle) * offset * side,
+              y: goal.y + Math.cos(angle) * offset * side,
+            };
+            if (
+              !blocked(candidate, w.map.obstacles, 22) &&
+              candidate.x > 40 &&
+              candidate.y > 40 &&
+              candidate.x < w.map.width - 40 &&
+              candidate.y < w.map.height - 40
+            ) {
+              goal = candidate;
+              break;
+            }
+          }
+        } else if (e.kind !== "rush" && target && distance(e, target) > 180) {
+          // Peekable corners beside nearby solid cover give rifle/anchor roles firing positions.
+          const candidates: Vec[] = [];
+          for (const o of w.map.obstacles) {
+            if (distance(e, { x: o.x + o.w / 2, y: o.y + o.h / 2 }) > 430)
+              continue;
+            candidates.push(
+              ...[
+                { x: o.x - 35, y: o.y - 35 },
+                { x: o.x + o.w + 35, y: o.y - 35 },
+                { x: o.x - 35, y: o.y + o.h + 35 },
+                { x: o.x + o.w + 35, y: o.y + o.h + 35 },
+              ].filter(
+                (v) =>
+                  distance(v, target) > 190 &&
+                  distance(v, target) < spec.range * 0.9 &&
+                  !blocked(v, w.map.obstacles, 22) &&
+                  visible(v, target, w.map),
+              ),
+            );
+          }
+          candidates.sort((a, b) => distance(e, a) - distance(e, b));
+          if (candidates[0]) goal = candidates[0];
+          else if (e.role === "anchor" && inRange) goal = { x: e.x, y: e.y };
+        }
+        if (e.kind !== "rush" && target && distance(e, target) < 160) {
+          const candidate = {
+            x: e.x - Math.cos(angle) * 130,
+            y: e.y - Math.sin(angle) * 130,
+          };
+          if (!blocked(candidate, w.map.obstacles, 22)) goal = candidate;
+        }
+        e.tactical = goal;
+      } else goal = e.tactical ?? goal;
+    } else {
+      e.target = null;
+      e.tactical = null;
+      if (e.state === "RETURN") goal = e.home;
+      else {
+        if (!e.patrol.length)
+          e.patrol = [{ ...e.home }, { x: e.home.x + 80, y: e.home.y + 70 }];
+        goal = e.patrol[e.patrolIndex % e.patrol.length];
+        if (distance(e, goal) < 45) {
+          e.patrolIndex = (e.patrolIndex + 1) % e.patrol.length;
+          goal = e.patrol[e.patrolIndex];
+        }
+      }
+    }
+    if (e.hp < spec.hp * 0.35 && !target && e.memory > 0) {
+      const buddy = w.enemies
+        .filter(
+          (o) => o.id !== e.id && o.squad === e.squad && o.hp > spec.hp * 0.35,
+        )
+        .sort((a, b) => distance(e, a) - distance(e, b))[0];
+      if (buddy) {
+        transition(e, "REGROUP");
+        goal = { x: buddy.x, y: buddy.y };
+      }
+    }
+    if (goal && e.repath <= 0) {
+      e.path = distance(e, goal) < 30 ? [] : findPath(e, goal, w.map, 19);
+      e.repath = 0.65 + random(w) * 0.45;
+    }
+    if (e.path.length) {
+      const point = e.path[0],
+        d = distance(e, point);
+      if (d < 8) e.path.shift();
+      else {
+        const speed =
+          spec.speed *
+          (e.state === "SUSPICIOUS" ? 0.35 : e.memory > 0 ? 1 : 0.5);
+        if (!target && e.windup <= 0)
+          e.angle = Math.atan2(point.y - e.y, point.x - e.x);
+        move(
+          e,
+          ((point.x - e.x) / d) * speed * dt,
+          ((point.y - e.y) / d) * speed * dt,
+          w.map,
+          19,
+        );
+      }
+    }
+  }
+  w.enemies = w.enemies.filter((e) => e.hp > 0);
+}

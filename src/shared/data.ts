@@ -217,6 +217,17 @@ export interface Enemy extends Vec {
   role: "assault" | "flank" | "anchor";
   alert: number;
   tactical: Vec | null;
+  squad: string;
+  state: AIState;
+  stateTime: number;
+  seenAt: number;
+  heardNoise: number;
+  radio: number;
+  patrol: Vec[];
+  patrolIndex: number;
+  reserve: boolean;
+  sourceId: string;
+  requestId: string;
 }
 export type ZoneKind =
   "warehouse" | "corridor" | "reactor" | "security" | "yard" | "extraction";
@@ -310,6 +321,11 @@ export interface World {
   time: number;
   random: number;
   visibility: import("../game/visibility").Vision;
+  alertState: AlertState;
+  squads: Record<string, EnemySquad>;
+  noises: Noise[];
+  noiseId: number;
+  supportSignals: SupportSignal[];
 }
 export interface RoomView {
   code: string;
@@ -354,4 +370,44 @@ export interface Road {
   to: number;
   points: Vec[];
   width: number;
+}
+
+export type AIState =
+  | "PATROL"
+  | "SUSPICIOUS"
+  | "INVESTIGATE"
+  | "ENGAGE"
+  | "REQUEST_SUPPORT"
+  | "PURSUE"
+  | "REGROUP"
+  | "RETURN";
+export interface Noise extends Vec {
+  id: number;
+  at: number;
+  radius: number;
+  kind: "gunfire" | "steps" | "destruction";
+}
+export interface EnemySquad {
+  id: string;
+  leader: string;
+  members: string[];
+  lastSeen: Vec | null;
+  direction: Vec;
+  observedAt: number;
+  confidence: "seen" | "heard";
+  callAt: number;
+}
+export interface AlertState {
+  level: number;
+  heat: number;
+  floor: number;
+  lastContact: number;
+  lastRaise: number;
+  reason: string;
+}
+export interface SupportSignal {
+  id: string;
+  squad: string;
+  target: Vec;
+  at: number;
 }

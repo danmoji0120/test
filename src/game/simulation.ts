@@ -1,3 +1,6 @@
+import { enemyAI } from "./squads";
+import { initialAlert, tickAlert, raiseAlert } from "./alert";
+import { noise } from "./perception";
 import { initialVision, updateVision } from "./visibility";
 import { RULES } from "../shared/rules";
 import {
@@ -9,6 +12,7 @@ import {
   type World,
   type Vec,
   type EnemyKind,
+  type Enemy,
   type GameEvent,
   type WeaponId,
 } from "../shared/data";
@@ -56,7 +60,12 @@ export function event(w: World, e: Omit<GameEvent, "id">) {
   w.events.push({ ...e, id: ++w.eventId });
   if (w.events.length > 160) w.events.splice(0, w.events.length - 160);
 }
-export function spawnEnemy(w: World, pos: Vec, kind: EnemyKind) {
+export function spawnEnemy(
+  w: World,
+  pos: Vec,
+  kind: EnemyKind,
+  options: Partial<Enemy> = {},
+) {
   if (blocked(pos, w.map.obstacles, 20)) return;
   w.enemies.push({
     ...pos,
@@ -79,7 +88,32 @@ export function spawnEnemy(w: World, pos: Vec, kind: EnemyKind) {
     role: kind === "heavy" ? "anchor" : random(w) < 0.4 ? "flank" : "assault",
     alert: 0,
     tactical: null,
+    squad: "squad-" + Math.floor(w.eventId / 3),
+    state: "PATROL",
+    stateTime: 0,
+    seenAt: -100,
+    heardNoise: 0,
+    radio: 0,
+    patrol: [],
+    patrolIndex: 0,
+    reserve: false,
+    sourceId: "initial",
+    requestId: "",
+    ...options,
   });
+  const e = w.enemies.at(-1)!;
+  const squad = (w.squads[e.squad] ??= {
+    id: e.squad,
+    leader: e.id,
+    members: [],
+    lastSeen: null,
+    direction: { x: 0, y: 0 },
+    observedAt: -100,
+    confidence: "heard",
+    callAt: -20,
+  });
+  squad.members.push(e.id);
+  return e;
 }
 export function createWorld(
   id: string,
@@ -128,6 +162,11 @@ export function createWorld(
     time: 0,
     random: seed >>> 0,
     visibility: initialVision(map),
+    alertState: initialAlert(),
+    squads: {},
+    noises: [],
+    noiseId: 0,
+    supportSignals: [],
   };
   w.mission.encounters = map.route.slice(1, 10).map((zone, index) => ({
     zone,
@@ -208,13 +247,8 @@ export function fire(w: World, p: Player) {
     (gun.spread + (moving ? gun.moving : 0) + p.recoil) *
     (p.input.aim ? 0.48 : 1) *
     (p.mod === "loader" ? 1.1 : 1);
-  for (const e of w.enemies) {
-    if (e.hp > 0 && distance(e, p) < 620 && e.memory <= 0) {
-      e.lastSeen = { x: p.x, y: p.y };
-      e.memory = 4;
-      e.repath = 0;
-    }
-  }
+  noise(w, p, 900, "gunfire");
+  raiseAlert(w, 3, "총성", p);
   p.ammo--;
   p.cooldown = gun.rate;
   p.recoil = Math.min(
@@ -333,175 +367,6 @@ export function fire(w: World, p: Player) {
       angle: p.angle,
     });
 }
-function enemyAI(w: World, dt: number, difficulty: number) {
-  const live = w.players.filter((p) => p.connected && !p.down);
-  for (const e of w.enemies) {
-    if (e.hp <= 0) continue;
-    const spec = ENEMIES[e.kind];
-    e.cooldown -= dt;
-    e.repath -= dt;
-    e.hurt = Math.max(0, e.hurt - dt);
-    e.memory = Math.max(0, e.memory - dt);
-    e.alert = Math.max(0, e.alert - dt);
-    e.stagger = Math.max(0, e.stagger - dt);
-    if (e.stagger > 0) continue;
-    const seen = live
-      .filter((p) => distance(e, p) < 760 && visible(e, p, w.map))
-      .sort((a, b) => distance(e, a) - distance(e, b));
-    const target = seen[0];
-    if (target) {
-      e.target = target.id;
-      e.lastSeen = { x: target.x, y: target.y };
-      if (e.memory <= 0) e.cooldown = 0;
-      e.memory = 8;
-    }
-    // Radio calls relay a snapshot, never the live position of an unseen player.
-    if (e.lastSeen && e.memory > 0 && e.alert <= 0) {
-      for (const ally of w.enemies) {
-        if (ally === e || ally.hp <= 0 || distance(e, ally) > 620) continue;
-        if (ally.memory < e.memory - 0.1) {
-          ally.lastSeen = { ...e.lastSeen };
-          ally.memory = Math.max(0, e.memory - 0.35);
-          ally.target = e.target;
-          ally.repath = 0;
-        }
-      }
-      e.alert = 1.6;
-    }
-    if (e.windup > 0) {
-      e.windup -= dt;
-      if (e.windup <= 0) {
-        let len = wallDistance(e, e.angle, spec.range, w.map);
-        let victim: Player | undefined;
-        for (const p of live) {
-          const dx = p.x - e.x,
-            dy = p.y - e.y,
-            along = dx * Math.cos(e.angle) + dy * Math.sin(e.angle),
-            perp = Math.abs(dx * Math.sin(e.angle) - dy * Math.cos(e.angle));
-          if (along > 0 && along < len && perp < 17) {
-            len = along;
-            victim = p;
-          }
-        }
-        if (victim) damagePlayer(w, victim, spec.damage * difficulty);
-        event(w, {
-          type: "shot",
-          x: e.x,
-          y: e.y,
-          toX: e.x + Math.cos(e.angle) * len,
-          toY: e.y + Math.sin(e.angle) * len,
-          enemy: true,
-        });
-        if (e.kind === "heavy" && e.burst < 2) {
-          e.burst++;
-          e.windup = 0.14;
-        } else {
-          e.burst = 0;
-          e.cooldown = spec.delay;
-        }
-      }
-      continue;
-    }
-    const inRange = target && distance(e, target) < spec.range;
-    if (inRange && e.cooldown <= 0) {
-      e.angle =
-        Math.atan2(target.y - e.y, target.x - e.x) + (random(w) - 0.5) * 0.16;
-      e.windup = spec.windup;
-      // Lock the firing direction before locomotion can turn the sprite.
-      continue;
-    }
-    let goal: Vec | undefined;
-    if (e.memory > 0 && e.lastSeen) {
-      goal = { ...e.lastSeen };
-      if (e.repath <= 0) {
-        const angle = Math.atan2(goal.y - e.y, goal.x - e.x);
-        if (e.role === "flank" && distance(e, goal) > 160) {
-          const side = Number(e.id.slice(1)) % 2 ? 1 : -1;
-          // A* chooses an actual bypass; candidates on walls are discarded.
-          for (const offset of [260, 180, 100]) {
-            const candidate = {
-              x: goal.x - Math.sin(angle) * offset * side,
-              y: goal.y + Math.cos(angle) * offset * side,
-            };
-            if (
-              !blocked(candidate, w.map.obstacles, 22) &&
-              candidate.x > 40 &&
-              candidate.y > 40 &&
-              candidate.x < w.map.width - 40 &&
-              candidate.y < w.map.height - 40
-            ) {
-              goal = candidate;
-              break;
-            }
-          }
-        } else if (e.kind !== "rush" && target && distance(e, target) > 180) {
-          // Peekable corners beside nearby solid cover give rifle/anchor roles firing positions.
-          const candidates: Vec[] = [];
-          for (const o of w.map.obstacles) {
-            if (distance(e, { x: o.x + o.w / 2, y: o.y + o.h / 2 }) > 430)
-              continue;
-            candidates.push(
-              ...[
-                { x: o.x - 35, y: o.y - 35 },
-                { x: o.x + o.w + 35, y: o.y - 35 },
-                { x: o.x - 35, y: o.y + o.h + 35 },
-                { x: o.x + o.w + 35, y: o.y + o.h + 35 },
-              ].filter(
-                (v) =>
-                  distance(v, target) > 190 &&
-                  distance(v, target) < spec.range * 0.9 &&
-                  !blocked(v, w.map.obstacles, 22) &&
-                  visible(v, target, w.map),
-              ),
-            );
-          }
-          candidates.sort((a, b) => distance(e, a) - distance(e, b));
-          if (candidates[0]) goal = candidates[0];
-          else if (e.role === "anchor" && inRange) goal = { x: e.x, y: e.y };
-        }
-        if (e.kind !== "rush" && target && distance(e, target) < 160) {
-          const candidate = {
-            x: e.x - Math.cos(angle) * 130,
-            y: e.y - Math.sin(angle) * 130,
-          };
-          if (!blocked(candidate, w.map.obstacles, 22)) goal = candidate;
-        }
-        e.tactical = goal;
-      } else goal = e.tactical ?? goal;
-    } else {
-      e.target = null;
-      e.tactical = null;
-      if (e.repath <= 0) {
-        const a = random(w) * Math.PI * 2;
-        goal = {
-          x: e.home.x + Math.cos(a) * 130,
-          y: e.home.y + Math.sin(a) * 130,
-        };
-      }
-    }
-    if (goal && e.repath <= 0) {
-      e.path = distance(e, goal) < 30 ? [] : findPath(e, goal, w.map, 19);
-      e.repath = 0.65 + random(w) * 0.45;
-    }
-    if (e.path.length) {
-      const point = e.path[0],
-        d = distance(e, point);
-      if (d < 8) e.path.shift();
-      else {
-        const speed = spec.speed * (e.memory > 0 ? 1 : 0.45);
-        e.angle = Math.atan2(point.y - e.y, point.x - e.x);
-        move(
-          e,
-          ((point.x - e.x) / d) * speed * dt,
-          ((point.y - e.y) / d) * speed * dt,
-          w.map,
-          19,
-        );
-      }
-    }
-  }
-  w.enemies = w.enemies.filter((e) => e.hp > 0);
-}
 export function finish(w: World, success: boolean, reason: string) {
   if (["success", "failed"].includes(w.mission.stage)) return;
   w.mission.stage = success ? "success" : "failed";
@@ -542,6 +407,8 @@ export function tick(w: World, dt: number, hard = false) {
         w.map,
       );
       p.moving = true;
+      if (Math.floor((w.time - dt) / 0.8) !== Math.floor(w.time / 0.8))
+        noise(w, p, input.sprint ? 360 : 150, "steps");
     }
     if (p.reload > 0) {
       p.reload -= dt;
@@ -706,6 +573,7 @@ export function tick(w: World, dt: number, hard = false) {
   }
 
   if (["success", "failed"].includes(m.stage)) return;
+  tickAlert(w, dt);
   enemyAI(w, dt, hard ? 1.4 : 1);
   updateVision(w);
   if (m.elapsed > RULES.timeLimit) finish(w, false, "작전 시간 14분 초과");

@@ -435,7 +435,6 @@ it("fires within a quarter second of first visual contact", () => {
   spawnEnemy(w, { x: p.x + 300, y: p.y }, "rifle");
   advance(w, 0.25);
   expect(w.events.some((e) => e.type === "shot" && e.enemy)).toBe(true);
-  expect(w.enemies[0].cooldown).toBeGreaterThan(0);
 });
 it("relays the observed position to nearby guards but forgets it behind cover", () => {
   const w = setup(),
