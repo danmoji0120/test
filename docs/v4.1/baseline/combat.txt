@@ -1,0 +1,65 @@
+{
+  samples: 252,
+  rockets: [
+    {
+      facing: 0,
+      rocketDamage: 575,
+      afterRocket: 75,
+      arShots: 3,
+      arSeconds: 0.24
+    },
+    {
+      facing: 1.5707963267948966,
+      rocketDamage: 437,
+      afterRocket: 213,
+      arShots: 27,
+      arSeconds: 3.12
+    },
+    {
+      facing: 3.141592653589793,
+      rocketDamage: 312.8,
+      afterRocket: 337.2,
+      arShots: 200,
+      arSeconds: 23.88
+    }
+  ],
+  movement: [
+    {
+      mode: 'stationary',
+      seconds: 30.00000000000065,
+      shots: 81,
+      hits: 72,
+      damage: 792,
+      hitRate: 0.8888888888888888
+    },
+    {
+      mode: 'strafe',
+      seconds: 30.00000000000065,
+      shots: 81,
+      hits: 10,
+      damage: 110,
+      hitRate: 0.12345679012345678
+    },
+    {
+      mode: 'circle',
+      seconds: 30.00000000000065,
+      shots: 48,
+      hits: 14,
+      damage: 154,
+      hitRate: 0.2916666666666667
+    },
+    {
+      mode: 'cover',
+      seconds: 30.00000000000065,
+      shots: 0,
+      hits: 0,
+      damage: 0,
+      hitRate: 0
+    }
+  ],
+  objectives: [
+    { weapon: 'ar', seconds: 1.633333333333335, hp: 0 },
+    { weapon: 'smg', seconds: 1.166666666666667, hp: 0 },
+    { weapon: 'sg', seconds: 2.4333333333333345, hp: 0 }
+  ]
+}
