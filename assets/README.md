@@ -18,3 +18,5 @@ Both new atlases were actually generated using `image_gen.imagegen` on 2026-10-1
 - `v4-enemies-atlas.png`: `/workspace/generated_images/exec-8daf2542-2df7-42a4-b034-65d0de4f4172.png`. Juggernaut, recon drone, walker, tracked artillery; four directional poses each.
 - `v4-environment-atlas.png`: `/workspace/generated_images/exec-aa32c444-c524-4f32-8ea7-1d837c8962c0.png`. Rock clusters, generator, bunker, communications mast, ruined corner, heavy wrecks and sand/scrub decor.
 - `v4-frames.json` measures largest connected alpha-component bounds per cell; the raster files are not edited. Terrain collision clips rock artwork to the same convex polygon used by server collision and sight. Sand fields, roads, shadows and gameplay markers remain procedural terrain/effects.
+
+V4.1 equipment: `v41-equipment-atlas.png` was generated using the actual image_gen.imagegen tool in this session. Its six item PNGs are lossless crops of the original RGBA atlas, not Python/SVG drawings. Source path, crop rectangles, alpha metadata and SHA256 hashes are in `docs/v4.1/art-provenance.json`. Runtime requires no generation API. Existing operator/enemy PNGs are unchanged.

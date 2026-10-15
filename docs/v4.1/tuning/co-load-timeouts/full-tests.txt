@@ -1,0 +1,137 @@
+
+> project-doll-squad@0.4.1 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 46.8 seconds [
+  { hp: 100, kills: 1, ammo: 219 },
+  { hp: 100, kills: 2, ammo: 219 },
+  { hp: 100, kills: 3, ammo: 220 },
+  { hp: 100, kills: 2, ammo: 219 }
+]
+
+ ❯ tests/game.test.ts (35 tests | 1 failed) 68957ms
+   ✓ seed and collision geometry > reproduces the map and varies layout across seeds 241ms
+   × seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds 47185ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ seed and collision geometry > blocks movement and supports sliding along walls 9ms
+   ✓ seed and collision geometry > blocks lines of sight and rays at the closest surface 18ms
+   ✓ server combat rules > ar consumes one shell/cartridge and emits the correct number of rays 249ms
+   ✓ server combat rules > smg consumes one shell/cartridge and emits the correct number of rays 195ms
+   ✓ server combat rules > sg consumes one shell/cartridge and emits the correct number of rays 207ms
+   ✓ server combat rules > ar deals damage with line of sight 205ms
+   ✓ server combat rules > smg deals damage with line of sight 125ms
+   ✓ server combat rules > sg deals damage with line of sight 106ms
+   ✓ server combat rules > stops shots at cover and never damages friendlies 143ms
+   ✓ server combat rules > reload conserves total ammunition and cannot fire during reload 120ms
+   ✓ server combat rules > sprinting disables fire and normalized diagonal speed stays bounded 118ms
+   ✓ server combat rules > revives a teammate with continuous nearby input; support is faster 166ms
+   ✓ server combat rules > does not revive through a wall or from far away 139ms
+   ✓ server combat rules > fails once all connected operators are down 111ms
+   ✓ server combat rules > AI cannot see through a wall or walk into solid cover 281ms
+   ✓ server combat rules > shot events and dead enemy state stay bounded under repeated combat 201ms
+   ✓ mission objectives > simultaneous supply interaction cannot duplicate resupply 161ms
+   ✓ mission objectives > starts with a populated theatre and no guard-clearance gate 115ms
+   ✓ mission objectives > requires every connected teammate at extraction and ignores disconnected clients 177ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  13755ms
+   ✓ generators are independently damageable from insertion while enemies remain alive 68ms
+   ✓ shotgun has ten separately resolved rays but one discharge without invented pellet hits 45ms
+   ✓ sustained automatic fire builds recoil and releasing the trigger recovers it 91ms
+   ✓ never boards an inbound transport and gives boarding priority at its departure boundary 95ms
+   ✓ different seeds change facility footprints, hall connections and machinery 115ms
+   ✓ AR uses three close torso hits while SMG uses a faster four-round stream 183ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  3869ms
+   ✓ hits the visible upper torso instead of requiring shots at an enemy's feet 37ms
+   ✓ connects a physically clear cover corner to a free navigation start cell 8ms
+   ✓ freezes combat immediately after boarding instead of damaging escaped teammates 91ms
+   ✓ fires within a quarter second of aligned visual contact; aiming cannot snap through 180 degrees 101ms
+   ✓ relays the observed position to nearby guards but forgets it behind cover 146ms
+   ✓ uses a free flanking goal and anchors a heavy gun at a cover corner 64ms
+ ✓ tests/terrain.test.ts (3 tests) 15535ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  5455ms
+   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  10077ms
+ ✓ tests/region.test.ts (3 tests) 10088ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  9080ms
+   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  886ms
+ ✓ tests/network.test.ts (6 tests) 8084ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  3075ms
+   ✓ assigns leadership to a new joiner when every previous member is disconnected  404ms
+   ✓ heartbeat messages do not trigger redundant room broadcasts  323ms
+   ✓ authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect  2492ms
+ ❯ tests/reinforcements.test.ts (5 tests | 1 failed) 8794ms
+   ✓ prepositions real reserves, deduplicates a request and marches continuously from its source  576ms
+   ✓ external troops first exist beyond a valid border gate then physically enter 248ms
+   ✓ cancels a disabled source and releases assigned reserves without creating soldiers 273ms
+   ✓ holds at the actor limit and cancels when a route is cut 272ms
+   × never places any initial or local reserve actor in solid geometry over 100 seeds 7421ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ✓ tests/heavy-combat.test.ts (13 tests) 3107ms
+   ✓ introduces role-specific rosters at 5/7/8/9 without changing infantry health  581ms
+ ✓ tests/difficulty.test.ts (1 test) 2819ms
+   ✓ scales response, composition and pressure across ten levels without health inflation  2815ms
+ ✓ tests/response.test.ts (9 tests) 2611ms
+   ✓ noise alone cannot escalate a difficulty10 operation beyond suspicion  359ms
+   ✓ escalates accepted contacts and strategic destruction into actual maximum-response orders  312ms
+   ✓ dispatches a prepositioned walker through its actual motorpool door without creating a replacement  458ms
+   ✓ destroyed motorpool delays new external armor while retaining valid external routes  410ms
+ ✓ tests/combat-system.test.ts (21 tests) 1920ms
+ ✓ tests/visibility.test.ts (6 tests) 828ms
+ ✓ tests/objectives.test.ts (5 tests) 982ms
+ ✓ tests/perception.test.ts (5 tests) 770ms
+ ✓ tests/snapshot.test.ts (1 test) 540ms
+   ✓ streams changing public state without repeating terrain or leaking private actors; reconnect is self-contained  538ms
+ ✓ tests/store.test.ts (2 tests) 28ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/game.test.ts > seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds
+Error: Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/game.test.ts:46:3
+     44|     expect(generateMap(9)).not.toEqual(generateMap(10));
+     45|   });
+     46|   it("keeps all objectives and extraction reachable for 100 seeds", ()…
+       |   ^
+     47|     for (let seed = 0; seed < 100; seed++) {
+     48|       const m = generateMap(seed);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/reinforcements.test.ts > never places any initial or local reserve actor in solid geometry over 100 seeds
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/reinforcements.test.ts:103:1
+    101|   expect(r.state).toBe("cancelled");
+    102| });
+    103| it("never places any initial or local reserve actor in solid geometry …
+       | ^
+    104|   for (let seed = 0; seed < 100; seed++) {
+    105|     const w = createWorld("spawn-" + seed, seed, [makePlayer("p", "P")…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: [vitest-worker]: Timeout calling "onTaskUpdate"
+ ❯ Object.onTimeoutError node_modules/vitest/dist/chunks/rpc.-pEldfrD.js:53:10
+ ❯ Timeout._onTimeout node_modules/vitest/dist/chunks/index.B521nVV-.js:59:62
+ ❯ listOnTimeout node:internal/timers:635:17
+ ❯ processTimers node:internal/timers:571:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  2 failed | 12 passed (14)
+      Tests  2 failed | 113 passed (115)
+     Errors  1 error
+   Start at  18:22:55
+   Duration  137.22s (transform 1.41s, setup 0ms, collect 3.94s, tests 125.06s, environment 7ms, prepare 2.41s)

@@ -31,12 +31,26 @@ export function blocked(p: Vec, obstacles: Rect[], radius = 16) {
         )),
   );
 }
-export function movementBlocked(p:Vec,map:GameMap,r=16){
-  return blocked(p,map.obstacles,r)||map.installations.some(d=>d.hp>0&&distance(p,d)<43+r);
+export function movementBlocked(p: Vec, map: GameMap, r = 16) {
+  return (
+    blocked(p, map.obstacles, r) ||
+    map.installations.some((d) => d.hp > 0 && distance(p, d) < 43 + r)
+  );
 }
-export function movementClear(a:Vec,b:Vec,map:GameMap,r=16){
-  const steps=Math.max(1,Math.ceil(distance(a,b)/18));
-  for(let i=1;i<=steps;i++)if(movementBlocked({x:a.x+(b.x-a.x)*i/steps,y:a.y+(b.y-a.y)*i/steps},map,r))return false;
+export function movementClear(a: Vec, b: Vec, map: GameMap, r = 16) {
+  const steps = Math.max(1, Math.ceil(distance(a, b) / 18));
+  for (let i = 1; i <= steps; i++)
+    if (
+      movementBlocked(
+        {
+          x: a.x + ((b.x - a.x) * i) / steps,
+          y: a.y + ((b.y - a.y) * i) / steps,
+        },
+        map,
+        r,
+      )
+    )
+      return false;
   return true;
 }
 export function move(p: Vec, dx: number, dy: number, map: GameMap, r = 16) {
@@ -44,12 +58,12 @@ export function move(p: Vec, dx: number, dy: number, map: GameMap, r = 16) {
     Math.min(r, p.x),
     Math.min(Math.max(map.width - r, p.x), p.x + dx),
   );
-  if (!movementBlocked({x,y:p.y},map,r)) p.x = x;
+  if (!movementBlocked({ x, y: p.y }, map, r)) p.x = x;
   const y = Math.max(
     Math.min(r, p.y),
     Math.min(Math.max(map.height - r, p.y), p.y + dy),
   );
-  if (!movementBlocked({x:p.x,y},map,r)) p.y = y;
+  if (!movementBlocked({ x: p.x, y }, map, r)) p.y = y;
 }
 /** Substeps for strategic updates: never jump through thin walls after a long AI interval. */
 export function moveSwept(
@@ -153,7 +167,7 @@ function navigationGrid(map: GameMap, radius: number) {
     for (let y = 0; y < rows; y++)
       for (let x = 0; x < cols; x++)
         grid[y * cols + x] = Number(
-          movementBlocked({x:x*50+25,y:y*50+25},map,size),
+          movementBlocked({ x: x * 50 + 25, y: y * 50 + 25 }, map, size),
         );
     cache.set(size, grid);
   }
@@ -210,7 +224,7 @@ export function findPath(
     sy = Math.floor(bridge.y / cell);
   }
   const s = key(sx, sy);
-  let alternatives:number[]|undefined;
+  let alternatives: number[] | undefined;
   let gx = originalGx,
     gy = originalGy;
   if (grid[key(gx, gy)]) {
@@ -235,12 +249,12 @@ export function findPath(
         distance({ x: b.x * cell + 25, y: b.y * cell + 25 }, goal),
     );
     if (!nearby.length) return [];
-    alternatives=nearby.map(p=>key(p.x,p.y));
+    alternatives = nearby.map((p) => key(p.x, p.y));
     gx = nearby[0].x;
     gy = nearby[0].y;
   }
   let g = key(gx, gy);
-  const goalKeys=new Set(alternatives??[g]);
+  const goalKeys = new Set(alternatives ?? [g]);
   const open = [s],
     came = new Map<number, number>(),
     cost = new Map([[s, 0]]),
@@ -253,7 +267,8 @@ export function findPath(
       if (score.get(open[i])! < score.get(open[index])!) index = i;
     const k = open.splice(index, 1)[0];
     if (goalKeys.has(k)) {
-      end = k;g=k;
+      end = k;
+      g = k;
       break;
     }
     closed.add(k);

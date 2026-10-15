@@ -30,9 +30,12 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
     e.reportKind = "seen";
     const squad = w.squads[e.squad];
     if (squad) {
-      const elapsed=Math.max(dt,w.time-squad.observedAt);
-      squad.direction={x:(target.x-(squad.lastSeen?.x??target.x))/elapsed,y:(target.y-(squad.lastSeen?.y??target.y))/elapsed};
-      if(e.aimControl)squad.direction={...e.aimControl.velocity};
+      const elapsed = Math.max(dt, w.time - squad.observedAt);
+      squad.direction = {
+        x: (target.x - (squad.lastSeen?.x ?? target.x)) / elapsed,
+        y: (target.y - (squad.lastSeen?.y ?? target.y)) / elapsed,
+      };
+      if (e.aimControl) squad.direction = { ...e.aimControl.velocity };
       squad.lastSeen = { ...e.lastSeen };
       squad.observedAt = w.time;
       squad.confidence = "seen";

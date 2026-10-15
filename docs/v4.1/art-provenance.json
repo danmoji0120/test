@@ -1,0 +1,65 @@
+{
+  "tool": "image_gen.imagegen",
+  "original": "/workspace/generated_images/exec-79f02d9e-3b94-4706-9427-3134c2a19b20.png",
+  "atlas": "assets/v41-equipment-atlas.png",
+  "atlasSHA256": "f73cf7e813609b5c96d781cd7af537f9dde329be319c8fea503a7cb77ff9fd0e",
+  "size": [
+    1536,
+    1024
+  ],
+  "alphaExtrema": [
+    0,
+    254
+  ],
+  "processing": "Unchanged source atlas; each item is only cropped from measured source bounds, without drawing or synthesizing replacement pixels.",
+  "frames": {
+    "at": {
+      "x": 53,
+      "y": 138,
+      "w": 637,
+      "h": 267,
+      "file": "v41-at.png",
+      "sha256": "ad49a27b3fc966219e5aa7f145fd85fe1aa0fb63155c18384cf013d4b0aecfde"
+    },
+    "pistol": {
+      "x": 735,
+      "y": 148,
+      "w": 347,
+      "h": 285,
+      "file": "v41-pistol.png",
+      "sha256": "7eebc5b5ecfab4c2cb9019ee9e75bd92b44c59efc7c6962d5e62d5ace923a273"
+    },
+    "frag": {
+      "x": 1190,
+      "y": 101,
+      "w": 227,
+      "h": 357,
+      "file": "v41-frag.png",
+      "sha256": "8fdef83082bf652d99ed9029736c33d139bdcd3c6058c5d3eb37464ded8bc8eb"
+    },
+    "antiarmor": {
+      "x": 154,
+      "y": 516,
+      "w": 287,
+      "h": 403,
+      "file": "v41-antiarmor.png",
+      "sha256": "7aa9a6e4880ef8a8fecaf48f9a6e7fa78df6f6b8a8508416e1f80e1fcf9f9535"
+    },
+    "smoke": {
+      "x": 677,
+      "y": 513,
+      "w": 225,
+      "h": 420,
+      "file": "v41-smoke.png",
+      "sha256": "2ec58d281a7d6335f8628ee911284f459ea943691bd7f7b1bf197261aff16cbb"
+    },
+    "medical": {
+      "x": 1038,
+      "y": 535,
+      "w": 415,
+      "h": 374,
+      "file": "v41-medical.png",
+      "sha256": "a878d35083f398e07bb58c3696e5be7fada42ed539fa1c6bd610b4b713d94598"
+    }
+  }
+}

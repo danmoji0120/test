@@ -8,7 +8,7 @@ import {
 } from "node:fs";
 import { join } from "node:path";
 import { randomBytes } from "node:crypto";
-import {migrateLoadout} from "../shared/loadout";
+import { migrateLoadout } from "../shared/loadout";
 import type { Profile } from "../shared/data";
 export class Store {
   profiles = new Map<string, Profile>();
@@ -19,7 +19,7 @@ export class Store {
     for (const f of [this.file, this.file + ".bak"]) {
       try {
         const parsed = JSON.parse(readFileSync(f, "utf8"));
-        if (![1,2].includes(parsed.version) || !Array.isArray(parsed.profiles))
+        if (![1, 2].includes(parsed.version) || !Array.isArray(parsed.profiles))
           throw Error("Invalid save");
         for (const p of parsed.profiles) {
           if (
@@ -29,10 +29,13 @@ export class Store {
             Array.isArray(p.unlocks) &&
             Array.isArray(p.mods) &&
             Array.isArray(p.settled)
-          )
-            {
-            for(const id of ["ar","smg","at","pistol"])if(!p.unlocks.includes(id))p.unlocks.push(id);
-            p.loadout=migrateLoadout(p.loadout??p,p.unlocks);p.schema=2;this.profiles.set(p.token,p);}
+          ) {
+            for (const id of ["ar", "smg", "at", "pistol"])
+              if (!p.unlocks.includes(id)) p.unlocks.push(id);
+            p.loadout = migrateLoadout(p.loadout ?? p, p.unlocks);
+            p.schema = 2;
+            this.profiles.set(p.token, p);
+          }
         }
         break;
       } catch {}
@@ -46,8 +49,8 @@ export class Store {
         token: t,
         credits: 300,
         unlocks: ["ar", "smg", "at", "pistol"],
-        schema:2,
-        loadout:migrateLoadout({},["ar","smg","at","pistol"]),
+        schema: 2,
+        loadout: migrateLoadout({}, ["ar", "smg", "at", "pistol"]),
         mods: ["none"],
         runs: 0,
         wins: 0,

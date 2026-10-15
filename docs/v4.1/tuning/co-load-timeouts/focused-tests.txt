@@ -1,0 +1,115 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 46.8 seconds [
+  { hp: 100, kills: 1, ammo: 219 },
+  { hp: 100, kills: 2, ammo: 219 },
+  { hp: 100, kills: 3, ammo: 220 },
+  { hp: 100, kills: 2, ammo: 219 }
+]
+
+ ❯ tests/game.test.ts (35 tests | 2 failed) 70834ms
+   ✓ seed and collision geometry > reproduces the map and varies layout across seeds 198ms
+   × seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds 36599ms
+     → Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ seed and collision geometry > blocks movement and supports sliding along walls 7ms
+   ✓ seed and collision geometry > blocks lines of sight and rays at the closest surface 26ms
+   ✓ server combat rules > ar consumes one shell/cartridge and emits the correct number of rays  319ms
+   ✓ server combat rules > smg consumes one shell/cartridge and emits the correct number of rays 269ms
+   ✓ server combat rules > sg consumes one shell/cartridge and emits the correct number of rays 182ms
+   ✓ server combat rules > ar deals damage with line of sight 147ms
+   ✓ server combat rules > smg deals damage with line of sight 157ms
+   ✓ server combat rules > sg deals damage with line of sight 147ms
+   ✓ server combat rules > stops shots at cover and never damages friendlies 181ms
+   ✓ server combat rules > reload conserves total ammunition and cannot fire during reload 186ms
+   ✓ server combat rules > sprinting disables fire and normalized diagonal speed stays bounded 123ms
+   ✓ server combat rules > revives a teammate with continuous nearby input; support is faster 162ms
+   ✓ server combat rules > does not revive through a wall or from far away 180ms
+   ✓ server combat rules > fails once all connected operators are down 137ms
+   ✓ server combat rules > AI cannot see through a wall or walk into solid cover  563ms
+   ✓ server combat rules > shot events and dead enemy state stay bounded under repeated combat  415ms
+   ✓ mission objectives > simultaneous supply interaction cannot duplicate resupply  318ms
+   ✓ mission objectives > starts with a populated theatre and no guard-clearance gate  313ms
+   ✓ mission objectives > requires every connected teammate at extraction and ignores disconnected clients  389ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  17408ms
+   ✓ generators are independently damageable from insertion while enemies remain alive 159ms
+   ✓ shotgun has ten separately resolved rays but one discharge without invented pellet hits 132ms
+   ✓ sustained automatic fire builds recoil and releasing the trigger recovers it 128ms
+   ✓ never boards an inbound transport and gives boarding priority at its departure boundary 125ms
+   ✓ different seeds change facility footprints, hall connections and machinery 291ms
+   ✓ AR uses three close torso hits while SMG uses a faster four-round stream 282ms
+   × completes an operation with discrete WASD held for 100ms updates without waypoint oscillation 10212ms
+     → Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+   ✓ hits the visible upper torso instead of requiring shots at an enemy's feet 191ms
+   ✓ connects a physically clear cover corner to a free navigation start cell 17ms
+   ✓ freezes combat immediately after boarding instead of damaging escaped teammates 176ms
+   ✓ fires within a quarter second of aligned visual contact; aiming cannot snap through 180 degrees 205ms
+   ✓ relays the observed position to nearby guards but forgets it behind cover 275ms
+   ✓ uses a free flanking goal and anchors a heavy gun at a cover corner 127ms
+ ✓ tests/heavy-combat.test.ts (13 tests) 6346ms
+   ✓ introduces role-specific rosters at 5/7/8/9 without changing infantry health  1296ms
+   ✓ AP2 front shots fail while a real exposed rear region remains vulnerable  433ms
+   ✓ stale tactical/G input cannot fire an additional launcher beside a rifle  652ms
+   ✓ requires actual dated observation for artillery and never steers a launched shell  556ms
+   ✓ hides artillery origin and owner while transmitting an incoming impact warning  660ms
+   ✓ walker projectiles hit solid terrain and cannot pass a wall into a player  506ms
+   ✓ juggernaut cycles spinup, sustained fire and overheat instead of an endless laser  331ms
+   ✓ does not reconstruct an unseen cannon origin from projectile timestamps or distance  356ms
+   ✓ will not authorize artillery from hearing alone or an unobserved facility dispatch coordinate  364ms
+   ✓ integrates mortar coordinates along the real launch-to-impact path and hides unseen airborne positions  327ms
+   ✓ a player rocket collides with a live facility rather than passing through it  314ms
+ ✓ tests/combat-system.test.ts (21 tests) 2980ms
+ ✓ tests/perception.test.ts (5 tests) 1220ms
+   ✓ patrols independently and changes hearing to suspicion then investigation  323ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/game.test.ts > seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds
+Error: Test timed out in 20000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/game.test.ts:46:3
+     44|     expect(generateMap(9)).not.toEqual(generateMap(10));
+     45|   });
+     46|   it("keeps all objectives and extraction reachable for 100 seeds", ()…
+       |   ^
+     47|     for (let seed = 0; seed < 100; seed++) {
+     48|       const m = generateMap(seed);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  tests/game.test.ts > completes an operation with discrete WASD held for 100ms updates without waypoint oscillation
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/game.test.ts:369:1
+    367| });
+    368|
+    369| it("completes an operation with discrete WASD held for 100ms updates w…
+       | ^
+    370|   const w = createWorld(
+    371|       "keyboard",
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯⎯ Unhandled Error ⎯⎯⎯⎯⎯⎯⎯
+Error: [vitest-worker]: Timeout calling "onTaskUpdate"
+ ❯ Object.onTimeoutError node_modules/vitest/dist/chunks/rpc.-pEldfrD.js:53:10
+ ❯ Timeout._onTimeout node_modules/vitest/dist/chunks/index.B521nVV-.js:59:62
+ ❯ listOnTimeout node:internal/timers:635:17
+ ❯ processTimers node:internal/timers:571:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  2 failed | 72 passed (74)
+     Errors  1 error
+   Start at  18:22:15
+   Duration  88.83s (transform 1.54s, setup 0ms, collect 3.10s, tests 81.38s, environment 1ms, prepare 1.28s)

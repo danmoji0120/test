@@ -1,5 +1,13 @@
+import { equipmentSprite } from "../art/equipment";
 import { RasterCache } from "./raster-cache";
-import { hitRegions, worldPoint, enemyRadius, enemyHeight, armored, special } from "../game/armor";
+import {
+  hitRegions,
+  worldPoint,
+  enemyRadius,
+  enemyHeight,
+  armored,
+  special,
+} from "../game/armor";
 import { paintTerrain } from "./terrain";
 import { environmentImage, drawEnvironment } from "../art/environment";
 import { operationGoal } from "../shared/operation";
@@ -9,6 +17,7 @@ import { RULES } from "../shared/rules";
 import {
   CHARACTERS,
   WEAPONS,
+  CONSUMABLES,
   ENEMIES,
   type World,
   type Player,
@@ -195,13 +204,34 @@ export class Renderer {
             );
         } else if (e.type === "hit") {
           if (e.actor === id && e.enemy) this.shake = Math.max(this.shake, 6);
-          this.burst(e.x,e.y-12,e.quality==="ricochet"?4:e.quality==="component"?20:8,e.quality==="ricochet"?"#a8c7de":e.quality==="partial"?"#f5ca70":e.quality==="component"?"#ff8457":"#ecf7ca",130);
+          this.burst(
+            e.x,
+            e.y - 12,
+            e.quality === "ricochet" ? 4 : e.quality === "component" ? 20 : 8,
+            e.quality === "ricochet"
+              ? "#a8c7de"
+              : e.quality === "partial"
+                ? "#f5ca70"
+                : e.quality === "component"
+                  ? "#ff8457"
+                  : "#ecf7ca",
+            130,
+          );
           if (e.actor === id && !e.enemy) {
             this.hit = 0.18;
             this.numbers.push({
               x: e.x,
               y: e.y - 55,
-              text: e.quality==="component"?"부품 파괴":e.quality==="weakpoint"?`약점 ${Math.round(e.damage??0)}`:e.quality==="partial"?`부분 ${Math.round(e.damage??0)}`:e.armored?"관통 불가":String(Math.round(e.damage??0)),
+              text:
+                e.quality === "component"
+                  ? "부품 파괴"
+                  : e.quality === "weakpoint"
+                    ? `약점 ${Math.round(e.damage ?? 0)}`
+                    : e.quality === "partial"
+                      ? `부분 ${Math.round(e.damage ?? 0)}`
+                      : e.armored
+                        ? "관통 불가"
+                        : String(Math.round(e.damage ?? 0)),
               life: 0.55,
             });
           }
@@ -257,7 +287,10 @@ export class Renderer {
   preview(p: Player, input: Input, now: number) {
     this.pendingPreview = this.pendingPreview.filter((t) => now - t < 500);
     if (
-      p.activeSlot===3 || p.switching>0 || p.weapon==="at" ||
+      (input.slot!==undefined&&input.slot!==p.activeSlot)||
+      p.activeSlot === 3 ||
+      p.switching > 0 ||
+      p.weapon === "at" ||
       !input.fire ||
       input.sprint ||
       input.interact ||
@@ -484,10 +517,27 @@ export class Renderer {
       g.fillStyle = "#ffd286";
       g.fillRect(-32, 31, 64 * Math.max(0, device.hp / device.maxHp), 5);
       g.restore();
-      if(!dead){
-        for(const part of hitRegions(device).filter(r=>r.id==="core"||r.id==="shield")){
-          const pos=worldPoint(device,part);g.strokeStyle=part.id==="core"?"#8ff4d2":"#eeae80";g.lineWidth=2;g.beginPath();g.arc(pos.x,pos.y,part.radius,0,TAU);g.stroke();
-          if(active)this.marker(pos,part.id==="core"?"노출 핵심부 · AP0":device.components?.shield?.destroyed?"방호 파괴":"방호 AV3",t,part.id==="core"?"#8ff4d2":"#eeae80");
+      if (!dead) {
+        for (const part of hitRegions(device).filter(
+          (r) => r.id === "core" || r.id === "shield",
+        )) {
+          const pos = worldPoint(device, part);
+          g.strokeStyle = part.id === "core" ? "#8ff4d2" : "#eeae80";
+          g.lineWidth = 2;
+          g.beginPath();
+          g.arc(pos.x, pos.y, part.radius, 0, TAU);
+          g.stroke();
+          if (active)
+            this.marker(
+              pos,
+              part.id === "core"
+                ? "노출 핵심부 · AP0"
+                : device.components?.shield?.destroyed
+                  ? "방호 파괴"
+                  : "방호 AV3",
+              t,
+              part.id === "core" ? "#8ff4d2" : "#eeae80",
+            );
         }
       }
     }
@@ -599,17 +649,60 @@ export class Renderer {
         g.moveTo(e.x, e.y);
         g.lineTo(
           e.x +
-            Math.cos(e.turretAngle??e.angle) *
-              wallDistance(e, e.turretAngle??e.angle, ENEMIES[e.kind].range, w.map),
+            Math.cos(e.turretAngle ?? e.angle) *
+              wallDistance(
+                e,
+                e.turretAngle ?? e.angle,
+                ENEMIES[e.kind].range,
+                w.map,
+              ),
           e.y -
             RULES.muzzleHeight -
             4 +
-            Math.sin(e.turretAngle??e.angle) *
-              wallDistance(e, e.turretAngle??e.angle, ENEMIES[e.kind].range, w.map),
+            Math.sin(e.turretAngle ?? e.angle) *
+              wallDistance(
+                e,
+                e.turretAngle ?? e.angle,
+                ENEMIES[e.kind].range,
+                w.map,
+              ),
         );
         g.stroke();
         g.setLineDash([]);
       }
+    }
+    if (p.activeSlot === 3 && p.consumable !== "medical" && local?.aim) {
+      const item = CONSUMABLES[p.consumable],
+        a = Math.atan2(
+          (local.targetY ?? p.y) - p.y,
+          (local.targetX ?? p.x) - p.x,
+        );
+      const range = Math.min(
+        item.range,
+        Math.hypot((local.targetX ?? p.x) - p.x, (local.targetY ?? p.y) - p.y),
+      );
+      const reach = Math.max(0, wallDistance(p, a, range, w.map) - 3),
+        x = p.x + Math.cos(a) * reach,
+        y = p.y + Math.sin(a) * reach;
+      g.strokeStyle = p.consumable === "antiarmor" ? "#ffc18c" : "#a6e8d7";
+      g.lineWidth = 1.5;
+      g.setLineDash([5, 5]);
+      g.beginPath();
+      g.moveTo(p.x, p.y - 16);
+      g.lineTo(x, y);
+      g.stroke();
+      g.beginPath();
+      g.arc(x, y, item.radius, 0, TAU);
+      g.stroke();
+      g.setLineDash([]);
+      g.fillStyle = "#e6efde";
+      g.textAlign = "center";
+      g.font = "11px sans-serif";
+      g.fillText(
+        `예상 투척 · ${(reach / 100).toFixed(1)}m`,
+        x,
+        y - item.radius - 8,
+      );
     }
     for (const q of w.projectiles || []) {
       if (q.kind === "mortar") {
@@ -650,11 +743,33 @@ export class Renderer {
           g.ellipse(shell.x, shell.y - shell.height, 5, 10, 0.4, 0, TAU);
           g.fill();
         }
-      } else if(["frag","antiarmor","smoke"].includes(q.kind)){
-        const progress=Math.min(1,q.traveled/Math.max(1,q.range)),h=Math.sin(progress*Math.PI)*60;
-        g.fillStyle="#0008";g.beginPath();g.ellipse(q.x,q.y,6,3,0,0,TAU);g.fill();
-        g.fillStyle=q.kind==="antiarmor"?"#ffba73":q.kind==="smoke"?"#d3dfe2":"#9de2ba";
-        g.fillRect(q.x-4,q.y-h-11,8,11);g.strokeStyle="#f2f5e6";g.strokeRect(q.x-4,q.y-h-11,8,11);
+      } else if (["frag", "antiarmor", "smoke"].includes(q.kind)) {
+        const progress = Math.min(1, q.traveled / Math.max(1, q.range)),
+          h = Math.sin(progress * Math.PI) * 60;
+        g.fillStyle = "#0008";
+        g.beginPath();
+        g.ellipse(q.x, q.y, 6, 3, 0, 0, TAU);
+        g.fill();
+        g.fillStyle =
+          q.kind === "antiarmor"
+            ? "#ffba73"
+            : q.kind === "smoke"
+              ? "#d3dfe2"
+              : "#9de2ba";
+        const sprite = equipmentSprite(q.kind);
+        if (sprite?.complete && sprite.naturalWidth) {
+          const sh = (12 * sprite.naturalHeight) / sprite.naturalWidth;
+          this.rasterCache.draw(
+            g,
+            sprite,
+            `thrown/${q.kind}`,
+            { x: 0, y: 0, w: sprite.naturalWidth, h: sprite.naturalHeight },
+            q.x - 6,
+            q.y - h - sh,
+            12,
+            sh,
+          );
+        }
       } else {
         g.strokeStyle = q.enemy ? "#ff9371" : "#ffe5a0";
         g.lineWidth = q.kind === "rocket" ? 5 : 4;
@@ -671,11 +786,25 @@ export class Renderer {
         g.fill();
       }
     }
-    for(const smoke of w.map.smokes??[]){
-      const alpha=Math.min(.65,Math.max(0,(smoke.until-w.time)/2)*.65);
-      const cloud=g.createRadialGradient(smoke.x,smoke.y,20,smoke.x,smoke.y,smoke.radius);
-      cloud.addColorStop(0,`rgba(170,184,181,${alpha})`);cloud.addColorStop(1,"rgba(151,168,165,0)");
-      g.fillStyle=cloud;g.beginPath();g.arc(smoke.x,smoke.y,smoke.radius,0,TAU);g.fill();
+    for (const smoke of w.map.smokes ?? []) {
+      const alpha = Math.min(
+        0.65,
+        Math.max(0, (smoke.until - w.time) / 2) * 0.65,
+      );
+      const cloud = g.createRadialGradient(
+        smoke.x,
+        smoke.y,
+        20,
+        smoke.x,
+        smoke.y,
+        smoke.radius,
+      );
+      cloud.addColorStop(0, `rgba(170,184,181,${alpha})`);
+      cloud.addColorStop(1, "rgba(151,168,165,0)");
+      g.fillStyle = cloud;
+      g.beginPath();
+      g.arc(smoke.x, smoke.y, smoke.radius, 0, TAU);
+      g.fill();
     }
     for (const e of this.trails) {
       e.life -= dt;
@@ -929,6 +1058,28 @@ export class Renderer {
       );
     }
     g.filter = "none";
+    if (!p.down) {
+      const id = p.activeSlot === 3 ? p.consumable : p.weapon,
+        sprite = equipmentSprite(id);
+      if (sprite?.complete && sprite.naturalWidth) {
+        const width = id === "at" ? 45 : id === "pistol" ? 20 : 16,
+          height = (width * sprite.naturalHeight) / sprite.naturalWidth;
+        g.save();
+        g.translate(Math.cos(p.angle) * 13, -18 + Math.sin(p.angle) * 7);
+        if (p.activeSlot !== 3) g.rotate(p.angle);
+        this.rasterCache.draw(
+          g,
+          sprite,
+          `equipment/${id}`,
+          { x: 0, y: 0, w: sprite.naturalWidth, h: sprite.naturalHeight },
+          -width * 0.42,
+          -height / 2,
+          width,
+          height,
+        );
+        g.restore();
+      }
+    }
     if (p.reload > 0) {
       g.strokeStyle = "#f4d391";
       g.lineWidth = 3;
@@ -1032,14 +1183,38 @@ export class Renderer {
         -height - 10,
       );
     }
-    if(armored(e.kind)){
-      g.strokeStyle=e.components?.weapon?.destroyed?"#8b7773":"#f0a18a";
-      g.lineWidth=e.kind==="walker"?7:4;g.beginPath();g.moveTo(0,-height*.45);
-      const turret=e.turretAngle??e.angle;g.lineTo(Math.cos(turret)*enemyRadius(e.kind)*1.2,-height*.45+Math.sin(turret)*enemyRadius(e.kind)*.65);g.stroke();
-      for(const part of hitRegions(e).filter(r=>r.hp>0)){
-        const wp=worldPoint(e,part),broken=e.components?.[part.id]?.destroyed;
-        g.strokeStyle=broken?"#8f8e89":"#ffd08c";g.lineWidth=1.5;g.beginPath();g.arc(wp.x-e.x,wp.y-e.y,part.radius,0,TAU);g.stroke();
-        if(broken){g.fillStyle="#171b20b0";g.beginPath();g.arc(wp.x-e.x,wp.y-e.y,part.radius*.8,0,TAU);g.fill();g.fillStyle="#ffb6a1";g.font="10px sans-serif";g.fillText(part.id==="weapon"?"무장 파손":"동력 손상",wp.x-e.x,wp.y-e.y+4);}
+    if (armored(e.kind)) {
+      g.strokeStyle = e.components?.weapon?.destroyed ? "#8b7773" : "#f0a18a";
+      g.lineWidth = e.kind === "walker" ? 7 : 4;
+      g.beginPath();
+      g.moveTo(0, -height * 0.45);
+      const turret = e.turretAngle ?? e.angle;
+      g.lineTo(
+        Math.cos(turret) * enemyRadius(e.kind) * 1.2,
+        -height * 0.45 + Math.sin(turret) * enemyRadius(e.kind) * 0.65,
+      );
+      g.stroke();
+      for (const part of hitRegions(e).filter((r) => r.hp > 0)) {
+        const wp = worldPoint(e, part),
+          broken = e.components?.[part.id]?.destroyed;
+        g.strokeStyle = broken ? "#8f8e89" : "#ffd08c";
+        g.lineWidth = 1.5;
+        g.beginPath();
+        g.arc(wp.x - e.x, wp.y - e.y, part.radius, 0, TAU);
+        g.stroke();
+        if (broken) {
+          g.fillStyle = "#171b20b0";
+          g.beginPath();
+          g.arc(wp.x - e.x, wp.y - e.y, part.radius * 0.8, 0, TAU);
+          g.fill();
+          g.fillStyle = "#ffb6a1";
+          g.font = "10px sans-serif";
+          g.fillText(
+            part.id === "weapon" ? "무장 파손" : "동력 손상",
+            wp.x - e.x,
+            wp.y - e.y + 4,
+          );
+        }
       }
     }
     if (e.windup > 0) {

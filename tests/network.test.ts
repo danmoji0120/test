@@ -258,20 +258,79 @@ it("does not serve profile tokens through the development HTTP server", async ()
   p.ws.close();
 });
 
-it('authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect',async()=>{
- const p=new Peer();await p.wait(m=>m.type==='hello');p.send({type:'create',loadout:{primary:'at',secondary:'pistol',consumable:'frag'}});
- await p.wait(m=>m.type==='state');p.clear();p.send({type:'loadout',loadout:{primary:'ar',secondary:'at',consumable:'frag'},ammo:999});
- expect((await p.wait(m=>m.type==='error')).message).toContain('장비');p.clear();
- p.send({type:'ready'});await p.wait(m=>m.type==='state'&&m.room.players[0].ready);p.send({type:'start'});await p.wait(m=>m.type==='state'&&m.room.phase==='playing');
- p.clear();p.send({type:'input',slot:2,fire:true,ammo:99999,reserve:99999,rockets:99999,damage:1e9});
- const switching=await p.wait(m=>m.type==='state'&&m.room.players[0].activeSlot===2&&m.room.players[0].switching>0);
- expect(switching.room.players[0].ammo).toBe(12);expect(switching.room.players[0].guns.primary.ammo).toBe(1);
- await pause(250);p.clear();p.send({type:'input',slot:2,fire:true});const fired=await p.wait(m=>m.type==='state'&&m.room.players[0].ammo<12);const ammo=fired.room.players[0].ammo;
- expect(ammo).toBeGreaterThan(0);expect(fired.room.players[0].reserve).toBe(84);
- p.send({type:'input',slot:3,fire:false});await pause(400);p.clear();
- const timer=setInterval(()=>p.send({type:'input',slot:3,fire:true,consumableCount:999}),80);await pause(1400);clearInterval(timer);
- const used=await p.wait(m=>m.type==='state'&&m.room.players[0].consumableCount===2);
- expect(p.messages.filter(m=>m.type==='state').every(m=>m.room.players[0].consumableCount>=2)).toBe(true);
- p.ws.close();await pause(100);const r=new Peer(p.token);await r.wait(m=>m.type==='hello');const resumed=await r.wait(m=>m.type==='state'&&m.room.phase==='playing');
- expect(resumed.room.players[0].guns.primary.ammo).toBe(1);expect(resumed.room.players[0].guns.secondary.ammo).toBe(ammo);expect(resumed.room.players[0].consumableCount).toBe(2);r.ws.close();
-},15000);
+it("authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect", async () => {
+  const p = new Peer();
+  await p.wait((m) => m.type === "hello");
+  p.send({
+    type: "create",
+    loadout: { primary: "at", secondary: "pistol", consumable: "frag" },
+  });
+  await p.wait((m) => m.type === "state");
+  p.clear();
+  p.send({
+    type: "loadout",
+    loadout: { primary: "ar", secondary: "at", consumable: "frag" },
+    ammo: 999,
+  });
+  expect((await p.wait((m) => m.type === "error")).message).toContain("장비");
+  p.clear();
+  p.send({ type: "ready" });
+  await p.wait((m) => m.type === "state" && m.room.players[0].ready);
+  p.send({ type: "start" });
+  await p.wait((m) => m.type === "state" && m.room.phase === "playing");
+  p.clear();
+  p.send({
+    type: "input",
+    slot: 2,
+    fire: true,
+    ammo: 99999,
+    reserve: 99999,
+    rockets: 99999,
+    damage: 1e9,
+  });
+  const switching = await p.wait(
+    (m) =>
+      m.type === "state" &&
+      m.room.players[0].activeSlot === 2 &&
+      m.room.players[0].switching > 0,
+  );
+  expect(switching.room.players[0].ammo).toBe(12);
+  expect(switching.room.players[0].guns.primary.ammo).toBe(1);
+  await pause(250);
+  p.clear();
+  p.send({ type: "input", slot: 2, fire: true });
+  const fired = await p.wait(
+    (m) => m.type === "state" && m.room.players[0].ammo < 12,
+  );
+  const ammo = fired.room.players[0].ammo;
+  expect(ammo).toBeGreaterThan(0);
+  expect(fired.room.players[0].reserve).toBe(84);
+  p.send({ type: "input", slot: 3, fire: false });
+  await pause(400);
+  p.clear();
+  const timer = setInterval(
+    () => p.send({ type: "input", slot: 3, fire: true, consumableCount: 999 }),
+    80,
+  );
+  await pause(1400);
+  clearInterval(timer);
+  const used = await p.wait(
+    (m) => m.type === "state" && m.room.players[0].consumableCount === 2,
+  );
+  expect(
+    p.messages
+      .filter((m) => m.type === "state")
+      .every((m) => m.room.players[0].consumableCount >= 2),
+  ).toBe(true);
+  p.ws.close();
+  await pause(100);
+  const r = new Peer(p.token);
+  await r.wait((m) => m.type === "hello");
+  const resumed = await r.wait(
+    (m) => m.type === "state" && m.room.phase === "playing",
+  );
+  expect(resumed.room.players[0].guns.primary.ammo).toBe(1);
+  expect(resumed.room.players[0].guns.secondary.ammo).toBe(ammo);
+  expect(resumed.room.players[0].consumableCount).toBe(2);
+  r.ws.close();
+}, 15000);

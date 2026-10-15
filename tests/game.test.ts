@@ -284,10 +284,18 @@ it("generators are independently damageable from insertion while enemies remain 
     gens = w.map.installations.filter((d) => d.kind === "generator");
   w.map.obstacles = [];
   for (const d of [...gens].reverse()) {
-    const angle=d.angle??0;
-    Object.assign(p,{x:d.x-Math.cos(angle)*100,y:d.y-Math.sin(angle)*100,angle,ammo:30});
-    p.input.aim=true;
-    for(let n=0;n<30&&d.hp>0;n++){p.recoil=0;fire(w,p);}
+    const angle = d.angle ?? 0;
+    Object.assign(p, {
+      x: d.x - Math.cos(angle) * 100,
+      y: d.y - Math.sin(angle) * 100,
+      angle,
+      ammo: 30,
+    });
+    p.input.aim = true;
+    for (let n = 0; n < 30 && d.hp > 0; n++) {
+      p.recoil = 0;
+      fire(w, p);
+    }
     expect(d.hp).toBe(0);
   }
   tick(w, 0.03);
@@ -304,9 +312,12 @@ it("shotgun has ten separately resolved rays but one discharge without invented 
   const shots = w.events.filter((e) => e.type === "shot");
   expect(shots.length).toBe(10);
   expect(shots.filter((e) => !e.pellet).length).toBe(1);
-  const hits=w.events.filter(e=>e.type==="hit");
-  expect(hits.length).toBeGreaterThan(0);expect(hits.length).toBeLessThanOrEqual(10);
-  expect(hits.reduce((n,e)=>n+(e.damage??0),0)).toBeCloseTo(105-w.enemies[0].hp);
+  const hits = w.events.filter((e) => e.type === "hit");
+  expect(hits.length).toBeGreaterThan(0);
+  expect(hits.length).toBeLessThanOrEqual(10);
+  expect(hits.reduce((n, e) => n + (e.damage ?? 0), 0)).toBeCloseTo(
+    105 - w.enemies[0].hp,
+  );
 });
 
 it("sustained automatic fire builds recoil and releasing the trigger recovers it", () => {
@@ -360,9 +371,16 @@ it("AR uses three close torso hits while SMG uses a faster four-round stream", (
       p = w.players[0];
     Object.assign(p, { x: 300, y: 800, angle: 0, weapon });
     spawnEnemy(w, { x: 380, y: 800 }, "rifle");
-    for(let i=0;i<3;i++){p.recoil=0;fire(w,p);}
-    expect(w.enemies[0].hp<=0).toBe(weapon==="ar");
-    if(weapon==="smg"){p.recoil=0;fire(w,p);expect(w.enemies[0].hp).toBeLessThanOrEqual(0);}
+    for (let i = 0; i < 3; i++) {
+      p.recoil = 0;
+      fire(w, p);
+    }
+    expect(w.enemies[0].hp <= 0).toBe(weapon === "ar");
+    if (weapon === "smg") {
+      p.recoil = 0;
+      fire(w, p);
+      expect(w.enemies[0].hp).toBeLessThanOrEqual(0);
+    }
   }
 });
 
@@ -444,7 +462,7 @@ it("fires within a quarter second of aligned visual contact; aiming cannot snap 
   const w = setup(),
     p = w.players[0];
   w.map.obstacles = [];
-  spawnEnemy(w, { x: p.x + 300, y: p.y }, "rifle", {angle:Math.PI});
+  spawnEnemy(w, { x: p.x + 300, y: p.y }, "rifle", { angle: Math.PI });
   advance(w, 0.25);
   expect(w.events.some((e) => e.type === "shot" && e.enemy)).toBe(true);
 });

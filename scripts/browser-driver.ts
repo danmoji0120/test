@@ -14,7 +14,7 @@ export async function drive(page: Page, input: Input) {
     if (input.reload) wanted.add("r");
     if (input.interact) wanted.add("e");
     if (input.revive) wanted.add("f");
-    if(input.slot)wanted.add(String(input.slot));
+    if (input.slot) wanted.add(String(input.slot));
     const old: Set<string> = (window as any).__qaKeys || new Set();
     for (const k of ["w", "a", "s", "d", "Shift", "r", "e", "f", "1", "2", "3"])
       document.body.dispatchEvent(
@@ -24,12 +24,26 @@ export async function drive(page: Page, input: Input) {
         }),
       );
     (window as any).__qaKeys = wanted;
+    clearTimeout((window as any).__qaRelease);
+    const hold = (input as Input & { holdMs?: number }).holdMs;
+    if (hold)
+      (window as any).__qaRelease = setTimeout(() => {
+        for (const key of ["w", "a", "s", "d"])
+          document.body.dispatchEvent(
+            new KeyboardEvent("keyup", { key, bubbles: true }),
+          );
+      }, hold);
     const zoom = q.zoom || 1,
       x =
-        ((input.targetX??p.x+Math.cos(input.angle)*250)-q.camera.x) * zoom +
+        ((input.targetX ?? p.x + Math.cos(input.angle) * 250) - q.camera.x) *
+          zoom +
         innerWidth / 2,
       y =
-        ((input.targetY!==undefined?input.targetY-16:p.y-16+Math.sin(input.angle)*250)-q.camera.y) * zoom +
+        ((input.targetY !== undefined
+          ? input.targetY - 16
+          : p.y - 16 + Math.sin(input.angle) * 250) -
+          q.camera.y) *
+          zoom +
         innerHeight / 2;
     window.dispatchEvent(
       new MouseEvent("mousemove", { clientX: x, clientY: y, bubbles: true }),

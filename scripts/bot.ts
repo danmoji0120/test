@@ -1,4 +1,10 @@
-import { hitRegions, worldPoint, rayHit, armored, armorMultiplier } from "../src/game/armor";
+import {
+  hitRegions,
+  worldPoint,
+  rayHit,
+  armored,
+  armorMultiplier,
+} from "../src/game/armor";
 import {
   WEAPONS,
   ENEMIES,
@@ -8,13 +14,23 @@ import {
   type Vec,
   type Input,
 } from "../src/shared/data";
-import { distance, visible, findPath, blocked, movementClear } from "../src/game/map";
+import {
+  distance,
+  visible,
+  findPath,
+  blocked,
+  movementClear,
+  movementBlocked,
+} from "../src/game/map";
 /** Observes authoritative state and emits normal input only; no teleport/damage/timer shortcuts. */
 export class Pilot {
   strategy: "primary" | "all" | "evade" = "primary";
   reverse = false;
   reckless = false;
   avoidArmor = false;
+  rearApproach = false;
+  rearEntries = new Map<string, Vec>();
+  rearReached = new Set<string>();
   navRevision = -1;
   destination: Vec | null = null;
   path: Vec[] = [];
@@ -31,6 +47,8 @@ export class Pilot {
       this.path = [];
       this.goal = null;
       this.approached.clear();
+      this.rearEntries.clear();
+      this.rearReached.clear();
     }
     if (this.navRevision !== w.terrainRevision) {
       this.navMap = w.map;
@@ -41,7 +59,7 @@ export class Pilot {
     const sample = Math.min(0.6, Math.max(0.1, w.time - this.lastObservation));
     this.lastObservation = w.time;
     const input = emptyInput();
-    input.slot=1;
+    input.slot = 1;
     if (p.down) return input;
     const m = w.mission,
       x = m.extraction;
@@ -86,7 +104,8 @@ export class Pilot {
       .sort((a, b) => distance(p, a) - distance(p, b))[0];
     if (
       supply &&
-      (p.hp < 58 || p.reserve < WEAPONS[p.weapon].reserve * 0.15) &&
+      (p.hp < 58 ||
+        p.guns.primary.reserve < WEAPONS[p.primary].reserve * 0.15) &&
       distance(p, supply) < 1000 &&
       (m.stage !== "extract" || distance(p, supply) < 220)
     )
@@ -106,7 +125,13 @@ export class Pilot {
         (e) =>
           e.hp > 0 &&
           distance(p, e) <
-            (p.primary==="at"?(armored(e.kind)?950:WEAPONS.pistol.range*.95):WEAPONS[p.primary??p.weapon].range*.95) &&
+            (p.guns.primary.ammo + p.guns.primary.reserve === 0
+              ? WEAPONS.pistol.range * 0.95
+              : p.primary === "at"
+                ? armored(e.kind)
+                  ? 950
+                  : WEAPONS.pistol.range * 0.95
+                : WEAPONS[p.primary ?? p.weapon].range * 0.95) &&
           (!this.avoidArmor || !armored(e.kind) || distance(p, e) < 240) &&
           visible(p, e, w.map),
       )
@@ -116,6 +141,34 @@ export class Pilot {
       objective && objective.kind !== "intel"
         ? w.map.installations.find((d) => d.id === objective.id && d.hp > 0)
         : undefined;
+    if (
+      this.rearApproach &&
+      device &&
+      goal !== supply &&
+      !fallen &&
+      !down &&
+      !this.rearReached.has(device.id)
+    ) {
+      let entry = this.rearEntries.get(device.id);
+      if (!entry) {
+        for (const turn of [0, 0.4, -0.4, 0.8, -0.8]) {
+          const a = (device.angle ?? 0) + Math.PI + turn,
+            q = {
+              x: device.x + Math.cos(a) * 195,
+              y: device.y + Math.sin(a) * 195,
+            };
+          if (!movementBlocked(q, w.map, 20) && findPath(p, q, w.map).length) {
+            entry = q;
+            this.rearEntries.set(device.id, q);
+            break;
+          }
+        }
+      }
+      if (entry) {
+        if (distance(p, entry) < 80) this.rearReached.add(device.id);
+        else goal = entry;
+      }
+    }
     const shot =
       target ??
       (device &&
@@ -182,9 +235,15 @@ export class Pilot {
       };
       if (!blocked(flank, w.map.obstacles, 20)) goal = flank;
     }
-    if (this.destination && !fallen) goal = this.destination;
-    const stop =this.destination?35:
-      goal === supply || objective?.kind === "intel"
+    if (
+      this.destination &&
+      !fallen &&
+      (index === 0 || distance(p, anchor) < 360)
+    )
+      goal = this.destination;
+    const stop = this.destination
+      ? 35
+      : goal === supply || objective?.kind === "intel"
         ? 65
         : !objective || m.stage === "extract"
           ? 90
@@ -212,7 +271,7 @@ export class Pilot {
       for (const candidate of this.path.slice(0, 8)) {
         if (distance(p, candidate) > 420) break;
         if (
-          movementClear(p,candidate,w.map,20) &&
+          movementClear(p, candidate, w.map, 20) &&
           visible(p, candidate, w.map) &&
           visible(
             { x: p.x - 23, y: p.y - 23 },
@@ -229,7 +288,7 @@ export class Pilot {
         else break;
       }
       const point =
-        movementClear(p,goal,w.map,20) &&
+        movementClear(p, goal, w.map, 20) &&
         visible(p, goal, w.map) &&
         visible(
           { x: p.x - 20, y: p.y - 20 },
@@ -246,6 +305,11 @@ export class Pilot {
           : forward;
       if (point) {
         const d = distance(p, point);
+        if (sample > 0.2 && d < 280 * sample * 1.5)
+          (input as Input & { holdMs?: number }).holdMs = Math.max(
+            45,
+            Math.min(220, ((d - 12) / 280) * 1000),
+          );
         input.dx = (point.x - p.x) / Math.max(1, d);
         input.dy = (point.y - p.y) / Math.max(1, d);
         input.sprint = !shot && (sample < 0.2 || distance(p, point) > 160);
@@ -280,9 +344,7 @@ export class Pilot {
       const sign = Math.abs(dot) > 0.001 ? Math.sign(dot) : index % 2 ? 1 : -1;
       const dx = side.x * sign,
         dy = side.y * sign;
-      if (
-        !blocked({ x: p.x + dx * 50, y: p.y + dy * 50 }, w.map.obstacles, 20)
-      ) {
+      if (movementClear(p, { x: p.x + dx * 50, y: p.y + dy * 50 }, w.map, 20)) {
         input.dx = dx;
         input.dy = dy;
         input.sprint = false;
@@ -311,33 +373,109 @@ export class Pilot {
       input.tactical = false;
     }
     // V4.1 pilot chooses legal slot actions using only public visible targets.
-    input.tactical=false;
-    if(p.primary==="at"&&target&&!armored(target.kind))input.slot=2;
-    if(device&&!target&&!this.reckless){
-      const core=hitRegions(device).find(r=>r.id==="core");
-      if(core){
-        const weak=worldPoint(device,core),a=device.angle??0;
-        const contact=rayHit(device,p,Math.atan2(weak.y-p.y,weak.x-p.x),distance(p,weak)+60);
-        input.angle=Math.atan2(weak.y-p.y,weak.x-p.x);
-        if(contact&&contact.region.av>WEAPONS[p.weapon].penetration){
+    input.tactical = false;
+    if (
+      (p.primary === "at" && target && !armored(target.kind)) ||
+      p.guns.primary.ammo + p.guns.primary.reserve === 0
+    )
+      input.slot = 2;
+    if (device && !target && !this.reckless) {
+      const core = hitRegions(device).find((r) => r.id === "core");
+      if (core) {
+        const weak = worldPoint(device, core),
+          a = device.angle ?? 0;
+        const contact = rayHit(
+          device,
+          p,
+          Math.atan2(weak.y - p.y, weak.x - p.x),
+          distance(p, weak) + 60,
+        );
+        input.angle = Math.atan2(weak.y - p.y, weak.x - p.x);
+        if (contact && contact.region.av > WEAPONS[p.weapon].penetration) {
           // Next observation routes toward an exposed rear approach, not through armored frontal fire.
-          const rear={x:device.x-Math.cos(a)*135,y:device.y-Math.sin(a)*135};
-          if(!blocked(rear,w.map.obstacles,20)){this.destination=rear;input.fire=false;}
-        }else{this.destination=null;input.fire=distance(p,device)<WEAPONS[p.weapon].range*.8;}
+          const rear = {
+            x: device.x - Math.cos(a) * 135,
+            y: device.y - Math.sin(a) * 135,
+          };
+          if (!blocked(rear, w.map.obstacles, 20)) {
+            this.destination = rear;
+            input.fire = false;
+          }
+        } else {
+          this.destination = null;
+          input.fire = distance(p, device) < WEAPONS[p.weapon].range * 0.8;
+        }
       }
-    }else if(!this.avoidArmor)this.destination=null;
-    if(target&&armored(target.kind)&&p.primary!=="at"&&p.consumable==="antiarmor"&&p.consumableCount>0&&distance(p,target)<230&&!this.reckless){
-      const core=hitRegions(target).find(r=>r.id==="core"),point=core?worldPoint(target,core):target;
-      input.slot=3;input.targetX=point.x;input.targetY=point.y;input.sprint=false;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);
-    }else if(target&&p.consumable==="smoke"&&p.consumableCount>0&&p.hp<65&&!this.reckless){
-      input.slot=3;input.targetX=(target.x+p.x)/2;input.targetY=(target.y+p.y)/2;input.sprint=false;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);
-    }else if(target&&p.consumable==="frag"&&p.consumableCount>0&&distance(p,target)<400&&w.enemies.filter(e=>distance(e,target)<150).length>=2&&!this.reckless){
-      input.slot=3;input.targetX=target.x;input.targetY=target.y;input.sprint=false;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);
-    }else if(p.hp<48&&p.consumable==="medical"&&p.consumableCount>0&&!this.reckless){
-      input.slot=3;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);input.sprint=false;
+    } else if (!this.avoidArmor) this.destination = null;
+    if (
+      target &&
+      armored(target.kind) &&
+      p.primary !== "at" &&
+      p.consumable === "antiarmor" &&
+      p.consumableCount > 0 &&
+      distance(p, target) < 230 &&
+      !this.reckless
+    ) {
+      const core = hitRegions(target).find((r) => r.id === "core"),
+        point = core ? worldPoint(target, core) : target;
+      input.slot = 3;
+      input.targetX = point.x;
+      input.targetY = point.y;
+      input.sprint = false;
+      input.fire =
+        p.activeSlot === 3 &&
+        p.switching <= 0 &&
+        (!p.fireHeld || p.useTime > 0);
+    } else if (
+      target &&
+      p.consumable === "smoke" &&
+      p.consumableCount > 0 &&
+      p.hp < 65 &&
+      !this.reckless
+    ) {
+      input.slot = 3;
+      input.targetX = (target.x + p.x) / 2;
+      input.targetY = (target.y + p.y) / 2;
+      input.sprint = false;
+      input.fire =
+        p.activeSlot === 3 &&
+        p.switching <= 0 &&
+        (!p.fireHeld || p.useTime > 0);
+    } else if (
+      target &&
+      p.consumable === "frag" &&
+      p.consumableCount > 0 &&
+      distance(p, target) < 400 &&
+      w.enemies.filter((e) => distance(e, target) < 150).length >= 2 &&
+      !this.reckless
+    ) {
+      input.slot = 3;
+      input.targetX = target.x;
+      input.targetY = target.y;
+      input.sprint = false;
+      input.fire =
+        p.activeSlot === 3 &&
+        p.switching <= 0 &&
+        (!p.fireHeld || p.useTime > 0);
+    } else if (
+      p.hp < 48 &&
+      p.consumable === "medical" &&
+      p.consumableCount > 0 &&
+      !this.reckless
+    ) {
+      input.slot = 3;
+      input.fire =
+        p.activeSlot === 3 &&
+        p.switching <= 0 &&
+        (!p.fireHeld || p.useTime > 0);
+      input.sprint = false;
     }
-    if(input.slot!==p.activeSlot||p.switching>0)input.fire=false;
-    if(p.useTime>0){input.slot=3;input.fire=true;input.sprint=false;}
+    if (input.slot !== p.activeSlot || p.switching > 0) input.fire = false;
+    if (p.useTime > 0) {
+      input.slot = 3;
+      input.fire = true;
+      input.sprint = false;
+    }
 
     return input;
   }

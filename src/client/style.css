@@ -1649,20 +1649,85 @@ kbd {
   box-shadow: 0 0 24px #9e46382b;
 }
 /* V4.1: all three equipment slots stay together, including 720p. */
-.weapons { grid-template-columns: repeat(2, minmax(0,1fr)); gap:8px; }
-.weapon-card { position:relative; display:grid; grid-template-columns:1fr; gap:3px; min-height:112px; padding:12px; }
-.weapon-art { width:66px; height:22px; }
-.weapon-card p { line-height:1.4; min-height:26px; margin:4px 0; }
-.weapon-card b small { display:block; margin-left:0; margin-top:3px; }
-.weapon-select { position:absolute; top:12px; right:10px; }
-.weapon-title { margin-top:20px; }
-.loadout-note { margin-top:14px; }
-@media (max-width:1549px) {
- .weapon-card { min-height:103px; padding:9px; }
- .weapon-card p { font-size:9px; }
- .weapon-stats { font-size:8px; letter-spacing:0; }
- .tactical-select { margin-top:8px; gap:4px; font-size:11px; }
- .tactical-select select { padding:7px; font-size:10px; }
- .loadout-note { display:none; }
- .mod-row { margin-top:10px; }
+.weapons {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.weapon-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3px;
+  min-height: 112px;
+  padding: 12px;
+}
+.weapon-art {
+  width: 66px;
+  height: 22px;
+}
+.weapon-card p {
+  line-height: 1.4;
+  min-height: 26px;
+  margin: 4px 0;
+}
+.weapon-card b small {
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+}
+.weapon-select {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+}
+.weapon-title {
+  margin-top: 20px;
+}
+.loadout-note {
+  margin-top: 14px;
+}
+@media (max-width: 1549px) {
+  .weapon-card {
+    min-height: 103px;
+    padding: 9px;
+  }
+  .weapon-card p {
+    font-size: 9px;
+  }
+  .weapon-stats {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+  .tactical-select {
+    margin-top: 8px;
+    gap: 4px;
+    font-size: 11px;
+  }
+  .tactical-select select {
+    padding: 7px;
+    font-size: 10px;
+  }
+  .loadout-note {
+    display: none;
+  }
+  .mod-row {
+    margin-top: 10px;
+  }
+}
+.equipment-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.equipment-choice {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.equipment-choice > .equipment-icon {
+  height: 32px;
+}
+.weapon-art > .equipment-icon {
+  height: 30px;
 }

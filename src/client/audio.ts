@@ -133,31 +133,37 @@ export class AudioEngine {
         return;
       }
       const sg = e.weapon === "sg",
-        smg = e.weapon === "smg",pistol=e.weapon==="pistol";
+        smg = e.weapon === "smg",
+        pistol = e.weapon === "pistol";
       this.noiseBurst(
-        sg ? 1700 : smg ? 3300 : 2400,
-        sg ? 0.24 : smg ? 0.075 : 0.14,
-        (sg ? 1 : pistol?.38:smg ? 0.42 : 0.7) * v,
+        sg ? 1700 : pistol ? 2800 : smg ? 3300 : 2400,
+        sg ? 0.24 : pistol ? 0.09 : smg ? 0.075 : 0.14,
+        (sg ? 1 : pistol ? 0.38 : smg ? 0.42 : 0.7) * v,
         "lowpass",
         0,
         true,
       );
       this.noiseBurst(6500, 0.025, 0.24 * v, "highpass");
       this.tone(
-        sg ? 58 : smg ? 115 : 82,
-        sg ? 0.22 : smg ? 0.06 : 0.12,
-        (sg ? 0.65 : smg ? 0.2 : 0.42) * v,
+        sg ? 58 : pistol ? 130 : smg ? 115 : 82,
+        sg ? 0.22 : pistol ? 0.07 : smg ? 0.06 : 0.12,
+        (sg ? 0.65 : pistol ? 0.16 : smg ? 0.2 : 0.42) * v,
       );
       if (sg) this.noiseBurst(1700, 0.09, 0.12 * v, "bandpass", 0.23);
       if (e.impact) this.noiseBurst(3900, 0.065, 0.13 * v, "bandpass", 0.025);
     } else if (e.type === "hit") {
-      if(e.quality==="component"){
-        this.noiseBurst(900,.35,.42*v,"lowpass",0,true);this.noiseBurst(3900,.12,.24*v,"bandpass");
-      }else if (e.armored) {
+      if (e.quality === "component") {
+        this.noiseBurst(900, 0.35, 0.42 * v, "lowpass", 0, true);
+        this.noiseBurst(3900, 0.12, 0.24 * v, "bandpass");
+      } else if (e.armored) {
         this.noiseBurst(4700, 0.11, 0.36 * v, "bandpass", 0, true);
         this.output = null;
         return;
       }
+      if (e.quality === "partial")
+        this.noiseBurst(3500, 0.08, 0.2 * v, "bandpass");
+      if (e.quality === "weakpoint")
+        this.noiseBurst(1200, 0.11, 0.25 * v, "lowpass");
       this.noiseBurst(
         e.enemy ? 480 : 2300,
         0.065,

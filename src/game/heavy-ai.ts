@@ -1,5 +1,7 @@
-import {updateAim,firingAngle,turn} from "./aim-controller";
-import {destroyed,mobilityMultiplier} from "./armor";
+import { clearShot, peekPosition } from "./cover";
+import { ballisticDistance } from "./ballistics";
+import { updateAim, firingAngle, turn } from "./aim-controller";
+import { destroyed, mobilityMultiplier } from "./armor";
 import {
   ENEMIES,
   type World,
@@ -22,14 +24,20 @@ export function heavyAI(
   const spec = ENEMIES[e.kind],
     radius = enemyRadius(e.kind),
     r = target ? distance(e, target) : Infinity;
-  const acquired=updateAim(w,e,target,dt);
-  const disabled=destroyed(e,"weapon");
-  if(disabled){e.windup=0;e.burst=0;e.phase="overheat";e.cooldown=Math.max(e.cooldown,.5);}
+  const acquired = updateAim(w, e, target, dt),
+    shotOpen = target && clearShot(w, e, target);
+  const disabled = destroyed(e, "weapon");
+  if (disabled) {
+    e.windup = 0;
+    e.burst = 0;
+    e.phase = "overheat";
+    e.cooldown = Math.max(e.cooldown, 0.5);
+  }
   if (e.windup > 0) {
     e.windup -= dt;
     if (e.windup <= 0) {
       e.phase = "firing";
-      const shotAngle=firingAngle(w,e);
+      const shotAngle = firingAngle(w, e);
       if (e.kind === "walker") {
         const point = {
           x: e.x + Math.cos(shotAngle) * spec.range,
@@ -40,13 +48,15 @@ export function heavyAI(
         launch(w, e, e.attackPoint, "mortar", e.id, true);
         e.attackPoint = null;
       } else {
-        let len = wallDistance(e, e.angle, spec.range, w.map),
+        let len = ballisticDistance(w, e, e.angle, spec.range),
           victim: Player | undefined;
         for (const p of w.players.filter((p) => p.connected && !p.down)) {
           const dx = p.x - e.x,
             dy = p.y - e.y,
             along = dx * Math.cos(shotAngle) + dy * Math.sin(shotAngle),
-            perp = Math.abs(dx * Math.sin(shotAngle) - dy * Math.cos(shotAngle));
+            perp = Math.abs(
+              dx * Math.sin(shotAngle) - dy * Math.cos(shotAngle),
+            );
           if (along > 0 && along < len && perp < 17) {
             len = along;
             victim = p;
@@ -67,7 +77,9 @@ export function heavyAI(
       }
       const shots =
         e.kind === "juggernaut"
-          ? destroyed(e,"core")?6:14
+          ? destroyed(e, "core")
+            ? 6
+            : 14
           : e.kind === "walker"
             ? 5
             : e.kind === "drone"
@@ -82,7 +94,7 @@ export function heavyAI(
         e.phase = "overheat";
       }
     }
-    if (e.kind !== "drone"&&e.windup>0) return;
+    if (e.kind !== "drone" && e.windup > 0) return;
   }
   const observation = e.lastSeen && e.memory > 0 ? e.lastSeen : null;
   const canFire =
@@ -92,10 +104,11 @@ export function heavyAI(
         observation &&
         distance(e, observation) > 380 &&
         distance(e, observation) < spec.range
-      : target && acquired && r < spec.range;
-  if (!disabled&&canFire && e.cooldown <= 0 && e.windup <= 0) {
+      : target && acquired && shotOpen && r < spec.range;
+  if (!disabled && canFire && e.cooldown <= 0 && e.windup <= 0) {
     const point = e.kind === "artillery" ? observation! : target!;
-    if(e.kind==="artillery")e.turretAngle=Math.atan2(point.y-e.y,point.x-e.x);
+    if (e.kind === "artillery")
+      e.turretAngle = Math.atan2(point.y - e.y, point.x - e.x);
     e.attackPoint = { x: point.x, y: point.y };
     e.windup =
       spec.windup *
@@ -145,6 +158,7 @@ export function heavyAI(
     if (distance(e, goal) < 45)
       e.patrolIndex = (e.patrolIndex + 1) % route.length;
   }
+  if (target && !shotOpen) goal = peekPosition(w, e, target) ?? goal;
   if (goal && !blocked(goal, w.map.obstacles, radius) && e.repath <= 0) {
     e.path = findPath(e, goal, w.map, radius);
     e.repath = 1.1 + random(w) * 0.4;
@@ -154,8 +168,16 @@ export function heavyAI(
   const point = e.path[0];
   if (!point) return;
   const d = distance(e, point),
-    step = Math.min(d, spec.speed * dt * (observation ? 1 : 0.55)*mobilityMultiplier(e));
-  if (!target) e.angle = turn(e.angle,Math.atan2(point.y-e.y,point.x-e.x),dt*(e.kind==="walker"?.8:2.5));
+    step = Math.min(
+      d,
+      spec.speed * dt * (observation ? 1 : 0.55) * mobilityMultiplier(e),
+    );
+  if (!target)
+    e.angle = turn(
+      e.angle,
+      Math.atan2(point.y - e.y, point.x - e.x),
+      dt * (e.kind === "walker" ? 0.8 : 2.5),
+    );
   move(
     e,
     ((point.x - e.x) / d) * step,

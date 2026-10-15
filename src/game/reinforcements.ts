@@ -1,4 +1,4 @@
-import {mobilityMultiplier} from "./armor";
+import { mobilityMultiplier } from "./armor";
 import { dispatchBlock } from "./budgets";
 import { audit } from "./alert";
 import { enemyRadius, armored } from "./armor";
@@ -58,6 +58,7 @@ export function initializeTheatre(w: World) {
             ? "rush"
             : "rifle",
         {
+          assignment: i === 0 ? "guard" : undefined,
           squad: "guard-" + z.id,
           patrol: [{ ...p }, { ...z.entry }],
           sourceId: "garrison-" + z.id,
@@ -428,7 +429,17 @@ export function tickReinforcements(w: World, dt: number) {
         e.home = { ...r.target };
         e.memory = 0;
         e.role = r.task === "block" ? "anchor" : e.role;
-        e.assignment=r.task==="defend"?"guard":r.task==="block"?"intercept":e.kind==="heavy"||e.kind==="juggernaut"?"suppress":e.role==="flank"?"flank":"assault";
+        if (r.task === "defend") e.home = { ...r.target };
+        e.assignment =
+          r.task === "defend"
+            ? "guard"
+            : r.task === "block"
+              ? "intercept"
+              : e.kind === "heavy" || e.kind === "juggernaut"
+                ? "suppress"
+                : e.role === "flank"
+                  ? "flank"
+                  : "assault";
         trace(w, e, r);
       }
       if (
@@ -487,7 +498,7 @@ export function tickReinforcements(w: World, dt: number) {
         const point = e.path[0];
         if (point) {
           const d = distance(e, point),
-            speed = ENEMIES[e.kind].speed * 0.9*mobilityMultiplier(e),
+            speed = ENEMIES[e.kind].speed * 0.9 * mobilityMultiplier(e),
             step = Math.min(d, speed * dt),
             before = { x: e.x, y: e.y };
           e.angle = Math.atan2(point.y - e.y, point.x - e.x);

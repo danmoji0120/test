@@ -30,7 +30,10 @@ export function strategicAI(w: World, e: Enemy, dt: number) {
   const point = e.path[0];
   if (point) {
     const d = distance(e, point),
-      step = Math.min(d, ENEMIES[e.kind].speed * 0.5 * dt*mobilityMultiplier(e));
+      step = Math.min(
+        d,
+        ENEMIES[e.kind].speed * 0.5 * dt * mobilityMultiplier(e),
+      );
     e.angle = Math.atan2(point.y - e.y, point.x - e.x);
     moveSwept(
       e,

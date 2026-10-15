@@ -22,6 +22,10 @@ const errors: string[] = [],
   pilots = Array.from({ length: count }, () => {
     const p = new Pilot();
     if (process.env.QA_STRATEGY === "all") p.strategy = "all";
+    if (process.env.QA_TACTICAL === "1") {
+      p.rearApproach = true;
+      p.avoidArmor = true;
+    }
     if (process.env.QA_REVERSE === "1") p.reverse = true;
     return p;
   });
@@ -85,13 +89,14 @@ if (process.env.QA_CONTRACT)
   await pages[0].selectOption("#contract", process.env.QA_CONTRACT);
 if (process.env.QA_PREPARED === "1")
   for (const page of pages) await page.click('[data-weapon="at"]');
-if(process.env.QA_LOADOUTS){
-  const selections=process.env.QA_LOADOUTS.split(",");
-  for(let i=0;i<pages.length;i++){
-    const [primary,consumable]=(selections[i%selections.length]).split("/");
-    await pages[i].click(`[data-weapon="${primary}"]`);await pages[i].waitForTimeout(200);
-    if(primary==="sg")await pages[i].click('[data-weapon="sg"]');
-    if(consumable)await pages[i].selectOption("#consumable",consumable);
+if (process.env.QA_LOADOUTS) {
+  const selections = process.env.QA_LOADOUTS.split(",");
+  for (let i = 0; i < pages.length; i++) {
+    const [primary, consumable] = selections[i % selections.length].split("/");
+    await pages[i].click(`[data-weapon="${primary}"]`);
+    await pages[i].waitForTimeout(200);
+    if (primary === "sg") await pages[i].click('[data-weapon="sg"]');
+    if (consumable) await pages[i].selectOption("#consumable", consumable);
     await pages[i].waitForTimeout(150);
   }
 }
@@ -126,7 +131,7 @@ const observedActors: any[] = [];
 let lastObservedAt = -1;
 
 try {
-  while (Date.now() - start < 750000) {
+  while (Date.now() - start < Number(process.env.QA_WALL_MS || 750000)) {
     const state = await read(pages[0]);
     if (state.room.phase === "result") {
       final = state;

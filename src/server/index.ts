@@ -1,4 +1,4 @@
-import {validateLoadout,isPrimary,migrateLoadout} from "../shared/loadout";
+import { validateLoadout, isPrimary, migrateLoadout } from "../shared/loadout";
 import {
   timerSample,
   tickSample,
@@ -175,9 +175,18 @@ function cleanInput(data: Record<string, unknown>): Input {
     reload: data.reload === true,
     interact: data.interact === true,
     revive: data.revive === true,
-    slot: data.slot===1||data.slot===2||data.slot===3?data.slot:undefined,
-    targetX: typeof data.targetX==="number"&&Number.isFinite(data.targetX)?Math.max(0,Math.min(6400,data.targetX)):undefined,
-    targetY: typeof data.targetY==="number"&&Number.isFinite(data.targetY)?Math.max(0,Math.min(4200,data.targetY)):undefined,
+    slot:
+      data.slot === 1 || data.slot === 2 || data.slot === 3
+        ? data.slot
+        : undefined,
+    targetX:
+      typeof data.targetX === "number" && Number.isFinite(data.targetX)
+        ? Math.max(0, Math.min(6400, data.targetX))
+        : undefined,
+    targetY:
+      typeof data.targetY === "number" && Number.isFinite(data.targetY)
+        ? Math.max(0, Math.min(4200, data.targetY))
+        : undefined,
   };
 }
 wss.on("connection", (ws) => {
@@ -307,10 +316,25 @@ wss.on("connection", (ws) => {
         );
         if (Object.hasOwn(CHARACTERS, String(m.character)))
           p.character = m.character;
-        const selection=m.loadout?validateLoadout(m.loadout,c.profile):migrateLoadout({weapon:m.weapon??c.profile.loadout?.primary,consumable:c.profile.loadout?.consumable},c.profile.unlocks);
-        if(!selection){error(c,"유효하지 않거나 해금되지 않은 장비입니다.");return;}
-        p.weapon=selection.primary;p.primary=selection.primary;p.secondary=selection.secondary;p.consumable=selection.consumable;
-        c.profile.loadout=selection;store.save();
+        const selection = m.loadout
+          ? validateLoadout(m.loadout, c.profile)
+          : migrateLoadout(
+              {
+                weapon: m.weapon ?? c.profile.loadout?.primary,
+                consumable: c.profile.loadout?.consumable,
+              },
+              c.profile.unlocks,
+            );
+        if (!selection) {
+          error(c, "유효하지 않거나 해금되지 않은 장비입니다.");
+          return;
+        }
+        p.weapon = selection.primary;
+        p.primary = selection.primary;
+        p.secondary = selection.secondary;
+        p.consumable = selection.consumable;
+        c.profile.loadout = selection;
+        store.save();
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;
 
         r.players.push(p);
@@ -327,10 +351,25 @@ wss.on("connection", (ws) => {
       if (m.type === "loadout" && r.phase === "lobby") {
         if (Object.hasOwn(CHARACTERS, String(m.character)))
           p.character = m.character;
-        const selection=m.loadout?validateLoadout(m.loadout,c.profile):migrateLoadout({weapon:m.weapon??c.profile.loadout?.primary,consumable:c.profile.loadout?.consumable},c.profile.unlocks);
-        if(!selection){error(c,"유효하지 않거나 해금되지 않은 장비입니다.");return;}
-        p.weapon=selection.primary;p.primary=selection.primary;p.secondary=selection.secondary;p.consumable=selection.consumable;
-        c.profile.loadout=selection;store.save();
+        const selection = m.loadout
+          ? validateLoadout(m.loadout, c.profile)
+          : migrateLoadout(
+              {
+                weapon: m.weapon ?? c.profile.loadout?.primary,
+                consumable: c.profile.loadout?.consumable,
+              },
+              c.profile.unlocks,
+            );
+        if (!selection) {
+          error(c, "유효하지 않거나 해금되지 않은 장비입니다.");
+          return;
+        }
+        p.weapon = selection.primary;
+        p.primary = selection.primary;
+        p.secondary = selection.secondary;
+        p.consumable = selection.consumable;
+        c.profile.loadout = selection;
+        store.save();
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;
 
         p.ready = false;
@@ -414,6 +453,15 @@ function saveTrace(r: Room) {
     difficulty: w.difficulty,
     alert: w.alertState,
     responseLog: w.responseLog,
+    equipment: w.players.map((p) => ({
+      id: p.id,
+      primary: p.primary,
+      activeSlot: p.activeSlot,
+      guns: p.guns,
+      consumable: p.consumable,
+      count: p.consumableCount,
+      hp: p.hp,
+    })),
     projectiles: w.projectiles,
     trajectories: w.trajectories,
     sources: w.map.sources,
@@ -425,6 +473,9 @@ function saveTrace(r: Room) {
       source: e.sourceId,
       request: e.requestId,
       reserve: e.reserve,
+      components: e.components,
+      turretAngle: e.turretAngle,
+      assignment: e.assignment,
       state: e.state,
     })),
     terrain: w.map.obstacles.filter((o) => o.kind === "door"),

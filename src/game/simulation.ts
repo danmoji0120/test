@@ -1,8 +1,14 @@
-import {tickConsumable,tickSmoke} from "./consumables";
-import {rayHit,ensureComponents} from "./armor";
-import {applyHit} from "./combat";
-import {resetEquipment,saveActive,loadActive,equip,activeGun} from "../shared/loadout";
-import {CONSUMABLES} from "../shared/data";
+import { tickConsumable, tickSmoke } from "./consumables";
+import { rayHit, ensureComponents } from "./armor";
+import { applyHit } from "./combat";
+import {
+  resetEquipment,
+  saveActive,
+  loadActive,
+  equip,
+  activeGun,
+} from "../shared/loadout";
+import { CONSUMABLES } from "../shared/data";
 import { enemyRadius, armorMultiplier, armored } from "./armor";
 import { launch, tickProjectiles, hurtEnemy } from "./projectiles";
 import { objectives, tickObjectives } from "./objectives";
@@ -63,7 +69,9 @@ export function makePlayer(id: string, name: string): Player {
     moving: false,
     input: emptyInput(),
     inputAt: 0,
-    primary: "ar", secondary: "pistol", consumable:"antiarmor",
+    primary: "ar",
+    secondary: "pistol",
+    consumable: "antiarmor",
   } as Player;
   resetEquipment(p);
   return p;
@@ -150,10 +158,13 @@ export function createWorld(
   contract: "blackout" | "recon" = "blackout",
 ): World {
   const map = generateMap(seed);
-  map.smokes=[];
-  for(const d of map.installations){
-    const zone=[...map.zones].sort((a,b)=>distance(a.center,d)-distance(b.center,d))[0];
-    d.angle=Math.atan2(zone.entry.y-d.y,zone.entry.x-d.x);ensureComponents(d);
+  map.smokes = [];
+  for (const d of map.installations) {
+    const zone = [...map.zones].sort(
+      (a, b) => distance(a.center, d) - distance(b.center, d),
+    )[0];
+    d.angle = Math.atan2(zone.entry.y - d.y, zone.entry.x - d.x);
+    ensureComponents(d);
   }
   invalidateNavigation(map);
   players.forEach((p, i) => {
@@ -239,35 +250,105 @@ export function damagePlayer(w: World, p: Player, amount: number) {
   event(w, { type: "hit", x: p.x, y: p.y, actor: p.id, enemy: true });
   if (!p.hp) {
     p.down = true;
-    p.useTime=0;p.useTarget=null;
+    p.useTime = 0;
+    p.useTarget = null;
     p.reload = 0;
     p.input = emptyInput();
   }
 }
 export function fire(w: World, p: Player) {
-  if(p.activeSlot===3||p.switching>0||p.ammo<=0||p.reload>0)return;
-  const gun=WEAPONS[p.weapon];
-  const spread=(gun.spread+(p.moving?gun.moving:0)+p.recoil)*(p.input.aim?.48:1)*(p.mod==="loader"?1.1:1);
-  p.ammo--;p.cooldown=gun.rate;p.recoil=Math.min(.12,p.recoil+gun.recoil*(p.mod==="stabilizer"?.7:1));
-  if(p.weapon==="at"){
-    const a=p.angle+(random(w)-.5)*2*spread;
-    launch(w,p,{x:p.x+Math.cos(a)*gun.range,y:p.y+Math.sin(a)*gun.range},"rocket",p.id,false);
-    raiseAlert(w,5,"대전차 발사음",p);saveActive(p);return;
+  if (
+    p.activeSlot === 3 ||
+    p.switching > 0 ||
+    p.ammo <= 0 ||
+    p.reload > 0 ||
+    (p.weapon === "at" && w.projectiles.length >= 96)
+  )
+    return;
+  const gun = WEAPONS[p.weapon];
+  const spread =
+    (gun.spread + (p.moving ? gun.moving : 0) + p.recoil) *
+    (p.input.aim ? 0.48 : 1) *
+    (p.mod === "loader" ? 1.1 : 1);
+  p.ammo--;
+  p.cooldown = gun.rate;
+  p.recoil = Math.min(
+    0.12,
+    p.recoil + gun.recoil * (p.mod === "stabilizer" ? 0.7 : 1),
+  );
+  if (p.weapon === "at") {
+    const a = p.angle + (random(w) - 0.5) * 2 * spread;
+    launch(
+      w,
+      p,
+      { x: p.x + Math.cos(a) * gun.range, y: p.y + Math.sin(a) * gun.range },
+      "rocket",
+      p.id,
+      false,
+    );
+    raiseAlert(w, 5, "대전차 발사음", p);
+    saveActive(p);
+    return;
   }
-  noise(w,p,900,"gunfire");raiseAlert(w,3,"총성",p);
-  for(let n=0;n<gun.pellets;n++){
-    const offset=gun.pellets>1?((n/(gun.pellets-1))*2-1)*spread+(random(w)-.5)*.012:(random(w)-.5)*2*spread;
-    const a=p.angle+offset,maximum=gun.range*1.25;
-    let length=wallDistance(p,a,maximum,w.map),target: Enemy|World["map"]["installations"][number]|undefined,contact: ReturnType<typeof rayHit>=null;
-    for(const t of [...w.enemies,...w.map.installations]){
-      if(t.hp<=0)continue;const hit=rayHit(t,p,a,length);
-      if(hit&&hit.distance<length){length=hit.distance;contact=hit;target=t;}
+  noise(w, p, 900, "gunfire");
+  raiseAlert(w, 3, "총성", p);
+  for (let n = 0; n < gun.pellets; n++) {
+    const offset =
+      gun.pellets > 1
+        ? ((n / (gun.pellets - 1)) * 2 - 1) * spread + (random(w) - 0.5) * 0.012
+        : (random(w) - 0.5) * 2 * spread;
+    const a = p.angle + offset,
+      maximum = gun.range * 1.25;
+    let length = wallDistance(p, a, maximum, w.map),
+      target: Enemy | World["map"]["installations"][number] | undefined,
+      contact: ReturnType<typeof rayHit> = null;
+    for (const t of [...w.enemies, ...w.map.installations]) {
+      if (t.hp <= 0) continue;
+      const hit = rayHit(t, p, a, length);
+      if (hit && hit.distance < length) {
+        length = hit.distance;
+        contact = hit;
+        target = t;
+      }
     }
-    if(target&&contact){
-      const falloff=Math.max(p.weapon==="sg"?.12:p.weapon==="smg"?.18:.3,1-Math.max(0,length-gun.range*(p.weapon==="sg"?.25:p.weapon==="smg"?.4:.6))/(gun.range*(p.weapon==="sg"?.55:.8)));
-      applyHit(w,target,contact,{normal:gun.damage,durable:gun.durableDamage,ap:gun.penetration,falloff},p,p.weapon);
+    if (target && contact) {
+      const falloff = Math.max(
+        p.weapon === "sg" ? 0.12 : p.weapon === "smg" ? 0.18 : 0.3,
+        1 -
+          Math.max(
+            0,
+            length -
+              gun.range *
+                (p.weapon === "sg" ? 0.25 : p.weapon === "smg" ? 0.4 : 0.6),
+          ) /
+            (gun.range * (p.weapon === "sg" ? 0.55 : 0.8)),
+      );
+      applyHit(
+        w,
+        target,
+        contact,
+        {
+          normal: gun.damage,
+          durable: gun.durableDamage,
+          ap: gun.penetration,
+          falloff,
+        },
+        p,
+        p.weapon,
+      );
     }
-    event(w,{type:"shot",x:p.x,y:p.y,toX:p.x+Math.cos(a)*length,toY:p.y+Math.sin(a)*length,weapon:p.weapon,actor:p.id,pellet:n>0,impact:!!contact||length<maximum,angle:a});
+    event(w, {
+      type: "shot",
+      x: p.x,
+      y: p.y,
+      toX: p.x + Math.cos(a) * length,
+      toY: p.y + Math.sin(a) * length,
+      weapon: p.weapon,
+      actor: p.id,
+      pellet: n > 0,
+      impact: !!contact || length < maximum,
+      angle: a,
+    });
   }
   saveActive(p);
 }
@@ -303,13 +384,24 @@ export function tick(w: World, dt: number) {
   for (const p of w.players) {
     p.hurt = Math.max(0, p.hurt - dt);
     saveActive(p);
-    for(const gun of Object.values(p.guns)){gun.cooldown=Math.max(0,gun.cooldown-dt);gun.recoil=Math.max(0,gun.recoil-dt*(gun.id==="smg"?0.085:0.045));}
+    for (const gun of Object.values(p.guns)) {
+      gun.cooldown = Math.max(0, gun.cooldown - dt);
+      gun.recoil = Math.max(
+        0,
+        gun.recoil - dt * (gun.id === "smg" ? 0.085 : 0.045),
+      );
+    }
     loadActive(p);
-    p.switching=Math.max(0,p.switching-dt);p.useCooldown=Math.max(0,p.useCooldown-dt);
+    p.switching = Math.max(0, p.switching - dt);
+    p.useCooldown = Math.max(0, p.useCooldown - dt);
     p.moving = false;
-    if (!p.connected || p.down){p.useTime=0;p.useTarget=null;continue;}
+    if (!p.connected || p.down) {
+      p.useTime = 0;
+      p.useTarget = null;
+      continue;
+    }
     const input = p.input;
-    if(input.slot) equip(p,input.slot);
+    if (input.slot) equip(p, input.slot);
     const len = Math.hypot(input.dx, input.dy);
     p.angle = input.angle;
     if (len) {
@@ -318,7 +410,8 @@ export function tick(w: World, dt: number) {
         CHARACTERS[p.character].speed *
         (input.sprint ? RULES.sprintSpeed : input.aim ? RULES.aimSpeed : 1) *
         (p.mod === "stabilizer" ? 0.96 : 1) *
-        WEAPONS[p.weapon].speed * (p.useTime>0 ? 0.5 : 1);
+        WEAPONS[p.weapon].speed *
+        (p.useTime > 0 ? 0.5 : 1);
       const beforeMove = { x: p.x, y: p.y };
       move(
         p,
@@ -340,7 +433,7 @@ export function tick(w: World, dt: number) {
       if (Math.floor((w.time - dt) / 0.8) !== Math.floor(w.time / 0.8))
         noise(w, p, input.sprint ? 360 : 150, "steps");
     }
-    if (p.activeSlot!==3 && p.switching<=0 && p.reload > 0) {
+    if (p.activeSlot !== 3 && p.switching <= 0 && p.reload > 0) {
       p.reload -= dt;
       if (p.reload <= 0) {
         const add = Math.min(WEAPONS[p.weapon].mag - p.ammo, p.reserve);
@@ -350,7 +443,8 @@ export function tick(w: World, dt: number) {
       }
     }
     if (
-      p.activeSlot!==3 && p.switching<=0 &&
+      p.activeSlot !== 3 &&
+      p.switching <= 0 &&
       (input.reload || (!p.ammo && input.fire)) &&
       p.ammo < WEAPONS[p.weapon].mag &&
       p.reserve > 0 &&
@@ -366,7 +460,8 @@ export function tick(w: World, dt: number) {
       });
     }
     if (
-      p.activeSlot!==3 && p.switching<=0 &&
+      p.activeSlot !== 3 &&
+      p.switching <= 0 &&
       input.fire &&
       !input.sprint &&
       !input.interact &&
@@ -376,8 +471,8 @@ export function tick(w: World, dt: number) {
       p.ammo > 0
     )
       fire(w, p);
-    tickConsumable(w,p,dt);
-    p.fireHeld=input.fire;
+    tickConsumable(w, p, dt);
+    p.fireHeld = input.fire;
     saveActive(p);
     // A small recovery buffer makes solo runs viable without removing supply value.
     if (p.hurt === 0 && p.hp < 45) p.hp = Math.min(45, p.hp + dt * 3);
@@ -422,8 +517,16 @@ export function tick(w: World, dt: number) {
       )) {
         p.hp = 100;
         saveActive(p);
-        for(const gun of Object.values(p.guns))gun.reserve=Math.min(WEAPONS[gun.id].reserve,gun.reserve+Math.max(1,Math.floor(WEAPONS[gun.id].reserve*0.5)));
-        p.consumableCount=Math.min(CONSUMABLES[p.consumable].max,p.consumableCount+1);
+        for (const gun of Object.values(p.guns))
+          gun.reserve = Math.min(
+            WEAPONS[gun.id].reserve,
+            gun.reserve +
+              Math.max(1, Math.floor(WEAPONS[gun.id].reserve * 0.5)),
+          );
+        p.consumableCount = Math.min(
+          CONSUMABLES[p.consumable].max,
+          p.consumableCount + 1,
+        );
         loadActive(p);
       }
       event(w, { type: "supply", ...s });

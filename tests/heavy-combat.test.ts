@@ -37,14 +37,26 @@ it("introduces role-specific rosters at 5/7/8/9 without changing infantry health
   }
 });
 it("AP2 front shots fail while a real exposed rear region remains vulnerable", () => {
-  const w=fixture(),e=spawnEnemy(w,{x:1300,y:1000},"walker")!;e.angle=Math.PI;
-  expect(armorMultiplier(e,w.players[0])).toBe(0);expect(armorMultiplier(e,{x:1600,y:1000})).toBe(.65);
-  fire(w,w.players[0]);expect(e.hp).toBe(650);expect(e.stagger).toBe(0);
-  expect(w.events.some(x=>x.type==="hit"&&x.quality==="ricochet")).toBe(true);
+  const w = fixture(),
+    e = spawnEnemy(w, { x: 1300, y: 1000 }, "walker")!;
+  e.angle = Math.PI;
+  expect(armorMultiplier(e, w.players[0])).toBe(0);
+  expect(armorMultiplier(e, { x: 1600, y: 1000 })).toBe(0.65);
+  fire(w, w.players[0]);
+  expect(e.hp).toBe(650);
+  expect(e.stagger).toBe(0);
+  expect(
+    w.events.some((x) => x.type === "hit" && x.quality === "ricochet"),
+  ).toBe(true);
 });
 it("stale tactical/G input cannot fire an additional launcher beside a rifle", () => {
-  const w=fixture(),p=w.players[0];p.rockets=2;p.input.tactical=true;fireLauncher(w,p);
-  expect(w.projectiles).toHaveLength(0);expect(p.ammo).toBe(30);
+  const w = fixture(),
+    p = w.players[0];
+  p.rockets = 2;
+  p.input.tactical = true;
+  fireLauncher(w, p);
+  expect(w.projectiles).toHaveLength(0);
+  expect(p.ammo).toBe(30);
 });
 it("requires actual dated observation for artillery and never steers a launched shell", () => {
   const w = fixture(),
