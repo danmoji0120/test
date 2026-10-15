@@ -250,6 +250,23 @@ export class Renderer {
         g.fillRect(x + 7, y + 7, 2, 2);
         g.fillRect(x + 92, y + 92, 2, 2);
       }
+    // Roads remain real world geometry under the shared fog.
+    g.strokeStyle = "#36434a";
+    g.lineCap = "round";
+    for (const road of w.map.roads) {
+      g.lineWidth = road.width;
+      g.beginPath();
+      road.points.forEach((p, i) =>
+        i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y),
+      );
+      g.stroke();
+      g.lineWidth = 2;
+      g.strokeStyle = "#8c8d7250";
+      g.setLineDash([18, 28]);
+      g.stroke();
+      g.setLineDash([]);
+      g.strokeStyle = "#36434a";
+    }
     for (const zone of w.map.zones) {
       const palette = {
         yard: "#343638",

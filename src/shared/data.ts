@@ -140,6 +140,7 @@ export interface Rect extends Vec {
   h: number;
   kind: "wall" | "crate" | "container" | "door";
   open?: boolean;
+  id?: string;
 }
 export interface Input {
   dx: number;
@@ -254,6 +255,12 @@ export interface GameMap {
   supplies: (Vec & { used: boolean })[];
   intel: Vec;
   seed: number;
+  roads: Road[];
+  sources: DispatchSource[];
+  installations: Installation[];
+  extractions: Vec[];
+  patrols: Vec[][];
+  topology: string;
 }
 export interface GameEvent extends Vec {
   id: number;
@@ -312,4 +319,39 @@ export interface RoomView {
   seed: number;
   difficulty: "normal" | "hard";
   world: World | null;
+}
+
+export type SourceKind = "outpost" | "barracks" | "external";
+export interface DispatchSource extends Vec {
+  id: string;
+  kind: SourceKind;
+  entry: Vec;
+  doorId: string;
+  route: Vec[];
+  capacity: number;
+  stock: number;
+  supports: EnemyKind[];
+  response: number;
+  prepare: number;
+  interval: number;
+  batch: number;
+  disabled: boolean;
+  cooldown: number;
+  warning: number;
+  facility: string;
+}
+export interface Installation extends Vec {
+  id: string;
+  kind: "generator" | "comms" | "outpost" | "barracks";
+  hp: number;
+  maxHp: number;
+  sourceId?: string;
+  discovered: boolean;
+}
+export interface Road {
+  id: string;
+  from: number;
+  to: number;
+  points: Vec[];
+  width: number;
 }

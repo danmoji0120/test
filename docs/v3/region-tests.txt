@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/region.test.ts (2 tests) 2355ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  2330ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  05:47:22
+   Duration  2.58s (transform 71ms, setup 0ms, collect 73ms, tests 2.36s, environment 0ms, prepare 46ms)
+

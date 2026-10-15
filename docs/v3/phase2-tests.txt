@@ -1,0 +1,31 @@
+
+> project-doll-squad@0.2.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 91.3 seconds [
+  { hp: 100, kills: 36, ammo: 383 },
+  { hp: 100, kills: 37, ammo: 384 },
+  { hp: 100, kills: 28, ammo: 258 },
+  { hp: 100, kills: 33, ammo: 511 }
+]
+
+ ✓ tests/game.test.ts (35 tests) 7911ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  2419ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  2864ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  2304ms
+ ✓ tests/network.test.ts (5 tests) 4031ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2586ms
+ ✓ tests/region.test.ts (2 tests) 2374ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  2350ms
+ ✓ tests/visibility.test.ts (5 tests) 57ms
+ ✓ tests/store.test.ts (2 tests) 4ms
+
+ Test Files  5 passed (5)
+      Tests  49 passed (49)
+   Start at  05:47:34
+   Duration  15.35s (transform 144ms, setup 0ms, collect 246ms, tests 14.38s, environment 1ms, prepare 227ms)
+
