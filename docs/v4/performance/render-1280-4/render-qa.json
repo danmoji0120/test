@@ -1,0 +1,87 @@
+{
+  "fixture": "Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence",
+  "browser": "154.0.8037.57",
+  "viewport": "1280x720",
+  "windows": 4,
+  "measurements": [
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 483,
+      "medianMs": 29.5,
+      "p95Ms": 70.40000000596046,
+      "averageMs": 40.12422360248447,
+      "heapMiB": 4.378354072570801
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 485,
+      "medianMs": 28.5,
+      "p95Ms": 66,
+      "averageMs": 38.07814432989383,
+      "heapMiB": 3.4642763137817383
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 285,
+      "medianMs": 67.89999999850988,
+      "p95Ms": 96.60000000149012,
+      "averageMs": 61.427368421042175,
+      "heapMiB": 4.919194221496582
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 264,
+      "medianMs": 58.70000000298023,
+      "p95Ms": 100.69999999552965,
+      "averageMs": 61.7473484848372,
+      "heapMiB": 4.2892045974731445
+    }
+  ],
+  "chromiumAllProcessesRSSMiB": 1951.359375,
+  "backgroundBurst": {
+    "events": 10000,
+    "particles": 400,
+    "trails": 0
+  },
+  "errors": []
+}

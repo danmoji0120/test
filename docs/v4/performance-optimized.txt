@@ -1,0 +1,27 @@
+
+> project-doll-squad@0.4.0 qa:dev
+> tsx scripts/dev-qa-session.ts
+
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence',
+  browser: '154.0.8037.57',
+  viewport: '1920x1080',
+  windows: 1,
+  measurements: [
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 440,
+      medianMs: 26,
+      p95Ms: 55.80000000447035,
+      averageMs: 34.66227272726934,
+      drawMs: [Object],
+      heapMiB: 4.922364234924316
+    }
+  ],
+  chromiumAllProcessesRSSMiB: 803.87890625,
+  backgroundBurst: { events: 10000, particles: 400, trails: 4 },
+  errors: []
+}

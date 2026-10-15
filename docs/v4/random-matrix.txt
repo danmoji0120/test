@@ -1,0 +1,22 @@
+
+> project-doll-squad@0.4.0 qa:v4
+> tsx scripts/v4-simulation-qa.ts
+
+{"scenario":{"level":1,"count":1,"seed":469532,"mode":"primary"},"result":"success","seconds":54,"maxAlert":4,"downs":0,"hurt":0,"rockets":0,"departures":2,"peak":14,"p95":1.1764309999999796}
+{"scenario":{"level":1,"count":2,"seed":469532,"mode":"primary"},"result":"success","seconds":52,"maxAlert":4,"downs":0,"hurt":0,"rockets":0,"departures":4,"peak":16,"p95":1.7938600000002225}
+{"scenario":{"level":1,"count":4,"seed":469532,"mode":"primary"},"result":"success","seconds":50,"maxAlert":4,"downs":0,"hurt":0,"rockets":0,"departures":2,"peak":17,"p95":3.758797000000186}
+{"scenario":{"level":3,"count":1,"seed":469532,"mode":"primary"},"result":"success","seconds":56,"maxAlert":4,"downs":0,"hurt":0,"rockets":0,"departures":3,"peak":18,"p95":1.038281999999981}
+{"scenario":{"level":3,"count":2,"seed":469532,"mode":"primary"},"result":"success","seconds":52,"maxAlert":4,"downs":0,"hurt":9,"rockets":0,"departures":4,"peak":19,"p95":2.027050000000145}
+{"scenario":{"level":3,"count":4,"seed":469532,"mode":"primary"},"result":"success","seconds":50,"maxAlert":4,"downs":0,"hurt":0,"rockets":0,"departures":2,"peak":21,"p95":3.8290930000002845}
+{"scenario":{"level":5,"count":1,"seed":469532,"mode":"primary"},"result":"success","seconds":63,"maxAlert":4,"downs":0,"hurt":9,"rockets":2,"departures":6,"peak":21,"p95":1.2500410000002375}
+{"scenario":{"level":5,"count":2,"seed":469532,"mode":"primary"},"result":"failed","seconds":55,"maxAlert":4,"downs":2,"hurt":294,"rockets":6,"departures":7,"peak":22,"p95":2.2986599999994723}
+{"scenario":{"level":5,"count":4,"seed":469532,"mode":"primary"},"result":"success","seconds":56,"maxAlert":4,"downs":1,"hurt":187,"rockets":8,"departures":8,"peak":24,"p95":4.087531000001036}
+{"scenario":{"level":7,"count":1,"seed":469532,"mode":"primary"},"result":"success","seconds":66,"maxAlert":4,"downs":0,"hurt":76,"rockets":3,"departures":7,"peak":25,"p95":1.4042939999999362}
+{"scenario":{"level":7,"count":2,"seed":469532,"mode":"primary"},"result":"success","seconds":53,"maxAlert":4,"downs":0,"hurt":20,"rockets":4,"departures":8,"peak":26,"p95":2.405220000000554}
+{"scenario":{"level":7,"count":4,"seed":469532,"mode":"primary"},"result":"success","seconds":57,"maxAlert":4,"downs":1,"hurt":258,"rockets":11,"departures":8,"peak":28,"p95":4.459431000001132}
+{"scenario":{"level":8,"count":1,"seed":469532,"mode":"primary"},"result":"failed","seconds":4,"maxAlert":2,"downs":1,"hurt":100,"rockets":2,"departures":0,"peak":27,"p95":1.2683890000007523}
+{"scenario":{"level":8,"count":2,"seed":469532,"mode":"primary"},"result":"success","seconds":55,"maxAlert":4,"downs":0,"hurt":123,"rockets":5,"departures":8,"peak":28,"p95":2.56067400000029}
+{"scenario":{"level":8,"count":4,"seed":469532,"mode":"primary"},"result":"success","seconds":53,"maxAlert":4,"downs":0,"hurt":63,"rockets":8,"departures":7,"peak":30,"p95":4.288523999999597}
+{"scenario":{"level":10,"count":1,"seed":469532,"mode":"primary"},"result":"failed","seconds":8,"maxAlert":2,"downs":1,"hurt":100,"rockets":2,"departures":2,"peak":34,"p95":1.931166000002122}
+{"scenario":{"level":10,"count":2,"seed":469532,"mode":"primary"},"result":"failed","seconds":45,"maxAlert":4,"downs":2,"hurt":303,"rockets":6,"departures":8,"peak":35,"p95":2.887285000000702}
+{"scenario":{"level":10,"count":4,"seed":469532,"mode":"primary"},"result":"success","seconds":53,"maxAlert":4,"downs":0,"hurt":222,"rockets":10,"departures":8,"peak":39,"p95":4.313861999999062}

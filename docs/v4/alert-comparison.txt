@@ -1,0 +1,11 @@
+[
+  { level: 1, rosters: [], departures: 0, arrived: 0 },
+  { level: 2, rosters: [ [Array] ], departures: 1, arrived: 1 },
+  { level: 3, rosters: [ [Array] ], departures: 1, arrived: 1 },
+  {
+    level: 4,
+    rosters: [ [Array], [Array] ],
+    departures: 2,
+    arrived: 2
+  }
+]

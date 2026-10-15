@@ -1,0 +1,40 @@
+
+> project-doll-squad@0.4.0 qa:server-stress
+> tsx scripts/v4-server-stress.ts
+
+{
+  fixture: 'Deliberate64-actor stress,4 high-health scripted targets,actual Barren Frontier obstacles,alert4,30 simulated seconds; exceeds normal admission budgets; not gameplay/difficulty evidence',
+  ticks: {
+    mean: 1.7564271577777781,
+    p50: 0.8976910000001226,
+    p95: 4.805802999999969,
+    p99: 12.180811000000006,
+    max: 63.42681200000001
+  },
+  tickPlusSnapshot: {
+    mean: 2.0543983433333324,
+    p50: 1.2397960000000694,
+    p95: 5.367617999999993,
+    p99: 12.18194299999999,
+    max: 65.42187400000003
+  },
+  snapshotBytes: {
+    mean: 52540.253333333334,
+    p50: 30357,
+    p95: 121641,
+    p99: 125887,
+    max: 178089
+  },
+  budget: {
+    regional: 64,
+    reserve: 0,
+    near: 124,
+    strategic: 0,
+    traveling: 0,
+    travelingInfantry: 0,
+    heavy: 0,
+    queued: 4
+  },
+  heapMiB: 57.01603698730469,
+  rssMiB: 151.01953125
+}

@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { mkdirSync } from "node:fs";
 for (const width of [1920, 1280])
   for (const pages of [1, 2, 4]) {
-    const output = `docs/v4/performance/render-${width}-${pages}`;
+    const output = `docs/v4/performance/${process.env.QA_FINAL ? "final-" : process.env.QA_REPRESENTATIVE ? "representative-" : ""}render-${width}-${pages}`;
     mkdirSync(output, { recursive: true });
     const child = spawn(
       process.execPath,

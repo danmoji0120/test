@@ -1,0 +1,301 @@
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence',
+  browser: '154.0.8037.57',
+  viewport: '1920x1080',
+  windows: 1,
+  measurements: [
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 422,
+      medianMs: 26.19999999552965,
+      p95Ms: 58.100000001490116,
+      averageMs: 36.0535545023732,
+      drawMs: [Object],
+      heapMiB: 5.185183525085449
+    }
+  ],
+  chromiumAllProcessesRSSMiB: 805.953125,
+  backgroundBurst: { events: 10000, particles: 400, trails: 0 },
+  errors: []
+}
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence',
+  browser: '154.0.8037.57',
+  viewport: '1920x1080',
+  windows: 2,
+  measurements: [
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 380,
+      medianMs: 51.900000005960464,
+      p95Ms: 62.79999999701977,
+      averageMs: 42.86526315788689,
+      drawMs: [Object],
+      heapMiB: 4.096060752868652
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 385,
+      medianMs: 47.79999999701977,
+      p95Ms: 61.69999999552965,
+      averageMs: 40.19584415585964,
+      drawMs: [Object],
+      heapMiB: 4.49216365814209
+    }
+  ],
+  chromiumAllProcessesRSSMiB: 1218.04296875,
+  backgroundBurst: { events: 10000, particles: 400, trails: 4 },
+  errors: []
+}
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence',
+  browser: '154.0.8037.57',
+  viewport: '1920x1080',
+  windows: 4,
+  measurements: [
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 213,
+      medianMs: 86.20000000298023,
+      p95Ms: 185.10000000149012,
+      averageMs: 94.07511737089202,
+      drawMs: [Object],
+      heapMiB: 3.6822614669799805
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 290,
+      medianMs: 64.79999999701977,
+      p95Ms: 110.60000000149012,
+      averageMs: 66.90344827586208,
+      drawMs: [Object],
+      heapMiB: 4.121005058288574
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 275,
+      medianMs: 66.5,
+      p95Ms: 105.29999999701977,
+      averageMs: 66.18545454545455,
+      drawMs: [Object],
+      heapMiB: 3.7498884201049805
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 174,
+      medianMs: 83,
+      p95Ms: 184.5,
+      averageMs: 94.91264367818661,
+      drawMs: [Object],
+      heapMiB: 6.84305477142334
+    }
+  ],
+  chromiumAllProcessesRSSMiB: 2041.0078125,
+  backgroundBurst: { events: 10000, particles: 400, trails: 4 },
+  errors: []
+}
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence',
+  browser: '154.0.8037.57',
+  viewport: '1280x720',
+  windows: 1,
+  measurements: [
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 600,
+      medianMs: 24.600000001490116,
+      p95Ms: 30.400000005960464,
+      averageMs: 22.921166666671635,
+      drawMs: [Object],
+      heapMiB: 6.724612236022949
+    }
+  ],
+  chromiumAllProcessesRSSMiB: 765.45703125,
+  backgroundBurst: { events: 10000, particles: 400, trails: 0 },
+  errors: []
+}
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence',
+  browser: '154.0.8037.57',
+  viewport: '1280x720',
+  windows: 2,
+  measurements: [
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 600,
+      medianMs: 25.100000001490116,
+      p95Ms: 34,
+      averageMs: 24.390833333333333,
+      drawMs: [Object],
+      heapMiB: 6.303282737731934
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 600,
+      medianMs: 24.899999998509884,
+      p95Ms: 33.400000005960464,
+      averageMs: 23.710833333333333,
+      drawMs: [Object],
+      heapMiB: 5.108912467956543
+    }
+  ],
+  chromiumAllProcessesRSSMiB: 1167.58984375,
+  backgroundBurst: { events: 10000, particles: 400, trails: 0 },
+  errors: []
+}
+DOLL SQUAD ready: http://localhost:3304
+{
+  fixture: 'Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence',
+  browser: '154.0.8037.57',
+  viewport: '1280x720',
+  windows: 4,
+  measurements: [
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 478,
+      medianMs: 30.099999994039536,
+      p95Ms: 78.29999999701977,
+      averageMs: 40.34372384938174,
+      drawMs: [Object],
+      heapMiB: 3.710921287536621
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 489,
+      medianMs: 27.900000005960464,
+      p95Ms: 70.39999999850988,
+      averageMs: 37.89141104294174,
+      drawMs: [Object],
+      heapMiB: 3.6813955307006836
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 281,
+      medianMs: 61,
+      p95Ms: 106.60000000149012,
+      averageMs: 62.267259786455654,
+      drawMs: [Object],
+      heapMiB: 5.544684410095215
+    },
+    {
+      players: 4,
+      enemies: 20,
+      roster: [Object],
+      samples: 273,
+      medianMs: 53.899999998509884,
+      p95Ms: 109.70000000298023,
+      averageMs: 59.08388278387733,
+      drawMs: [Object],
+      heapMiB: 5.854876518249512
+    }
+  ],
+  chromiumAllProcessesRSSMiB: 1968.796875,
+  backgroundBurst: { events: 10000, particles: 400, trails: 0 },
+  errors: []
+}
+DOLL SQUAD ready: http://localhost:3304
+[
+  {
+    weapon: 'ar',
+    sampleRate: 48000,
+    peak: 0.0451657697558403,
+    clipped: 0,
+    attackRms: 0.007951813692992577,
+    tailRms: 0.00016483847058788167
+  },
+  {
+    weapon: 'smg',
+    sampleRate: 48000,
+    peak: 0.02892773039638996,
+    clipped: 0,
+    attackRms: 0.002958780774283777,
+    tailRms: 0.000006562583492464642
+  },
+  {
+    weapon: 'sg',
+    sampleRate: 48000,
+    peak: 0.06115775182843208,
+    clipped: 0,
+    attackRms: 0.01777773066461419,
+    tailRms: 0.002467077769474234
+  },
+  {
+    weapon: 'hmg',
+    sampleRate: 48000,
+    peak: 0.05191769078373909,
+    clipped: 0,
+    attackRms: 0.02034105044034949,
+    tailRms: 0.004417731501420876
+  },
+  {
+    weapon: 'engine',
+    sampleRate: 48000,
+    peak: 0.0110769709572196,
+    clipped: 0,
+    attackRms: 0.004812891295219938,
+    tailRms: 0.003521387464587839
+  },
+  {
+    weapon: 'shell',
+    sampleRate: 48000,
+    peak: 0.01775382272899151,
+    clipped: 0,
+    attackRms: 0.003941109307014188,
+    tailRms: 0.005140618614361857
+  },
+  {
+    weapon: 'armor',
+    sampleRate: 48000,
+    peak: 0.015552475117146969,
+    clipped: 0,
+    attackRms: 0.0023306693721001906,
+    tailRms: 0.000032330670446346976
+  },
+  {
+    weapon: 'explosion',
+    sampleRate: 48000,
+    peak: 0.061911825090646744,
+    clipped: 0,
+    attackRms: 0.026737615537567375,
+    tailRms: 0.014636646010141325
+  },
+  {
+    weapon: 'maximum',
+    sampleRate: 48000,
+    peak: 0.018076106905937195,
+    clipped: 0,
+    attackRms: 0.007997339777259154,
+    tailRms: 0.005828820583429245
+  }
+]

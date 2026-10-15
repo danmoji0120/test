@@ -372,6 +372,7 @@ function showHelp() {
     ["우클릭", "정밀 조준"],
     ["SHIFT", "질주 · 사격 불가"],
     ["R", "재장전"],
+    ["G", "대장갑 발사기 · 제한 탄약"],
     ["E 길게", "목표 · 보급품"],
     ["F 길게", "동료 소생"],
     ["TAB / ESC", "현황 / 메뉴"],
@@ -379,7 +380,7 @@ function showHelp() {
     .map(([k, v]) => `<div><kbd>${k}</kbd><span>${v}</span></div>`)
     .join(
       "",
-    )}</div><p>적의 붉은 조준선은 공격 예고입니다. 엄폐하거나 옆으로 피하세요. 초록색 보급 상자는 근처 동료도 함께 회복합니다. 모든 대원이 쓰러지면 작전이 실패합니다.</p><button class="primary" data-action="close-help">확인, 준비됐어요 <span>↗</span></button></div>`;
+    )}</div><p>장갑의 주황색 후면이 약점입니다. G로 대장갑탄을 사용하고, 기관포 예고와 포격 원을 피해 이동하세요. 진압병의 과열은 우회 기회입니다. 초록색 보급 상자는 근처 동료도 함께 회복합니다. 모든 대원이 쓰러지면 작전이 실패합니다.</p><button class="primary" data-action="close-help">확인, 준비됐어요 <span>↗</span></button></div>`;
   document.body.append(el);
 }
 document.addEventListener("click", (e) => {

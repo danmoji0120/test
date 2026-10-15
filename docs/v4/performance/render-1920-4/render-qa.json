@@ -1,0 +1,87 @@
+{
+  "fixture": "Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence",
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080",
+  "windows": 4,
+  "measurements": [
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 207,
+      "medianMs": 106.60000000149012,
+      "p95Ms": 189.19999999552965,
+      "averageMs": 100.13333333330453,
+      "heapMiB": 3.579770088195801
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 263,
+      "medianMs": 81.10000000149012,
+      "p95Ms": 130.29999999701977,
+      "averageMs": 76.27870722435159,
+      "heapMiB": 4.346341133117676
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 243,
+      "medianMs": 71.89999999850988,
+      "p95Ms": 180.20000000298023,
+      "averageMs": 77.71028806584975,
+      "heapMiB": 5.8770341873168945
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "rifle": 3,
+        "rush": 3,
+        "heavy": 3,
+        "juggernaut": 3,
+        "drone": 3,
+        "walker": 3,
+        "artillery": 2
+      },
+      "samples": 193,
+      "medianMs": 87.40000000596046,
+      "p95Ms": 138.59999999403954,
+      "averageMs": 87.91295336789109,
+      "heapMiB": 4.236481666564941
+    }
+  ],
+  "chromiumAllProcessesRSSMiB": 2046.99609375,
+  "backgroundBurst": {
+    "events": 10000,
+    "particles": 400,
+    "trails": 4
+  },
+  "errors": []
+}

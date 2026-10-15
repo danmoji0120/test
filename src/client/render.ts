@@ -1,3 +1,4 @@
+import { RasterCache } from "./raster-cache";
 import { enemyRadius, enemyHeight, armored, special } from "../game/armor";
 import { paintTerrain } from "./terrain";
 import { environmentImage, drawEnvironment } from "../art/environment";
@@ -40,6 +41,8 @@ export class Renderer {
   trackedObjective = "";
   fog = new Fog();
   ctx: CanvasRenderingContext2D;
+  rasterCache = new RasterCache();
+  vignette: HTMLCanvasElement | null = null;
   width = innerWidth;
   height = innerHeight;
   camera = { x: 0, y: 0 };
@@ -95,6 +98,22 @@ export class Renderer {
     this.canvas.style.height = this.height + "px";
     this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this.zoom = this.width < 1400 ? 0.82 : 0.95;
+    this.vignette = document.createElement("canvas");
+    this.vignette.width = this.width;
+    this.vignette.height = this.height;
+    const v = this.vignette.getContext("2d")!,
+      shade = v.createRadialGradient(
+        this.width / 2,
+        this.height / 2,
+        this.height * 0.2,
+        this.width / 2,
+        this.height / 2,
+        this.width * 0.65,
+      );
+    shade.addColorStop(0, "#09101900");
+    shade.addColorStop(1, "#090f1977");
+    v.fillStyle = shade;
+    v.fillRect(0, 0, this.width, this.height);
   }
   set(w: World, id: string) {
     if (this.world?.id !== w.id) {
@@ -138,6 +157,7 @@ export class Renderer {
         const previewed =
           e.type === "shot" &&
           !e.pellet &&
+          !e.heavy &&
           e.actor === id &&
           this.pendingPreview.length > 0 &&
           performance.now() - this.pendingPreview[0] < 500;
@@ -155,6 +175,13 @@ export class Renderer {
           }
           continue;
         }
+        if (
+          e.type === "sound" &&
+          e.heavy &&
+          e.cue === "steps" &&
+          distance(e, me) < 600
+        )
+          this.shake = Math.max(this.shake, 1.6);
         if (e.type === "shot") {
           this.trails.push({ ...e, life: e.weapon === "sg" ? 0.07 : 0.085 });
           if (!e.pellet && !previewed) this.muzzle(e);
@@ -203,7 +230,7 @@ export class Renderer {
       x: e.x,
       y: e.y,
       angle: a,
-      weapon: e.weapon ?? "enemy",
+      weapon: e.heavy ? "heavy" : (e.weapon ?? "enemy"),
       life: 0.075,
     });
     this.burst(
@@ -214,10 +241,16 @@ export class Renderer {
       55,
     );
     if (e.actor === this.id) {
-      this.kick = e.weapon === "sg" ? 12 : e.weapon === "ar" ? 5 : 2.3;
+      this.kick = e.heavy
+        ? 14
+        : e.weapon === "sg"
+          ? 12
+          : e.weapon === "ar"
+            ? 5
+            : 2.3;
       this.shake = Math.max(
         this.shake,
-        e.weapon === "sg" ? 9 : e.weapon === "ar" ? 4 : 1.7,
+        e.heavy ? 8 : e.weapon === "sg" ? 9 : e.weapon === "ar" ? 4 : 1.7,
       );
     }
   }
@@ -596,16 +629,22 @@ export class Renderer {
           q.target.x,
           q.target.y - q.radius - 12,
         );
-        // The observer gets an incoming shell arc without disclosing the hidden launch coordinate.
-        const sx = q.target.x - 120 * (1 - progress),
-          sy =
-            q.target.y -
-            220 * (1 - progress) -
-            Math.sin(progress * Math.PI) * 130;
-        g.fillStyle = "#fff1c5";
-        g.beginPath();
-        g.ellipse(sx, sy, 5, 10, 0.4, 0, TAU);
-        g.fill();
+        const shell =
+          q.shell ??
+          (q.owner
+            ? {
+                x: q.x,
+                y: q.y,
+                height:
+                  Math.sin(Math.PI * progress) * 260 + (1 - progress) * 40,
+              }
+            : undefined);
+        if (shell) {
+          g.fillStyle = "#fff1c5";
+          g.beginPath();
+          g.ellipse(shell.x, shell.y - shell.height, 5, 10, 0.4, 0, TAU);
+          g.fill();
+        }
       } else {
         g.strokeStyle = q.enemy ? "#ff9371" : "#ffe5a0";
         g.lineWidth = q.kind === "rocket" ? 5 : 4;
@@ -643,7 +682,14 @@ export class Renderer {
       g.save();
       g.translate(f.x, f.y - RULES.muzzleHeight - 4);
       g.rotate(f.angle);
-      const size = f.weapon === "sg" ? 27 : f.weapon === "ar" ? 18 : 11;
+      const size =
+        f.weapon === "heavy"
+          ? 32
+          : f.weapon === "sg"
+            ? 27
+            : f.weapon === "ar"
+              ? 18
+              : 11;
       const light = g.createRadialGradient(20, 0, 0, 20, 0, size * 3);
       light.addColorStop(0, "#ffc67b66");
       light.addColorStop(1, "#ffc67b00");
@@ -730,18 +776,7 @@ export class Renderer {
 
     g.restore();
     // A restrained vignette leaves targets readable at screen edges.
-    const shade = g.createRadialGradient(
-      this.width / 2,
-      this.height / 2,
-      this.height * 0.2,
-      this.width / 2,
-      this.height / 2,
-      this.width * 0.65,
-    );
-    shade.addColorStop(0, "#09101900");
-    shade.addColorStop(1, "#090f1977");
-    g.fillStyle = shade;
-    g.fillRect(0, 0, this.width, this.height);
+    if (this.vignette) g.drawImage(this.vignette, 0, 0);
     if (p.hurt > 3.75) {
       g.strokeStyle = "#ed687c99";
       g.lineWidth = 20;
@@ -865,7 +900,16 @@ export class Renderer {
     if (this.atlas.complete && this.atlas.naturalWidth) {
       const f = operatorFrame(p.character, direction),
         width = (64 * f.w) / f.h;
-      g.drawImage(this.atlas, f.x, f.y, f.w, f.h, -width / 2, -53, width, 64);
+      this.rasterCache.draw(
+        g,
+        this.atlas,
+        `operator/${p.character}/${direction}`,
+        f,
+        -width / 2,
+        -53,
+        width,
+        64,
+      );
     }
     g.filter = "none";
     if (p.reload > 0) {
@@ -925,18 +969,16 @@ export class Renderer {
       g.filter = "brightness(2) saturate(0.5)";
     }
     const atlas = special(e.kind) ? this.v4Atlas : this.enemyAtlas;
-    if (atlas.complete && atlas.naturalWidth)
-      g.drawImage(
-        atlas,
-        f.x,
-        f.y,
-        f.w,
-        f.h,
-        -width / 2,
-        -height + 8,
-        width,
-        height,
-      );
+    this.rasterCache.draw(
+      g,
+      atlas,
+      `enemy/${e.kind}/${direction}`,
+      f,
+      -width / 2,
+      -height + 8,
+      width,
+      height,
+    );
     g.filter = "none";
     // A compact red foot arc identifies hostility even when the visor faces away.
     g.strokeStyle = e.elite

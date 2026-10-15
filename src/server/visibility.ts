@@ -170,6 +170,30 @@ export function visibleWorld(w: World) {
               y: q.target.y,
               origin: { ...q.target },
               owner: "",
+              range: 0,
+              traveled: 0,
+              speed: 0,
+              shell: squadSees(w, q)
+                ? {
+                    x: q.x,
+                    y: q.y,
+                    height:
+                      Math.sin(
+                        Math.PI *
+                          Math.max(
+                            0,
+                            Math.min(1, (w.time - q.at) / (q.impactAt - q.at)),
+                          ),
+                      ) *
+                        260 +
+                      (1 -
+                        Math.max(
+                          0,
+                          Math.min(1, (w.time - q.at) / (q.impactAt - q.at)),
+                        )) *
+                        40,
+                  }
+                : undefined,
               angle: 0,
             }
           : squadSees(w, q.origin)

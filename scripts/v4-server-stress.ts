@@ -6,6 +6,8 @@ import {
 } from "../src/game/simulation";
 import { visibleWorld } from "../src/server/visibility";
 import { packRoom, type StreamCursor } from "../src/shared/snapshot";
+import { blocked } from "../src/game/map";
+import { enemyRadius } from "../src/game/armor";
 import { forceBudget } from "../src/game/budgets";
 import { ENEMIES, type EnemyKind } from "../src/shared/data";
 import { performance } from "node:perf_hooks";
@@ -16,16 +18,19 @@ const players = Array.from({ length: 4 }, (_, i) =>
     makePlayer("p" + i, "STRESS"),
   ),
   w = createWorld("synthetic-server-stress", 42, players, 10);
-w.map.obstacles = [];
+if (!process.env.QA_STRESS_TERRAIN) w.map.obstacles = [];
 w.enemies = [];
 w.squads = {};
 w.director.next = 1e8;
 w.alertState.heat = 130;
 w.alertState.level = 4;
+const anchor = process.env.QA_STRESS_TERRAIN
+  ? w.map.zones[0].entry
+  : { x: 2900, y: 2050 };
 players.forEach((p, i) =>
-  Object.assign(p, { x: 2900 + i * 50, y: 2050, hp: 1e6 }),
+  Object.assign(p, { x: anchor.x + i * 50, y: anchor.y + 200, hp: 1e6 }),
 );
-for (let i = 0; i < 64; i++) {
+for (let i = 0; i < 2000 && w.enemies.length < 64; i++) {
   const kind = (Object.keys(ENEMIES) as EnemyKind[])[i % 7],
     a = i * 2.399,
     r = 300 + (i % 8) * 90;
@@ -65,8 +70,7 @@ const stats = (a: number[]) => {
   };
 };
 const report = {
-  fixture:
-    "Deliberate worst-case64 simultaneously detailed mixed actors,4 high-health scripted targets,open terrain,alert4,30 simulated seconds; exceeds normal admission budgets; not gameplay/difficulty evidence",
+  fixture: `Deliberate64-actor stress,4 high-health scripted targets,${process.env.QA_STRESS_TERRAIN ? "actual Barren Frontier obstacles" : "open terrain"},alert4,30 simulated seconds; exceeds normal admission budgets; not gameplay/difficulty evidence`,
   ticks: stats(ticks),
   tickPlusSnapshot: stats(services),
   snapshotBytes: stats(bytes),
@@ -74,5 +78,11 @@ const report = {
   heapMiB: process.memoryUsage().heapUsed / 1024 / 1024,
   rssMiB: process.memoryUsage().rss / 1024 / 1024,
 };
-writeFileSync(output + "/server-stress.json", JSON.stringify(report, null, 2));
+writeFileSync(
+  output +
+    (process.env.QA_STRESS_TERRAIN
+      ? "/server-terrain-stress.json"
+      : "/server-stress.json"),
+  JSON.stringify(report, null, 2),
+);
 console.log(report);

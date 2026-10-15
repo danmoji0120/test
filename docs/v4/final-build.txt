@@ -4,7 +4,7 @@
 
 vite v6.4.4 building for production...
 transforming...
-✓ 22 modules transformed.
+✓ 23 modules transformed.
 rendering chunks...
 computing gzip size...
 dist/index.html                                      0.71 kB │ gzip:  0.46 kB
@@ -14,9 +14,9 @@ dist/assets/operators-atlas-BsJDefIA.png         1,763.82 kB
 dist/assets/v4-enemies-atlas-ClXva3bZ.png        2,286.88 kB
 dist/assets/v4-environment-atlas-0a1YvfBU.png    2,675.40 kB
 dist/assets/index-BY3L1XTd.css                      21.64 kB │ gzip:  5.77 kB
-dist/assets/index-jAkL-9fj.js                       66.26 kB │ gzip: 26.03 kB
-✓ built in 298ms
+dist/assets/index-T-B4MZps.js                       67.24 kB │ gzip: 26.39 kB
+✓ built in 335ms
 
-  dist/server.mjs  111.6kb
+  dist/server.mjs  112.9kb
 
-⚡ Done in 10ms
+⚡ Done in 11ms

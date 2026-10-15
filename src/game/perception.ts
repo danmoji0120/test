@@ -26,6 +26,8 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
     e.lastSeen = { x: target.x, y: target.y };
     e.memory = 9;
     e.seenAt = w.time;
+    e.reportAt = w.time;
+    e.reportKind = "seen";
     const squad = w.squads[e.squad];
     if (squad) {
       squad.lastSeen = { ...e.lastSeen };
@@ -55,6 +57,8 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
           y: Math.round(heard.y / 160) * 160,
         };
         e.memory = 6;
+        e.reportAt = heard.at;
+        e.reportKind = "heard";
         transition(e, "SUSPICIOUS");
         raiseAlert(w, 7, "불명음 수색", e);
       }
@@ -84,6 +88,8 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
         continue;
       if (ally.memory < e.memory - 0.1) {
         ally.lastSeen = { ...e.lastSeen };
+        ally.reportAt = e.reportAt ?? e.seenAt;
+        ally.reportKind = e.reportKind ?? "heard";
         ally.memory = Math.max(0, e.memory - 0.4);
         ally.repath = 0;
         if (!target) transition(ally, "INVESTIGATE");

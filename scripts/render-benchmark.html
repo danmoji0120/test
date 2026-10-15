@@ -32,6 +32,9 @@
         p.character = i % 2 ? "luna" : "aria";
         return p;
       });
+      const representative = new URLSearchParams(location.search).has(
+        "representative",
+      );
       const w = createWorld("render-benchmark", 42, players, 10);
       w.alertState.level = 4;
       w.enemies = [];
@@ -44,19 +47,27 @@
       });
       for (let y = 1350; y <= 1950 && w.enemies.length < 20; y += 110) {
         for (let x = 2050; x <= 2950 && w.enemies.length < 20; x += 110) {
-          spawnEnemy(
-            w,
-            { x, y },
-            [
-              "rifle",
-              "rush",
-              "heavy",
-              "juggernaut",
-              "drone",
-              "walker",
-              "artillery",
-            ][w.enemies.length % 7],
-          );
+          const index = w.enemies.length;
+          const kind = representative
+            ? index === 0
+              ? "juggernaut"
+              : index === 3 || index === 17
+                ? "drone"
+                : index === 6
+                  ? "walker"
+                  : index === 9
+                    ? "artillery"
+                    : ["rifle", "rush", "heavy"][index % 3]
+            : [
+                "rifle",
+                "rush",
+                "heavy",
+                "juggernaut",
+                "drone",
+                "walker",
+                "artillery",
+              ][index % 7];
+          spawnEnemy(w, { x, y }, kind);
         }
       }
       if (w.enemies.length !== 20)
@@ -67,6 +78,14 @@
       );
       updateVision(w, true);
       renderer.set(w, "p0");
+      const draw = renderer.draw.bind(renderer),
+        drawCosts = [];
+      renderer.draw = (...args) => {
+        const start = performance.now();
+        draw(...args);
+        drawCosts.push(performance.now() - start);
+        if (drawCosts.length > 600) drawCosts.shift();
+      };
       renderer.start();
       let clock = 0;
       setInterval(() => {
@@ -122,6 +141,7 @@
           {},
         ),
         frames: renderer.frames,
+        drawCosts,
         players: players.length,
         enemies: w.enemies.length,
         particles: renderer.particles.length,

@@ -1,0 +1,26 @@
+
+> project-doll-squad@0.4.0 qa:stability
+> node --expose-gc --import tsx scripts/stability-qa.ts
+
+Completed 4 heap MiB 10
+Completed 8 heap MiB 10
+Completed 12 heap MiB 10
+Completed 16 heap MiB 11
+Completed 20 heap MiB 11
+Completed 24 heap MiB 10
+{
+  runs: 24,
+  mode: 'mixed V4 levels1/3/5/7/8/10, seeded prepared4-input pilots',
+  successes: 22,
+  failures: 2,
+  maxEvents: 160,
+  maxEnemies: 39,
+  gcAvailable: true,
+  heapMiB: [ 9.85, 10.39, 10.39, 10.6, 10.59, 10.33 ],
+  serverTickMs: {
+    samples: 2354,
+    median: 0.07976000000053318,
+    p95: 3.891836000002513,
+    p99: 11.221686999997473
+  }
+}

@@ -271,6 +271,8 @@ export interface Enemy extends Vec {
   state: AIState;
   stateTime: number;
   seenAt: number;
+  reportAt?: number;
+  reportKind?: "seen" | "heard";
   heardNoise: number;
   radio: number;
   patrol: Vec[];
@@ -532,6 +534,7 @@ export interface Trajectory {
 }
 
 export interface Projectile extends Vec {
+  shell?: Vec & { height: number };
   id: string;
   kind: "rocket" | "cannon" | "mortar";
   owner: string;

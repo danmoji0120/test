@@ -81,7 +81,9 @@ export function heavyAI(
   const observation = e.lastSeen && e.memory > 0 ? e.lastSeen : null;
   const canFire =
     e.kind === "artillery"
-      ? observation &&
+      ? e.reportKind === "seen" &&
+        w.time - (e.reportAt ?? -100) < 10 &&
+        observation &&
         distance(e, observation) > 380 &&
         distance(e, observation) < spec.range
       : target && r < spec.range;

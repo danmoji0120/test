@@ -2,7 +2,7 @@
 
 귀여운 PNG 오퍼레이터가 싸우는 **1–4인 서버 권한형 협동 탑다운 슈터**. V3를 보존하면서 황무지 지형, 방향 장갑, 정찰 드론·진압병·보행병기·공성 병기, 실제 경로로 접근하는 대응 전력을 구현했습니다. 적 전멸 없이 발전기 두 기를 파괴하고 수송기로 탈출합니다.
 
-![실제 황무지 교전](docs/v4/browser/coop-2-level3/firing.png)
+![실제 황무지 중장비 조우](docs/v4/screenshots/heavy-gameplay/encounter-walker.png)
 
 ## 실행
 

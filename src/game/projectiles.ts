@@ -70,7 +70,10 @@ export function launch(
     radius: kind === "rocket" ? 105 : kind === "cannon" ? 52 : 125,
   });
   event(w, {
-    type: "sound",
+    type: kind === "mortar" ? "sound" : "shot",
+    toX: origin.x + Math.cos(angle) * 60,
+    toY: origin.y + Math.sin(angle) * 60,
+    angle,
     cue: kind === "mortar" ? "radio" : "gunfire",
     x: origin.x,
     y: origin.y,
@@ -168,7 +171,16 @@ export function tickProjectiles(w: World, dt: number) {
         q.x = q.target.x;
         q.y = q.target.y;
         explode(w, q);
-      } else keep.push(q);
+      } else {
+        const progress = Math.max(
+          0,
+          Math.min(1, (w.time - q.at) / (q.impactAt - q.at)),
+        );
+        q.x = q.origin.x + (q.target.x - q.origin.x) * progress;
+        q.y = q.origin.y + (q.target.y - q.origin.y) * progress;
+        q.traveled = q.range * progress;
+        keep.push(q);
+      }
       continue;
     }
     const step = Math.min(q.speed * dt, q.range - q.traveled),
@@ -178,13 +190,16 @@ export function tickProjectiles(w: World, dt: number) {
       contact = false;
     const actors = q.enemy
       ? w.players.filter((p) => p.connected && !p.down)
-      : w.enemies.filter((e) => e.hp > 0);
+      : [
+          ...w.enemies.filter((e) => e.hp > 0),
+          ...w.map.installations.filter((d) => d.hp > 0),
+        ];
     for (const a of actors) {
       const dx = a.x - q.x,
         dy = a.y - q.y,
         along = dx * dir.x + dy * dir.y,
         perp = Math.abs(dx * dir.y - dy * dir.x),
-        r = "kind" in a ? enemyRadius(a.kind) : 16;
+        r = "maxHp" in a ? 32 : "kind" in a ? enemyRadius(a.kind) : 16;
       if (along >= 0 && perp < r) {
         const hit = Math.max(0, along - Math.sqrt(r * r - perp * perp));
         if (hit <= travel) {

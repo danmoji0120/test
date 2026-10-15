@@ -109,6 +109,8 @@ export function spawnEnemy(
     state: "PATROL",
     stateTime: 0,
     seenAt: -100,
+    reportAt: -100,
+    reportKind: "heard",
     heardNoise: 0,
     radio: 0,
     patrol: [],

@@ -5,9 +5,6 @@
 
  RUN  v3.2.7 /workspace/doll-squad
 
- ✓ tests/terrain.test.ts (3 tests) 8909ms
-   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2157ms
-   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  6749ms
 stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
 Full input-only mission: success 47.3 seconds [
   { hp: 100, kills: 1, ammo: 282 },
@@ -16,29 +13,32 @@ Full input-only mission: success 47.3 seconds [
   { hp: 100, kills: 4, ammo: 283 }
 ]
 
- ✓ tests/game.test.ts (35 tests) 12943ms
-   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  8226ms
-   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  2167ms
-   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  1390ms
- ✓ tests/region.test.ts (3 tests) 9385ms
-   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  8579ms
-   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  726ms
- ✓ tests/network.test.ts (5 tests) 4160ms
-   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2670ms
- ✓ tests/reinforcements.test.ts (5 tests) 2274ms
-   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  1930ms
- ✓ tests/heavy-combat.test.ts (10 tests) 706ms
- ✓ tests/difficulty.test.ts (1 test) 657ms
-   ✓ scales response, composition and pressure across ten levels without health inflation  656ms
- ✓ tests/response.test.ts (9 tests) 472ms
- ✓ tests/objectives.test.ts (5 tests) 219ms
- ✓ tests/visibility.test.ts (6 tests) 192ms
- ✓ tests/perception.test.ts (5 tests) 155ms
- ✓ tests/snapshot.test.ts (1 test) 92ms
+ ✓ tests/game.test.ts (35 tests) 12846ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  8086ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  2217ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  1354ms
+ ✓ tests/region.test.ts (3 tests) 9217ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  8487ms
+   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  641ms
+ ✓ tests/terrain.test.ts (3 tests) 8808ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2174ms
+   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  6632ms
+ ✓ tests/network.test.ts (5 tests) 4104ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2669ms
+ ✓ tests/reinforcements.test.ts (5 tests) 2278ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  1943ms
+ ✓ tests/heavy-combat.test.ts (13 tests) 941ms
+ ✓ tests/difficulty.test.ts (1 test) 681ms
+   ✓ scales response, composition and pressure across ten levels without health inflation  680ms
+ ✓ tests/response.test.ts (9 tests) 504ms
+ ✓ tests/objectives.test.ts (5 tests) 234ms
+ ✓ tests/visibility.test.ts (6 tests) 201ms
+ ✓ tests/perception.test.ts (5 tests) 142ms
+ ✓ tests/snapshot.test.ts (1 test) 96ms
  ✓ tests/store.test.ts (2 tests) 3ms
 
  Test Files  13 passed (13)
-      Tests  90 passed (90)
-   Start at  14:30:07
-   Duration  42.55s (transform 273ms, setup 0ms, collect 504ms, tests 40.17s, environment 2ms, prepare 569ms)
+      Tests  93 passed (93)
+   Start at  14:51:14
+   Duration  42.56s (transform 287ms, setup 0ms, collect 633ms, tests 40.06s, environment 2ms, prepare 561ms)
 

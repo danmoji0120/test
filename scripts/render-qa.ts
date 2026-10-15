@@ -22,7 +22,8 @@ for (let i = 0; i < count; i++) {
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto(
     (process.env.QA_URL || "http://localhost:3304") +
-      "/scripts/render-benchmark.html",
+      "/scripts/render-benchmark.html" +
+      (process.env.QA_REPRESENTATIVE ? "?representative=1" : ""),
   );
   pages.push(page);
 }
@@ -39,6 +40,13 @@ for (const page of pages) {
     medianMs: a[Math.floor(a.length * 0.5)],
     p95Ms: a[Math.floor(a.length * 0.95)],
     averageMs: a.reduce((n: number, v: number) => n + v, 0) / a.length,
+    drawMs: (() => {
+      const a = result.drawCosts.sort((a: number, b: number) => a - b);
+      return {
+        mean: a.reduce((n: number, v: number) => n + v, 0) / a.length,
+        p95: a[Math.floor(a.length * 0.95)],
+      };
+    })(),
     heapMiB: await page.evaluate(
       () => (performance as any).memory?.usedJSHeapSize / 1024 / 1024,
     ),

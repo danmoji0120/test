@@ -1,0 +1,77 @@
+{
+  "method": "actual AudioEngine rendered by Chromium OfflineAudioContext; not a listening review",
+  "report": [
+    {
+      "weapon": "ar",
+      "sampleRate": 48000,
+      "peak": 0.04106077179312706,
+      "clipped": 0,
+      "attackRms": 0.007634029770195115,
+      "tailRms": 0.00015961641544688822
+    },
+    {
+      "weapon": "smg",
+      "sampleRate": 48000,
+      "peak": 0.031245825812220573,
+      "clipped": 0,
+      "attackRms": 0.0030652831122240684,
+      "tailRms": 0.000006104421974549923
+    },
+    {
+      "weapon": "sg",
+      "sampleRate": 48000,
+      "peak": 0.058970265090465546,
+      "clipped": 0,
+      "attackRms": 0.0181726804689116,
+      "tailRms": 0.002567230884604762
+    },
+    {
+      "weapon": "hmg",
+      "sampleRate": 48000,
+      "peak": 0.05711819604039192,
+      "clipped": 0,
+      "attackRms": 0.020397098190931624,
+      "tailRms": 0.004363715074567728
+    },
+    {
+      "weapon": "engine",
+      "sampleRate": 48000,
+      "peak": 0.011403682641685009,
+      "clipped": 0,
+      "attackRms": 0.004950043832550947,
+      "tailRms": 0.0035642673779064586
+    },
+    {
+      "weapon": "shell",
+      "sampleRate": 48000,
+      "peak": 0.017438415437936783,
+      "clipped": 0,
+      "attackRms": 0.0041892112534624324,
+      "tailRms": 0.00510625443020968
+    },
+    {
+      "weapon": "armor",
+      "sampleRate": 48000,
+      "peak": 0.016247330233454704,
+      "clipped": 0,
+      "attackRms": 0.0022590444486581917,
+      "tailRms": 0.00003434509901415813
+    },
+    {
+      "weapon": "explosion",
+      "sampleRate": 48000,
+      "peak": 0.059963520616292953,
+      "clipped": 0,
+      "attackRms": 0.025162642896871958,
+      "tailRms": 0.015001682834217274
+    },
+    {
+      "weapon": "maximum",
+      "sampleRate": 48000,
+      "peak": 0.018190717324614525,
+      "clipped": 0,
+      "attackRms": 0.00801079176416357,
+      "tailRms": 0.005832242383596416
+    }
+  ]
+}

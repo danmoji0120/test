@@ -206,7 +206,9 @@ try {
         observedEvents.add(e.id);
         if (!e.pellet) {
           const key =
-            e.type === "shot" ? `shot:${e.weapon ?? "enemy"}` : e.type;
+            e.type === "shot"
+              ? `shot:${e.weapon ?? (e.enemy ? "enemy" : "launcher")}`
+              : e.type;
           feedback[key] = (feedback[key] ?? 0) + 1;
         }
       }

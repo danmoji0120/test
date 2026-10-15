@@ -1,0 +1,26 @@
+[
+  {
+    "kind": "juggernaut",
+    "hp": 37,
+    "phase": "firing",
+    "projectiles": 0
+  },
+  {
+    "kind": "drone",
+    "hp": 100,
+    "phase": "spinup",
+    "projectiles": 0
+  },
+  {
+    "kind": "walker",
+    "hp": 100,
+    "phase": "firing",
+    "projectiles": 4
+  },
+  {
+    "kind": "artillery",
+    "hp": 100,
+    "phase": "overheat",
+    "projectiles": 1
+  }
+]
