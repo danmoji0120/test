@@ -91,7 +91,14 @@ export class AudioEngine {
   play(e: GameEvent, dist: number) {
     if (!this.ctx || !this.gain || dist > 1100 || e.pellet) return;
     const v = Math.max(0.025, 1 / (1 + Math.pow(dist / 380, 2)));
-    if (e.type === "shot") {
+    if (e.type === "sound") {
+      this.noiseBurst(
+        e.cue === "gunfire" ? 500 : 1200,
+        0.16,
+        0.22 * v,
+        "lowpass",
+      );
+    } else if (e.type === "shot") {
       const sg = e.weapon === "sg",
         smg = e.weapon === "smg";
       this.noiseBurst(

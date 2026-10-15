@@ -1,3 +1,4 @@
+import { visibleWorld } from "./visibility";
 import { RULES } from "../shared/rules";
 import { createServer } from "node:http";
 import { readFile } from "node:fs/promises";
@@ -109,13 +110,7 @@ function view(room: Room) {
     seed: room.seed,
     difficulty: room.difficulty,
     players: room.players.map(({ input, inputAt, ...p }) => p),
-    world: room.world
-      ? {
-          ...room.world,
-          players: room.players.map(({ input, inputAt, ...p }) => p),
-          enemies: room.world.enemies.map(({ path, home, ...e }) => e),
-        }
-      : null,
+    world: room.world ? visibleWorld(room.world) : null,
   };
 }
 function broadcast(r: Room) {

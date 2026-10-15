@@ -1,3 +1,5 @@
+import { lineOfSight } from "../game/visibility";
+import { Fog } from "./fog";
 import { RULES } from "../shared/rules";
 import {
   CHARACTERS,
@@ -30,6 +32,7 @@ interface Particle {
   size: number;
 }
 export class Renderer {
+  fog = new Fog();
   ctx: CanvasRenderingContext2D;
   width = innerWidth;
   height = innerHeight;
@@ -508,7 +511,7 @@ export class Renderer {
             ally.connected &&
             !ally.down &&
             distance(ally, e) < 950 &&
-            visible(ally, e, w.map),
+            lineOfSight(ally, e, w.map),
         )
       ) {
         g.strokeStyle = "#ff685d80";
@@ -556,7 +559,7 @@ export class Renderer {
             ally.connected &&
             !ally.down &&
             distance(ally, a) < 950 &&
-            visible(ally, a, w.map),
+            lineOfSight(ally, a, w.map),
         )
       )
         this.enemy(a, pos, t);
@@ -625,6 +628,7 @@ export class Renderer {
     }
     g.globalAlpha = 1;
     this.particles = this.particles.filter((q) => q.life > 0);
+    this.fog.draw(g, w, this.camera, halfW, halfH);
     g.restore();
     // A restrained vignette leaves targets readable at screen edges.
     const shade = g.createRadialGradient(
@@ -901,6 +905,7 @@ export class Renderer {
       g.arc(p.x, p.y, 35, 0, TAU);
       g.fill();
     }
+    this.fog.minimap(g, w);
     g.restore();
   }
   cursor(p: Player, dt: number) {

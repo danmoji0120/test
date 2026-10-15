@@ -1,3 +1,4 @@
+import { initialVision, updateVision } from "./visibility";
 import { RULES } from "../shared/rules";
 import {
   CHARACTERS,
@@ -126,6 +127,7 @@ export function createWorld(
     eventId: 0,
     time: 0,
     random: seed >>> 0,
+    visibility: initialVision(map),
   };
   w.mission.encounters = map.route.slice(1, 10).map((zone, index) => ({
     zone,
@@ -137,6 +139,7 @@ export function createWorld(
   // Front guards are live from insertion; later fights wake when the squad approaches.
   spawnEncounter(w, map.route[1], 0, players.length);
   w.mission.encounters[0].spawned = true;
+  updateVision(w, true);
   return w;
 }
 export function spawnEncounter(
@@ -704,5 +707,6 @@ export function tick(w: World, dt: number, hard = false) {
 
   if (["success", "failed"].includes(m.stage)) return;
   enemyAI(w, dt, hard ? 1.4 : 1);
+  updateVision(w);
   if (m.elapsed > RULES.timeLimit) finish(w, false, "작전 시간 14분 초과");
 }

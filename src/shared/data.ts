@@ -138,7 +138,8 @@ export interface Vec {
 export interface Rect extends Vec {
   w: number;
   h: number;
-  kind: "wall" | "crate" | "container";
+  kind: "wall" | "crate" | "container" | "door";
+  open?: boolean;
 }
 export interface Input {
   dx: number;
@@ -264,7 +265,9 @@ export interface GameEvent extends Vec {
     | "alarm"
     | "explode"
     | "revive"
-    | "supply";
+    | "supply"
+    | "sound";
+  cue?: "gunfire" | "radio" | "steps" | "engine";
   toX?: number;
   toY?: number;
   weapon?: WeaponId;
@@ -299,6 +302,7 @@ export interface World {
   eventId: number;
   time: number;
   random: number;
+  visibility: import("../game/visibility").Vision;
 }
 export interface RoomView {
   code: string;
