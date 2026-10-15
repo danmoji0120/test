@@ -19,3 +19,15 @@ Existing build and 93 tests pass (41.76s). `baseline/combat.json` contains 252 c
 ## Current status
 
 Implementation in progress. Phase results, limitations and final commit/push status will be updated after verification.
+
+## Integrated equipment / armor / consumable / aim checkpoint
+
+Server/client now use four primary choices, fixed P-01 secondary and one of four consumables. Flat equipped-gun HUD values mirror independent authoritative gun states; legacy G requests are ignored. Version1/2 profile restore, AT-primary exclusivity, stale/forged ammo rejection, independent magazines, reload cancellation and reconnect are covered by unit/live-WebSocket tests. New save format2 retains prior unlocks/mods/credits/metadata/settled history.
+
+AP<AV=0/AP=AV=.65/AP>AV=1 is centralized. Every pellet and explosion routes through the same resolver. Exposed circles protrude from the hull; nearest contact prevents frontal rays reaching the rear through armor. Core/weapon component damage contributes to main HP once, independently of the component health clamp. Walker rear AT hit404.7/650=62.3% destroys drive; the burned core remains attackable but rifles need many more than three follow-up hits. Weapon destruction disables cannon/artillery; core damage slows heavy movement and reduces juggernaut bursts. Generator frontal AV3/shield and rear AV0 core have real contact geometry, no added HP gate. Ricochet attacks also alert existing local guards using facility coordinates, not invisible attacker coordinates.
+
+Frag/antiarmor/smoke travel and stop on physical collision. Smoke blocks both teams' server LOS and shared fog, never bullets. Medical has1.2s preparation; button-edge latch prevents held-input repeat. Finite boxes replenish only owned primary/secondary reserves and one chosen consumable up to maxima; no extra rocket inventory. Sprint/interact/down/disconnect cancels preparation. Supplies retain original finite map state.
+
+Aim controller uses only consecutive visually confirmed positions for velocity; no player input or unseen lookup. Bounded independent turret/body turn, imperfect lead, recoil/spread and actual world bullets remain. Assault/suppress/flank/intercept/guard choose physically reachable roles; guards stay near home facilities. Duplicate heavy aim updates were found and removed; turn bound has a regression test.
+
+Build passes. Full checkpoint108 tests pass (45.62s), then37 focused tests pass including the final heavy turn bound. Actual lobby capture exposed a below-fold equipment selection; primary cards now form2×2 so three slots remain together. First live solo failures are preserved rather than called successes. Same-harness V4 reference is extracted from54709a6 outside the worktree; no destructive checkout. Controlled difficulty10 movement results before→after: three-enemy strafe14.0%→42.8% hit rate, circle28.1%→46.4%; single rapid reversals44.4%→33.3%; cover0→0. These are fixtures, not human balance approval; final measurements follow subsequent tuning.

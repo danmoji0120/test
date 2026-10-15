@@ -27,7 +27,7 @@ export const WEAPONS = {
     name: "AR-01",
     label: "돌격소총",
     role: "안정적인 중거리 교전",
-    damage: 34,
+    damage: 30,
     rate: 0.12,
     mag: 30,
     reserve: 240,
@@ -36,7 +36,10 @@ export const WEAPONS = {
     moving: 0.027,
     recoil: 0.016,
     range: 700,
-    penetration: 0.72,
+    penetration: 2,
+    durableDamage: 10,
+    equip: 0.24,
+    speed: 1,
     pellets: 1,
     sound: 140,
     color: "#7de4d5",
@@ -47,7 +50,7 @@ export const WEAPONS = {
     name: "SMG-02",
     label: "기관단총",
     role: "빠른 기동 · 근거리 제압",
-    damage: 24,
+    damage: 22,
     rate: 0.06,
     mag: 40,
     reserve: 320,
@@ -56,7 +59,10 @@ export const WEAPONS = {
     moving: 0.009,
     recoil: 0.006,
     range: 430,
-    penetration: 0.4,
+    penetration: 2,
+    durableDamage: 5,
+    equip: 0.16,
+    speed: 1.04,
     pellets: 1,
     sound: 230,
     color: "#bcb2fa",
@@ -76,14 +82,44 @@ export const WEAPONS = {
     moving: 0.03,
     recoil: 0.06,
     range: 340,
-    penetration: 0.55,
+    penetration: 2,
+    durableDamage: 3,
+    equip: 0.28,
+    speed: 1,
     pellets: 10,
     sound: 70,
     color: "#f6c779",
     price: 220,
   },
+  at: {
+    id: "at", name: "AT-01", label: "대전차 발사기", role: "장갑 관통 · 주무장 점유 / 보병은 권총으로",
+    damage: 480, durableDamage: 420, penetration: 5, rate: 0.85, mag: 1, reserve: 3,
+    reload: 3.4, spread: 0.018, moving: 0.1, recoil: 0.085, range: 1050, pellets: 1,
+    sound: 50, color: "#f5a768", price: 0, equip: 0.65, speed: 0.94,
+  },
+  pistol: {
+    id: "pistol", name: "P-01", label: "권총", role: "비상 보병 대응 · 낮은 지속 화력",
+    damage: 23, durableDamage: 4, penetration: 1, rate: 0.25, mag: 12, reserve: 84,
+    reload: 1.15, spread: 0.025, moving: 0.04, recoil: 0.014, range: 360, pellets: 1,
+    sound: 180, color: "#a8d6d9", price: 0, equip: 0.16, speed: 1.03,
+  },
 } as const;
 export type WeaponId = keyof typeof WEAPONS;
+export type PrimaryId = Exclude<WeaponId, "pistol">;
+export const PRIMARY_IDS: PrimaryId[] = ["ar", "smg", "sg", "at"];
+export const CONSUMABLES = {
+  frag: {name:"파편 수류탄",role:"보병 다수 제압",max:3,prepare:0.3,cooldown:0.8,range:430,radius:130,damage:145,durableDamage:18,penetration:1,duration:0},
+  antiarmor: {name:"대전차 수류탄",role:"접근 위험 · 장갑 약점 타격",max:2,prepare:0.5,cooldown:1,range:235,radius:75,damage:320,durableDamage:300,penetration:4,duration:0},
+  smoke: {name:"연막탄",role:"양측 관측 차단 · 총탄 통과",max:2,prepare:0.3,cooldown:1,range:410,radius:145,damage:0,durableDamage:0,penetration:0,duration:14},
+  medical: {name:"의료품",role:"1.2초 사용 · 체력 +65",max:2,prepare:1.2,cooldown:2,range:0,radius:0,damage:0,durableDamage:0,penetration:0,duration:0},
+} as const;
+export type ConsumableId = keyof typeof CONSUMABLES;
+export interface Loadout {primary:PrimaryId;secondary:"pistol";consumable:ConsumableId}
+export interface GunState {id:WeaponId;ammo:number;reserve:number;reload:number;cooldown:number;recoil:number}
+export interface ComponentState {hp:number;maxHp:number;destroyed:boolean}
+export type PartId = "body"|"head"|"front"|"side"|"core"|"weapon"|"shield";
+export type HitQuality = "ricochet"|"partial"|"penetration"|"weakpoint"|"component";
+
 export const MODS = {
   none: { name: "기본 사양", price: 0, description: "균형 잡힌 기본 세팅" },
   stabilizer: {
@@ -194,7 +230,10 @@ export interface Input {
   reload: boolean;
   interact: boolean;
   revive: boolean;
-  tactical?: boolean;
+  tactical?: boolean; // Legacy input is ignored.
+  slot?: 1 | 2 | 3;
+  targetX?: number;
+  targetY?: number;
 }
 export const emptyInput = (): Input => ({
   dx: 0,
@@ -216,6 +255,8 @@ export interface Profile {
   wins: number;
   kills: number;
   settled: string[];
+  loadout?: Loadout;
+  schema?: 2;
 }
 export interface Player extends Vec {
   id: string;
@@ -239,12 +280,28 @@ export interface Player extends Vec {
   moving: boolean;
   input: Input;
   inputAt: number;
-  tactical: "launcher" | "ammo";
-  rockets: number;
-  tacticalCooldown: number;
+  primary: PrimaryId;
+  secondary: "pistol";
+  consumable: ConsumableId;
+  guns: { primary: GunState; secondary: GunState };
+  activeSlot: 1 | 2 | 3;
+  switching: number;
+  consumableCount: number;
+  useTime: number;
+  useCooldown: number;
+  fireHeld: boolean;
+  useTarget: Vec | null;
+  // Read-only legacy save compatibility; not an extra equipment slot.
+  tactical?: "launcher" | "ammo";
+  rockets?: number;
+  tacticalCooldown?: number;
 }
 export interface Enemy extends Vec {
   elite?: boolean;
+  components?: Partial<Record<PartId, ComponentState>>;
+  turretAngle?: number;
+  aimControl?: {point:Vec;velocity:Vec;at:number;target:string;acquired:number;error:number};
+  assignment?: "assault"|"suppress"|"flank"|"intercept"|"guard";
   phase?: "ready" | "spinup" | "firing" | "overheat";
   attackPoint?: Vec | null;
   strategicAt?: number;
@@ -300,7 +357,9 @@ export interface Device extends Vec {
   hp: number;
   maxHp: number;
 }
+export interface Smoke extends Vec {id:string;radius:number;until:number}
 export interface GameMap {
+  smokes?: Smoke[];
   width: number;
   height: number;
   obstacles: Rect[];
@@ -350,6 +409,9 @@ export interface GameEvent extends Vec {
   heavy?: boolean;
   armored?: boolean;
   angle?: number;
+  quality?: HitQuality;
+  part?: PartId;
+  target?: string;
 }
 export interface Objective {
   id: string;
@@ -457,6 +519,9 @@ export interface Installation extends Vec {
   maxHp: number;
   sourceId?: string;
   discovered: boolean;
+  angle?: number;
+  components?: Partial<Record<PartId, ComponentState>>;
+  attackedAt?: number;
 }
 export interface Road {
   id: string;
@@ -536,7 +601,11 @@ export interface Trajectory {
 export interface Projectile extends Vec {
   shell?: Vec & { height: number };
   id: string;
-  kind: "rocket" | "cannon" | "mortar";
+  kind: "rocket" | "cannon" | "mortar" | "frag" | "antiarmor" | "smoke";
+  directTarget?: string;
+  directPart?: PartId;
+  durableDamage?: number;
+  penetration?: number;
   owner: string;
   enemy: boolean;
   origin: Vec;

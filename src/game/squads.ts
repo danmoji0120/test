@@ -1,3 +1,4 @@
+import {updateAim,firingAngle} from "./aim-controller";
 import { strategicAI } from "./strategic";
 import { special } from "./armor";
 import { heavyAI } from "./heavy-ai";
@@ -46,6 +47,7 @@ export function enemyAI(w: World, dt: number) {
     if (e.traveling) continue;
     if (strategicAI(w, e, dt)) continue;
     const target = perceive(w, e, live, dt);
+    const acquired=special(e.kind)?false:updateAim(w,e,target,dt);
     const squad = w.squads[e.squad];
     if (
       target &&
@@ -70,14 +72,16 @@ export function enemyAI(w: World, dt: number) {
     }
     if (e.windup > 0) {
       e.windup -= dt;
+      if(e.windup<=0&&target&&!acquired)e.windup=dt;
       if (e.windup <= 0) {
-        let len = wallDistance(e, e.angle, spec.range, w.map);
+        const shotAngle=firingAngle(w,e);
+        let len = wallDistance(e, shotAngle, spec.range, w.map);
         let victim: Player | undefined;
         for (const p of live) {
           const dx = p.x - e.x,
             dy = p.y - e.y,
-            along = dx * Math.cos(e.angle) + dy * Math.sin(e.angle),
-            perp = Math.abs(dx * Math.sin(e.angle) - dy * Math.cos(e.angle));
+            along = dx * Math.cos(shotAngle) + dy * Math.sin(shotAngle),
+            perp = Math.abs(dx * Math.sin(shotAngle) - dy * Math.cos(shotAngle));
           if (along > 0 && along < len && perp < 17) {
             len = along;
             victim = p;
@@ -88,8 +92,8 @@ export function enemyAI(w: World, dt: number) {
           type: "shot",
           x: e.x,
           y: e.y,
-          toX: e.x + Math.cos(e.angle) * len,
-          toY: e.y + Math.sin(e.angle) * len,
+          toX: e.x + Math.cos(shotAngle) * len,
+          toY: e.y + Math.sin(shotAngle) * len,
           enemy: true,
         });
         if ((e.kind === "heavy" || e.kind === "rifle") && e.burst < 2) {
@@ -104,13 +108,11 @@ export function enemyAI(w: World, dt: number) {
     }
     const inRange = target && distance(e, target) < spec.range;
     if (inRange && e.cooldown <= 0 && e.windup <= 0) {
-      e.angle =
-        Math.atan2(target.y - e.y, target.x - e.x) +
-        (random(w) - 0.5) * (e.elite ? 0.11 : 0.16);
       e.windup = spec.windup * config.reaction * (e.elite ? 0.8 : 1);
       // Lock the firing direction before locomotion can turn the sprite.
       if (e.kind === "heavy") continue;
     }
+    e.assignment??=e.kind==="heavy"?"suppress":e.role==="flank"?(Number(e.id.slice(1))%2?"flank":"intercept"):w.map.installations.some(d=>d.hp>0&&distance(e.home,d)<420)&&Number(e.id.slice(1))%3===0?"guard":"assault";
     let goal: Vec | undefined;
     if (e.memory > 0 && e.lastSeen) {
       goal = { ...e.lastSeen };
@@ -201,6 +203,14 @@ export function enemyAI(w: World, dt: number) {
         transition(e, "REGROUP");
         goal = { x: buddy.x, y: buddy.y };
       }
+    }
+    if(goal&&e.lastSeen&&e.memory>0){
+      if(e.assignment==="guard"&&distance(goal,e.home)>280)goal={...e.home};
+      else if(e.assignment==="intercept"&&squad?.confidence==="seen"&&w.time-squad.observedAt<3){
+        const v=squad.direction,speed=Math.hypot(v.x,v.y),scale=Math.min(1,240/Math.max(1,speed));
+        const intercept={x:e.lastSeen.x+v.x*scale*.9,y:e.lastSeen.y+v.y*scale*.9};
+        if(!blocked(intercept,w.map.obstacles,22))goal=intercept;
+      }else if(e.assignment==="suppress"&&target&&distance(e,target)>250&&distance(e,target)<spec.range*.9&&!w.map.obstacles.some(o=>distance(e,{x:o.x+o.w/2,y:o.y+o.h/2})<430))goal={x:e.x,y:e.y};
     }
     if (goal && e.repath <= 0) {
       e.path = distance(e, goal) < 30 ? [] : findPath(e, goal, w.map, 19);

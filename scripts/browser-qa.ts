@@ -84,7 +84,17 @@ if (process.env.QA_DIFFICULTY) {
 if (process.env.QA_CONTRACT)
   await pages[0].selectOption("#contract", process.env.QA_CONTRACT);
 if (process.env.QA_PREPARED === "1")
-  for (const page of pages) await page.selectOption("#tactical", "launcher");
+  for (const page of pages) await page.click('[data-weapon="at"]');
+if(process.env.QA_LOADOUTS){
+  const selections=process.env.QA_LOADOUTS.split(",");
+  for(let i=0;i<pages.length;i++){
+    const [primary,consumable]=(selections[i%selections.length]).split("/");
+    await pages[i].click(`[data-weapon="${primary}"]`);await pages[i].waitForTimeout(200);
+    if(primary==="sg")await pages[i].click('[data-weapon="sg"]');
+    if(consumable)await pages[i].selectOption("#consumable",consumable);
+    await pages[i].waitForTimeout(150);
+  }
+}
 for (const page of pages) await page.click('[data-action="ready"]');
 await pages[0].screenshot({
   path: `${output}/squad-4.png`,

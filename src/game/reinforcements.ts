@@ -427,6 +427,7 @@ export function tickReinforcements(w: World, dt: number) {
         e.home = { ...r.target };
         e.memory = 0;
         e.role = r.task === "block" ? "anchor" : e.role;
+        e.assignment=r.task==="defend"?"guard":r.task==="block"?"intercept":e.kind==="heavy"||e.kind==="juggernaut"?"suppress":e.role==="flank"?"flank":"assault";
         trace(w, e, r);
       }
       if (

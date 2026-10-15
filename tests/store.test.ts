@@ -31,7 +31,7 @@ it("recovers a damaged primary save from a valid backup", () => {
     expect(restored.get(p.token).token).toBe(p.token);
     expect(
       JSON.parse(readFileSync(join(dir, "profiles.json.bak"), "utf8")).version,
-    ).toBe(1);
+    ).toBe(2);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

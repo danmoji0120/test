@@ -1,0 +1,11 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/heavy-combat.test.ts (13 tests) 835ms
+ ✓ tests/response.test.ts (9 tests) 426ms
+ ✓ tests/combat-system.test.ts (15 tests) 340ms
+
+ Test Files  3 passed (3)
+      Tests  37 passed (37)
+   Start at  18:01:15
+   Duration  2.51s (transform 315ms, setup 0ms, collect 422ms, tests 1.60s, environment 0ms, prepare 173ms)

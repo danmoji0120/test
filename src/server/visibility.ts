@@ -44,7 +44,7 @@ export function visibleWorld(w: World) {
   });
   for (const d of w.map.installations)
     if (d.kind === "generator" || squadSees(w, d))
-      k.fac.set(d.id, { ...d, discovered: true });
+      k.fac.set(d.id, { ...d, components:d.components?structuredClone(d.components):undefined, discovered: true });
   for (const s of w.map.sources)
     if (squadSees(w, s.entry))
       k.sources.set(s.id, {
@@ -223,7 +223,7 @@ export function visibleWorld(w: World) {
     enemies: w.enemies
       .filter((e) => e.hp > 0 && squadSees(w, e))
       .map(
-        ({ id, kind, x, y, hp, angle, windup, hurt, state, elite, phase }) => ({
+        ({ id, kind, x, y, hp, angle, turretAngle, components, windup, hurt, state, elite, phase }) => ({
           id,
           kind,
           elite,
@@ -232,6 +232,7 @@ export function visibleWorld(w: World) {
           y,
           hp,
           angle,
+          turretAngle,components,
           windup,
           hurt,
           state,

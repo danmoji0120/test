@@ -1,3 +1,5 @@
+import {updateAim,firingAngle,turn} from "./aim-controller";
+import {destroyed} from "./armor";
 import {
   ENEMIES,
   type World,
@@ -20,14 +22,18 @@ export function heavyAI(
   const spec = ENEMIES[e.kind],
     radius = enemyRadius(e.kind),
     r = target ? distance(e, target) : Infinity;
+  const acquired=updateAim(w,e,target,dt);
+  const disabled=destroyed(e,"weapon");
+  if(disabled){e.windup=0;e.burst=0;e.phase="overheat";e.cooldown=Math.max(e.cooldown,.5);}
   if (e.windup > 0) {
     e.windup -= dt;
     if (e.windup <= 0) {
       e.phase = "firing";
+      const shotAngle=firingAngle(w,e);
       if (e.kind === "walker") {
         const point = {
-          x: e.x + Math.cos(e.angle) * spec.range,
-          y: e.y + Math.sin(e.angle) * spec.range,
+          x: e.x + Math.cos(shotAngle) * spec.range,
+          y: e.y + Math.sin(shotAngle) * spec.range,
         };
         launch(w, e, point, "cannon", e.id, true);
       } else if (e.kind === "artillery" && e.attackPoint) {
@@ -39,8 +45,8 @@ export function heavyAI(
         for (const p of w.players.filter((p) => p.connected && !p.down)) {
           const dx = p.x - e.x,
             dy = p.y - e.y,
-            along = dx * Math.cos(e.angle) + dy * Math.sin(e.angle),
-            perp = Math.abs(dx * Math.sin(e.angle) - dy * Math.cos(e.angle));
+            along = dx * Math.cos(shotAngle) + dy * Math.sin(shotAngle),
+            perp = Math.abs(dx * Math.sin(shotAngle) - dy * Math.cos(shotAngle));
           if (along > 0 && along < len && perp < 17) {
             len = along;
             victim = p;
@@ -51,17 +57,17 @@ export function heavyAI(
           type: "shot",
           x: e.x,
           y: e.y,
-          toX: e.x + Math.cos(e.angle) * len,
-          toY: e.y + Math.sin(e.angle) * len,
+          toX: e.x + Math.cos(shotAngle) * len,
+          toY: e.y + Math.sin(shotAngle) * len,
           enemy: true,
           kind: e.kind,
           heavy: e.kind === "juggernaut",
-          angle: e.angle,
+          angle: shotAngle,
         });
       }
       const shots =
         e.kind === "juggernaut"
-          ? 14
+          ? destroyed(e,"core")?6:14
           : e.kind === "walker"
             ? 5
             : e.kind === "drone"
@@ -76,7 +82,7 @@ export function heavyAI(
         e.phase = "overheat";
       }
     }
-    if (e.kind !== "drone") return;
+    if (e.kind !== "drone"&&e.windup>0) return;
   }
   const observation = e.lastSeen && e.memory > 0 ? e.lastSeen : null;
   const canFire =
@@ -86,12 +92,10 @@ export function heavyAI(
         observation &&
         distance(e, observation) > 380 &&
         distance(e, observation) < spec.range
-      : target && r < spec.range;
-  if (canFire && e.cooldown <= 0 && e.windup <= 0) {
+      : target && acquired && r < spec.range;
+  if (!disabled&&canFire && e.cooldown <= 0 && e.windup <= 0) {
     const point = e.kind === "artillery" ? observation! : target!;
-    e.angle =
-      Math.atan2(point.y - e.y, point.x - e.x) +
-      (random(w) - 0.5) * (e.kind === "juggernaut" ? 0.08 : 0.035);
+    if(e.kind==="artillery")e.turretAngle=Math.atan2(point.y-e.y,point.x-e.x);
     e.attackPoint = { x: point.x, y: point.y };
     e.windup =
       spec.windup *
@@ -150,8 +154,8 @@ export function heavyAI(
   const point = e.path[0];
   if (!point) return;
   const d = distance(e, point),
-    step = Math.min(d, spec.speed * dt * (observation ? 1 : 0.55));
-  if (!target) e.angle = Math.atan2(point.y - e.y, point.x - e.x);
+    step = Math.min(d, spec.speed * dt * (observation ? 1 : 0.55)*(destroyed(e,"core")?.4:1));
+  if (!target) e.angle = turn(e.angle,Math.atan2(point.y-e.y,point.x-e.x),dt*(e.kind==="walker"?.8:2.5));
   move(
     e,
     ((point.x - e.x) / d) * step,

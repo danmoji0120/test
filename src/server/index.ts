@@ -1,3 +1,4 @@
+import {validateLoadout,isPrimary,migrateLoadout} from "../shared/loadout";
 import {
   timerSample,
   tickSample,
@@ -174,7 +175,9 @@ function cleanInput(data: Record<string, unknown>): Input {
     reload: data.reload === true,
     interact: data.interact === true,
     revive: data.revive === true,
-    tactical: data.tactical === true,
+    slot: data.slot===1||data.slot===2||data.slot===3?data.slot:undefined,
+    targetX: typeof data.targetX==="number"&&Number.isFinite(data.targetX)?Math.max(0,Math.min(6400,data.targetX)):undefined,
+    targetY: typeof data.targetY==="number"&&Number.isFinite(data.targetY)?Math.max(0,Math.min(4200,data.targetY)):undefined,
   };
 }
 wss.on("connection", (ws) => {
@@ -304,10 +307,12 @@ wss.on("connection", (ws) => {
         );
         if (Object.hasOwn(CHARACTERS, String(m.character)))
           p.character = m.character;
-        if (c.profile.unlocks.includes(m.weapon)) p.weapon = m.weapon;
+        const selection=m.loadout?validateLoadout(m.loadout,c.profile):migrateLoadout({weapon:m.weapon??c.profile.loadout?.primary,consumable:c.profile.loadout?.consumable},c.profile.unlocks);
+        if(!selection){error(c,"유효하지 않거나 해금되지 않은 장비입니다.");return;}
+        p.weapon=selection.primary;p.primary=selection.primary;p.secondary=selection.secondary;p.consumable=selection.consumable;
+        c.profile.loadout=selection;store.save();
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;
-        if (m.tactical === "launcher" || m.tactical === "ammo")
-          p.tactical = m.tactical;
+
         r.players.push(p);
         if (!r.players.some((v) => v.id === r.host && v.connected))
           r.host = c.id;
@@ -322,10 +327,12 @@ wss.on("connection", (ws) => {
       if (m.type === "loadout" && r.phase === "lobby") {
         if (Object.hasOwn(CHARACTERS, String(m.character)))
           p.character = m.character;
-        if (c.profile.unlocks.includes(m.weapon)) p.weapon = m.weapon;
+        const selection=m.loadout?validateLoadout(m.loadout,c.profile):migrateLoadout({weapon:m.weapon??c.profile.loadout?.primary,consumable:c.profile.loadout?.consumable},c.profile.unlocks);
+        if(!selection){error(c,"유효하지 않거나 해금되지 않은 장비입니다.");return;}
+        p.weapon=selection.primary;p.primary=selection.primary;p.secondary=selection.secondary;p.consumable=selection.consumable;
+        c.profile.loadout=selection;store.save();
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;
-        if (m.tactical === "launcher" || m.tactical === "ammo")
-          p.tactical = m.tactical;
+
         p.ready = false;
       }
       if (m.type === "ready" && r.phase === "lobby") p.ready = !p.ready;

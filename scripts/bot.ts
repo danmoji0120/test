@@ -1,4 +1,4 @@
-import { armored, armorMultiplier } from "../src/game/armor";
+import { hitRegions, worldPoint, rayHit, armored, armorMultiplier } from "../src/game/armor";
 import {
   WEAPONS,
   ENEMIES,
@@ -41,6 +41,7 @@ export class Pilot {
     const sample = Math.min(0.6, Math.max(0.1, w.time - this.lastObservation));
     this.lastObservation = w.time;
     const input = emptyInput();
+    input.slot=1;
     if (p.down) return input;
     const m = w.mission,
       x = m.extraction;
@@ -105,9 +106,7 @@ export class Pilot {
         (e) =>
           e.hp > 0 &&
           distance(p, e) <
-            (armored(e.kind) && p.rockets > 0
-              ? 950
-              : WEAPONS[p.weapon].range * 0.95) &&
+            (p.primary==="at"?(armored(e.kind)?950:WEAPONS.pistol.range*.95):WEAPONS[p.primary??p.weapon].range*.95) &&
           (!this.avoidArmor || !armored(e.kind) || distance(p, e) < 240) &&
           visible(p, e, w.map),
       )
@@ -136,8 +135,8 @@ export class Pilot {
     if (
       target &&
       armored(target.kind) &&
-      p.rockets > 0 &&
-      p.tacticalCooldown <= 0 &&
+      (p.rockets ?? 0) > 0 &&
+      (p.tacticalCooldown ?? 0) <= 0 &&
       distance(p, target) > 140
     ) {
       input.tactical = true;
@@ -170,7 +169,7 @@ export class Pilot {
       target &&
       armored(target.kind) &&
       !this.reckless &&
-      p.rockets <= 0 &&
+      (p.rockets ?? 0) <= 0 &&
       armorMultiplier(target, p) < 0.3 &&
       distance(p, target) < 650 &&
       !down
@@ -184,7 +183,7 @@ export class Pilot {
       if (!blocked(flank, w.map.obstacles, 20)) goal = flank;
     }
     if (this.destination && !fallen) goal = this.destination;
-    const stop =
+    const stop =this.destination?35:
       goal === supply || objective?.kind === "intel"
         ? 65
         : !objective || m.stage === "extract"
@@ -309,7 +308,35 @@ export class Pilot {
       input.fire = false;
       input.tactical = false;
     }
-    if (input.tactical) input.sprint = false;
+    // V4.1 pilot chooses legal slot actions using only public visible targets.
+    input.tactical=false;
+    if(p.primary==="at"&&target&&!armored(target.kind))input.slot=2;
+    if(device&&!target&&!this.reckless){
+      const core=hitRegions(device).find(r=>r.id==="core");
+      if(core){
+        const weak=worldPoint(device,core),a=device.angle??0;
+        const contact=rayHit(device,p,Math.atan2(weak.y-p.y,weak.x-p.x),distance(p,weak)+60);
+        input.angle=Math.atan2(weak.y-p.y,weak.x-p.x);
+        if(contact&&contact.region.av>WEAPONS[p.weapon].penetration){
+          // Next observation routes toward an exposed rear approach, not through armored frontal fire.
+          const rear={x:device.x-Math.cos(a)*135,y:device.y-Math.sin(a)*135};
+          if(!blocked(rear,w.map.obstacles,20)){this.destination=rear;input.fire=false;}
+        }else{this.destination=null;input.fire=distance(p,device)<WEAPONS[p.weapon].range*.8;}
+      }
+    }else if(!this.avoidArmor)this.destination=null;
+    if(target&&armored(target.kind)&&p.primary!=="at"&&p.consumable==="antiarmor"&&p.consumableCount>0&&distance(p,target)<230&&!this.reckless){
+      const core=hitRegions(target).find(r=>r.id==="core"),point=core?worldPoint(target,core):target;
+      input.slot=3;input.targetX=point.x;input.targetY=point.y;input.sprint=false;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);
+    }else if(target&&p.consumable==="smoke"&&p.consumableCount>0&&p.hp<65&&!this.reckless){
+      input.slot=3;input.targetX=(target.x+p.x)/2;input.targetY=(target.y+p.y)/2;input.sprint=false;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);
+    }else if(target&&p.consumable==="frag"&&p.consumableCount>0&&distance(p,target)<400&&w.enemies.filter(e=>distance(e,target)<150).length>=2&&!this.reckless){
+      input.slot=3;input.targetX=target.x;input.targetY=target.y;input.sprint=false;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);
+    }else if(p.hp<48&&p.consumable==="medical"&&p.consumableCount>0&&!this.reckless){
+      input.slot=3;input.fire=p.activeSlot===3&&p.switching<=0&&(!p.fireHeld||p.useTime>0);input.sprint=false;
+    }
+    if(input.slot!==p.activeSlot||p.switching>0)input.fire=false;
+    if(p.useTime>0){input.slot=3;input.fire=true;input.sprint=false;}
+
     return input;
   }
 }

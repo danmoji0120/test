@@ -36,6 +36,13 @@ export function sightDistance(
       o.y + o.h >= minY
     )
       length = Math.min(length, rayRect(p, dir, o, max));
+  for(const smoke of map.smokes??[]){
+    const x=smoke.x-p.x,y=smoke.y-p.y,along=x*dir.x+y*dir.y,perp=Math.abs(x*dir.y-y*dir.x);
+    if(perp<smoke.radius&&along+Math.sqrt(smoke.radius**2-perp**2)>0){
+      const entry=along-Math.sqrt(smoke.radius**2-perp**2);
+      length=Math.min(length,Math.max(32,entry));
+    }
+  }
   return length;
 }
 export function lineOfSight(a: Vec, b: Vec, map: GameMap, range = Infinity) {
@@ -54,6 +61,10 @@ export function visionPolygon(
     { length: 128 },
     (_, i) => (i * Math.PI * 2) / 128,
   );
+  for(const smoke of map.smokes??[])for(let i=0;i<32;i++){
+    const v={x:smoke.x+Math.cos(i*Math.PI/16)*smoke.radius,y:smoke.y+Math.sin(i*Math.PI/16)*smoke.radius};
+    angles.push(Math.atan2(v.y-p.y,v.x-p.x));
+  }
   for (const o of map.obstacles) {
     if (
       !occludes(o) ||

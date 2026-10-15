@@ -3,6 +3,7 @@ import { difficulty } from "../shared/difficulty";
 import { unpackRoom } from "../shared/snapshot";
 import "./style.css";
 import {
+  PRIMARY_IDS, CONSUMABLES, type ConsumableId,
   CHARACTERS,
   WEAPONS,
   MODS,
@@ -29,7 +30,8 @@ let socket: WebSocket,
   character: CharacterId = "aria",
   weapon: WeaponId = "ar",
   mod: ModId = "none",
-  tactical: "launcher" | "ammo" = "ammo",
+  consumable: ConsumableId = "antiarmor",
+  selectedSlot: 1|2|3 = 1,
   connected = false,
   menu = false,
   help = false,
@@ -87,6 +89,7 @@ function connect() {
     if (m.type === "hello") {
       id = m.id;
       profile = m.profile;
+      weapon=profile?.loadout?.primary??"ar";consumable=profile?.loadout?.consumable??"antiarmor";
       save("doll-token", profile!.token);
       connected = true;
       retry = 0;
@@ -104,9 +107,9 @@ function connect() {
       const me = room?.players.find((p) => p.id === id);
       if (me) {
         character = me.character;
-        weapon = me.weapon;
+        weapon = me.primary ?? me.weapon;
         mod = me.mod;
-        tactical = me.tactical || "ammo";
+        consumable = me.consumable || "antiarmor";
       }
       render();
     }
@@ -134,7 +137,7 @@ function connect() {
   socket.onerror = () => {};
 }
 function logo() {
-  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>TOTAL WARFARE / V4</small></span></a>`;
+  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>COMBAT REWORK / V4.1</small></span></a>`;
 }
 function header() {
   return `<header>${logo()}<nav><span class="nav-active">작전 준비</span><button data-action="help" class="text-button">필드 가이드 <span>↗</span></button></nav><div class="account"><span class="connection ${connected ? "online" : ""}">${connected ? "서버 연결됨" : "재연결 중"}</span><span class="credits">◈ <b>${profile?.credits ?? "—"}</b><small> CR</small></span></div></header>`;
@@ -147,18 +150,18 @@ function briefing() {
     .join(
       "",
     )}<circle cx="${map.spawn.x}" cy="${map.spawn.y}" r="100" fill="#80d9c5"/>${map.extractions.map((p) => `<circle cx="${p.x}" cy="${p.y}" r="85" fill="none" stroke="#80d9c5" stroke-width="25"/>`).join("")}</svg>`;
-  return `<div class="brief-map">${plan}<span>${map.seed} / 위성 개요 · 황무지 정찰 미완료</span></div><div class="brief-body"><div class="eyebrow">BARREN FRONTIER <span class="tag">1–4인 협동</span></div><h2>BLACKOUT<span class="pink">.</span></h2><p>발전기 두 기. 진입 방향과 파괴 순서는 자유.<br>교전을 피하거나 통신·출동 능력부터 끊으세요.</p><div class="mission-steps"><span><b>01</b> 자유 정찰</span><span><b>02</b> 발전기 2기</span><span><b>03</b> 수송 요청</span></div><div class="brief-meta"><span>전멸 조건 없음</span><span>장갑 후면 취약 · G 대장갑</span></div></div>`;
+  return `<div class="brief-map">${plan}<span>${map.seed} / 위성 개요 · 황무지 정찰 미완료</span></div><div class="brief-body"><div class="eyebrow">BARREN FRONTIER <span class="tag">1–4인 협동</span></div><h2>BLACKOUT<span class="pink">.</span></h2><p>발전기 두 기. 진입 방향과 파괴 순서는 자유.<br>교전을 피하거나 통신·출동 능력부터 끊으세요.</p><div class="mission-steps"><span><b>01</b> 자유 정찰</span><span><b>02</b> 발전기 2기</span><span><b>03</b> 수송 요청</span></div><div class="brief-meta"><span>전멸 조건 없음</span><span>실제 부위 약점 · AP/AV 관통</span></div></div>`;
 }
 function lobby() {
   const c = CHARACTERS[character],
     me = room?.players.find((p) => p.id === id);
   return `${header()}<main class="lobby"><div class="page-heading"><div><div class="eyebrow">NORTHSTAR CONTRACT / 07</div><h1>다음 작전, 준비됐나요<span class="pink">?</span></h1></div><div class="record">${profile?.wins ?? 0}<small> 작전 성공</small><span> / </span>${profile?.runs ?? 0}<small> 출격</small></div></div><div class="lobby-grid"><section class="operator-panel" style="--accent:${c.color}"><div class="operator-top"><span class="eyebrow">YOUR OPERATOR</span><span class="tag">${character === "aria" ? "ASSAULT" : "SUPPORT"}</span></div><div class="portrait-wrap"><span class="portrait-type">${c.callsign}</span><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="portrait-art">${portrait(character)}</div><span class="serial">DS—${character === "aria" ? "01" : "02"} / ACTIVE</span><span class="portrait-cross">＋</span></div><div class="operator-caption"><div class="eyebrow">${c.role}</div><h2>${c.name} <span>${c.callsign}</span></h2><p>“${c.quote}”</p><div class="trait"><span>✦</span> ${character === "aria" ? "선봉의 발걸음 · 이동속도 +6%" : "침착한 손길 · 소생속도 +35%"}</div></div></section><section class="loadout-panel"><div class="section-title"><h3><span>01</span> 오퍼레이터</h3><span>SELECT OPERATOR</span></div><div class="character-options">${(Object.keys(CHARACTERS) as CharacterId[]).map((k) => `<button class="character-card ${character === k ? "selected" : ""}" data-character="${k}" aria-pressed="${character === k}"><div class="mini-portrait">${portrait(k)}</div><span><b>${CHARACTERS[k].name}</b><small>${k === "aria" ? "돌격형" : "지원형"}</small></span><i>${character === k ? "✓" : "+"}</i></button>`).join("")}</div><div class="section-title weapon-title"><h3><span>02</span> 무장 선택</h3><span>PRIMARY WEAPON</span></div><div class="weapons">${(
-    Object.keys(WEAPONS) as WeaponId[]
+    PRIMARY_IDS
   )
     .map((k) => {
       const g = WEAPONS[k],
         unlocked = profile?.unlocks.includes(k);
-      return `<button class="weapon-card ${weapon === k ? "selected" : ""}" data-weapon="${k}" aria-pressed="${weapon === k}"><div class="weapon-art">${weaponIcon(k)}</div><div><b>${g.name} <small>${g.label}</small></b><p>${g.role}</p><span class="weapon-stats">${g.mag} RND <i>·</i> ${g.range / 100} m${k === "sg" ? " · 10 PELLETS" : ""}</span></div><span class="weapon-select">${!unlocked ? `◈ ${g.price}` : weapon === k ? "●" : "○"}</span></button>`;
+      return `<button class="weapon-card ${weapon === k ? "selected" : ""}" data-weapon="${k}" aria-pressed="${weapon === k}"><div class="weapon-art">${weaponIcon(k)}</div><div><b>${g.name} <small>${g.label}</small></b><p>${g.role}</p><span class="weapon-stats">AP ${g.penetration} <i>·</i> ${g.mag} RND <i>·</i> ${g.range / 100} m${k === "sg" ? " · 10 PELLETS" : ""}</span></div><span class="weapon-select">${!unlocked ? `◈ ${g.price}` : weapon === k ? "●" : "○"}</span></button>`;
     })
     .join(
       "",
@@ -171,7 +174,7 @@ function lobby() {
     )
     .join(
       "",
-    )}</select></div><p class="mod-description">${MODS[mod].description}</p><label class="tactical-select">전술 장비 <select id="tactical"><option value="ammo" ${tactical === "ammo" ? "selected" : ""}>예비 탄약 +60 · 현장 대장갑 보급 가능</option><option value="launcher" ${tactical === "launcher" ? "selected" : ""}>대장갑 발사기 2발 · G / 이동 −4%</option></select></label><div class="loadout-note"><span>↗</span><p>팀과 함께라면 더 멀리.<br><small>오사는 없습니다. 쓰러진 동료는 F로 구조하세요.</small></p></div></section><aside class="operation-panel"><section class="briefing">${briefing()}</section><section class="squad-panel"><div class="section-title"><h3>분대 편성 <span>${room?.players.length ?? 0}/4</span></h3>${room ? `<button class="code-button" data-action="copy">${room.code} <span>⧉</span></button>` : "<span>CO-OP READY</span>"}</div>${
+    )}</select></div><p class="mod-description">${MODS[mod].description}</p><label class="tactical-select">2 · 부무장 <select id="secondary" aria-label="부무장"><option value="pistol">P-01 권총 · AP 1 / 12발</option></select></label><label class="tactical-select">3 · 소모품 <select id="consumable" aria-label="소모품">${Object.entries(CONSUMABLES).map(([k,c])=>`<option value="${k}" ${consumable===k?"selected":""}>${c.name} ×${c.max} · ${c.role}</option>`).join("")}</select></label><div class="loadout-note"><span>↗</span><p>팀과 함께라면 더 멀리.<br><small>오사는 없습니다. 쓰러진 동료는 F로 구조하세요.</small></p></div></section><aside class="operation-panel"><section class="briefing">${briefing()}</section><section class="squad-panel"><div class="section-title"><h3>분대 편성 <span>${room?.players.length ?? 0}/4</span></h3>${room ? `<button class="code-button" data-action="copy">${room.code} <span>⧉</span></button>` : "<span>CO-OP READY</span>"}</div>${
     room
       ? `<div class="roster">${Array.from({ length: 4 }, (_, i) => {
           const p = room!.players[i];
@@ -185,7 +188,7 @@ function lobby() {
   }</section></aside></div></main><footer><span><i></i> PROJECT DOLL SQUAD <span class="muted">/ FIRST DEPLOYMENT</span></span><span>작게 귀엽게, 빠르고 위험하게.</span><button class="text-button" data-action="audio">${audio.volume ? "◖ 사운드 켜짐" : "◖ 사운드 꺼짐"}</button></footer>`;
 }
 function combat() {
-  return `<canvas id="battle" aria-label="BLACKOUT 전투 화면"></canvas><div class="battle-hud"><div class="battle-top"><div class="battle-logo">${logo()}</div><div class="objective"><div class="eyebrow">OPERATION BLACKOUT <span id="clock"></span></div><h3 id="objective-title"></h3><div class="objective-progress"><span id="objective-bar"></span></div><p id="objective-detail"></p></div><button class="menu-button" data-action="menu">ESC <span>메뉴</span></button></div><div id="team-hud"></div><div id="interaction"></div><div class="battle-bottom"><div class="health-panel"><div class="hud-portrait">${portrait(character)}</div><div><div class="eyebrow">${CHARACTERS[character].callsign} / ${CHARACTERS[character].role}</div><div class="health-number"><b id="hp">100</b><span> / 100</span></div><div class="health-bar"><span id="health-fill"></span></div></div></div><div class="battle-controls"><span><kbd>WASD</kbd> 이동</span><span><kbd>우클릭</kbd> 정밀 조준</span><span><kbd>SHIFT</kbd> 질주</span><span><kbd>TAB</kbd> 현황</span></div><div class="ammo-panel"><div class="eyebrow">${WEAPONS[weapon].name} <span>${WEAPONS[weapon].label}</span></div><div><b id="ammo"></b><span id="reserve"></span></div><small id="reload-label">R · 재장전</small></div></div><div id="response-notice" role="status"></div><div id="radio"><span>COMMS / ${CHARACTERS[character].callsign}</span><p>${CHARACTERS[character].quote}</p></div></div><div id="overlay"></div>`;
+  return `<canvas id="battle" aria-label="BLACKOUT 전투 화면"></canvas><div class="battle-hud"><div class="battle-top"><div class="battle-logo">${logo()}</div><div class="objective"><div class="eyebrow">OPERATION BLACKOUT <span id="clock"></span></div><h3 id="objective-title"></h3><div class="objective-progress"><span id="objective-bar"></span></div><p id="objective-detail"></p></div><button class="menu-button" data-action="menu">ESC <span>메뉴</span></button></div><div id="team-hud"></div><div id="interaction"></div><div class="battle-bottom"><div class="health-panel"><div class="hud-portrait">${portrait(character)}</div><div><div class="eyebrow">${CHARACTERS[character].callsign} / ${CHARACTERS[character].role}</div><div class="health-number"><b id="hp">100</b><span> / 100</span></div><div class="health-bar"><span id="health-fill"></span></div></div></div><div class="battle-controls"><span><kbd>WASD</kbd> 이동</span><span><kbd>우클릭</kbd> 정밀 조준</span><span><kbd>SHIFT</kbd> 질주</span><span><kbd>TAB</kbd> 현황</span></div><div class="ammo-panel"><div class="eyebrow" id="equipped-label"></div><div><b id="ammo"></b><span id="reserve"></span></div><small id="reload-label">R · 재장전</small></div></div><div id="response-notice" role="status"></div><div id="radio"><span>COMMS / ${CHARACTERS[character].callsign}</span><p>${CHARACTERS[character].quote}</p></div></div><div id="overlay"></div>`;
 }
 function result() {
   const m = room!.world!.mission,
@@ -211,6 +214,7 @@ function render() {
   if (phase === "playing") {
     if (lastPhase !== phase) {
       renderer?.stop();
+      selectedSlot=1;
       app.innerHTML = combat();
       renderer = new Renderer(document.querySelector("#battle")!, audio);
       renderer.localInput = currentInput;
@@ -233,6 +237,7 @@ function render() {
     character,
     weapon,
     mod,
+    consumable,
     credits: profile?.credits,
     unlocks: profile?.unlocks,
     mods: profile?.mods,
@@ -300,15 +305,15 @@ function updateHud() {
   document.querySelector("#hp")!.textContent = String(Math.ceil(p.hp));
   (document.querySelector("#health-fill") as HTMLElement).style.width =
     p.hp + "%";
-  document.querySelector("#ammo")!.textContent = String(p.ammo).padStart(
+  document.querySelector("#ammo")!.textContent = String(p.activeSlot===3?p.consumableCount:p.ammo).padStart(
     2,
     "0",
   );
-  document.querySelector("#reserve")!.textContent = " / " + p.reserve;
+  document.querySelector("#reserve")!.textContent = p.activeSlot===3?" 개":" / "+p.reserve;
+  document.querySelector("#equipped-label")!.textContent=p.activeSlot===3?`3 · ${CONSUMABLES[p.consumable].name}`:`${p.activeSlot} · ${WEAPONS[p.weapon].name} / AP ${WEAPONS[p.weapon].penetration}`;
   document.querySelector("#reload-label")!.textContent =
-    p.reload > 0
-      ? `재장전 중 · ${p.reload.toFixed(1)}s`
-      : `R · 재장전 / G · 대장갑 ${p.rockets ?? 0}발${p.tacticalCooldown > 0 ? " · 준비 중" : ""}`;
+    p.switching>0?`전환 중 · ${p.switching.toFixed(1)}s`:p.useTime>0?`사용 준비 · ${p.useTime.toFixed(1)}s`:p.reload>0?`재장전 중 · ${p.reload.toFixed(1)}s`:
+    `1 주무장 · 2 권총 · 3 ${CONSUMABLES[p.consumable].name} ${p.consumableCount}`;
   document.querySelector("#team-hud")!.innerHTML = w.players
     .filter((p) => p.id !== id)
     .map(
@@ -372,7 +377,7 @@ function showHelp() {
     ["우클릭", "정밀 조준"],
     ["SHIFT", "질주 · 사격 불가"],
     ["R", "재장전"],
-    ["G", "대장갑 발사기 · 제한 탄약"],
+    ["1 / 2 / 3", "주무장 / 권총 / 소모품"],
     ["E 길게", "목표 · 보급품"],
     ["F 길게", "동료 소생"],
     ["TAB / ESC", "현황 / 메뉴"],
@@ -380,7 +385,7 @@ function showHelp() {
     .map(([k, v]) => `<div><kbd>${k}</kbd><span>${v}</span></div>`)
     .join(
       "",
-    )}</div><p>장갑의 주황색 후면이 약점입니다. G로 대장갑탄을 사용하고, 기관포 예고와 포격 원을 피해 이동하세요. 진압병의 과열은 우회 기회입니다. 초록색 보급 상자는 근처 동료도 함께 회복합니다. 모든 대원이 쓰러지면 작전이 실패합니다.</p><button class="primary" data-action="close-help">확인, 준비됐어요 <span>↗</span></button></div>`;
+    )}</div><p>장갑의 주황색 후면이 약점입니다. AP보다 높은 장갑은 관통할 수 없습니다. 약점을 노리고, 기관포 예고와 포격 원을 피해 이동하세요. 진압병의 과열은 우회 기회입니다. 초록색 보급 상자는 근처 동료도 함께 회복합니다. 모든 대원이 쓰러지면 작전이 실패합니다.</p><button class="primary" data-action="close-help">확인, 준비됐어요 <span>↗</span></button></div>`;
   document.body.append(el);
 }
 document.addEventListener("click", (e) => {
@@ -426,7 +431,7 @@ document.addEventListener("click", (e) => {
       character,
       weapon,
       mod,
-      tactical,
+      loadout:{primary:weapon,secondary:"pistol",consumable},
       code: (document.querySelector("#code") as HTMLInputElement)?.value,
     });
   } else if (action === "ready" || action === "start" || action === "return")
@@ -457,7 +462,7 @@ document.addEventListener("click", (e) => {
   }
 });
 function choose() {
-  if (room) send({ type: "loadout", character, weapon, mod, tactical });
+  if (room) send({ type: "loadout", character, mod, loadout:{primary:weapon,secondary:"pistol",consumable} });
   else {
     signature = "";
     render();
@@ -469,8 +474,8 @@ document.addEventListener("input", (e) => {
 });
 document.addEventListener("change", (e) => {
   const el = e.target as HTMLSelectElement;
-  if (el.id === "tactical") {
-    tactical = el.value === "launcher" ? "launcher" : "ammo";
+  if (el.id === "consumable") {
+    consumable = el.value as ConsumableId;
     choose();
   }
   if (el.id === "mod") {
@@ -497,6 +502,7 @@ document.addEventListener("change", (e) => {
 });
 window.addEventListener("keydown", (e) => {
   if ((e.target as Element).matches("input,select")) return;
+  if(e.key==="1"||e.key==="2"||e.key==="3")selectedSlot=Number(e.key) as 1|2|3;
   if (room?.phase !== "playing") return;
   if (["Tab", "Escape", " ", "Shift"].includes(e.key)) e.preventDefault();
   if (e.key === "Escape" && !e.repeat) {
@@ -558,7 +564,8 @@ function currentInput(): Input | null {
     reload: keys.has("r"),
     interact: keys.has("e"),
     revive: keys.has("f"),
-    tactical: keys.has("g"),
+    slot:selectedSlot,
+    targetX:cursor.x, targetY:cursor.y+RULES.muzzleHeight,
   };
 }
 function sendInput() {

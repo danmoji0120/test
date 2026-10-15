@@ -19,9 +19,10 @@ it("completes generators in reverse order, skips all auxiliaries and extracts wi
   for (const d of w.map.installations
     .filter((d) => d.kind === "generator")
     .reverse()) {
-    Object.assign(p, { x: d.x - 100, y: d.y, angle: 0 });
+    const angle=d.angle??0;
+    Object.assign(p,{x:d.x-Math.cos(angle)*100,y:d.y-Math.sin(angle)*100,angle,ammo:30});p.input.aim=true;
     w.enemies.forEach((e) => Object.assign(e, { x: 50, y: 50 }));
-    for (let i = 0; i < 13; i++) fire(w, p);
+    for(let i=0;i<30&&d.hp>0;i++){p.recoil=0;fire(w,p);}
     tickObjectives(w, 0.03);
     expect(w.mission.objectives.find((o) => o.id === d.id)!.state).toBe(
       "complete",

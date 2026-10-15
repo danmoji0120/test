@@ -7,7 +7,7 @@ import {
   fire,
   tick,
 } from "../src/game/simulation";
-import { armorMultiplier, enemyRadius } from "../src/game/armor";
+import { rayHit, armorMultiplier, enemyRadius } from "../src/game/armor";
 import { launch, tickProjectiles, fireLauncher } from "../src/game/projectiles";
 import { enemyAI } from "../src/game/squads";
 import { visibleWorld } from "../src/server/visibility";
@@ -36,48 +36,15 @@ it("introduces role-specific rosters at 5/7/8/9 without changing infantry health
       expect(blocked(e, w.map.obstacles, enemyRadius(e.kind))).toBe(false);
   }
 });
-it("front armor is costly while flanking yields more than tenfold walker damage", () => {
-  const w = fixture(),
-    e = spawnEnemy(w, { x: 1300, y: 1000 }, "walker")!;
-  e.angle = Math.PI;
-  expect(armorMultiplier(e, w.players[0])).toBe(0.045);
-  expect(armorMultiplier(e, { x: 1600, y: 1000 })).toBe(0.95);
-  const p = w.players[0];
-  p.input.aim = true;
-  const before = e.hp;
-  fire(w, p);
-  expect(before - e.hp).toBeGreaterThan(0);
-  expect(before - e.hp).toBeLessThan(2);
-  expect(e.stagger).toBe(0);
+it("AP2 front shots fail while a real exposed rear region remains vulnerable", () => {
+  const w=fixture(),e=spawnEnemy(w,{x:1300,y:1000},"walker")!;e.angle=Math.PI;
+  expect(armorMultiplier(e,w.players[0])).toBe(0);expect(armorMultiplier(e,{x:1600,y:1000})).toBe(.65);
+  fire(w,w.players[0]);expect(e.hp).toBe(650);expect(e.stagger).toBe(0);
+  expect(w.events.some(x=>x.type==="hit"&&x.quality==="ricochet")).toBe(true);
 });
-it("launcher ammo is limited, projectiles travel and rear rockets destroy armor without allied damage", () => {
-  const w = fixture(),
-    p = w.players[0],
-    e = spawnEnemy(w, { x: 1400, y: 1000 }, "walker")!;
-  e.angle = 0;
-  p.rockets = 2;
-  p.input.tactical = true;
-  fireLauncher(w, p);
-  expect(p.rockets).toBe(1);
-  expect(w.projectiles).toHaveLength(1);
-  expect(e.hp).toBe(650);
-  fireLauncher(w, p);
-  expect(p.rockets).toBe(1);
-  for (let i = 0; i < 60; i++) {
-    w.time += 1 / 30;
-    tickProjectiles(w, 1 / 30);
-  }
-  expect(e.hp).toBeLessThan(170);
-  expect(p.hp).toBe(100);
-  p.tacticalCooldown = 0;
-  fireLauncher(w, p);
-  for (let i = 0; i < 60; i++) {
-    w.time += 1 / 30;
-    tickProjectiles(w, 1 / 30);
-  }
-  expect(e.hp).toBeLessThanOrEqual(0);
-  expect(w.wrecks).toHaveLength(1);
-  expect(p.kills).toBe(1);
+it("stale tactical/G input cannot fire an additional launcher beside a rifle", () => {
+  const w=fixture(),p=w.players[0];p.rockets=2;p.input.tactical=true;fireLauncher(w,p);
+  expect(w.projectiles).toHaveLength(0);expect(p.ammo).toBe(30);
 });
 it("requires actual dated observation for artillery and never steers a launched shell", () => {
   const w = fixture(),

@@ -19,6 +19,7 @@ export function packRoom(room: any, cursor?: StreamCursor) {
     installations: w.map.installations,
     sources: w.map.sources,
     supplies: w.map.supplies,
+    smokes:w.map.smokes,
     doors:
       cursor.terrain !== next.terrain
         ? w.map.obstacles.filter((o: any) => o.kind === "door")
