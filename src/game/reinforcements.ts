@@ -1,3 +1,4 @@
+import {mobilityMultiplier} from "./armor";
 import { dispatchBlock } from "./budgets";
 import { audit } from "./alert";
 import { enemyRadius, armored } from "./armor";
@@ -486,7 +487,7 @@ export function tickReinforcements(w: World, dt: number) {
         const point = e.path[0];
         if (point) {
           const d = distance(e, point),
-            speed = ENEMIES[e.kind].speed * 0.9,
+            speed = ENEMIES[e.kind].speed * 0.9*mobilityMultiplier(e),
             step = Math.min(d, speed * dt),
             before = { x: e.x, y: e.y };
           e.angle = Math.atan2(point.y - e.y, point.x - e.x);

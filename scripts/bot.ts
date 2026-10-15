@@ -8,7 +8,7 @@ import {
   type Vec,
   type Input,
 } from "../src/shared/data";
-import { distance, visible, findPath, blocked } from "../src/game/map";
+import { distance, visible, findPath, blocked, movementClear } from "../src/game/map";
 /** Observes authoritative state and emits normal input only; no teleport/damage/timer shortcuts. */
 export class Pilot {
   strategy: "primary" | "all" | "evade" = "primary";
@@ -212,6 +212,7 @@ export class Pilot {
       for (const candidate of this.path.slice(0, 8)) {
         if (distance(p, candidate) > 420) break;
         if (
+          movementClear(p,candidate,w.map,20) &&
           visible(p, candidate, w.map) &&
           visible(
             { x: p.x - 23, y: p.y - 23 },
@@ -228,6 +229,7 @@ export class Pilot {
         else break;
       }
       const point =
+        movementClear(p,goal,w.map,20) &&
         visible(p, goal, w.map) &&
         visible(
           { x: p.x - 20, y: p.y - 20 },

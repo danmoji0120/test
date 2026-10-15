@@ -3,7 +3,7 @@ import {armorAt,ensureComponents,penetrationMultiplier,type ArmoredTarget,type R
 import {event} from './simulation';
 import {hurtEnemy} from './projectiles';
 import {raiseAlert} from './alert';
-import {distance} from './map';
+import {distance,invalidateNavigation} from './map';
 export interface DamageProfile {normal:number;durable:number;ap:number;falloff?:number;scale?:number}
 /** Shared and ordered: AP/AV -> normal/durable blend -> range -> attack scale -> weak multiplier -> main contribution. */
 export function resolveDamage(a:DamageProfile,av:number,durability:number,weak=1){return penetrationMultiplier(a.ap,av)*(a.normal*(1-durability)+a.durable*durability)*(a.falloff??1)*(a.scale??1)*weak;}
@@ -15,7 +15,7 @@ export function applyHit(w:World,t:ArmoredTarget,hit:RayHit,a:DamageProfile,owne
  if(component&&!component.destroyed){component.hp=Math.max(0,component.hp-raw);if(component.hp===0){component.destroyed=true;componentBroken=true;}}
  const main=applied*part.contribution;
  if('maxHp'in t){
-  localDefense(w,t);if(raw>0)t.hp=Math.max(0,t.hp-main);
+  localDefense(w,t);if(raw>0){t.hp=Math.max(0,t.hp-main);if(t.hp===0){invalidateNavigation(w.map);w.terrainRevision++;}}
  }else{
   hurtEnemy(w,t,main,owner);
   if(main>0){t.hurt=.18;if(!['walker','juggernaut','artillery'].includes(t.kind))t.stagger=Math.max(t.stagger,weapon==='sg'?.18:weapon==='smg'?.025:.055);}

@@ -98,3 +98,10 @@ it('limits walker turret rotation separately from its body heading',async()=>{
  const {updateAim,angleDelta}=await import('../src/game/aim-controller');const {p,w}=arena(),e=spawnEnemy(w,{x:1400,y:1000},'walker',{angle:0,turretAngle:0})!;
  w.time=1;updateAim(w,e,p,1/30);expect(Math.abs(angleDelta(e.turretAngle!,0))).toBeLessThanOrEqual(1.15/30+1e-8);expect(Math.abs(angleDelta(e.angle,0))).toBeLessThanOrEqual(.7/30+1e-8);
 });
+
+it('uses the same installation clearance in movement, navigation and pilot corridor checks',async()=>{
+ const {move,findPath,movementClear,invalidateNavigation,distance}=await import('../src/game/map');const {p,w}=arena();w.map.installations=[{id:'solid',kind:'generator',hp:420,maxHp:420,x:1200,y:1000,discovered:true}];invalidateNavigation(w.map);
+ expect(movementClear(p,{x:1400,y:1000},w.map)).toBe(false);const route=findPath(p,{x:1400,y:1000},w.map);expect(route.length).toBeGreaterThan(0);
+ for(let n=0;n<1200&&route.length;n++){const q=route[0],d=distance(p,q);if(d<6)route.shift();else move(p,(q.x-p.x)/d*5,(q.y-p.y)/d*5,w.map);}
+ expect(distance(p,{x:1400,y:1000})).toBeLessThan(60);
+});

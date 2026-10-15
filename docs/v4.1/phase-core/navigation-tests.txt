@@ -1,0 +1,24 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 46.8 seconds [
+  { hp: 100, kills: 2, ammo: 221 },
+  { hp: 100, kills: 2, ammo: 220 },
+  { hp: 100, kills: 3, ammo: 222 },
+  { hp: 100, kills: 1, ammo: 221 }
+]
+
+ ✓ tests/game.test.ts (35 tests) 17615ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  10222ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  3569ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  2396ms
+ ✓ tests/terrain.test.ts (3 tests) 10250ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2534ms
+   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  7713ms
+ ✓ tests/combat-system.test.ts (16 tests) 446ms
+
+ Test Files  3 passed (3)
+      Tests  54 passed (54)
+   Start at  18:07:46
+   Duration  29.27s (transform 231ms, setup 0ms, collect 394ms, tests 28.31s, environment 0ms, prepare 162ms)

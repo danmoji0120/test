@@ -1,5 +1,5 @@
 import {updateAim,firingAngle,turn} from "./aim-controller";
-import {destroyed} from "./armor";
+import {destroyed,mobilityMultiplier} from "./armor";
 import {
   ENEMIES,
   type World,
@@ -154,7 +154,7 @@ export function heavyAI(
   const point = e.path[0];
   if (!point) return;
   const d = distance(e, point),
-    step = Math.min(d, spec.speed * dt * (observation ? 1 : 0.55)*(destroyed(e,"core")?.4:1));
+    step = Math.min(d, spec.speed * dt * (observation ? 1 : 0.55)*mobilityMultiplier(e));
   if (!target) e.angle = turn(e.angle,Math.atan2(point.y-e.y,point.x-e.x),dt*(e.kind==="walker"?.8:2.5));
   move(
     e,

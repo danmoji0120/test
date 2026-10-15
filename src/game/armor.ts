@@ -64,13 +64,16 @@ export function armorAt(t:ArmoredTarget,part:HitRegion,point:Vec):HitRegion{
   r.av=t.kind==='juggernaut'?(front?3:rear?1:2):(front?5:rear?3:4);
  }
  const c=t.components?.[part.id];
- if(c?.destroyed){r.durability=1;r.contribution=part.id==='shield'?0:0.55;r.weak=1;}
+ if(c?.destroyed){r.durability=1;r.contribution=part.id==='shield'?0:0.65;r.weak=1;}
  // Destroyed shielding exposes its sector; side/rear approaches were always possible.
  if('maxHp'in t&&t.kind==='generator'&&t.components?.shield?.destroyed&&part.id!=='core'){r.av=1;r.durability=.4;r.contribution=1;}
  return r;
 }
 export interface RayHit {distance:number;point:Vec;region:HitRegion}
 export function rayHit(t:ArmoredTarget,origin:Vec,angle:number,max:number):RayHit|null{
+ const rmax="maxHp"in t?48:enemyRadius(t.kind)*1.25+8;
+ const ex=t.x-origin.x,ey=t.y-origin.y,along=ex*Math.cos(angle)+ey*Math.sin(angle),perp=Math.abs(ex*Math.sin(angle)-ey*Math.cos(angle));
+ if(along< -rmax||along>max+rmax||perp>rmax)return null;
  const p=localPoint(t,origin),a=angle-(t.angle??0),dx=Math.cos(a),dy=Math.sin(a);let best:RayHit|null=null;
  for(const r of hitRegions(t)){
   const x=r.x-p.x,y=r.y-p.y,along=x*dx+y*dy,perp=Math.abs(x*dy-y*dx);
@@ -84,3 +87,5 @@ export function rayHit(t:ArmoredTarget,origin:Vec,angle:number,max:number):RayHi
 export const destroyed=(e:ArmoredTarget,id:PartId)=>!!e.components?.[id]?.destroyed;
 /** Compatibility for old QA pilots only. Combat never uses this direction-only estimate. */
 export function armorMultiplier(e:Enemy,origin:Vec,ap=2,explosive=false){const h=rayHit(e,origin,Math.atan2(e.y-origin.y,e.x-origin.x),1e5);return h?penetrationMultiplier(explosive?5:ap,h.region.av):0;}
+
+export const mobilityMultiplier=(e:Enemy)=>(e.kind==="walker"||e.kind==="artillery")&&destroyed(e,"core")?.4:1;

@@ -29,6 +29,7 @@ import {
   type WeaponId,
 } from "../shared/data";
 import {
+  invalidateNavigation,
   generateMap,
   distance,
   move,
@@ -154,6 +155,7 @@ export function createWorld(
     const zone=[...map.zones].sort((a,b)=>distance(a.center,d)-distance(b.center,d))[0];
     d.angle=Math.atan2(zone.entry.y-d.y,zone.entry.x-d.x);ensureComponents(d);
   }
+  invalidateNavigation(map);
   players.forEach((p, i) => {
     Object.assign(p, {
       x: map.spawn.x + (i % 2) * 60,
@@ -325,7 +327,6 @@ export function tick(w: World, dt: number) {
         w.map,
       );
       if (
-        w.map.installations.some(d=>d.hp>0&&distance(p,d)<43&&distance(p,d)<distance(beforeMove,d))||
         w.enemies.some(
           (e) =>
             e.hp > 0 &&
