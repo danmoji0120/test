@@ -1,3 +1,4 @@
+import { enemyRadius, enemyHeight, armored, special } from "../game/armor";
 import { paintTerrain } from "./terrain";
 import { environmentImage, drawEnvironment } from "../art/environment";
 import { operationGoal } from "../shared/operation";
@@ -20,6 +21,7 @@ import {
   operatorImage,
   enemyFrame,
   enemyImage,
+  v4EnemyImage,
 } from "../art/raster";
 import { distance, visible, wallDistance } from "../game/map";
 import type { AudioEngine } from "./audio";
@@ -48,6 +50,7 @@ export class Renderer {
   mapSeed = -1;
   atlas = operatorImage();
   enemyAtlas = enemyImage();
+  v4Atlas = v4EnemyImage();
   environmentAtlas = environmentImage();
   positions = new Map<string, Vec>();
   particles: Particle[] = [];
@@ -172,7 +175,7 @@ export class Renderer {
           }
         } else if (e.type === "explode") {
           this.burst(e.x, e.y, 65, "#ffb875", 250);
-          this.shake = 7;
+          this.shake = e.heavy ? 9 : 7;
         }
       }
     }
@@ -311,7 +314,7 @@ export class Renderer {
         local?.aim ? 0.32 : 0.23,
         165 / Math.max(1, aimLength),
       ),
-      movement = local ?? p.input;
+      movement = local ?? p.input ?? {dx:0,dy:0};
     const leadX = aimX * aimScale + movement.dx * 48,
       leadY = aimY * aimScale + movement.dy * 48,
       cap = Math.min(1, 195 / Math.max(1, Math.hypot(leadX, leadY)));
@@ -359,6 +362,17 @@ export class Renderer {
       g.restore();
     }
     this.debris = this.debris.filter((d) => d.life > 0);
+    for (const r of w.wrecks || []) {
+      drawEnvironment(
+        g,
+        this.environmentAtlas,
+        r.kind === "artillery" ? 9 : 8,
+        r.x - 70,
+        r.y - 70,
+        140,
+        110,
+      );
+    }
     for (const d of w.map.obstacles.filter((o) => o.kind === "door")) {
       g.fillStyle = d.open ? "#6ee4bc45" : "#ab8450";
       g.fillRect(d.x, d.y, d.w, d.h);
@@ -379,18 +393,22 @@ export class Renderer {
     for (const d of w.map.installations.filter((d) => d.kind !== "generator")) {
       g.save();
       g.translate(d.x, d.y);
-      g.fillStyle = d.hp > 0 ? "#4f6369" : "#433b3c";
-      g.fillRect(-30, -30, 60, 50);
-      g.strokeStyle = d.kind === "comms" ? "#b9aff0" : "#eeab86";
-      g.lineWidth = 3;
-      g.strokeRect(-30, -30, 60, 50);
-      if (d.kind === "comms") {
+      g.globalAlpha = d.hp > 0 ? 1 : 0.4;
+      drawEnvironment(
+        g,
+        this.environmentAtlas,
+        d.kind === "comms" ? 6 : 5,
+        -55,
+        -100,
+        110,
+        120,
+      );
+      g.globalAlpha = 1;
+      if (w.alertState.level >= 3 && d.hp > 0) {
+        g.fillStyle = Math.floor(t * 6) % 2 ? "#ff5948" : "#701b19";
         g.beginPath();
-        g.moveTo(0, -20);
-        g.lineTo(0, -90);
-        g.moveTo(-22, -65);
-        g.lineTo(22, -65);
-        g.stroke();
+        g.arc(0, -85, 6, 0, TAU);
+        g.fill();
       }
       g.fillStyle = "#e1bd8b";
       g.fillRect(-30, 25, (60 * d.hp) / d.maxHp, 4);
@@ -413,15 +431,9 @@ export class Renderer {
         dead = device.hp <= 0;
       g.save();
       g.translate(device.x, device.y);
-      g.fillStyle = "#0c1824";
-      g.fillRect(-35, -35, 70, 60);
-      g.fillStyle = dead ? "#563f44" : "#46616e";
-      g.fillRect(-35, -35, 70, 7);
-      g.fillStyle = dead ? "#6b4843" : active ? "#ffe49b" : "#77bcb0";
-      g.shadowColor = g.fillStyle;
-      g.shadowBlur = active ? 18 : 0;
-      for (let i = -18; i <= 18; i += 18) g.fillRect(i - 4, -22, 8, 32);
-      g.shadowBlur = 0;
+      g.globalAlpha = dead ? 0.45 : 1;
+      drawEnvironment(g, this.environmentAtlas, 4, -55, -75, 110, 95);
+      g.globalAlpha = 1;
       g.fillStyle = "#ffd286";
       g.fillRect(-32, 31, 64 * Math.max(0, device.hp / device.maxHp), 5);
       g.restore();
@@ -546,6 +558,55 @@ export class Renderer {
         );
         g.stroke();
         g.setLineDash([]);
+      }
+    }
+    for (const q of w.projectiles || []) {
+      if (q.kind === "mortar") {
+        const remaining = Math.max(0, q.impactAt - w.time),
+          total = q.impactAt - q.at,
+          progress = 1 - remaining / total;
+        g.strokeStyle = Math.floor(t * 10) % 2 ? "#ff674b" : "#ffc677";
+        g.fillStyle = "#fd714c22";
+        g.lineWidth = 3;
+        g.beginPath();
+        g.arc(q.target.x, q.target.y, q.radius, 0, TAU);
+        g.fill();
+        g.stroke();
+        g.beginPath();
+        g.arc(q.target.x, q.target.y, q.radius * (1 - progress), 0, TAU);
+        g.stroke();
+        g.fillStyle = "#ffe3b0";
+        g.font = "bold 14px sans-serif";
+        g.textAlign = "center";
+        g.fillText(
+          "포격 " + remaining.toFixed(1) + "s",
+          q.target.x,
+          q.target.y - q.radius - 12,
+        );
+        // The observer gets an incoming shell arc without disclosing the hidden launch coordinate.
+        const sx = q.target.x - 120 * (1 - progress),
+          sy =
+            q.target.y -
+            220 * (1 - progress) -
+            Math.sin(progress * Math.PI) * 130;
+        g.fillStyle = "#fff1c5";
+        g.beginPath();
+        g.ellipse(sx, sy, 5, 10, 0.4, 0, TAU);
+        g.fill();
+      } else {
+        g.strokeStyle = q.enemy ? "#ff9371" : "#ffe5a0";
+        g.lineWidth = q.kind === "rocket" ? 5 : 4;
+        g.beginPath();
+        g.moveTo(
+          q.x - Math.cos(q.angle) * 28,
+          q.y - 16 - Math.sin(q.angle) * 28,
+        );
+        g.lineTo(q.x, q.y - 16);
+        g.stroke();
+        g.fillStyle = "#fff2c0";
+        g.beginPath();
+        g.arc(q.x, q.y - 16, 5, 0, TAU);
+        g.fill();
       }
     }
     const actors = [...w.players, ...w.enemies].sort((a, b) => a.y - b.y);
@@ -831,7 +892,7 @@ export class Renderer {
     g.translate(pos.x, pos.y);
     g.fillStyle = "#030911aa";
     g.beginPath();
-    g.ellipse(0, 5, e.kind === "heavy" ? 19 : 14, 7, 0, 0, TAU);
+    g.ellipse(0, 5, enemyRadius(e.kind), enemyRadius(e.kind) * 0.4, 0, 0, TAU);
     g.fill();
     const direction =
       Math.abs(Math.sin(e.angle)) > Math.abs(Math.cos(e.angle))
@@ -842,15 +903,16 @@ export class Renderer {
           ? 1
           : 3;
     const f = enemyFrame(e.kind, direction),
-      height = e.kind === "heavy" ? 66 : 60,
+      height = enemyHeight(e.kind),
       width = (height * f.w) / f.h;
     if (e.hurt > 0) {
       g.translate(-Math.cos(e.angle) * 2, -Math.sin(e.angle) * 2);
       g.filter = "brightness(2) saturate(0.5)";
     }
-    if (this.enemyAtlas.complete && this.enemyAtlas.naturalWidth)
+    const atlas = special(e.kind) ? this.v4Atlas : this.enemyAtlas;
+    if (atlas.complete && atlas.naturalWidth)
       g.drawImage(
-        this.enemyAtlas,
+        atlas,
         f.x,
         f.y,
         f.w,
@@ -871,6 +933,31 @@ export class Renderer {
     g.beginPath();
     g.ellipse(0, 7, 17, 7, 0, 0, Math.PI);
     g.stroke();
+    if (armored(e.kind)) {
+      g.strokeStyle = "#ffb85b";
+      g.lineWidth = 4;
+      g.beginPath();
+      g.arc(
+        0,
+        2,
+        enemyRadius(e.kind) + 4,
+        e.angle + Math.PI - 0.65,
+        e.angle + Math.PI + 0.65,
+      );
+      g.stroke();
+      g.fillStyle = e.phase === "overheat" ? "#ffb96d" : "#eab77d";
+      g.font = "bold 10px sans-serif";
+      g.textAlign = "center";
+      g.fillText(
+        e.phase === "overheat"
+          ? "과열 · 우회 기회"
+          : e.phase === "spinup"
+            ? "발사 준비"
+            : ENEMIES[e.kind].name,
+        0,
+        -height - 10,
+      );
+    }
     if (e.windup > 0) {
       g.fillStyle = "#ffd5ad";
       g.textAlign = "center";

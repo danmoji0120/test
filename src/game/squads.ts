@@ -1,3 +1,5 @@
+import { special } from "./armor";
+import { heavyAI } from "./heavy-ai";
 import { lineOfSight } from "./visibility";
 import { ENEMIES, type World, type Vec, type Player } from "../shared/data";
 import {
@@ -54,6 +56,10 @@ export function enemyAI(w: World, dt: number) {
         target: { ...e.lastSeen! },
         at: w.time,
       });
+    }
+    if (special(e.kind)) {
+      heavyAI(w, e, target, dt);
+      continue;
     }
     if (e.windup > 0) {
       e.windup -= dt;

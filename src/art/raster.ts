@@ -1,4 +1,5 @@
-import type { CharacterId } from "../shared/data";
+import v4frames from "../../assets/v4-frames.json";
+import type { CharacterId, EnemyKind } from "../shared/data";
 export const ariaPortraitUrl = new URL(
   "../../assets/aria-tactical-operator.png",
   import.meta.url,
@@ -63,7 +64,20 @@ const enemyFrames = {
     [1071, 703, 340, 371],
   ],
 };
-export function enemyFrame(kind: keyof typeof enemyFrames, direction: number) {
-  const [x, y, w, h] = enemyFrames[kind][direction];
+export const v4EnemyAtlasUrl = new URL(
+  "../../assets/v4-enemies-atlas.png",
+  import.meta.url,
+).href;
+export function v4EnemyImage() {
+  const img = new Image();
+  img.src = v4EnemyAtlasUrl;
+  return img;
+}
+export function enemyFrame(kind: EnemyKind, direction: number) {
+  const row = ["juggernaut", "drone", "walker", "artillery"].indexOf(kind);
+  const [x, y, w, h] =
+    row >= 0
+      ? v4frames["v4-enemies-atlas.png"][row * 4 + direction]
+      : enemyFrames[kind as keyof typeof enemyFrames][direction];
   return { x, y, w, h };
 }

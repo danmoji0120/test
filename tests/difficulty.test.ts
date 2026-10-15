@@ -18,7 +18,7 @@ it("scales response, composition and pressure across ten levels without health i
         Array.from({ length: team }, (_, i) => makePlayer("p" + i, "Pilot")),
         level,
       );
-      expect(w.enemies.length).toBeLessThanOrEqual(30);
+      expect(w.enemies.length).toBeLessThanOrEqual(36);
       expect(w.enemies.length).toBeGreaterThan(0);
       for (const e of w.enemies) expect(e.hp).toBe(ENEMIES[e.kind].hp);
       previous = config;

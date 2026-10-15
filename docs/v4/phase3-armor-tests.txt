@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/heavy-combat.test.ts (8 tests) 651ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  13:45:58
+   Duration  1.01s (transform 156ms, setup 0ms, collect 197ms, tests 651ms, environment 0ms, prepare 48ms)
+

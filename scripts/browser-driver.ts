@@ -14,8 +14,9 @@ export async function drive(page: Page, input: Input) {
     if (input.reload) wanted.add("r");
     if (input.interact) wanted.add("e");
     if (input.revive) wanted.add("f");
+    if (input.tactical) wanted.add("g");
     const old: Set<string> = (window as any).__qaKeys || new Set();
-    for (const k of ["w", "a", "s", "d", "Shift", "r", "e", "f"])
+    for (const k of ["w", "a", "s", "d", "Shift", "r", "e", "f", "g"])
       document.body.dispatchEvent(
         new KeyboardEvent(wanted.has(k) ? "keydown" : "keyup", {
           key: k,

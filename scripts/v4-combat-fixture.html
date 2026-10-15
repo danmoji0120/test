@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+  <meta charset="utf-8" /><title>V4 special enemy combat fixture</title
+  ><style>
+    body {
+      margin: 0;
+      background: #080f17;
+      color: #edc694;
+      font: 15px sans-serif;
+    }
+    canvas {
+      position: fixed;
+      inset: 0;
+    }
+    aside {
+      position: fixed;
+      left: 24px;
+      top: 20px;
+      padding: 14px;
+      background: #101b27e8;
+      border-left: 3px solid #f4b268;
+      z-index: 2;
+    }
+    small {
+      display: block;
+      color: #a7b4b6;
+      margin-top: 7px;
+    }</style
+  ><canvas></canvas>
+  <aside id="label"></aside>
+  <script type="module">
+    import {
+      createWorld,
+      makePlayer,
+      spawnEnemy,
+      tick,
+    } from "/src/game/simulation.ts";
+    import { visibleWorld } from "/src/server/visibility.ts";
+    import { Renderer } from "/src/client/render.ts";
+    import { AudioEngine } from "/src/client/audio.ts";
+    import { updateVision } from "/src/game/visibility.ts";
+    import { ENEMIES } from "/src/shared/data.ts";
+    const kind = new URLSearchParams(location.search).get("kind") || "walker",
+      p = makePlayer("p", "ART & ATTACK QA");
+    p.tactical = "launcher";
+    const w = createWorld("combat-fixture", 42, [p], 10);
+    w.enemies = [];
+    w.squads = {};
+    w.map.obstacles = w.map.obstacles.filter(
+      (o) => o.kind === "rock" && Math.hypot(o.x - 3000, o.y - 2000) > 800,
+    );
+    w.map.sources = [];
+    w.map.supplies = [];
+    Object.assign(p, { x: 2900, y: 2000, hp: 100, angle: 0 });
+    const e = spawnEnemy(w, { x: 3350, y: 1990 }, kind);
+    e.angle = Math.PI;
+    e.lastSeen = { x: p.x, y: p.y };
+    e.memory = 20;
+    w.director.next = 1e8;
+    updateVision(w, true);
+    const renderer = new Renderer(
+      document.querySelector("canvas"),
+      new AudioEngine(),
+    );
+    renderer.mouse = { x: innerWidth * 0.68, y: innerHeight * 0.5 };
+    renderer.set(visibleWorld(w), "p");
+    renderer.start();
+    document.querySelector("#label").innerHTML =
+      ENEMIES[kind].name +
+      " · 실제 PNG / 공격 QA<small>분리된 서버 규칙 검사 fixture · 일반 작전 플레이 화면이 아님</small>";
+    let n = 0;
+    setInterval(() => {
+      if (n++ < 80) {
+        tick(w, 1 / 30);
+        renderer.set(visibleWorld(w), "p");
+      }
+      window.fixture = { world: w, frames: renderer.frames };
+    }, 1000 / 30);
+    window.ready = true;
+  </script>
+</html>

@@ -106,13 +106,26 @@ export class AudioEngine {
       if (e.cue === "engine") {
         this.noiseBurst(320, 0.65, 0.4 * v, "lowpass");
         this.tone(58, 0.55, 0.12 * v);
-      } else if (e.cue === "steps")
-        this.noiseBurst(230, 0.065, 0.22 * v, "lowpass");
-      else if (e.cue === "radio") {
+      } else if (e.cue === "steps") {
+        this.noiseBurst(
+          e.heavy ? 105 : 230,
+          e.heavy ? 0.22 : 0.065,
+          (e.heavy ? 0.6 : 0.22) * v,
+          "lowpass",
+        );
+        if (e.heavy) this.tone(36, 0.25, 0.35 * v);
+      } else if (e.cue === "radio") {
         this.noiseBurst(1600, 0.1, 0.23 * v, "bandpass");
         this.noiseBurst(2100, 0.05, 0.12 * v, "bandpass", 0.14);
       } else this.noiseBurst(500, 0.16, 0.22 * v, "lowpass");
     } else if (e.type === "shot") {
+      if (e.heavy) {
+        this.noiseBurst(1050, 0.24, 0.95 * v, "lowpass", 0, true);
+        this.noiseBurst(4200, 0.035, 0.3 * v, "highpass");
+        this.tone(42, 0.3, 0.6 * v);
+        this.output = null;
+        return;
+      }
       const sg = e.weapon === "sg",
         smg = e.weapon === "smg";
       this.noiseBurst(

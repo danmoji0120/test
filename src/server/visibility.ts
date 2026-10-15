@@ -153,21 +153,65 @@ export function visibleWorld(w: World) {
     visibility: w.visibility,
     terrainRevision: w.terrainRevision + k.revision,
     alertState: { level: w.alertState.level, reason: w.alertState.reason },
+    projectiles: w.projectiles
+      .filter((q) =>
+        q.kind === "mortar"
+          ? w.players.some(
+              (p) => p.connected && !p.down && distance(p, q.target) < 1000,
+            )
+          : squadSees(w, q),
+      )
+      .map((q) =>
+        q.kind === "mortar"
+          ? {
+              ...q,
+              x: q.target.x,
+              y: q.target.y,
+              origin: { ...q.target },
+              owner: "",
+              angle: 0,
+            }
+          : squadSees(w, q.origin)
+            ? q
+            : {
+                id: q.id,
+                kind: q.kind,
+                x: q.x,
+                y: q.y,
+                angle: q.angle,
+                enemy: q.enemy,
+                origin: { x: q.x, y: q.y },
+                target: { x: q.x, y: q.y },
+                owner: "",
+                at: w.time,
+                impactAt: w.time + 0.1,
+                speed: 0,
+                traveled: 0,
+                range: 0,
+                radius: q.radius,
+                damage: 0,
+              },
+      ),
+    wrecks: w.wrecks.filter((q) => squadSees(w, q)),
+    notices: w.notices.filter((n) => w.time - n.at < 18),
     players: w.players.map(({ input, inputAt, ...p }) => p),
     enemies: w.enemies
       .filter((e) => e.hp > 0 && squadSees(w, e))
-      .map(({ id, kind, x, y, hp, angle, windup, hurt, state, elite }) => ({
-        id,
-        kind,
-        elite,
-        x,
-        y,
-        hp,
-        angle,
-        windup,
-        hurt,
-        state,
-      })),
+      .map(
+        ({ id, kind, x, y, hp, angle, windup, hurt, state, elite, phase }) => ({
+          id,
+          kind,
+          elite,
+          phase,
+          x,
+          y,
+          hp,
+          angle,
+          windup,
+          hurt,
+          state,
+        }),
+      ),
     events,
     random: 0,
   };

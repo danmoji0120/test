@@ -29,6 +29,7 @@ let socket: WebSocket,
   character: CharacterId = "aria",
   weapon: WeaponId = "ar",
   mod: ModId = "none",
+  tactical: "launcher" | "ammo" = "ammo",
   connected = false,
   menu = false,
   help = false,
@@ -105,6 +106,7 @@ function connect() {
         character = me.character;
         weapon = me.weapon;
         mod = me.mod;
+        tactical = me.tactical || "ammo";
       }
       render();
     }
@@ -169,7 +171,7 @@ function lobby() {
     )
     .join(
       "",
-    )}</select></div><p class="mod-description">${MODS[mod].description}</p><div class="loadout-note"><span>↗</span><p>팀과 함께라면 더 멀리.<br><small>오사는 없습니다. 쓰러진 동료는 F로 구조하세요.</small></p></div></section><aside class="operation-panel"><section class="briefing">${briefing()}</section><section class="squad-panel"><div class="section-title"><h3>분대 편성 <span>${room?.players.length ?? 0}/4</span></h3>${room ? `<button class="code-button" data-action="copy">${room.code} <span>⧉</span></button>` : "<span>CO-OP READY</span>"}</div>${
+    )}</select></div><p class="mod-description">${MODS[mod].description}</p><label class="tactical-select">전술 장비 <select id="tactical"><option value="ammo" ${tactical === "ammo" ? "selected" : ""}>예비 탄약 +60 · 현장 대장갑 보급 가능</option><option value="launcher" ${tactical === "launcher" ? "selected" : ""}>대장갑 발사기 2발 · G / 이동 −4%</option></select></label><div class="loadout-note"><span>↗</span><p>팀과 함께라면 더 멀리.<br><small>오사는 없습니다. 쓰러진 동료는 F로 구조하세요.</small></p></div></section><aside class="operation-panel"><section class="briefing">${briefing()}</section><section class="squad-panel"><div class="section-title"><h3>분대 편성 <span>${room?.players.length ?? 0}/4</span></h3>${room ? `<button class="code-button" data-action="copy">${room.code} <span>⧉</span></button>` : "<span>CO-OP READY</span>"}</div>${
     room
       ? `<div class="roster">${Array.from({ length: 4 }, (_, i) => {
           const p = room!.players[i];
@@ -183,7 +185,7 @@ function lobby() {
   }</section></aside></div></main><footer><span><i></i> PROJECT DOLL SQUAD <span class="muted">/ FIRST DEPLOYMENT</span></span><span>작게 귀엽게, 빠르고 위험하게.</span><button class="text-button" data-action="audio">${audio.volume ? "◖ 사운드 켜짐" : "◖ 사운드 꺼짐"}</button></footer>`;
 }
 function combat() {
-  return `<canvas id="battle" aria-label="BLACKOUT 전투 화면"></canvas><div class="battle-hud"><div class="battle-top"><div class="battle-logo">${logo()}</div><div class="objective"><div class="eyebrow">OPERATION BLACKOUT <span id="clock"></span></div><h3 id="objective-title"></h3><div class="objective-progress"><span id="objective-bar"></span></div><p id="objective-detail"></p></div><button class="menu-button" data-action="menu">ESC <span>메뉴</span></button></div><div id="team-hud"></div><div id="interaction"></div><div class="battle-bottom"><div class="health-panel"><div class="hud-portrait">${portrait(character)}</div><div><div class="eyebrow">${CHARACTERS[character].callsign} / ${CHARACTERS[character].role}</div><div class="health-number"><b id="hp">100</b><span> / 100</span></div><div class="health-bar"><span id="health-fill"></span></div></div></div><div class="battle-controls"><span><kbd>WASD</kbd> 이동</span><span><kbd>우클릭</kbd> 정밀 조준</span><span><kbd>SHIFT</kbd> 질주</span><span><kbd>TAB</kbd> 현황</span></div><div class="ammo-panel"><div class="eyebrow">${WEAPONS[weapon].name} <span>${WEAPONS[weapon].label}</span></div><div><b id="ammo"></b><span id="reserve"></span></div><small id="reload-label">R · 재장전</small></div></div><div id="radio"><span>COMMS / ${CHARACTERS[character].callsign}</span><p>${CHARACTERS[character].quote}</p></div></div><div id="overlay"></div>`;
+  return `<canvas id="battle" aria-label="BLACKOUT 전투 화면"></canvas><div class="battle-hud"><div class="battle-top"><div class="battle-logo">${logo()}</div><div class="objective"><div class="eyebrow">OPERATION BLACKOUT <span id="clock"></span></div><h3 id="objective-title"></h3><div class="objective-progress"><span id="objective-bar"></span></div><p id="objective-detail"></p></div><button class="menu-button" data-action="menu">ESC <span>메뉴</span></button></div><div id="team-hud"></div><div id="interaction"></div><div class="battle-bottom"><div class="health-panel"><div class="hud-portrait">${portrait(character)}</div><div><div class="eyebrow">${CHARACTERS[character].callsign} / ${CHARACTERS[character].role}</div><div class="health-number"><b id="hp">100</b><span> / 100</span></div><div class="health-bar"><span id="health-fill"></span></div></div></div><div class="battle-controls"><span><kbd>WASD</kbd> 이동</span><span><kbd>우클릭</kbd> 정밀 조준</span><span><kbd>SHIFT</kbd> 질주</span><span><kbd>TAB</kbd> 현황</span></div><div class="ammo-panel"><div class="eyebrow">${WEAPONS[weapon].name} <span>${WEAPONS[weapon].label}</span></div><div><b id="ammo"></b><span id="reserve"></span></div><small id="reload-label">R · 재장전</small></div></div><div id="response-notice" role="status"></div><div id="radio"><span>COMMS / ${CHARACTERS[character].callsign}</span><p>${CHARACTERS[character].quote}</p></div></div><div id="overlay"></div>`;
 }
 function result() {
   const m = room!.world!.mission,
@@ -262,9 +264,20 @@ function updateHud() {
         ? "주 목표 완료 · 탈출 시점은 분대가 결정"
         : "자유 작전 · 핵심 발전기 " + done + " / 2";
   document.querySelector("#clock")!.textContent = time(m.elapsed);
+  const notice = (w.notices || []).at(-1);
+  const noticeEl = document.querySelector("#response-notice") as HTMLElement;
+  if (noticeEl) {
+    noticeEl.textContent =
+      notice && w.time - notice.at < 18
+        ? `${notice.text} · ${notice.direction} / 약 ${Math.max(0, Math.ceil(notice.eta - w.time))}초`
+        : w.alertState.level === 4
+          ? "최고 대응 작전 · 도로와 탈출 접근로를 경계하세요"
+          : "";
+    noticeEl.classList.toggle("maximum", w.alertState.level === 4);
+  }
   const levels = ["평시", "의심", "교전", "비상", "최고 경계"];
   document.querySelector("#objective-detail")!.textContent =
-    `경보 ${w.alertState.level} · ${levels[w.alertState.level]} / ` +
+    `경보 ${w.alertState.level} · ${levels[w.alertState.level]} · ${w.alertState.reason} / ` +
     (m.stage === "extract"
       ? x.state === "inbound"
         ? `${Math.max(0, Math.ceil(x.eta - w.time))}초 후 도착`
@@ -289,7 +302,9 @@ function updateHud() {
   );
   document.querySelector("#reserve")!.textContent = " / " + p.reserve;
   document.querySelector("#reload-label")!.textContent =
-    p.reload > 0 ? `재장전 중 · ${p.reload.toFixed(1)}s` : "R · 재장전";
+    p.reload > 0
+      ? `재장전 중 · ${p.reload.toFixed(1)}s`
+      : `R · 재장전 / G · 대장갑 ${p.rockets ?? 0}발${p.tacticalCooldown > 0 ? " · 준비 중" : ""}`;
   document.querySelector("#team-hud")!.innerHTML = w.players
     .filter((p) => p.id !== id)
     .map(
@@ -305,7 +320,7 @@ function updateHud() {
     if (fallen)
       hint = `F 길게 · ${fallen.name} 소생 ${fallen.reviveProgress.toFixed(1)} / 3`;
     else if (w.map.supplies.some((v) => !v.used && distance(v, p) < 90))
-      hint = "E · 보급품 확보 / 주변 분대 체력·탄약 회복";
+      hint = "E · 보급품 확보 / 주변 분대 체력·탄약·대장갑 1발";
     else if (!m.intel && distance(p, w.map.intel) < 90)
       hint = `E 길게 · 기밀 자료 회수 ${m.intelProgress.toFixed(1)} / 3`;
     else if (
@@ -406,6 +421,7 @@ document.addEventListener("click", (e) => {
       character,
       weapon,
       mod,
+      tactical,
       code: (document.querySelector("#code") as HTMLInputElement)?.value,
     });
   } else if (action === "ready" || action === "start" || action === "return")
@@ -436,7 +452,7 @@ document.addEventListener("click", (e) => {
   }
 });
 function choose() {
-  if (room) send({ type: "loadout", character, weapon, mod });
+  if (room) send({ type: "loadout", character, weapon, mod, tactical });
   else {
     signature = "";
     render();
@@ -448,6 +464,10 @@ document.addEventListener("input", (e) => {
 });
 document.addEventListener("change", (e) => {
   const el = e.target as HTMLSelectElement;
+  if (el.id === "tactical") {
+    tactical = el.value === "launcher" ? "launcher" : "ammo";
+    choose();
+  }
   if (el.id === "mod") {
     const value = el.value as ModId;
     if (!profile?.mods.includes(value)) {
@@ -533,6 +553,7 @@ function currentInput(): Input | null {
     reload: keys.has("r"),
     interact: keys.has("e"),
     revive: keys.has("f"),
+    tactical: keys.has("g"),
   };
 }
 function sendInput() {

@@ -1,4 +1,57 @@
-<!doctype html><html lang="ko"><meta charset="utf-8"><title>V4 map QA — generated terrain, omniscient inspection fixture</title><style>body{margin:0;background:#101419;color:#e8cf9f;font:16px sans-serif}header{padding:14px}canvas{width:1280px;height:840px;display:block}</style><header>BARREN FRONTIER · Seed <span id="seed"></span> · 지형 QA 전체도 (전술 시야를 해제한 검사 화면)</header><canvas width="1280" height="840"></canvas><script type="module">
-import {createWorld,makePlayer} from '/src/game/simulation.ts';import {paintTerrain} from '/src/client/terrain.ts';import{environmentImage}from'/src/art/environment.ts';
-const seed=Number(new URLSearchParams(location.search).get('seed')||7),w=createWorld('map-inspection',seed,[makePlayer('p','QA')]),img=environmentImage();await img.decode();const g=document.querySelector('canvas').getContext('2d');g.scale(.2,.2);paintTerrain(g,w,img);g.font='bold 70px sans-serif';g.textAlign='center';for(const d of w.map.installations){g.fillStyle=d.kind==='generator'?'#ffe287':'#8ddbc9';g.fillText(d.kind==='generator'?'◆':'◇',d.x,d.y)}g.fillStyle='#8ce8c9';g.fillText('투입',w.map.spawn.x,w.map.spawn.y);for(const p of w.map.extractions){g.fillStyle='#acbef9';g.fillText('탈출',p.x,p.y)}document.querySelector('#seed').textContent=String(seed);window.ready=true;
-</script></html>
+<!doctype html>
+<html lang="ko">
+  <meta charset="utf-8" /><title>
+    V4 map QA — generated terrain, omniscient inspection fixture</title
+  ><style>
+    body {
+      margin: 0;
+      background: #101419;
+      color: #e8cf9f;
+      font: 16px sans-serif;
+    }
+    header {
+      padding: 14px;
+    }
+    canvas {
+      width: 1280px;
+      height: 840px;
+      display: block;
+    }
+  </style>
+  <header>
+    BARREN FRONTIER · Seed <span id="seed"></span> · 지형 QA 전체도 (전술 시야를
+    해제한 검사 화면)
+  </header>
+  <canvas width="1280" height="840"></canvas>
+  <script type="module">
+    import { createWorld, makePlayer } from "/src/game/simulation.ts";
+    import { paintTerrain } from "/src/client/terrain.ts";
+    import { environmentImage } from "/src/art/environment.ts";
+    const seed = Number(new URLSearchParams(location.search).get("seed") || 7),
+      w = createWorld("map-inspection", seed, [makePlayer("p", "QA")]),
+      img = environmentImage();
+    await img.decode();
+    const canvas = document.querySelector("canvas"),
+      g = canvas.getContext("2d"),
+      cache = document.createElement("canvas");
+    cache.width = w.map.width;
+    cache.height = w.map.height;
+    paintTerrain(cache.getContext("2d"), w, img);
+    g.drawImage(cache, 0, 0, 1280, 840);
+    g.scale(0.2, 0.2);
+    g.font = "bold 70px sans-serif";
+    g.textAlign = "center";
+    for (const d of w.map.installations) {
+      g.fillStyle = d.kind === "generator" ? "#ffe287" : "#8ddbc9";
+      g.fillText(d.kind === "generator" ? "◆" : "◇", d.x, d.y);
+    }
+    g.fillStyle = "#8ce8c9";
+    g.fillText("투입", w.map.spawn.x, w.map.spawn.y);
+    for (const p of w.map.extractions) {
+      g.fillStyle = "#acbef9";
+      g.fillText("탈출", p.x, p.y);
+    }
+    document.querySelector("#seed").textContent = String(seed);
+    window.ready = true;
+  </script>
+</html>

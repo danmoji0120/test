@@ -1,3 +1,4 @@
+import { enemyRadius } from "./armor";
 import {
   ENEMIES,
   type World,
@@ -74,6 +75,40 @@ export function initializeTheatre(w: World) {
         sourceId: "patrol-" + i,
       });
   }
+  const specials: import("../shared/data").EnemyKind[] = [];
+  if (w.difficulty >= 5) specials.push("juggernaut");
+  if (w.difficulty >= 7) specials.push("drone");
+  if (w.difficulty >= 8) specials.push("walker");
+  if (w.difficulty >= 9) specials.push("artillery");
+  if (w.difficulty === 10) specials.push("juggernaut", "drone");
+  for (const [i, kind] of specials.entries()) {
+    const site = w.map.zones[i % 2 === 0 ? 0 : 1],
+      anchor =
+        kind === "artillery"
+          ? w.map.sources.find((s) => s.kind === "external")!.entry
+          : site.entry;
+    for (let n = 0; n < 24; n++) {
+      const a = n * 2.399,
+        r = kind === "artillery" ? 130 + n * 15 : 120 + n * 12,
+        p = { x: anchor.x + Math.cos(a) * r, y: anchor.y + Math.sin(a) * r };
+      if (
+        !blocked(p, w.map.obstacles, enemyRadius(kind)) &&
+        p.x > 100 &&
+        p.y > 100 &&
+        p.x < w.map.width - 100 &&
+        p.y < w.map.height - 100
+      ) {
+        spawnEnemy(w, p, kind, {
+          squad: "special-guard-" + i,
+          sourceId: "garrison-" + site.id,
+          role: "anchor",
+          patrol: [{ ...p }, { ...site.entry }],
+        });
+        break;
+      }
+    }
+  }
+
   for (const s of w.map.sources.filter((s) => s.kind !== "external")) {
     s.stock = 2;
     s.capacity = 2;

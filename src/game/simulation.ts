@@ -1,3 +1,5 @@
+import { enemyRadius, armorMultiplier, armored } from "./armor";
+import { fireLauncher, tickProjectiles, hurtEnemy } from "./projectiles";
 import { objectives, tickObjectives } from "./objectives";
 import { tickExtraction } from "./extraction";
 import { initializeTheatre } from "./reinforcements";
@@ -55,6 +57,9 @@ export function makePlayer(id: string, name: string): Player {
     moving: false,
     input: emptyInput(),
     inputAt: 0,
+    tactical: "ammo",
+    rockets: 0,
+    tacticalCooldown: 0,
   };
 }
 export function random(w: World) {
@@ -71,7 +76,7 @@ export function spawnEnemy(
   kind: EnemyKind,
   options: Partial<Enemy> = {},
 ) {
-  if (blocked(pos, w.map.obstacles, 20)) return;
+  if (blocked(pos, w.map.obstacles, enemyRadius(kind))) return;
   w.enemies.push({
     ...pos,
     id: `e${++w.eventId}`,
@@ -144,7 +149,9 @@ export function createWorld(
       hp: 100,
       down: false,
       ammo: WEAPONS[p.weapon].mag,
-      reserve: WEAPONS[p.weapon].reserve,
+      reserve: WEAPONS[p.weapon].reserve + (p.tactical === "launcher" ? 0 : 60),
+      rockets: p.tactical === "launcher" ? 2 : 0,
+      tacticalCooldown: 0,
       reload: 0,
       cooldown: 0,
       recoil: 0,
@@ -181,6 +188,11 @@ export function createWorld(
     events: [],
     eventId: 0,
     time: 0,
+    projectiles: [],
+    projectileId: 0,
+    wrecks: [],
+    notices: [],
+    responseLog: [],
     random: seed >>> 0,
     visibility: initialVision(map),
     alertState: initialAlert(),
@@ -257,8 +269,13 @@ export function fire(w: World, p: Player) {
         ey = e.y - origin.y,
         along = ex * dx + ey * dy,
         perp = Math.abs(ex * dy - ey * dx);
-      if (along > 0 && perp < 27) {
-        const contact = along - Math.sqrt(27 * 27 - perp * perp);
+      const radius = armored(e.kind)
+        ? enemyRadius(e.kind)
+        : e.kind === "drone"
+          ? 14
+          : 27;
+      if (along > 0 && perp < radius) {
+        const contact = along - Math.sqrt(radius * radius - perp * perp);
         if (contact < length) {
           length = Math.max(0, contact);
           hit = e;
@@ -288,7 +305,8 @@ export function fire(w: World, p: Player) {
         raiseAlert(w, 35, "시설 파괴", deviceHit, 1);
       event(w, {
         type: deviceHit.hp === 0 ? "explode" : "hit",
-        ...deviceHit,
+        x: deviceHit.x,
+        y: deviceHit.y,
         actor: p.id,
         weapon: p.weapon,
         damage: gun.damage,
@@ -302,28 +320,21 @@ export function fire(w: World, p: Player) {
             (gun.range * (gun.id === "sg" ? 0.6 : 0.9)),
       );
       const damage =
-        gun.damage *
-        falloff *
-        (1 - ENEMIES[hit.kind].armor * (1 - gun.penetration));
-      hit.hp -= damage;
+        gun.damage * falloff * armorMultiplier(hit, origin, gun.penetration);
+      hurtEnemy(w, hit, damage, p);
       hit.hurt = 0.18;
       hit.stagger = Math.max(
         hit.stagger,
-        gun.id === "sg" ? 0.22 : gun.id === "ar" ? 0.08 : 0.035,
+        armored(hit.kind)
+          ? 0
+          : gun.id === "sg"
+            ? 0.22
+            : gun.id === "ar"
+              ? 0.08
+              : 0.035,
       );
       const prior = impacts.get(hit.id);
       impacts.set(hit.id, { e: hit, damage: (prior?.damage ?? 0) + damage });
-      if (hit.hp <= 0) {
-        p.kills++;
-        event(w, {
-          type: "kill",
-          x: hit.x,
-          y: hit.y,
-          actor: p.id,
-          weapon: p.weapon,
-          angle: a,
-        });
-      }
     }
     event(w, {
       type: "shot",
@@ -382,6 +393,7 @@ export function tick(w: World, dt: number) {
     p.hurt = Math.max(0, p.hurt - dt);
     p.recoil = Math.max(0, p.recoil - dt * 0.045);
     p.cooldown = Math.max(0, p.cooldown - dt);
+    p.tacticalCooldown = Math.max(0, p.tacticalCooldown - dt);
     p.moving = false;
     if (!p.connected || p.down) continue;
     const input = p.input;
@@ -392,7 +404,8 @@ export function tick(w: World, dt: number) {
         RULES.moveSpeed *
         CHARACTERS[p.character].speed *
         (input.sprint ? RULES.sprintSpeed : input.aim ? RULES.aimSpeed : 1) *
-        (p.mod === "stabilizer" ? 0.96 : 1);
+        (p.mod === "stabilizer" ? 0.96 : 1) *
+        (p.tactical === "launcher" ? 0.96 : 1);
       move(
         p,
         (input.dx / Math.max(1, len)) * speed * dt,
@@ -437,6 +450,7 @@ export function tick(w: World, dt: number) {
       p.ammo > 0
     )
       fire(w, p);
+    fireLauncher(w, p);
     // A small recovery buffer makes solo runs viable without removing supply value.
     if (p.hurt === 0 && p.hp < 45) p.hp = Math.min(45, p.hp + dt * 3);
   }
@@ -478,12 +492,14 @@ export function tick(w: World, dt: number) {
         (p) => p.connected && distance(p, s) < 200 && !p.down,
       )) {
         p.hp = 100;
+        p.rockets = Math.min(3, p.rockets + 1);
         p.reserve += Math.floor(WEAPONS[p.weapon].reserve * 0.55);
       }
       event(w, { type: "supply", ...s });
     }
   }
   const m = w.mission;
+  tickProjectiles(w, dt);
   tickObjectives(w, dt);
   tickExtraction(w, dt);
   if (["success", "failed"].includes(m.stage)) return;

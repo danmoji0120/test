@@ -164,6 +164,7 @@ function cleanInput(data: Record<string, unknown>): Input {
     reload: data.reload === true,
     interact: data.interact === true,
     revive: data.revive === true,
+    tactical: data.tactical === true,
   };
 }
 wss.on("connection", (ws) => {
@@ -295,6 +296,8 @@ wss.on("connection", (ws) => {
           p.character = m.character;
         if (c.profile.unlocks.includes(m.weapon)) p.weapon = m.weapon;
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;
+        if (m.tactical === "launcher" || m.tactical === "ammo")
+          p.tactical = m.tactical;
         r.players.push(p);
         if (!r.players.some((v) => v.id === r.host && v.connected))
           r.host = c.id;
@@ -311,6 +314,8 @@ wss.on("connection", (ws) => {
           p.character = m.character;
         if (c.profile.unlocks.includes(m.weapon)) p.weapon = m.weapon;
         if (c.profile.mods.includes(m.mod)) p.mod = m.mod;
+        if (m.tactical === "launcher" || m.tactical === "ammo")
+          p.tactical = m.tactical;
         p.ready = false;
       }
       if (m.type === "ready" && r.phase === "lobby") p.ready = !p.ready;
@@ -385,10 +390,15 @@ function saveTrace(r: Room) {
     mission: w.mission,
     metrics: w.metrics,
     requests: w.reinforcements,
+    difficulty: w.difficulty,
+    alert: w.alertState,
+    responseLog: w.responseLog,
+    projectiles: w.projectiles,
     trajectories: w.trajectories,
     sources: w.map.sources,
     actors: w.enemies.map((e) => ({
       id: e.id,
+      kind: e.kind,
       x: e.x,
       y: e.y,
       source: e.sourceId,

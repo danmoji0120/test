@@ -1,0 +1,173 @@
+import { it, expect } from "vitest";
+import {
+  createWorld,
+  makePlayer,
+  spawnEnemy,
+  fire,
+  tick,
+} from "../src/game/simulation";
+import { armorMultiplier, enemyRadius } from "../src/game/armor";
+import { launch, tickProjectiles, fireLauncher } from "../src/game/projectiles";
+import { enemyAI } from "../src/game/squads";
+import { visibleWorld } from "../src/server/visibility";
+import { blocked, invalidateNavigation, distance } from "../src/game/map";
+function fixture() {
+  const p = makePlayer("p", "P"),
+    w = createWorld("heavy", 42, [p], 10);
+  w.enemies = [];
+  w.squads = {};
+  w.projectiles = [];
+  w.map.obstacles = [];
+  invalidateNavigation(w.map);
+  Object.assign(p, { x: 1000, y: 1000, angle: 0 });
+  return w;
+}
+it("introduces role-specific rosters at 5/7/8/9 without changing infantry health", () => {
+  for (const [level, kind] of [
+    [5, "juggernaut"],
+    [7, "drone"],
+    [8, "walker"],
+    [9, "artillery"],
+  ] as const) {
+    const w = createWorld("roster", 42, [makePlayer("p", "P")], level);
+    expect(w.enemies.some((e) => e.kind === kind)).toBe(true);
+    for (const e of w.enemies)
+      expect(blocked(e, w.map.obstacles, enemyRadius(e.kind))).toBe(false);
+  }
+});
+it("front armor is costly while flanking yields more than tenfold walker damage", () => {
+  const w = fixture(),
+    e = spawnEnemy(w, { x: 1300, y: 1000 }, "walker")!;
+  e.angle = Math.PI;
+  expect(armorMultiplier(e, w.players[0])).toBe(0.045);
+  expect(armorMultiplier(e, { x: 1600, y: 1000 })).toBe(0.95);
+  const p = w.players[0];
+  p.input.aim = true;
+  const before = e.hp;
+  fire(w, p);
+  expect(before - e.hp).toBeGreaterThan(0);
+  expect(before - e.hp).toBeLessThan(2);
+  expect(e.stagger).toBe(0);
+});
+it("launcher ammo is limited, projectiles travel and rear rockets destroy armor without allied damage", () => {
+  const w = fixture(),
+    p = w.players[0],
+    e = spawnEnemy(w, { x: 1400, y: 1000 }, "walker")!;
+  e.angle = 0;
+  p.rockets = 2;
+  p.input.tactical = true;
+  fireLauncher(w, p);
+  expect(p.rockets).toBe(1);
+  expect(w.projectiles).toHaveLength(1);
+  expect(e.hp).toBe(650);
+  fireLauncher(w, p);
+  expect(p.rockets).toBe(1);
+  for (let i = 0; i < 60; i++) {
+    w.time += 1 / 30;
+    tickProjectiles(w, 1 / 30);
+  }
+  expect(e.hp).toBeLessThan(170);
+  expect(p.hp).toBe(100);
+  p.tacticalCooldown = 0;
+  fireLauncher(w, p);
+  for (let i = 0; i < 60; i++) {
+    w.time += 1 / 30;
+    tickProjectiles(w, 1 / 30);
+  }
+  expect(e.hp).toBeLessThanOrEqual(0);
+  expect(w.wrecks).toHaveLength(1);
+  expect(p.kills).toBe(1);
+});
+it("requires actual dated observation for artillery and never steers a launched shell", () => {
+  const w = fixture(),
+    p = w.players[0],
+    e = spawnEnemy(w, { x: 2200, y: 1000 }, "artillery")!;
+  for (let i = 0; i < 40; i++) {
+    w.time += 1 / 30;
+    enemyAI(w, 1 / 30);
+  }
+  expect(w.projectiles).toHaveLength(0);
+  e.lastSeen = { x: p.x, y: p.y };
+  e.memory = 7;
+  e.cooldown = 0;
+  for (let i = 0; i < 40; i++) {
+    w.time += 1 / 30;
+    enemyAI(w, 1 / 30);
+  }
+  const q = w.projectiles.find((q) => q.kind === "mortar")!;
+  expect(q).toBeTruthy();
+  expect(q.impactAt - q.at).toBeGreaterThan(2);
+  const point = { ...q.target };
+  p.x += 350;
+  for (let i = 0; i < 90; i++) {
+    w.time += 1 / 30;
+    tickProjectiles(w, 1 / 30);
+  }
+  expect(q.target).toEqual(point);
+  expect(p.hp).toBe(100);
+});
+it("hides artillery origin and owner while transmitting an incoming impact warning", () => {
+  const w = fixture();
+  launch(
+    w,
+    { x: 2200, y: 1000 },
+    w.players[0],
+    "mortar",
+    "secret-artillery",
+    true,
+  );
+  const q = visibleWorld(w).projectiles[0];
+  expect(q).toBeTruthy();
+  expect(q.owner).toBe("");
+  expect(q.origin).toEqual(q.target);
+  expect(q.x).toBe(1000);
+});
+it("walker projectiles hit solid terrain and cannot pass a wall into a player", () => {
+  const w = fixture(),
+    p = w.players[0];
+  w.map.obstacles = [{ x: 1200, y: 0, w: 100, h: 4200, kind: "wall" }];
+  launch(w, { x: 1500, y: 1000 }, p, "cannon", "walker", true);
+  for (let i = 0; i < 90; i++) {
+    w.time += 1 / 30;
+    tickProjectiles(w, 1 / 30);
+  }
+  expect(p.hp).toBe(100);
+  expect(w.projectiles).toHaveLength(0);
+});
+it("juggernaut cycles spinup, sustained fire and overheat instead of an endless laser", () => {
+  const w = fixture(),
+    p = w.players[0],
+    e = spawnEnemy(w, { x: 1500, y: 1000 }, "juggernaut")!;
+  const phases = new Set<string>();
+  for (let i = 0; i < 150; i++) {
+    w.time += 1 / 30;
+    p.hp = 100;
+    p.down = false;
+    enemyAI(w, 1 / 30);
+    if (e.phase) phases.add(e.phase);
+  }
+  expect(phases.has("spinup")).toBe(true);
+  expect(phases.has("firing")).toBe(true);
+  expect(phases.has("overheat")).toBe(true);
+  expect(w.events.filter((e) => e.type === "shot")).toHaveLength(14);
+});
+
+it("does not reconstruct an unseen cannon origin from projectile timestamps or distance", () => {
+  const w = fixture();
+  launch(
+    w,
+    { x: 2000, y: 1000 },
+    { x: 1000, y: 1000 },
+    "cannon",
+    "secret",
+    true,
+  );
+  const q = w.projectiles[0];
+  q.x = 1500;
+  q.traveled = 500;
+  const publicQ = visibleWorld(w).projectiles[0];
+  expect(publicQ.origin).toEqual({ x: 1500, y: 1000 });
+  expect(publicQ.traveled).toBe(0);
+  expect(publicQ.at).toBe(w.time);
+  expect(publicQ.target).toEqual(publicQ.origin);
+});

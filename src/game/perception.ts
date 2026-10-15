@@ -14,7 +14,7 @@ export function noise(
 }
 export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
   const seen = live
-    .filter((p) => lineOfSight(e, p, w.map, 760))
+    .filter((p) => lineOfSight(e, p, w.map, e.kind === "drone" ? 1050 : 760))
     .sort((a, b) => distance(e, a) - distance(e, b));
   const target = seen[0];
   e.stateTime += dt;

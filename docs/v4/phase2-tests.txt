@@ -1,0 +1,42 @@
+
+> project-doll-squad@0.3.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 47.4 seconds [
+  { hp: 100, kills: 3, ammo: 283 },
+  { hp: 100, kills: 2, ammo: 282 },
+  { hp: 100, kills: 3, ammo: 282 },
+  { hp: 100, kills: 3, ammo: 282 }
+]
+
+ ✓ tests/game.test.ts (35 tests) 12958ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  8280ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  2092ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  1411ms
+ ✓ tests/region.test.ts (3 tests) 9173ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  8326ms
+   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  742ms
+ ✓ tests/network.test.ts (5 tests) 4180ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2656ms
+ ✓ tests/heavy-combat.test.ts (7 tests) 550ms
+ ✓ tests/reinforcements.test.ts (5 tests) 2358ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  1949ms
+ ✓ tests/terrain.test.ts (2 tests) 2312ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2310ms
+ ✓ tests/difficulty.test.ts (1 test) 647ms
+   ✓ scales response, composition and pressure across ten levels without health inflation  642ms
+ ✓ tests/visibility.test.ts (6 tests) 196ms
+ ✓ tests/objectives.test.ts (5 tests) 206ms
+ ✓ tests/perception.test.ts (5 tests) 137ms
+ ✓ tests/snapshot.test.ts (1 test) 109ms
+ ✓ tests/store.test.ts (2 tests) 3ms
+
+ Test Files  12 passed (12)
+      Tests  77 passed (77)
+   Start at  13:43:09
+   Duration  35.15s (transform 243ms, setup 0ms, collect 545ms, tests 32.83s, environment 1ms, prepare 545ms)
+

@@ -129,6 +129,46 @@ export const ENEMIES = {
     windup: 0.55,
     armor: 0.3,
   },
+  juggernaut: {
+    name: "중장갑 진압병",
+    hp: 240,
+    speed: 92,
+    range: 690,
+    damage: 9,
+    delay: 3.8,
+    windup: 1.1,
+    armor: 0.85,
+  },
+  drone: {
+    name: "무장 정찰 드론",
+    hp: 50,
+    speed: 270,
+    range: 440,
+    damage: 5,
+    delay: 2.1,
+    windup: 0.4,
+    armor: 0.05,
+  },
+  walker: {
+    name: "전투 보행병기",
+    hp: 650,
+    speed: 82,
+    range: 820,
+    damage: 24,
+    delay: 3.6,
+    windup: 1.1,
+    armor: 0.95,
+  },
+  artillery: {
+    name: "이동식 공성 병기",
+    hp: 450,
+    speed: 65,
+    range: 1600,
+    damage: 48,
+    delay: 8.5,
+    windup: 1.0,
+    armor: 0.8,
+  },
 } as const;
 export type EnemyKind = keyof typeof ENEMIES;
 export interface Vec {
@@ -154,6 +194,7 @@ export interface Input {
   reload: boolean;
   interact: boolean;
   revive: boolean;
+  tactical?: boolean;
 }
 export const emptyInput = (): Input => ({
   dx: 0,
@@ -198,9 +239,15 @@ export interface Player extends Vec {
   moving: boolean;
   input: Input;
   inputAt: number;
+  tactical: "launcher" | "ammo";
+  rockets: number;
+  tacticalCooldown: number;
 }
 export interface Enemy extends Vec {
   elite?: boolean;
+  phase?: "ready" | "spinup" | "firing" | "overheat";
+  attackPoint?: Vec | null;
+  strategicAt?: number;
   id: string;
   kind: EnemyKind;
   hp: number;
@@ -297,6 +344,9 @@ export interface GameEvent extends Vec {
   pellet?: boolean;
   impact?: boolean;
   damage?: number;
+  kind?: EnemyKind;
+  heavy?: boolean;
+  armored?: boolean;
   angle?: number;
 }
 export interface Objective {
@@ -337,6 +387,11 @@ export interface World {
   events: GameEvent[];
   eventId: number;
   time: number;
+  projectiles: Projectile[];
+  projectileId: number;
+  wrecks: (Vec & { id: string; kind: EnemyKind; angle: number; at: number })[];
+  notices: { at: number; text: string; direction: string; eta: number }[];
+  responseLog: { at: number; event: string; detail: string }[];
   random: number;
   visibility: import("../game/visibility").Vision;
   alertState: AlertState;
@@ -441,6 +496,7 @@ export interface AlertState {
   lastContact: number;
   lastRaise: number;
   reason: string;
+  gates?: Record<string, number>;
 }
 export interface SupportSignal {
   id: string;
@@ -455,6 +511,9 @@ export interface Reinforcement {
   squad: string;
   sourceId: string;
   members: string[];
+  roster?: EnemyKind[];
+  task?: "assault" | "search" | "block" | "defend";
+  radius?: number;
   target: Vec;
   path: Vec[];
   requested: number;
@@ -470,4 +529,21 @@ export interface Trajectory {
   request: string;
   born: Vec;
   points: (Vec & { at: number })[];
+}
+
+export interface Projectile extends Vec {
+  id: string;
+  kind: "rocket" | "cannon" | "mortar";
+  owner: string;
+  enemy: boolean;
+  origin: Vec;
+  target: Vec;
+  angle: number;
+  speed: number;
+  traveled: number;
+  range: number;
+  at: number;
+  impactAt: number;
+  damage: number;
+  radius: number;
 }
