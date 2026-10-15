@@ -25,7 +25,7 @@ try {
     }
   }
   if (!ready) throw Error("QA dev server unavailable");
-  for (const script of [
+  for (const script of process.env.QA_SCRIPTS?.split(",") || [
     "scripts/render-qa.ts",
     "scripts/audio-qa.ts",
     "scripts/region-visual-qa.ts",

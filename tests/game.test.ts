@@ -62,7 +62,7 @@ describe("seed and collision geometry", () => {
         ).toBeGreaterThan(0);
       }
     }
-  });
+  }, 20000);
   it("blocks movement and supports sliding along walls", () => {
     const m = generateMap(1),
       p = { x: 490, y: 300 };

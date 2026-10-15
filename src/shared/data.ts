@@ -139,6 +139,8 @@ export interface Rect extends Vec {
   w: number;
   h: number;
   kind: "wall" | "crate" | "container" | "door" | "rock" | "fence";
+  polygon?: Vec[];
+  variant?: number;
   open?: boolean;
   id?: string;
 }
@@ -263,6 +265,12 @@ export interface GameMap {
   installations: Installation[];
   extractions: Vec[];
   patrols: Vec[][];
+  terrain?: {
+    biome: "barren";
+    ridges: Vec[][];
+    decor: (Vec & { size: number; frame: number; angle: number })[];
+    elevation: number[];
+  };
   topology: string;
 }
 export interface GameEvent extends Vec {

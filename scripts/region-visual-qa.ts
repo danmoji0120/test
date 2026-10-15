@@ -7,13 +7,23 @@ const browser = await chromium.launch({
   args: ["--no-sandbox"],
 });
 const report = [];
-for (const seed of [7, 42, 103]) {
+for (const seed of [7, 42, 103, 211, 997]) {
   const context = await browser.newContext({
       viewport: { width: 1280, height: 720 },
     }),
     page = await context.newPage();
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
+  await page.goto(
+    (process.env.QA_URL || "http://localhost:3303") +
+      "/scripts/v4-overview.html?seed=" +
+      seed,
+  );
+  await page.waitForFunction(() => (window as any).ready);
+  await page.screenshot({
+    path: `${output}/seed-${seed}-overview.png`,
+    fullPage: true,
+  });
   await page.goto(process.env.QA_URL || "http://localhost:3303");
   await page.waitForFunction(() => (window as any).dollQA?.connected);
   await page.click('[data-action="create"]');

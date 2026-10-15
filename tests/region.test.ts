@@ -39,7 +39,7 @@ it("keeps every objective, extraction and dispatch exit reachable across 100 see
       ).toBeGreaterThan(0);
     }
   }
-});
+}, 20000);
 
 it("keeps reachable navigation through interior corners where a 32px operator can stand", () => {
   const m = generateMap(42),

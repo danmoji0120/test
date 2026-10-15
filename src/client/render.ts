@@ -1,3 +1,5 @@
+import { paintTerrain } from "./terrain";
+import { environmentImage, drawEnvironment } from "../art/environment";
 import { operationGoal } from "../shared/operation";
 import { lineOfSight } from "../game/visibility";
 import { Fog } from "./fog";
@@ -46,6 +48,7 @@ export class Renderer {
   mapSeed = -1;
   atlas = operatorImage();
   enemyAtlas = enemyImage();
+  environmentAtlas = environmentImage();
   positions = new Map<string, Vec>();
   particles: Particle[] = [];
   trails: (GameEvent & { life: number })[] = [];
@@ -253,173 +256,18 @@ export class Renderer {
     const c = document.createElement("canvas");
     c.width = w.map.width;
     c.height = w.map.height;
-    const g = c.getContext("2d")!;
-    g.fillStyle = "#1b2931";
-    g.fillRect(0, 0, c.width, c.height);
-    for (let x = 0; x < c.width; x += 100)
-      for (let y = 0; y < c.height; y += 100) {
-        g.fillStyle = (x + y) % 300 ? "#1d2c34" : "#203039";
-        g.fillRect(x + 2, y + 2, 96, 96);
-        g.fillStyle = "#35434a";
-        g.fillRect(x + 7, y + 7, 2, 2);
-        g.fillRect(x + 92, y + 92, 2, 2);
-      }
-    // Roads remain real world geometry under the shared fog.
-    g.strokeStyle = "#36434a";
-    g.lineCap = "round";
-    for (const road of w.map.roads) {
-      g.lineWidth = road.width;
-      g.beginPath();
-      road.points.forEach((p, i) =>
-        i ? g.lineTo(p.x, p.y) : g.moveTo(p.x, p.y),
-      );
-      g.stroke();
-      g.lineWidth = 2;
-      g.strokeStyle = "#8c8d7250";
-      g.setLineDash([18, 28]);
-      g.stroke();
-      g.setLineDash([]);
-      g.strokeStyle = "#36434a";
-    }
-    for (const zone of w.map.zones) {
-      const palette = {
-        yard: "#343638",
-        warehouse: "#24343b",
-        security: "#292b40",
-        corridor: "#25343b",
-        reactor: "#263c40",
-        extraction: "#223d39",
-      };
-      g.fillStyle = palette[zone.kind];
-      g.fillRect(zone.x + 45, zone.y + 45, zone.w - 90, zone.h - 90);
-      g.strokeStyle = "#a6c4cc0c";
-      g.lineWidth = 1;
-      for (let x = zone.x + 50; x < zone.x + zone.w - 40; x += 50) {
-        g.beginPath();
-        g.moveTo(x, zone.y + 45);
-        g.lineTo(x, zone.y + zone.h - 45);
-        g.stroke();
-      }
-      for (let y = zone.y + 50; y < zone.y + zone.h - 40; y += 50) {
-        g.beginPath();
-        g.moveTo(zone.x + 45, y);
-        g.lineTo(zone.x + zone.w - 45, y);
-        g.stroke();
-      }
-      g.fillStyle = "#b8d6d21e";
-      g.font = "bold 35px sans-serif";
-      g.fillText(zone.label, zone.x + 70, zone.y + 105);
-      g.font = "15px monospace";
-      g.fillText(
-        `SECTOR ${String(zone.id + 1).padStart(2, "0")} // ${zone.kind.toUpperCase()}`,
-        zone.x + 70,
-        zone.y + 132,
-      );
-      g.strokeStyle = zone.kind === "extraction" ? "#7cdbc780" : "#e0c48b35";
-      g.lineWidth = 3;
-      g.setLineDash([18, 18]);
-      g.strokeRect(zone.x + 95, zone.y + 170, zone.w - 190, zone.h - 290);
-      g.setLineDash([]);
-      if (zone.kind === "reactor" || zone.kind === "security") {
-        g.fillStyle = zone.kind === "reactor" ? "#76ebc411" : "#ba9bfd10";
-        g.fillRect(zone.center.x - 110, zone.center.y - 100, 220, 200);
-      }
-    }
-    for (const o of w.map.obstacles) {
-      if (o.kind === "door") continue;
-      if (o.kind === "rock") {
-        g.fillStyle = "#111b20";
-        g.fillRect(o.x + 9, o.y + 11, o.w, o.h);
-        g.beginPath();
-        g.moveTo(o.x + o.w * 0.18, o.y);
-        g.lineTo(o.x + o.w * 0.78, o.y + 4);
-        g.lineTo(o.x + o.w, o.y + o.h * 0.42);
-        g.lineTo(o.x + o.w * 0.83, o.y + o.h);
-        g.lineTo(o.x + 6, o.y + o.h * 0.85);
-        g.lineTo(o.x, o.y + o.h * 0.25);
-        g.closePath();
-        g.fillStyle = "#3b494c";
-        g.fill();
-        g.strokeStyle = "#65716f";
-        g.lineWidth = 3;
-        g.stroke();
-        g.beginPath();
-        g.moveTo(o.x + o.w * 0.18, o.y + 6);
-        g.lineTo(o.x + o.w * 0.4, o.y + o.h * 0.5);
-        g.lineTo(o.x + o.w * 0.83, o.y + o.h - 8);
-        g.strokeStyle = "#26363b";
-        g.stroke();
-        continue;
-      }
-      if (o.kind === "fence") {
-        g.fillStyle = "#1b2b3270";
-        g.fillRect(o.x, o.y, o.w, o.h);
-        g.strokeStyle = "#80919270";
-        g.lineWidth = 1;
-        for (let x = o.x + 8; x < o.x + o.w; x += 12) {
-          g.beginPath();
-          g.moveTo(x, o.y);
-          g.lineTo(x, o.y + o.h);
-          g.stroke();
-        }
-        for (let y = o.y + 8; y < o.y + o.h; y += 12) {
-          g.beginPath();
-          g.moveTo(o.x, y);
-          g.lineTo(o.x + o.w, y);
-          g.stroke();
-        }
-        g.fillStyle = "#a1aaa2";
-        g.fillRect(o.x, o.y, 5, o.h);
-        g.fillRect(o.x + o.w - 5, o.y, 5, o.h);
-        continue;
-      }
-      g.fillStyle = "#080f1690";
-      g.fillRect(o.x + 10, o.y + 15, o.w, o.h);
-      g.fillStyle =
-        o.kind === "wall"
-          ? "#111e28"
-          : o.kind === "container"
-            ? "#344c56"
-            : "#45555a";
-      g.fillRect(o.x, o.y, o.w, o.h);
-      g.fillStyle = o.kind === "wall" ? "#344751" : "#5a7178";
-      g.fillRect(o.x, o.y, o.w, 6);
-      g.strokeStyle = "#71858b4a";
-      g.lineWidth = 1;
-      g.strokeRect(o.x + 4, o.y + 4, o.w - 8, o.h - 8);
-      if (o.kind === "container") {
-        g.strokeStyle = "#152c3680";
-        g.lineWidth = 4;
-        for (let x = o.x + 12; x < o.x + o.w - 7; x += 13) {
-          g.beginPath();
-          g.moveTo(x, o.y + 10);
-          g.lineTo(x, o.y + o.h - 10);
-          g.stroke();
-        }
-        g.fillStyle = "#d6bf8170";
-        g.fillRect(o.x + o.w - 28, o.y + 12, 15, 20);
-      } else if (o.kind === "crate") {
-        g.strokeStyle = "#1f343c";
-        g.lineWidth = 5;
-        g.strokeRect(o.x + 13, o.y + 13, o.w - 26, o.h - 26);
-        g.beginPath();
-        g.moveTo(o.x + 13, o.y + 13);
-        g.lineTo(o.x + o.w - 13, o.y + o.h - 13);
-        g.stroke();
-        g.fillStyle = "#c4ae76";
-        g.fillRect(o.x + o.w / 2 - 10, o.y + o.h / 2 - 8, 20, 16);
-      } else {
-        for (let y = o.y + 30; y < o.y + o.h; y += 90) {
-          g.fillStyle = "#5b6c762f";
-          g.fillRect(o.x + 5, y, o.w - 10, 2);
-        }
-        if (o.h > 150) {
-          g.fillStyle = "#84c9c480";
-          g.fillRect(o.x + o.w / 2 - 3, o.y + 18, 6, 24);
-        }
-      }
-    }
+    paintTerrain(c.getContext("2d")!, w, this.environmentAtlas);
     this.floor = c;
+    if (!this.environmentAtlas.complete)
+      this.environmentAtlas.addEventListener(
+        "load",
+        () => {
+          if (this.world?.id === w.id) {
+            paintTerrain(c.getContext("2d")!, w, this.environmentAtlas);
+          }
+        },
+        { once: true },
+      );
   }
   start() {
     if (this.running) return;
@@ -795,6 +643,14 @@ export class Renderer {
     }
     g.globalAlpha = 1;
     this.particles = this.particles.filter((q) => q.life > 0);
+    if (w.map.terrain) {
+      g.fillStyle = "#ddc79726";
+      for (let i = 0; i < 28; i++) {
+        const x = this.camera.x - halfW + ((i * 137 + t * 21) % (halfW * 2)),
+          y = this.camera.y - halfH + ((i * 83 + t * 5) % (halfH * 2));
+        g.fillRect(x, y, 2 + (i % 3), 1);
+      }
+    }
     this.fog.draw(g, w, this.camera, halfW, halfH);
     g.restore();
     // A restrained vignette leaves targets readable at screen edges.

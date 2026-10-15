@@ -10,3 +10,11 @@ Generated atlas file was copied unchanged from `/workspace/generated_images/exec
 ## V2 enemy raster atlas
 
 `enemies-atlas.png`: actually generated via `image_gen.imagegen` on 2026-10-15 KST. Original copied unchanged from `/workspace/generated_images/exec-1b5c1273-1558-43d3-900b-7c96b8006e5e.png`; RGBA 1448×1086, alpha 0–255. Three rows rifle/rush/heavy, four columns south/east/north/west. Sealed red-visor armored troops, olive/maroon/ochre silhouettes. `src/art/raster.ts` stores measured alpha bounds. Body art has no code-drawn fallback. Foot arcs, shadows, health bars and hit effects are gameplay overlays. Four static directional poses; independent gun/arm animation is not provided.
+
+## V4 Total Warfare generated assets
+
+Both new atlases were actually generated using `image_gen.imagegen` on 2026-10-15 KST, referencing the official Aria and existing enemy raster art. RGBA PNGs, 1448×1086, transparent alpha0–255; originals copied unchanged. No SVG/Canvas/Python replacement artwork.
+
+- `v4-enemies-atlas.png`: `/workspace/generated_images/exec-8daf2542-2df7-42a4-b034-65d0de4f4172.png`. Juggernaut, recon drone, walker, tracked artillery; four directional poses each.
+- `v4-environment-atlas.png`: `/workspace/generated_images/exec-aa32c444-c524-4f32-8ea7-1d837c8962c0.png`. Rock clusters, generator, bunker, communications mast, ruined corner, heavy wrecks and sand/scrub decor.
+- `v4-frames.json` measures largest connected alpha-component bounds per cell; the raster files are not edited. Terrain collision clips rock artwork to the same convex polygon used by server collision and sight. Sand fields, roads, shadows and gameplay markers remain procedural terrain/effects.

@@ -1,0 +1,43 @@
+
+> project-doll-squad@0.3.0 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 47.4 seconds [
+  { hp: 100, kills: 3, ammo: 223 },
+  { hp: 100, kills: 2, ammo: 222 },
+  { hp: 100, kills: 3, ammo: 222 },
+  { hp: 100, kills: 3, ammo: 222 }
+]
+
+ ✓ tests/game.test.ts (35 tests) 14352ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  8009ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  2223ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  2671ms
+ ✓ tests/region.test.ts (3 tests) 11286ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  10141ms
+   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  1017ms
+ ✓ tests/network.test.ts (5 tests) 4723ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2702ms
+   ✓ assigns leadership to a new joiner when every previous member is disconnected  437ms
+ ✓ tests/terrain.test.ts (2 tests) 2392ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2390ms
+ ✓ tests/reinforcements.test.ts (5 tests) 3221ms
+   ✓ prepositions real reserves, deduplicates a request and marches continuously from its source  303ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  2786ms
+ ✓ tests/difficulty.test.ts (1 test) 778ms
+   ✓ scales response, composition and pressure across ten levels without health inflation  777ms
+ ✓ tests/objectives.test.ts (5 tests) 289ms
+ ✓ tests/visibility.test.ts (6 tests) 312ms
+ ✓ tests/perception.test.ts (5 tests) 177ms
+ ✓ tests/snapshot.test.ts (1 test) 127ms
+ ✓ tests/store.test.ts (2 tests) 4ms
+
+ Test Files  11 passed (11)
+      Tests  70 passed (70)
+   Start at  13:37:33
+   Duration  40.25s (transform 245ms, setup 0ms, collect 542ms, tests 37.66s, environment 4ms, prepare 530ms)
+
