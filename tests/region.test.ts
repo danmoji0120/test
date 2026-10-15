@@ -40,3 +40,28 @@ it("keeps every objective, extraction and dispatch exit reachable across 100 see
     }
   }
 });
+
+it("keeps reachable navigation through interior corners where a 32px operator can stand", () => {
+  const m = generateMap(42),
+    p = { x: 395, y: 1269 },
+    goal = { x: 605, y: 1278 };
+  expect(blocked(p, m.obstacles, 16)).toBe(false);
+  expect(findPath(p, goal, m).length).toBeGreaterThan(0);
+  for (let seed = 0; seed < 20; seed++) {
+    const map = generateMap(seed);
+    for (const z of map.zones.filter((z) => z.kind !== "yard"))
+      for (const [dx, dy] of [
+        [50, 50],
+        [z.w - 50, 50],
+        [50, z.h - 50],
+        [z.w - 50, z.h - 50],
+      ]) {
+        const start = { x: z.x + dx, y: z.y + dy };
+        if (!blocked(start, map.obstacles, 16))
+          expect(
+            findPath(start, z.center, map).length,
+            `corner ${seed}:${z.id}`,
+          ).toBeGreaterThan(0);
+      }
+  }
+});

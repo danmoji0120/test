@@ -90,14 +90,20 @@ export function region(seed: number): GameMap {
       ])
         wall(x, y, w, h);
       if (z.variant === 0) {
-        wall(85, 80, 75, Math.max(60, z.h / 2 - 180), "container");
-        wall(z.w - 180, z.h / 2 + 100, 100, 80, "crate");
+        wall(130, 130, 75, Math.max(60, z.h / 2 - 230), "container");
+        wall(z.w - 210, z.h - 210, 80, 80, "crate");
       } else if (z.variant === 1) {
-        wall(75, 80, z.w / 2 - 180, 80, "container");
-        wall(z.w / 2 + 100, z.h - 160, z.w / 2 - 180, 80, "container");
+        wall(130, 130, Math.max(50, z.w / 2 - 230), 60, "container");
+        wall(
+          z.w / 2 + 60,
+          z.h - 190,
+          Math.max(50, z.w / 2 - 190),
+          60,
+          "container",
+        );
       } else {
-        wall(70, 70, 90, 100, "wall");
-        wall(z.w - 170, z.h - 170, 100, 100, "wall");
+        wall(130, 130, 70, 70, "wall");
+        wall(z.w - 200, z.h - 200, 70, 70, "wall");
       }
     } else
       for (const [x, y, w, h] of [
@@ -349,6 +355,16 @@ export function region(seed: number): GameMap {
       sources.some((s) => distance(p, s.entry) < 200)
     )
       continue;
+    if (
+      obstacles.some(
+        (o) =>
+          p.x + 180 > o.x &&
+          p.x - 140 < o.x + o.w &&
+          p.y + 160 > o.y &&
+          p.y - 130 < o.y + o.h,
+      )
+    )
+      continue;
     obstacles.push({
       x: p.x - 40,
       y: p.y - 30,
@@ -367,7 +383,6 @@ export function region(seed: number): GameMap {
     seed,
     obstacles,
     zones,
-    route: zones.map((z) => z.id),
     roads,
     sources,
     installations,
@@ -375,26 +390,12 @@ export function region(seed: number): GameMap {
     patrols,
     topology: roads.map((r) => r.from + "-" + r.to).join(","),
     spawn,
-    core: { ...zones[0].center },
-    extract: { ...extractions[0] },
-    // Transitional V2 combat fixtures until objective migration in phase5.
-    devices: [
-      {
-        x: zones[0].center.x - 75,
-        y: zones[0].center.y - 65,
-        hp: 240,
-        maxHp: 240,
-      },
-      {
-        x: zones[0].center.x + 75,
-        y: zones[0].center.y + 65,
-        hp: 240,
-        maxHp: 240,
-      },
+    supplies: [
+      { ...spawn, x: spawn.x + 65, y: spawn.y, used: false },
+      ...zones
+        .filter((_, i) => i % 2 === 0)
+        .map((z) => ({ ...z.entry, used: false })),
     ],
-    supplies: zones
-      .filter((_, i) => i % 2 === 0)
-      .map((z) => ({ ...z.entry, used: false })),
     intel: { ...zones[6].center },
   };
 }

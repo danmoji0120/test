@@ -72,7 +72,7 @@ it("external troops first exist beyond a valid border gate then physically enter
 it("cancels a disabled source and releases assigned reserves without creating soldiers", () => {
   const w = world(),
     s = w.map.sources.find((s) => s.kind === "barracks")!;
-  const r = requestSupport(w, "cancel", w.map.core, "squad", s.id)!;
+  const r = requestSupport(w, "cancel", w.map.installations[0], "squad", s.id)!;
   const count = w.enemies.length;
   s.disabled = true;
   march(w, 20);

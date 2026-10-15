@@ -1,13 +1,17 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import { resolve } from "node:path";
+import { existsSync, copyFileSync, mkdirSync } from "node:fs";
 const port = process.env.QA_PORT || "3302";
 // Keep the server in the same foreground QA process tree; detached jobs may be reclaimed by cloud tooling.
+const dataDir = resolve(".qa-private-session-" + process.pid),
+  trace = resolve(dataDir, "trace.json");
 const server = spawn(process.execPath, ["dist/server.mjs"], {
   env: {
     ...process.env,
     PORT: port,
     NODE_ENV: "production",
-    DATA_DIR: resolve(".qa-private-session-" + process.pid),
+    DATA_DIR: dataDir,
+    QA_TRACE_FILE: trace,
   },
   stdio: "inherit",
 });
@@ -44,5 +48,13 @@ try {
     qa!.on("exit", (code) => r(code ?? 1)),
   );
 } finally {
+  const evidence = trace.replace(/\.json$/, "-completed.json");
+  if (process.env.QA_REPORT_DIR && existsSync(evidence)) {
+    mkdirSync(process.env.QA_REPORT_DIR, { recursive: true });
+    copyFileSync(
+      evidence,
+      resolve(process.env.QA_REPORT_DIR, "server-trace.json"),
+    );
+  }
   stop();
 }

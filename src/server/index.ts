@@ -110,6 +110,7 @@ function view(room: Room) {
     phase: room.phase,
     seed: room.seed,
     difficulty: room.difficulty,
+    contract: room.contract,
     players: room.players.map(({ input, inputAt, ...p }) => p),
     world: room.world ? visibleWorld(room.world) : null,
   };
@@ -257,6 +258,7 @@ wss.on("connection", (ws) => {
             players: [],
             seed: Math.floor(Math.random() * 999999),
             difficulty: "normal",
+            contract: "blackout",
             world: null,
             emptyAt: 0,
             run: 0,
@@ -305,6 +307,8 @@ wss.on("connection", (ws) => {
       if (m.type === "settings" && r.phase === "lobby" && r.host === c.id) {
         if (Number.isInteger(m.seed) && m.seed >= 0 && m.seed <= 999999)
           r.seed = m.seed;
+        if (m.contract === "blackout" || m.contract === "recon")
+          r.contract = m.contract;
         if (m.difficulty === "normal" || m.difficulty === "hard")
           r.difficulty = m.difficulty;
       }
@@ -313,7 +317,13 @@ wss.on("connection", (ws) => {
           error(c, "모든 오퍼레이터가 준비해야 합니다.");
           return;
         }
-        r.world = createWorld(randomUUID(), r.seed, r.players);
+        r.world = createWorld(
+          randomUUID(),
+          r.seed,
+          r.players,
+          r.difficulty === "hard" ? 7 : 3,
+          r.contract,
+        );
         r.phase = "playing";
         r.run++;
       }
@@ -353,28 +363,29 @@ function saveTrace(r: Room) {
   const file = process.env.QA_TRACE_FILE,
     w = r.world;
   if (!file || !w) return;
-  writeFileSync(
-    file,
-    JSON.stringify({
-      id: w.id,
-      seed: w.map.seed,
-      time: w.time,
-      mission: w.mission,
-      requests: w.reinforcements,
-      trajectories: w.trajectories,
-      sources: w.map.sources,
-      actors: w.enemies.map((e) => ({
-        id: e.id,
-        x: e.x,
-        y: e.y,
-        source: e.sourceId,
-        request: e.requestId,
-        reserve: e.reserve,
-        state: e.state,
-      })),
-      terrain: w.map.obstacles.filter((o) => o.kind === "door"),
-    }),
-  );
+  const traceText = JSON.stringify({
+    id: w.id,
+    seed: w.map.seed,
+    time: w.time,
+    mission: w.mission,
+    metrics: w.metrics,
+    requests: w.reinforcements,
+    trajectories: w.trajectories,
+    sources: w.map.sources,
+    actors: w.enemies.map((e) => ({
+      id: e.id,
+      x: e.x,
+      y: e.y,
+      source: e.sourceId,
+      request: e.requestId,
+      reserve: e.reserve,
+      state: e.state,
+    })),
+    terrain: w.map.obstacles.filter((o) => o.kind === "door"),
+  });
+  writeFileSync(file, traceText);
+  if (["success", "failed"].includes(w.mission.stage))
+    writeFileSync(file.replace(/\.json$/, "-completed.json"), traceText);
 }
 let count = 0;
 const interval = setInterval(() => {

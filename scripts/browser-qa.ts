@@ -18,7 +18,12 @@ const browser = await chromium.launch({
 });
 const errors: string[] = [],
   pages: Page[] = [],
-  pilots = Array.from({ length: 4 }, () => new Pilot());
+  pilots = Array.from({ length: 4 }, () => {
+    const p = new Pilot();
+    if (process.env.QA_STRATEGY === "all") p.strategy = "all";
+    if (process.env.QA_REVERSE === "1") p.reverse = true;
+    return p;
+  });
 mkdirSync("docs/screenshots", { recursive: true });
 const read = (p: Page) =>
   p.evaluate(() => JSON.parse(JSON.stringify((window as any).dollQA)));
@@ -142,11 +147,14 @@ try {
       }),
     );
     iterations++;
-    if (!fireCaptured && w.players.reduce((n, p) => n + p.kills, 0) > 3) {
+    if (
+      !fireCaptured &&
+      (feedback["shot:ar"] ?? 0) + (feedback["shot:sg"] ?? 0) > 5
+    ) {
       await pages[0].screenshot({ path: `${output}/firing.png` });
       fireCaptured = true;
     }
-    if (!reconnected && w.mission.elapsed > 60) {
+    if (!reconnected && w.mission.elapsed > 20) {
       const old = await read(pages[3]);
       await pages[3].reload();
       await pages[3].waitForSelector("#battle");
@@ -170,6 +178,8 @@ try {
   fpsSamples.sort((a, b) => a - b);
   const report = {
     date: new Date().toISOString(),
+    runId: final.room.world.id,
+    metrics: final.room.world.metrics,
     browser: browser.version(),
     viewports: ["1920x1080", "1280x720"],
     players: 4,
@@ -179,6 +189,12 @@ try {
       weapon: p.weapon,
     })),
     escapeSeconds: final.room.world.mission.elapsed - stageTimes.extract,
+    objectives: final.room.world.mission.objectives.map((o: any) => ({
+      id: o.id,
+      kind: o.kind,
+      state: o.state,
+    })),
+    extraction: final.room.world.mission.extraction,
     feedback,
     downCount,
     stageTimes,

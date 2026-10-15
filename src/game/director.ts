@@ -18,7 +18,7 @@ export function tickDirector(w: World, dt: number) {
   if (w.time >= w.director.next) {
     let target: Vec | undefined;
     if (w.mission.stage === "extract")
-      target = w.map.extract; // Explicit broadcast extraction beacon, not hidden player tracking.
+      target = w.mission.extraction.site ?? undefined; // Explicit broadcast extraction beacon, not hidden player tracking.
     else {
       const intel = Object.values(w.squads)
         .filter((s) => s.lastSeen && w.time - s.observedAt < 25)

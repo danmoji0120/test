@@ -244,13 +244,6 @@ export interface Zone extends Vec {
   entry: Vec;
   pads: Vec[];
 }
-export interface Encounter {
-  zone: number;
-  wave: number;
-  total: number;
-  spawned: boolean;
-  cleared: boolean;
-}
 export interface Device extends Vec {
   hp: number;
   maxHp: number;
@@ -260,11 +253,7 @@ export interface GameMap {
   height: number;
   obstacles: Rect[];
   spawn: Vec;
-  core: Vec;
   zones: Zone[];
-  route: number[];
-  devices: Device[];
-  extract: Vec;
   supplies: (Vec & { used: boolean })[];
   intel: Vec;
   seed: number;
@@ -300,17 +289,32 @@ export interface GameEvent extends Vec {
   damage?: number;
   angle?: number;
 }
+export interface Objective {
+  id: string;
+  kind: "generator" | "comms" | "outpost" | "intel";
+  label: string;
+  position: Vec;
+  optional: boolean;
+  state: "inactive" | "available" | "active" | "complete" | "failed";
+  progress: number;
+  total: number;
+  reward: number;
+  discovered: boolean;
+}
 export interface Mission {
-  stage: "infiltrate" | "breach" | "destroy" | "extract" | "success" | "failed";
-  checkpoint: number;
-  encounters: Encounter[];
-  pressure: number;
-  timer: number;
-  extract: number;
+  stage: "recon" | "operate" | "extract" | "success" | "failed";
+  objectives: Objective[];
+  extraction: {
+    state: "locked" | "available" | "inbound" | "landed" | "departing";
+    site: Vec | null;
+    requested: number;
+    eta: number;
+    departure: number;
+    boarding: number;
+  };
   elapsed: number;
   intel: boolean;
   intelProgress: number;
-  wave: number;
   reward: number;
   reason: string;
 }
@@ -335,7 +339,17 @@ export interface World {
   dispatchKeys: Record<string, string>;
   trajectories: Trajectory[];
   director: { next: number; commsDown: boolean };
+  metrics: {
+    firstContact: number;
+    combatSeconds: number;
+    revives: number;
+    primaryAt: number;
+    peakActors: number;
+    objectiveOrder: string[];
+  };
   terrainRevision: number;
+  contract: "blackout" | "recon";
+  difficulty: number;
 }
 export interface RoomView {
   code: string;
@@ -344,6 +358,7 @@ export interface RoomView {
   players: Player[];
   seed: number;
   difficulty: "normal" | "hard";
+  contract: "blackout" | "recon";
   world: World | null;
 }
 

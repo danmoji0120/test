@@ -85,12 +85,32 @@ export function squadSees(w: World, p: Vec) {
     (a) => a.connected && !a.down && lineOfSight(a, p, w.map, SIGHT_RANGE),
   );
 }
+const visionCache = new WeakMap<
+  World,
+  { positions: (Vec & { id: string })[]; terrain: number }
+>();
 export function updateVision(w: World, force = false) {
   if (!force && w.time - w.visibility.updated < 0.2) return;
   const v = w.visibility;
   v.updated = w.time;
-  v.revision++;
   const live = w.players.filter((p) => p.connected && !p.down);
+  const cached = visionCache.get(w);
+  if (
+    !force &&
+    cached &&
+    cached.terrain === w.terrainRevision &&
+    cached.positions.length === live.length &&
+    live.every(
+      (p, i) =>
+        p.id === cached.positions[i].id && distance(p, cached.positions[i]) < 8,
+    )
+  )
+    return;
+  visionCache.set(w, {
+    positions: live.map((p) => ({ id: p.id, x: p.x, y: p.y })),
+    terrain: w.terrainRevision,
+  });
+  v.revision++;
   v.polygons = live.map((p) => visionPolygon(p, w.map));
   for (const p of live) {
     const minX = Math.max(0, Math.floor((p.x - SIGHT_RANGE) / v.cell)),

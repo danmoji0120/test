@@ -32,8 +32,7 @@ function setup(n = 1) {
     }),
   );
   w.enemies = [];
-  w.mission.encounters = [];
-  w.mission.stage = "destroy";
+  w.mission.stage = "operate";
   return w;
 }
 function advance(w: ReturnType<typeof setup>, seconds: number) {
@@ -49,10 +48,9 @@ describe("seed and collision geometry", () => {
       const m = generateMap(seed);
       for (const goal of [
         ...m.zones.map((z) => z.center),
-        ...m.devices,
-        m.core,
+        ...m.installations,
         m.intel,
-        m.extract,
+        ...m.extractions,
         ...m.supplies,
       ].filter(
         (goal) => Math.hypot(goal.x - m.spawn.x, goal.y - m.spawn.y) > 1,
@@ -229,15 +227,21 @@ describe("mission objectives", () => {
   });
   it("starts with a populated theatre and no guard-clearance gate", () => {
     const w = createWorld("free", 42, [makePlayer("p", "Test")]);
-    expect(w.mission.encounters).toHaveLength(0);
-    expect(w.mission.stage).toBe("destroy");
+    expect(w.mission.objectives.filter((o) => !o.optional)).toHaveLength(2);
+    expect(w.mission.stage).toBe("recon");
     expect(w.enemies.some((e) => e.reserve)).toBe(true);
   });
   it("requires every connected teammate at extraction and ignores disconnected clients", () => {
     const w = setup(2);
     w.enemies = [];
     w.mission.stage = "extract";
-    Object.assign(w.players[0], w.map.extract);
+    Object.assign(w.mission.extraction, {
+      state: "landed",
+      site: { ...w.map.extractions[0] },
+      eta: 0,
+      departure: 1000,
+    });
+    Object.assign(w.players[0], w.map.extractions[0]);
     advance(w, 6);
     expect(w.mission.stage).toBe("extract");
     w.players[1].connected = false;
@@ -265,27 +269,28 @@ describe("mission objectives", () => {
       w.players.map((p) => ({ hp: p.hp, kills: p.kills, ammo: p.reserve })),
     );
     expect(w.mission.stage).toBe("success");
-    expect(w.map.devices.every((d) => d.hp <= 0)).toBe(true);
+    expect(
+      w.map.installations
+        .filter((d) => d.kind === "generator")
+        .every((d) => d.hp <= 0),
+    ).toBe(true);
     expect(w.players.reduce((n, p) => n + p.kills, 0)).toBeGreaterThan(0);
   }, 30000);
 });
 
-it("core damage is locked before breach and destruction starts extraction without defense", () => {
-  const w = setup();
+it("generators are independently damageable from insertion while enemies remain alive", () => {
+  const w = setup(),
+    p = w.players[0],
+    gens = w.map.installations.filter((d) => d.kind === "generator");
   w.map.obstacles = [];
-  const p = w.players[0],
-    d = w.map.devices[0];
-  Object.assign(p, { x: d.x - 110, y: d.y, angle: 0 });
-  w.mission.stage = "breach";
-  fire(w, p);
-  expect(d.hp).toBe(d.maxHp);
-  w.mission.stage = "destroy";
-  for (let n = 0; n < 10; n++) fire(w, p);
-  expect(d.hp).toBe(0);
-  w.map.devices[1].hp = 0;
+  for (const d of [...gens].reverse()) {
+    Object.assign(p, { x: d.x - 100, y: d.y, angle: 0 });
+    for (let n = 0; n < 15; n++) fire(w, p);
+    expect(d.hp).toBe(0);
+  }
   tick(w, 0.03);
-  expect(w.mission.stage).toBe("extract");
-  expect(w.mission.timer).toBeGreaterThan(59.9);
+  expect(w.mission.extraction.state).toBe("available");
+  expect(w.mission.stage).not.toBe("extract");
 });
 it("shotgun has ten rays but one discharge and aggregated target impact", () => {
   const w = setup(),
@@ -312,19 +317,26 @@ it("sustained automatic fire builds recoil and releasing the trigger recovers it
   expect(p.recoil).toBe(0);
 });
 
-it("meltdown is a real escape deadline and successful escape takes priority on its boundary", () => {
+it("never boards an inbound transport and gives boarding priority at its departure boundary", () => {
   const w = setup();
+  Object.assign(w.players[0], w.map.extractions[0]);
   w.mission.stage = "extract";
-  w.mission.timer = 0.01;
-  tick(w, 1 / 30);
-  expect(w.mission.stage).toBe("failed");
-  const safe = setup();
-  safe.mission.stage = "extract";
-  safe.mission.timer = 0.01;
-  safe.mission.extract = 2.99;
-  Object.assign(safe.players[0], safe.map.extract);
-  tick(safe, 1 / 30);
-  expect(safe.mission.stage).toBe("success");
+  Object.assign(w.mission.extraction, {
+    state: "inbound",
+    site: { ...w.map.extractions[0] },
+    eta: 20,
+    departure: 85,
+  });
+  advance(w, 3);
+  expect(w.mission.stage).toBe("extract");
+  expect(w.mission.extraction.boarding).toBe(0);
+  Object.assign(w.mission.extraction, {
+    state: "landed",
+    departure: w.time + 0.01,
+    boarding: 2.99,
+  });
+  tick(w, 0.03);
+  expect(w.mission.stage).toBe("success");
 });
 it("different seeds change facility footprints, hall connections and machinery", () => {
   const maps = Array.from({ length: 20 }, (_, seed) => generateMap(seed));
@@ -408,8 +420,14 @@ it("freezes combat immediately after boarding instead of damaging escaped teamma
   const w = setup(),
     p = w.players[0];
   w.mission.stage = "extract";
-  w.mission.extract = 2.99;
-  Object.assign(p, { ...w.map.extract, hp: 7, hurt: 4 });
+  Object.assign(w.mission.extraction, {
+    state: "landed",
+    site: { ...w.map.extractions[0] },
+    eta: 0,
+    departure: 1000,
+  });
+  w.mission.extraction.boarding = 2.99;
+  Object.assign(p, { ...w.map.extractions[0], hp: 7, hurt: 4 });
   spawnEnemy(w, { x: p.x - 100, y: p.y }, "rifle");
   Object.assign(w.enemies[0], { windup: 0.01, angle: 0 });
   tick(w, 1 / 30);

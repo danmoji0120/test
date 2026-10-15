@@ -130,15 +130,20 @@ function connect() {
   socket.onerror = () => {};
 }
 function logo() {
-  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>TACTICAL CO-OP / V2</small></span></a>`;
+  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>OPERATIONAL WARZONE / V3</small></span></a>`;
 }
 function header() {
   return `<header>${logo()}<nav><span class="nav-active">작전 준비</span><button data-action="help" class="text-button">필드 가이드 <span>↗</span></button></nav><div class="account"><span class="connection ${connected ? "online" : ""}">${connected ? "서버 연결됨" : "재연결 중"}</span><span class="credits">◈ <b>${profile?.credits ?? "—"}</b><small> CR</small></span></div></header>`;
 }
 function briefing() {
   const map = generateMap(room?.seed ?? 42);
-  const plan = `<svg viewBox="0 0 ${map.width} ${map.height}" role="img" aria-label="실제 Seed의 구역 구성"><rect width="${map.width}" height="${map.height}" fill="#172932"/>${map.zones.map((z) => `<rect x="${z.x + 45}" y="${z.y + 45}" width="${z.w - 90}" height="${z.h - 90}" fill="${z.kind === "reactor" ? "#42645d" : z.kind === "security" ? "#3c3b51" : "#273e46"}"/>`).join("")}${map.obstacles.map((o) => `<rect x="${o.x}" y="${o.y}" width="${o.w}" height="${o.h}" fill="#75949a" opacity=".65"/>`).join("")}<polyline points="${map.route.map((i) => `${map.zones[i].center.x},${map.zones[i].center.y}`).join(" ")}" fill="none" stroke="#edb4c9" stroke-width="14" stroke-dasharray="30 25"/><circle cx="${map.spawn.x}" cy="${map.spawn.y}" r="65" fill="#8edccc"/><circle cx="${map.extract.x}" cy="${map.extract.y}" r="70" fill="none" stroke="#8edccc" stroke-width="15"/><circle cx="${map.core.x}" cy="${map.core.y}" r="60" fill="#f6d38c"/></svg>`;
-  return `<div class="brief-map">${plan}<span>${map.seed} / 12 SECTORS</span></div><div class="brief-body"><div class="eyebrow">OPERATION 001 <span class="tag">1–4인 협동</span></div><h2>BLACKOUT<span class="pink">.</span></h2><p>침묵한 산업지구. 마지막으로 가동 중인<br>적의 동력원을 파괴하고 전원 귀환하세요.</p><div class="mission-steps"><span><b>01</b> 전진 돌파</span><span><b>02</b> 시설 파괴</span><span><b>03</b> 탈출</span></div><div class="brief-meta"><span>산업시설 · 야간</span><span>목표 8–10분</span></div></div>`;
+  const plan = `<svg viewBox="0 0 ${map.width} ${map.height}" role="img" aria-label="위성 개요 · 실내 미확인"><rect width="${map.width}" height="${map.height}" fill="#14272e"/>${map.roads.map((r) => `<polyline points="${r.points.map((p) => `${p.x},${p.y}`).join(" ")}" stroke="#627a7d" stroke-width="32" fill="none" opacity=".45"/>`).join("")}${map.installations
+    .filter((d) => d.kind === "generator")
+    .map((d) => `<circle cx="${d.x}" cy="${d.y}" r="110" fill="#ebc77d"/>`)
+    .join(
+      "",
+    )}<circle cx="${map.spawn.x}" cy="${map.spawn.y}" r="100" fill="#80d9c5"/>${map.extractions.map((p) => `<circle cx="${p.x}" cy="${p.y}" r="85" fill="none" stroke="#80d9c5" stroke-width="25"/>`).join("")}</svg>`;
+  return `<div class="brief-map">${plan}<span>${map.seed} / 위성 개요 · 실내 미확인</span></div><div class="brief-body"><div class="eyebrow">OPERATIONAL WARZONE <span class="tag">1–4인 협동</span></div><h2>BLACKOUT<span class="pink">.</span></h2><p>발전기 두 기. 진입 방향과 파괴 순서는 자유.<br>교전을 피하거나 통신·출동 능력부터 끊으세요.</p><div class="mission-steps"><span><b>01</b> 자유 정찰</span><span><b>02</b> 발전기 2기</span><span><b>03</b> 수송 요청</span></div><div class="brief-meta"><span>전멸 조건 없음</span><span>주 목표 8–14분 목표</span></div></div>`;
 }
 function lobby() {
   const c = CHARACTERS[character],
@@ -171,7 +176,7 @@ function lobby() {
             : `<div class="empty-member"><span>＋</span> 코드로 동료 초대</div>`;
         }).join(
           "",
-        )}</div><div class="room-settings"><label>SEED <input id="seed" aria-label="작전 시드" type="number" min="0" max="999999" value="${room.seed}" ${room.host !== id ? "disabled" : ""}></label><select id="difficulty" aria-label="난이도" ${room.host !== id ? "disabled" : ""}><option value="normal">일반 작전</option><option value="hard" ${room.difficulty === "hard" ? "selected" : ""}>위험 작전 +30%</option></select></div><div class="deploy-row"><button class="secondary ${me?.ready ? "is-ready" : ""}" data-action="ready">${me?.ready ? "✓ 준비 완료" : "준비하기"}</button><button class="primary" data-action="start" ${room.host !== id || !room.players.filter((p) => p.connected).every((p) => p.ready) ? "disabled" : ""}>출격 <span>↗</span></button></div><button class="leave" data-action="leave">분대 나가기</button>`
+        )}</div><div class="room-settings"><label>SEED <input id="seed" aria-label="작전 시드" type="number" min="0" max="999999" value="${room.seed}" ${room.host !== id ? "disabled" : ""}></label><select id="contract" aria-label="계약" ${room.host !== id ? "disabled" : ""}><option value="blackout">BLACKOUT · 기본 계약</option><option value="recon" ${room.contract === "recon" ? "selected" : ""}>BLACKOUT · 정찰 보너스</option></select><select id="difficulty" aria-label="난이도" ${room.host !== id ? "disabled" : ""}><option value="normal">일반 작전</option><option value="hard" ${room.difficulty === "hard" ? "selected" : ""}>위험 작전 +30%</option></select></div><div class="deploy-row"><button class="secondary ${me?.ready ? "is-ready" : ""}" data-action="ready">${me?.ready ? "✓ 준비 완료" : "준비하기"}</button><button class="primary" data-action="start" ${room.host !== id || !room.players.filter((p) => p.connected).every((p) => p.ready) ? "disabled" : ""}>출격 <span>↗</span></button></div><button class="leave" data-action="leave">분대 나가기</button>`
       : `<div class="entry-fields"><label for="name">콜사인</label><input id="name" maxlength="14" placeholder="오퍼레이터 이름" value="${escape(stored("doll-name") || "오퍼레이터")}"></div><button class="primary create" data-action="create" ${!connected ? "disabled" : ""}>새 분대 만들기 <span>↗</span></button><div class="join-row"><input id="code" maxlength="5" placeholder="분대 코드" aria-label="분대 코드"><button class="secondary" data-action="join" ${!connected ? "disabled" : ""}>참가</button></div><p class="entry-note">혼자 출격하거나, 코드로 친구들과 함께하세요.</p>`
   }</section></aside></div></main><footer><span><i></i> PROJECT DOLL SQUAD <span class="muted">/ FIRST DEPLOYMENT</span></span><span>작게 귀엽게, 빠르고 위험하게.</span><button class="text-button" data-action="audio">${audio.volume ? "◖ 사운드 켜짐" : "◖ 사운드 꺼짐"}</button></footer>`;
 }
@@ -243,37 +248,36 @@ function updateHud() {
     p = w.players.find((p) => p.id === id);
   if (!p) return;
   const m = w.mission;
-  const current = m.encounters[m.checkpoint];
-  const zone = current ? w.map.zones[current.zone] : null;
-  const title = {
-    infiltrate: "01 / 침투 · 전방 경계선을 뚫으세요",
-    breach: "02 / 돌파 · 구역을 확보하며 전진하세요",
-    destroy: "03 / 파괴 · 발전 장치 2기를 사격하세요",
-    extract: "04 / 탈출 · 분대 전원 추출 구역으로",
-    success: "작전 성공",
-    failed: "작전 실패",
-  }[m.stage];
-  document.querySelector("#objective-title")!.textContent = title;
+  const primary = m.objectives.filter((o) => !o.optional),
+    done = primary.filter((o) => o.state === "complete").length,
+    x = m.extraction;
+  document.querySelector("#objective-title")!.textContent =
+    m.stage === "extract"
+      ? x.state === "inbound"
+        ? "탈출 · 수송기 접근 중"
+        : "탈출 · 수송기 도착 / 전원 탑승"
+      : x.state === "available"
+        ? "주 목표 완료 · 탈출 시점은 분대가 결정"
+        : "자유 작전 · 핵심 발전기 " + done + " / 2";
   document.querySelector("#clock")!.textContent = time(m.elapsed);
-  const guards = current
-    ? w.enemies.filter((e) => e.zone === current.zone).length
-    : 0;
+  const levels = ["평시", "의심", "교전", "비상", "최고 경계"];
   document.querySelector("#objective-detail")!.textContent =
-    m.stage === "extract"
-      ? `붕괴 경보 ${Math.ceil(m.timer)}초 · 전원 원 안에서 ${RULES.extractSeconds}초 · ${m.extract.toFixed(1)}`
-      : m.stage === "destroy"
-        ? "파괴하면 60초 탈출 시작 · 동료 위치 확인 후 사격"
-        : `${zone?.label ?? "전진"} · ${m.checkpoint + 1} / ${m.encounters.length} 구역 · 적 ${guards} · 지원 ${current ? current.wave + 1 : 0}/${current?.total ?? 0}파`;
-  const progress =
-    m.stage === "extract"
-      ? m.extract / RULES.extractSeconds
-      : m.stage === "destroy"
-        ? 1 -
-          w.map.devices.reduce((n, d) => n + d.hp, 0) /
-            w.map.devices.reduce((n, d) => n + d.maxHp, 0)
-        : m.checkpoint / m.encounters.length;
+    `경보 ${w.alertState.level} · ${levels[w.alertState.level]} / ` +
+    (m.stage === "extract"
+      ? x.state === "inbound"
+        ? `${Math.max(0, Math.ceil(x.eta - w.time))}초 후 도착`
+        : `탑승 ${x.boarding.toFixed(1)}/3초 · 철수 ${Math.ceil(x.departure - w.time)}초`
+      : x.state === "available"
+        ? "후보 지점에서 E로 수송 요청 · 보조 목표 계속 가능"
+        : "순서 자유 · TAB 목표 추적 / 적 전멸 불필요");
   (document.querySelector("#objective-bar") as HTMLElement).style.width =
-    Math.min(100, progress * 100) + "%";
+    (m.stage === "extract"
+      ? x.state === "inbound"
+        ? Math.min(1, (w.time - x.requested) / (x.eta - x.requested))
+        : x.boarding / 3
+      : primary.reduce((n, o) => n + o.progress / o.total, 0) / 2) *
+      100 +
+    "%";
   document.querySelector("#hp")!.textContent = String(Math.ceil(p.hp));
   (document.querySelector("#health-fill") as HTMLElement).style.width =
     p.hp + "%";
@@ -308,8 +312,13 @@ function updateHud() {
       )
     )
       hint = "E 길게 · 출동 출입구 봉쇄 / 3초";
-    else if (m.stage === "destroy" && distance(p, w.map.core) < 250)
-      hint = "좌클릭 · 노출된 발전 장치를 사격해 파괴";
+    else if (
+      m.extraction.state === "available" &&
+      w.map.extractions.some((s) => distance(s, p) < 100)
+    )
+      hint = "E · 수송기 호출 / 도착 후 전원 탑승";
+    else if (w.map.installations.some((d) => d.hp > 0 && distance(d, p) < 220))
+      hint = "좌클릭 · 시설 장치를 사격해 파괴";
   }
   document.querySelector("#interaction")!.textContent = hint;
   (document.querySelector("#radio") as HTMLElement).style.opacity =
@@ -327,7 +336,7 @@ function showOverlay() {
   if (menu) {
     el.innerHTML = `<div class="modal-backdrop"><div class="modal"><div class="eyebrow">FIELD MENU</div><h2>잠깐, 전술을 가다듬고.</h2><p>협동 작전은 메뉴를 열어도 계속 진행됩니다.</p><button class="primary" data-action="menu">작전으로 복귀</button><button class="secondary" data-action="help">조작 가이드</button><button class="secondary" data-action="audio">사운드 ${audio.volume ? "끄기" : "켜기"}</button><button class="leave" data-action="leave">분대 나가기</button></div></div>`;
   } else if (keys.has("Tab")) {
-    el.innerHTML = `<div class="status-panel"><div class="eyebrow">SQUAD STATUS / ${room?.code}</div><h2>BLACKOUT</h2><p>SEED ${room?.seed} · 기밀 자료 ${room?.world?.mission.intel ? "회수 완료" : "미회수"}</p>${room?.players.map((p) => `<div class="status-row"><b>${escape(p.name)}</b><span>${WEAPONS[p.weapon].name}</span><span>${p.kills} 처치</span><span>${p.down ? "쓰러짐" : Math.ceil(p.hp) + " HP"}</span></div>`).join("")}</div>`;
+    el.innerHTML = `<div class="status-panel"><div class="eyebrow">SQUAD STATUS / ${room?.code}</div><h2>BLACKOUT</h2><p>SEED ${room?.seed} · 기밀 자료 ${room?.world?.mission.intel ? "회수 완료" : "미회수"}</p><div class="operation-objectives">${room?.world?.mission.objectives.map((o) => `<button class="secondary" data-action="track" data-id="${o.id}">${o.state === "complete" ? "✓" : o.optional ? "◇" : "◆"} ${escape(o.label)} · ${o.state === "complete" ? "완료" : o.discovered ? "발견" : "추정 구역"}</button>`).join("")}</div>${room?.players.map((p) => `<div class="status-row"><b>${escape(p.name)}</b><span>${WEAPONS[p.weapon].name}</span><span>${p.kills} 처치</span><span>${p.down ? "쓰러짐" : Math.ceil(p.hp) + " HP"}</span></div>`).join("")}</div>`;
   } else el.innerHTML = "";
 }
 function showHelp() {
@@ -336,7 +345,7 @@ function showHelp() {
   const el = document.createElement("div");
   el.id = "help";
   el.className = "modal-backdrop";
-  el.innerHTML = `<div class="modal guide"><div class="eyebrow">DOLL SQUAD / FIELD GUIDE</div><h2>함께 들어가서, 함께 돌아오기.</h2><p>분대를 만들고 준비한 뒤 출격하세요. 전방 구역을 돌파하며 계속 전진하세요. 발전실에 도착하면 장치 2기를 직접 사격해 파괴합니다. 붕괴 경보와 추격대가 시작되면 전원 추출 구역으로 이동하세요. E는 보급/자료, F는 동료 구조입니다.</p><div class="guide-grid">${[
+  el.innerHTML = `<div class="modal guide"><div class="eyebrow">DOLL SQUAD / FIELD GUIDE</div><h2>함께 들어가서, 함께 돌아오기.</h2><p>분대를 만들고 준비한 뒤 출격하세요. 발전기 두 기는 자유로운 순서로 파괴할 수 있고 적 전멸은 필요 없습니다. 통신탑은 광역 지원을 지연하고 전초기지·병영을 무력화하면 출동 능력이 줄어듭니다. 주 목표 완료 후 후보 지점에서 E로 수송기를 요청하세요. 도착한 수송기 주변에 전원이 3초 집결하면 귀환합니다. TAB으로 목표를 추적하고, E는 보급·자료·출입구 봉쇄, F는 동료 구조입니다.</p><div class="guide-grid">${[
     ["W A S D", "이동"],
     ["마우스 · 좌클릭", "조준 · 발사"],
     ["우클릭", "정밀 조준"],
@@ -353,6 +362,14 @@ function showHelp() {
   document.body.append(el);
 }
 document.addEventListener("click", (e) => {
+  const track = (e.target as HTMLElement).closest<HTMLElement>(
+    '[data-action="track"]',
+  );
+  if (track && renderer) {
+    renderer.trackedObjective = track.dataset.id ?? "";
+    toast("목표 추적 변경");
+    return;
+  }
   const button = (e.target as Element).closest<HTMLElement>(
     "[data-action],[data-character],[data-weapon]",
   );
@@ -440,9 +457,11 @@ document.addEventListener("change", (e) => {
       choose();
     }
   }
-  if (el.id === "seed" || el.id === "difficulty")
+  if (el.id === "seed" || el.id === "difficulty" || el.id === "contract")
     send({
       type: "settings",
+      contract: (document.querySelector("#contract") as HTMLSelectElement)
+        .value,
       seed: Number((document.querySelector("#seed") as HTMLInputElement).value),
       difficulty: (document.querySelector("#difficulty") as HTMLSelectElement)
         .value,

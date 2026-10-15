@@ -8,7 +8,6 @@ function world() {
   w.map.obstacles = [];
   w.enemies = [];
   Object.assign(w.players[0], { x: 1000, y: 1000 });
-  w.mission.encounters = [];
   return w;
 }
 it("patrols independently and changes hearing to suspicion then investigation", () => {

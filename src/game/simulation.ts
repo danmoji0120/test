@@ -1,3 +1,5 @@
+import { objectives, tickObjectives } from "./objectives";
+import { tickExtraction } from "./extraction";
 import { initializeTheatre } from "./reinforcements";
 import { tickDirector } from "./director";
 import { enemyAI } from "./squads";
@@ -123,6 +125,8 @@ export function createWorld(
   id: string,
   seed: number,
   players: Player[],
+  difficulty = 3,
+  contract: "blackout" | "recon" = "blackout",
 ): World {
   const map = generateMap(seed);
   players.forEach((p, i) => {
@@ -148,19 +152,24 @@ export function createWorld(
     players,
     enemies: [],
     mission: {
-      stage: "infiltrate",
-      checkpoint: 0,
-      encounters: [],
-      pressure: 0,
-      timer: RULES.meltdownSeconds,
-      extract: 0,
+      stage: "recon",
+      objectives: objectives(map),
+      extraction: {
+        state: "locked",
+        site: null,
+        requested: 0,
+        eta: 0,
+        departure: 0,
+        boarding: 0,
+      },
       elapsed: 0,
       intel: false,
       intelProgress: 0,
-      wave: 0,
       reward: 0,
       reason: "",
     },
+    difficulty,
+    contract,
     events: [],
     eventId: 0,
     time: 0,
@@ -177,8 +186,15 @@ export function createWorld(
     trajectories: [],
     director: { next: 30, commsDown: false },
     terrainRevision: 0,
+    metrics: {
+      firstContact: -1,
+      combatSeconds: 0,
+      revives: 0,
+      primaryAt: -1,
+      peakActors: 0,
+      objectiveOrder: [],
+    },
   };
-  w.mission.stage = "destroy";
   initializeTheatre(w);
   updateVision(w, true);
   return w;
@@ -241,26 +257,22 @@ export function fire(w: World, p: Player) {
         }
       }
     }
-    let deviceHit: World["map"]["devices"][number] | undefined;
-    if (w.mission.stage === "destroy")
-      for (const device of [
-        ...w.map.devices,
-        ...w.map.installations.filter((d) => d.kind !== "generator"),
-      ]) {
-        if (device.hp <= 0) continue;
-        const ex = device.x - origin.x,
-          ey = device.y - origin.y,
-          along = ex * dx + ey * dy,
-          perp = Math.abs(ex * dy - ey * dx);
-        if (along > 0 && perp < 32) {
-          const contact = along - Math.sqrt(32 * 32 - perp * perp);
-          if (contact < length) {
-            length = contact;
-            hit = undefined;
-            deviceHit = device;
-          }
+    let deviceHit: World["map"]["installations"][number] | undefined;
+    for (const device of w.map.installations) {
+      if (device.hp <= 0) continue;
+      const ex = device.x - origin.x,
+        ey = device.y - origin.y,
+        along = ex * dx + ey * dy,
+        perp = Math.abs(ex * dy - ey * dx);
+      if (along > 0 && perp < 32) {
+        const contact = along - Math.sqrt(32 * 32 - perp * perp);
+        if (contact < length) {
+          length = contact;
+          hit = undefined;
+          deviceHit = device;
         }
       }
+    }
     if (deviceHit) {
       const wasAlive = deviceHit.hp > 0;
       deviceHit.hp = Math.max(0, deviceHit.hp - gun.damage);
@@ -333,14 +345,25 @@ export function finish(w: World, success: boolean, reason: string) {
   if (["success", "failed"].includes(w.mission.stage)) return;
   w.mission.stage = success ? "success" : "failed";
   w.mission.reason = reason;
+  const complete = w.mission.objectives.filter((o) => o.state === "complete");
   w.mission.reward =
-    (success ? 300 : 60) +
-    Math.min(
-      180,
-      w.players.reduce((n, p) => n + p.kills * 4, 0),
+    (success ? 700 : 80) +
+    complete.reduce(
+      (sum, o) =>
+        sum +
+        (o.optional
+          ? o.reward * (w.contract === "recon" ? 1.5 : 1)
+          : success
+            ? 100
+            : 80),
+      0,
     ) +
-    (w.mission.intel ? 100 : 0);
-  event(w, { type: success ? "explode" : "alarm", ...w.map.core });
+    Math.min(
+      40,
+      w.players.reduce((sum, p) => sum + p.kills, 0),
+    );
+
+  event(w, { type: success ? "explode" : "alarm", ...w.map.spawn });
 }
 export function tick(w: World, dt: number, hard = false) {
   if (["success", "failed"].includes(w.mission.stage)) return;
@@ -423,6 +446,7 @@ export function tick(w: World, dt: number, hard = false) {
         dt * Math.max(...rescuers.map((o) => CHARACTERS[o.character].revive))
       : Math.max(0, p.reviveProgress - dt);
     if (p.reviveProgress >= 3) {
+      w.metrics.revives++;
       p.down = false;
       p.hp = 55;
       p.hurt = 4;
@@ -452,31 +476,14 @@ export function tick(w: World, dt: number, hard = false) {
     }
   }
   const m = w.mission;
-  if (!m.intel && near(w.map.intel)) {
-    m.intelProgress += dt;
-    if (m.intelProgress >= 3) m.intel = true;
-  }
-  // Transitional objective bridge; phase5 migrates the mission schema and explicit extraction request.
-  if (m.stage === "destroy" && w.map.devices.every((d) => d.hp <= 0)) {
-    m.stage = "extract";
-    m.timer = 60;
-    w.director.next = w.time;
-  }
-  if (m.stage === "extract") {
-    m.timer -= dt;
-    const connected = w.players.filter((p) => p.connected);
-    m.extract =
-      connected.length &&
-      connected.every((p) => !p.down && distance(p, w.map.extract) < 140)
-        ? m.extract + dt
-        : 0;
-    if (m.extract >= RULES.extractSeconds) finish(w, true, "분대 탈출 완료");
-    else if (m.timer <= 0) finish(w, false, "탈출 기한 초과");
-  }
+  tickObjectives(w, dt);
+  tickExtraction(w, dt);
   if (["success", "failed"].includes(m.stage)) return;
   tickAlert(w, dt);
   tickDirector(w, dt);
   enemyAI(w, dt, hard ? 1.4 : 1);
+  if (w.enemies.some((e) => e.seenAt === w.time)) w.metrics.combatSeconds += dt;
+  w.metrics.peakActors = Math.max(w.metrics.peakActors, w.enemies.length);
   updateVision(w);
-  if (m.elapsed > RULES.timeLimit) finish(w, false, "작전 시간 14분 초과");
+  if (m.elapsed > RULES.timeLimit) finish(w, false, "작전 제한시간 초과");
 }

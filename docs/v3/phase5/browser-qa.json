@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-15T06:34:23.100Z",
+  "runId": "9bfc147f-c230-44d3-adb4-498165123d07",
+  "metrics": {
+    "firstContact": 7.933333333333315,
+    "combatSeconds": 160.49999999999346,
+    "revives": 2,
+    "primaryAt": 268.1999999999977,
+    "peakActors": 24,
+    "objectiveOrder": [
+      "facility-1",
+      "facility-0"
+    ]
+  },
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080",
+    "1280x720"
+  ],
+  "players": 4,
+  "seed": 42,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    },
+    {
+      "character": "aria",
+      "weapon": "ar"
+    },
+    {
+      "character": "luna",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": 88.53333333340379,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "complete"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "active"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "available"
+    }
+  ],
+  "extraction": {
+    "state": "landed",
+    "site": {
+      "x": 4910,
+      "y": 2850
+    },
+    "requested": 271.23333333333346,
+    "eta": 295.23333333333346,
+    "departure": 360.23333333333346,
+    "boarding": 0.3
+  },
+  "feedback": {
+    "sound": 189,
+    "shot:enemy": 277,
+    "shot:ar": 1101,
+    "kill": 36,
+    "hit": 172,
+    "alarm": 2,
+    "reload": 58,
+    "explode": 2,
+    "revive": 1,
+    "supply": 2
+  },
+  "downCount": 2,
+  "stageTimes": {
+    "recon": 2.3000000000000016,
+    "operate": 8.49999999999998,
+    "extract": 271.7000000000005
+  },
+  "elapsed": 360.2333333334043,
+  "result": "failed",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 20,
+      "hp": 100
+    },
+    {
+      "name": "루나",
+      "kills": 10,
+      "hp": 68
+    },
+    {
+      "name": "스파크",
+      "kills": 9,
+      "hp": 60
+    },
+    {
+      "name": "에코",
+      "kills": 5,
+      "hp": 56
+    }
+  ],
+  "reconnect": true,
+  "repeatDeployment": false,
+  "errors": [],
+  "frameMs": {
+    "samples": 480,
+    "median": 62.19999999925494,
+    "p95": 105.69999999925494,
+    "average": 59.94687499999612
+  }
+}

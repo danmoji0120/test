@@ -1,0 +1,26 @@
+DOLL SQUAD ready: http://localhost:3302
+STAGE recon 2.3
+PLAY 2 아리아:100hp/0k@150,1100 루나:100hp/0k@210,1100 스파크:100hp/0k@150,1160 에코:100hp/0k@210,1160 enemies 0
+STAGE operate 8.5
+RECONNECT PASS
+PLAY 25 아리아:100hp/3k@554,1565 루나:56hp/2k@461,1722 스파크:100hp/0k@439,1325 에코:100hp/1k@416,1285 enemies 1
+PLAY 47 아리아:86hp/6k@962,1428 루나:0hp/2k@1131,1436 스파크:100hp/1k@955,1543 에코:67hp/3k@1130,1588 enemies 2
+PLAY 70 아리아:86hp/7k@1717,1440 루나:40hp/2k@1475,1515 스파크:100hp/4k@2073,1278 에코:56hp/4k@1571,1397 enemies 0
+PLAY 92 아리아:64hp/8k@2976,1641 루나:45hp/4k@2915,1187 스파크:91hp/7k@3106,1211 에코:45hp/4k@3113,1511 enemies 1
+PLAY 115 아리아:64hp/9k@3240,1905 루나:45hp/5k@2848,1553 스파크:91hp/7k@3071,1730 에코:45hp/4k@3021,1432 enemies 1
+PLAY 137 아리아:64hp/10k@3151,1787 루나:45hp/5k@3063,1607 스파크:91hp/8k@3065,2707 에코:9hp/4k@3091,1275 enemies 5
+PLAY 159 아리아:53hp/11k@2785,1286 루나:37hp/7k@3087,1270 스파크:71hp/9k@3220,1760 에코:55hp/4k@3129,1275 enemies 0
+PLAY 181 아리아:100hp/12k@2953,753 루나:100hp/7k@3495,289 스파크:71hp/9k@3152,1225 에코:55hp/4k@3369,797 enemies 0
+PLAY 203 아리아:100hp/12k@3200,862 루나:100hp/7k@3211,756 스파크:71hp/9k@3224,619 에코:55hp/4k@3233,675 enemies 0
+PLAY 225 아리아:100hp/14k@3689,973 루나:86hp/8k@3450,880 스파크:71hp/9k@3706,910 에코:55hp/4k@3680,994 enemies 0
+PLAY 247 아리아:100hp/14k@3783,1023 루나:86hp/8k@4468,1413 스파크:71hp/9k@3968,549 에코:55hp/4k@4456,1080 enemies 1
+PLAY 269 아리아:100hp/14k@4387,2549 루나:68hp/10k@4284,2629 스파크:60hp/9k@4262,2229 에코:89hp/4k@4481,2583 enemies 1
+STAGE extract 271.7
+PLAY 291 아리아:100hp/15k@4835,2835 루나:68hp/10k@4889,2954 스파크:60hp/9k@4936,3190 에코:89hp/4k@4940,2702 enemies 0
+PLAY 313 아리아:100hp/16k@4944,2904 루나:68hp/10k@4604,2946 스파크:60hp/9k@4924,2613 에코:89hp/4k@4944,2621 enemies 0
+PLAY 334 아리아:100hp/18k@4944,2904 루나:68hp/10k@4685,2847 스파크:60hp/9k@4832,2621 에코:56hp/4k@4936,2805 enemies 3
+PLAY 357 아리아:100hp/20k@4944,2904 루나:68hp/10k@4937,2847 스파크:60hp/9k@4712,2930 에코:56hp/5k@4714,2787 enemies 0
+Error: Browser mission failed
+    at <anonymous> (/workspace/doll-squad/scripts/browser-qa.ts:222:34)
+    at runNextTicks (node:internal/process/task_queues:65:5)
+    at process.processImmediate (node:internal/timers:502:9)

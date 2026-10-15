@@ -8,7 +8,7 @@ export function noise(
   radius: number,
   kind: World["noises"][number]["kind"],
 ) {
-  w.noises.push({ id: ++w.noiseId, x:p.x,y:p.y, radius, kind, at: w.time });
+  w.noises.push({ id: ++w.noiseId, x: p.x, y: p.y, radius, kind, at: w.time });
   w.noises = w.noises.filter((n) => w.time - n.at < 3).slice(-48);
 }
 export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
@@ -20,6 +20,7 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
   if (e.state === "REQUEST_SUPPORT" && e.stateTime > 0.8)
     transition(e, "ENGAGE");
   if (target) {
+    if (w.metrics.firstContact < 0) w.metrics.firstContact = w.time;
     e.target = target.id;
     e.lastSeen = { x: target.x, y: target.y };
     e.memory = 9;

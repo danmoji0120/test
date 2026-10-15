@@ -80,6 +80,9 @@ export function visibleWorld(w: World) {
   }
   return {
     id: w.id,
+    ...(["success", "failed"].includes(w.mission.stage)
+      ? { metrics: w.metrics }
+      : {}),
     map: {
       ...w.map,
       zones: w.map.zones.map(({ pads, ...z }) => ({ ...z, pads: [] })),
@@ -87,7 +90,23 @@ export function visibleWorld(w: World) {
       installations: [...k.fac.values()],
       sources: [...k.sources.values()],
     },
-    mission: w.mission,
+    mission: {
+      ...w.mission,
+      objectives: w.mission.objectives.map((o) =>
+        o.discovered || !o.optional || o.state === "complete"
+          ? o
+          : {
+              ...o,
+              position: {
+                x: Math.round(o.position.x / 400) * 400,
+                y: Math.round(o.position.y / 400) * 400,
+              },
+              progress: 0,
+            },
+      ),
+    },
+    difficulty: w.difficulty,
+    contract: w.contract,
     time: w.time,
     eventId: w.eventId,
     visibility: w.visibility,

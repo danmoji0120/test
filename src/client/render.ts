@@ -1,3 +1,4 @@
+import { operationGoal } from "../shared/operation";
 import { lineOfSight } from "../game/visibility";
 import { Fog } from "./fog";
 import { RULES } from "../shared/rules";
@@ -32,6 +33,7 @@ interface Particle {
   size: number;
 }
 export class Renderer {
+  trackedObjective = "";
   fog = new Fog();
   ctx: CanvasRenderingContext2D;
   width = innerWidth;
@@ -473,20 +475,6 @@ export class Renderer {
       g.fillRect(s.entry.x - 13, s.entry.y - 13, 26, 26);
       if (s.warning > w.time) this.marker(s.entry, "출동 경보", t, "#ffb58d");
     }
-    const current = w.mission.encounters[w.mission.checkpoint];
-    if (current) {
-      const zone = w.map.zones[current.zone];
-      this.marker(
-        zone.center,
-        `${w.mission.checkpoint + 1} · ${zone.label} 돌파`,
-        t,
-        "#ffd486",
-      );
-      g.strokeStyle = "#edc98540";
-      g.setLineDash([8, 8]);
-      g.strokeRect(zone.x + 65, zone.y + 65, zone.w - 130, zone.h - 130);
-      g.setLineDash([]);
-    }
     for (const d of w.map.installations.filter((d) => d.kind !== "generator")) {
       g.save();
       g.translate(d.x, d.y);
@@ -517,8 +505,10 @@ export class Renderer {
         "#e5bd9a",
       );
     }
-    for (const device of w.map.devices) {
-      const active = w.mission.stage === "destroy",
+    for (const device of w.map.installations.filter(
+      (d) => d.kind === "generator",
+    )) {
+      const active = true,
         dead = device.hp <= 0;
       g.save();
       g.translate(device.x, device.y);
@@ -557,21 +547,74 @@ export class Renderer {
         "#bcb0f5",
       );
     }
-    if (w.mission.stage === "extract") {
-      const e = w.map.extract;
-      g.strokeStyle = "#80ead3";
-      g.fillStyle = "#75dec51a";
+    const ex = w.mission.extraction;
+    for (const site of w.map.extractions) {
+      const selected = ex.site && distance(site, ex.site) < 1;
+      g.strokeStyle = selected ? "#91f8d5" : "#78999b";
+      g.fillStyle = selected ? "#77edca22" : "#69888e0d";
       g.lineWidth = 3;
       g.beginPath();
-      g.arc(e.x, e.y, 140, 0, TAU);
+      g.arc(site.x, site.y, 140, 0, TAU);
       g.fill();
       g.stroke();
-      g.strokeRect(e.x - 42, e.y - 42, 84, 84);
-      g.fillStyle = "#a5f1dd";
-      g.font = "bold 36px monospace";
-      g.textAlign = "center";
-      g.fillText("H", e.x, e.y + 12);
-      this.marker(e, "전원 집결", t, "#89edcc");
+      if (ex.state === "available" || selected)
+        this.marker(
+          site,
+          ex.state === "available"
+            ? "E · 수송 요청"
+            : ex.state === "inbound"
+              ? "수송 접근 중"
+              : "수송기 도착",
+          t,
+          "#9de5c9",
+        );
+    }
+    if (ex.site && ["inbound", "landed", "departing"].includes(ex.state)) {
+      const fraction =
+        ex.state === "inbound"
+          ? Math.max(
+              0,
+              Math.min(1, (w.time - ex.requested) / (ex.eta - ex.requested)),
+            )
+          : 1;
+      const ship = {
+        x: ex.site.x + (1 - fraction) * 450,
+        y: ex.site.y - (1 - fraction) * 1250 - 35,
+      };
+      g.save();
+      g.translate(ship.x, ship.y);
+      g.fillStyle = "#0b1725aa";
+      g.beginPath();
+      g.ellipse(10, 35, 65, 24, 0, 0, TAU);
+      g.fill();
+      g.fillStyle = "#455e6a";
+      g.strokeStyle = "#a3dcdb";
+      g.lineWidth = 2;
+      g.beginPath();
+      g.moveTo(0, -65);
+      g.lineTo(20, -25);
+      g.lineTo(70, 0);
+      g.lineTo(70, 15);
+      g.lineTo(18, 10);
+      g.lineTo(14, 60);
+      g.lineTo(-14, 60);
+      g.lineTo(-18, 10);
+      g.lineTo(-70, 15);
+      g.lineTo(-70, 0);
+      g.lineTo(-20, -25);
+      g.closePath();
+      g.fill();
+      g.stroke();
+      g.fillStyle = "#a7ecde";
+      g.fillRect(-10, -40, 20, 20);
+      g.fillStyle = "#86efdd";
+      for (const x of [-60, 60]) {
+        g.fillRect(x - 7, 0, 14, 25);
+        g.globalAlpha = 0.35;
+        g.fillRect(x - 11, 25, 22, 14 + Math.sin(t * 35) * 5);
+        g.globalAlpha = 1;
+      }
+      g.restore();
     }
     for (const e of w.enemies) {
       if (
@@ -724,15 +767,8 @@ export class Renderer {
     this.cursor(p, dt);
   }
   objectivePointer(w: World, p: Player) {
-    const encounter = w.mission.encounters[w.mission.checkpoint];
-    const goal =
-      w.mission.stage === "extract"
-        ? w.map.extract
-        : w.mission.stage === "destroy"
-          ? w.map.devices.find((d) => d.hp > 0)
-          : encounter
-            ? w.map.zones[encounter.zone].center
-            : undefined;
+    const chosen = operationGoal(w, p, this.trackedObjective),
+      goal = chosen?.position;
     if (!goal) return;
     const sx = (goal.x - this.camera.x) * this.zoom + this.width / 2,
       sy = (goal.y - this.camera.y) * this.zoom + this.height / 2;
@@ -741,12 +777,7 @@ export class Renderer {
     const x = Math.max(170, Math.min(this.width - 240, sx)),
       y = Math.max(190, Math.min(this.height - 190, sy));
     const g = this.ctx,
-      label =
-        w.mission.stage === "extract"
-          ? "탈출"
-          : w.mission.stage === "destroy"
-            ? "발전 장치"
-            : w.map.zones[encounter!.zone].label;
+      label = chosen!.label;
     g.save();
     g.translate(x, y);
     g.fillStyle = "#14222de6";
@@ -960,15 +991,13 @@ export class Renderer {
     g.fillStyle = "#54727b";
     for (const o of w.map.obstacles) g.fillRect(o.x, o.y, o.w, o.h);
     g.fillStyle = "#f0cb89";
-    const encounter = w.mission.encounters[w.mission.checkpoint];
+    this.fog.minimap(g, w);
     const goals =
-      w.mission.stage === "extract"
-        ? [w.map.extract]
-        : w.mission.stage === "destroy"
-          ? w.map.devices.filter((d) => d.hp > 0)
-          : encounter
-            ? [w.map.zones[encounter.zone].center]
-            : [w.map.core];
+      w.mission.stage === "extract" && w.mission.extraction.site
+        ? [w.mission.extraction.site]
+        : w.mission.objectives
+            .filter((o) => !o.optional && o.state !== "complete")
+            .map((o) => o.position);
     for (const o of goals) g.fillRect(o.x - 30, o.y - 30, 60, 60);
     for (const p of w.players) {
       g.fillStyle = p.down ? "#f2889f" : CHARACTERS[p.character].color;
@@ -976,7 +1005,6 @@ export class Renderer {
       g.arc(p.x, p.y, 35, 0, TAU);
       g.fill();
     }
-    this.fog.minimap(g, w);
     g.restore();
   }
   cursor(p: Player, dt: number) {
