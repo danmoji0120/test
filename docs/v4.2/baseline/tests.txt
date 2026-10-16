@@ -1,0 +1,48 @@
+
+> project-doll-squad@0.4.1 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 49.4 seconds [
+  { hp: 100, kills: 1, ammo: 221 },
+  { hp: 100, kills: 3, ammo: 221 },
+  { hp: 100, kills: 1, ammo: 222 },
+  { hp: 100, kills: 3, ammo: 221 }
+]
+
+ ✓ tests/game.test.ts (35 tests) 16131ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  9130ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  3489ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  2211ms
+ ✓ tests/region.test.ts (3 tests) 9585ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  8785ms
+   ✓ keeps reachable navigation through interior corners where a 32px operator can stand  718ms
+ ✓ tests/terrain.test.ts (3 tests) 9191ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  2321ms
+   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  6868ms
+ ✓ tests/network.test.ts (6 tests) 6580ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2754ms
+   ✓ authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect  2359ms
+ ✓ tests/reinforcements.test.ts (5 tests) 2604ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  2248ms
+ ✓ tests/objective-armor-paths.test.ts (1 test) 3590ms
+   ✓ keeps an AP1-accessible reachable rear core for both generators across100 seeds, so non-AT primaries are never equipment-locked  3589ms
+ ✓ tests/heavy-combat.test.ts (13 tests) 840ms
+ ✓ tests/difficulty.test.ts (1 test) 782ms
+   ✓ scales response, composition and pressure across ten levels without health inflation  781ms
+ ✓ tests/response.test.ts (9 tests) 523ms
+ ✓ tests/combat-system.test.ts (24 tests) 501ms
+ ✓ tests/visibility.test.ts (6 tests) 219ms
+ ✓ tests/objectives.test.ts (5 tests) 231ms
+ ✓ tests/perception.test.ts (5 tests) 149ms
+ ✓ tests/snapshot.test.ts (1 test) 101ms
+ ✓ tests/store.test.ts (2 tests) 3ms
+
+ Test Files  15 passed (15)
+      Tests  119 passed (119)
+   Start at  05:11:44
+   Duration  53.96s (transform 307ms, setup 0ms, collect 785ms, tests 51.03s, environment 2ms, prepare 644ms)
+

@@ -333,6 +333,7 @@ export interface Input {
   slot?: 1 | 2 | 3;
   targetX?: number;
   targetY?: number;
+  drop?: boolean;
 }
 export const emptyInput = (): Input => ({
   dx: 0,
@@ -395,6 +396,7 @@ export interface Player extends Vec {
   tactical?: "launcher" | "ammo";
   rockets?: number;
   tacticalCooldown?: number;
+  carrying?: string;
 }
 export interface Enemy extends Vec {
   elite?: boolean;
@@ -470,6 +472,9 @@ export interface Smoke extends Vec {
   until: number;
 }
 export interface GameMap {
+  operation?: import("./missions").OperationOptions;
+  deployments?: Vec[];
+  generation?: { version: number; signature: string; attempts: number; diagnostics: string[] };
   smokes?: Smoke[];
   width: number;
   height: number;
@@ -527,17 +532,36 @@ export interface GameEvent extends Vec {
 }
 export interface Objective {
   id: string;
-  kind: "generator" | "comms" | "outpost" | "barracks" | "intel";
+  kind: "generator" | "comms" | "outpost" | "barracks" | "intel" | import("./missions").MissionAction;
+  missionId?: import("./missions").MissionId;
+  facilityId?: string;
+  locationId?: string;
+  prerequisiteIds?: string[];
+  prerequisiteMode?: "all" | "any";
+  action?: import("./missions").MissionAction;
+  activation?: "prerequisites" | "breach";
+  phase?: string;
+  phaseAt?: number;
+  operatingPoint?: Vec;
+  response?: number;
+  effect?: import("./missions").NodeDefinition["effect"];
+  failure?: "none" | "facility-destroyed";
   label: string;
   position: Vec;
   optional: boolean;
-  state: "inactive" | "available" | "active" | "complete" | "failed";
+  state: "locked" | "inactive" | "available" | "active" | "complete" | "failed";
   progress: number;
   total: number;
   reward: number;
   discovered: boolean;
 }
 export interface Mission {
+  id?: import("./missions").MissionId;
+  completion?: { ids: string[]; count: number };
+  timeLimit?: number;
+  launch?: { position: Vec; at: number };
+  cargo?: { id: string; x: number; y: number; carrier: string | null; delivered: boolean; droppedAt: number };
+  defenseWaves?: number;
   stage: "recon" | "operate" | "extract" | "success" | "failed";
   objectives: Objective[];
   extraction: {
@@ -600,6 +624,7 @@ export interface RoomView {
   seed: number;
   difficulty: number;
   contract: "blackout" | "recon";
+  operation?: import("./missions").OperationOptions;
   world: World | null;
 }
 
@@ -625,6 +650,9 @@ export interface DispatchSource extends Vec {
   facility: string;
 }
 export interface Installation extends Vec {
+  role?: import("./missions").FacilityRole;
+  zoneId?: number;
+  protectionDisabled?: boolean;
   id: string;
   kind: "generator" | "comms" | "outpost" | "barracks";
   hp: number;

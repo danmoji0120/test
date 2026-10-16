@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/mission-graph.test.ts (5 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  05:14:38
+   Duration  255ms (transform 75ms, setup 0ms, collect 60ms, tests 5ms, environment 0ms, prepare 78ms)
+
