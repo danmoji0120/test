@@ -1,0 +1,227 @@
+{
+  "fixture": "Actual standard/expanded geometry,4high-health scripted moving targets,protected work facilities,20/30nearby mixed enemies and64extreme overload,30simulated seconds,alert4; not gameplay evidence; director admissions disabled to hold load",
+  "rows": [
+    {
+      "mission": "blitz",
+      "profile": "standard",
+      "actors": 20,
+      "generationMs": 121.79439900000003,
+      "tickMs": {
+        "mean": 1.0280670055555583,
+        "p95": 4.991692999999998,
+        "max": 17.433370999999966
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.278123597777776,
+        "p95": 5.281159000000002,
+        "max": 19.862386999999956
+      },
+      "initialBytes": 177731,
+      "deltaSnapshotBytes": {
+        "mean": 41467.164810690425,
+        "p95": 97180,
+        "max": 104477
+      },
+      "approxBytesPerSecond": 622007.4721603564,
+      "heapMiB": 27.634140014648438,
+      "rssMiB": 146.19140625,
+      "navigation": {
+        "queries": 600,
+        "hits": 61,
+        "visited": 14973,
+        "cachedPaths": 128,
+        "edgeBytes": 43008,
+        "gridBytes": 43008
+      },
+      "actualEnemies": 20,
+      "peakActors": 20,
+      "simulatedSeconds": 30.00000000000065,
+      "missionStage": "operate"
+    },
+    {
+      "mission": "blitz",
+      "profile": "standard",
+      "actors": 30,
+      "generationMs": 84.91245200000003,
+      "tickMs": {
+        "mean": 1.125512561111109,
+        "p95": 5.606620000000021,
+        "max": 9.165195999999924
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.4252812322222166,
+        "p95": 6.158460000000105,
+        "max": 10.797602999999981
+      },
+      "initialBytes": 179335,
+      "deltaSnapshotBytes": {
+        "mean": 47942.472160356345,
+        "p95": 105677,
+        "max": 119366
+      },
+      "approxBytesPerSecond": 719137.0824053452,
+      "heapMiB": 46.31776428222656,
+      "rssMiB": 155.20703125,
+      "navigation": {
+        "queries": 711,
+        "hits": 57,
+        "visited": 20548,
+        "cachedPaths": 128,
+        "edgeBytes": 43008,
+        "gridBytes": 43008
+      },
+      "actualEnemies": 30,
+      "peakActors": 30,
+      "simulatedSeconds": 30.00000000000065,
+      "missionStage": "operate"
+    },
+    {
+      "mission": "blitz",
+      "profile": "standard",
+      "actors": 64,
+      "generationMs": 81.31398600000011,
+      "tickMs": {
+        "mean": 1.6431838100000105,
+        "p95": 6.498492000000169,
+        "max": 18.204421000000366
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 2.070413056666659,
+        "p95": 7.187338000000182,
+        "max": 18.20736500000021
+      },
+      "initialBytes": 183970,
+      "deltaSnapshotBytes": {
+        "mean": 65850.81291759465,
+        "p95": 127810,
+        "max": 140561
+      },
+      "approxBytesPerSecond": 987762.1937639198,
+      "heapMiB": 48.69923400878906,
+      "rssMiB": 235.8671875,
+      "navigation": {
+        "queries": 1470,
+        "hits": 95,
+        "visited": 31420,
+        "cachedPaths": 128,
+        "edgeBytes": 43008,
+        "gridBytes": 43008
+      },
+      "actualEnemies": 64,
+      "peakActors": 64,
+      "simulatedSeconds": 30.00000000000065,
+      "missionStage": "operate"
+    },
+    {
+      "mission": "survey",
+      "profile": "expanded",
+      "actors": 20,
+      "generationMs": 416.70040900000004,
+      "tickMs": {
+        "mean": 0.816031693333313,
+        "p95": 3.5494930000004388,
+        "max": 7.194569000000229
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.0901543188888707,
+        "p95": 4.226472000000285,
+        "max": 8.566024000000652
+      },
+      "initialBytes": 553428,
+      "deltaSnapshotBytes": {
+        "mean": 42794.890868596885,
+        "p95": 92492,
+        "max": 95822
+      },
+      "approxBytesPerSecond": 641923.3630289533,
+      "heapMiB": 44.11283874511719,
+      "rssMiB": 255.28125,
+      "navigation": {
+        "queries": 414,
+        "hits": 35,
+        "visited": 9296,
+        "cachedPaths": 128,
+        "edgeBytes": 172032,
+        "gridBytes": 172032
+      },
+      "actualEnemies": 20,
+      "peakActors": 20,
+      "simulatedSeconds": 30.00000000000065,
+      "missionStage": "operate"
+    },
+    {
+      "mission": "survey",
+      "profile": "expanded",
+      "actors": 30,
+      "generationMs": 405.20265199999994,
+      "tickMs": {
+        "mean": 0.8701126166666927,
+        "p95": 3.560048999999708,
+        "max": 9.763605999999527
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.1655706922222362,
+        "p95": 4.093611999999666,
+        "max": 10.77776299999914
+      },
+      "initialBytes": 555455,
+      "deltaSnapshotBytes": {
+        "mean": 47514.305122494436,
+        "p95": 97918,
+        "max": 101986
+      },
+      "approxBytesPerSecond": 712714.5768374165,
+      "heapMiB": 56.717811584472656,
+      "rssMiB": 252.6484375,
+      "navigation": {
+        "queries": 673,
+        "hits": 25,
+        "visited": 14156,
+        "cachedPaths": 128,
+        "edgeBytes": 172032,
+        "gridBytes": 172032
+      },
+      "actualEnemies": 30,
+      "peakActors": 30,
+      "simulatedSeconds": 30.00000000000065,
+      "missionStage": "operate"
+    },
+    {
+      "mission": "survey",
+      "profile": "expanded",
+      "actors": 64,
+      "generationMs": 408.13597800000025,
+      "tickMs": {
+        "mean": 1.217914910000043,
+        "p95": 3.9472010000008595,
+        "max": 7.57624400000077
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.596388590000019,
+        "p95": 4.530810000000201,
+        "max": 12.737042000000656
+      },
+      "initialBytes": 562237,
+      "deltaSnapshotBytes": {
+        "mean": 64348.70824053452,
+        "p95": 117490,
+        "max": 130041
+      },
+      "approxBytesPerSecond": 965230.6236080178,
+      "heapMiB": 21.769912719726562,
+      "rssMiB": 266.2265625,
+      "navigation": {
+        "queries": 1533,
+        "hits": 200,
+        "visited": 39747,
+        "cachedPaths": 128,
+        "edgeBytes": 172032,
+        "gridBytes": 172032
+      },
+      "actualEnemies": 64,
+      "peakActors": 64,
+      "simulatedSeconds": 30.00000000000065,
+      "missionStage": "operate"
+    }
+  ]
+}

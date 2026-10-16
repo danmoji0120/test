@@ -1,0 +1,20 @@
+DOLL SQUAD ready: http://localhost:3430
+STAGE recon 3.4
+PLAY 3 아리아:100hp/0k@6140,2043 루나:100hp/0k@6200,2043 스파크:100hp/0k@6140,2103 에코:100hp/0k@6200,2103 enemies 0
+STAGE operate 18.2
+RECONNECT PASS
+PLAY 27 아리아:100hp/0k@5253,2328 루나:100hp/0k@5279,2435 스파크:100hp/0k@5409,2522 에코:89hp/0k@5327,2374 enemies 1
+PLAY 49 아리아:89hp/2k@3148,546 루나:56hp/0k@3211,710 스파크:78hp/0k@3175,598 에코:78hp/0k@3530,1389 enemies 2
+{
+  result: 'failed',
+  elapsed: 67.59999999999873,
+  reconnect: true,
+  repeatDeployment: true,
+  errors: [],
+  frameMs: {
+    samples: 120,
+    median: 32.099999994039536,
+    p95: 101.59999999403954,
+    average: 43.06416666681568
+  }
+}

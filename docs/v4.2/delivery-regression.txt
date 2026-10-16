@@ -1,0 +1,12 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/operational-network.test.ts (2 tests) 6942ms
+   ✓ shares a validated four-player insertion/graph, rejects forged progress and restores equipment on reconnect  1817ms
+   ✓ validates mission/profile/version on the server and can deploy each of the six archetypes  3913ms
+ ✓ tests/store.test.ts (2 tests) 4ms
+
+ Test Files  2 passed (2)
+      Tests  4 passed (4)
+   Start at  11:01:35
+   Duration  7.67s (transform 192ms, setup 0ms, collect 235ms, tests 6.95s, environment 0ms, prepare 142ms)

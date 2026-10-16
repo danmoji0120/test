@@ -1,0 +1,46 @@
+{
+  "note": "Original interim campaign failures; full raw probes retained locally, final 3300-row verification is generation-verified/.",
+  "campaigns": {
+    "generation": {
+      "method": "11 allowed mission/profile combinations,100 deterministic Seeds each,1/2/4 players,three rotating deployment choices; actual collision/working points/dependency route/56-radius connected component for every source/site/deployment/extraction; no terrain removal; no gameplay victory assertions",
+      "testedRows": 3298,
+      "failures": [
+        {
+          "mission": "reactor",
+          "profile": "standard",
+          "count": 1,
+          "seed": 27,
+          "deployment": 0,
+          "error": "Error: Heavy cannot reach site approach installation-reactor-security"
+        },
+        {
+          "mission": "defense",
+          "profile": "compact",
+          "count": 4,
+          "seed": 59,
+          "deployment": 2,
+          "error": "Error: Heavy cannot reach site approach installation-defense-barracks"
+        }
+      ]
+    },
+    "generation-final": {
+      "method": "11 allowed mission/profile combinations,100 deterministic Seeds each,1/2/4 players,three rotating deployment choices; actual collision/working points/dependency route/56-radius connected component for every source/site/deployment/extraction; no terrain removal; no gameplay victory assertions",
+      "testedRows": 300,
+      "failures": []
+    },
+    "generation-release": {
+      "method": "11 allowed mission/profile combinations,100 deterministic Seeds each,1/2/4 players,three rotating deployment choices; actual collision/working points/dependency route/56-radius connected component for every source/site/deployment/extraction; no terrain removal; no gameplay victory assertions",
+      "testedRows": 3299,
+      "failures": [
+        {
+          "mission": "defense",
+          "profile": "compact",
+          "count": 1,
+          "seed": 49,
+          "deployment": 1,
+          "error": "Error: 작전구역 생성 실패: attempt1: No physical source 49:4; attempt2: No physical source 49:4; attempt3: No physical source 49:4"
+        }
+      ]
+    }
+  }
+}

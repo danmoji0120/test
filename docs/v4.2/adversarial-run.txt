@@ -1,0 +1,5 @@
+ADVERSARIAL all-optional 0
+ADVERSARIAL blind-solo10 0
+ADVERSARIAL evade5 0
+ADVERSARIAL launch-reverse 0
+ADVERSARIAL launch-split 0

@@ -1,0 +1,25 @@
+DOLL SQUAD ready: http://localhost:3432
+STAGE recon 1.8
+PLAY 2 아리아:100hp/0k@260,359 루나:100hp/0k@320,359 enemies 0
+STAGE operate 13.1
+RECONNECT PASS
+PLAY 30 아리아:100hp/0k@2996,455 루나:86hp/2k@1000,3992 enemies 2
+PLAY 59 아리아:100hp/0k@2077,454 루나:0hp/3k@815,3896 enemies 0
+PLAY 87 아리아:89hp/2k@791,2933 루나:0hp/3k@815,3896 enemies 0
+PLAY 116 아리아:56hp/6k@1413,3836 루나:55hp/3k@696,3862 enemies 0
+PLAY 144 아리아:100hp/7k@4903,4820 루나:89hp/4k@5022,5022 enemies 1
+STAGE extract 170.3
+PLAY 172 아리아:100hp/8k@3109,6037 루나:89hp/5k@3089,6025 enemies 0
+{
+  result: 'success',
+  elapsed: 197.36666666665803,
+  reconnect: true,
+  repeatDeployment: true,
+  errors: [],
+  frameMs: {
+    samples: 450,
+    median: 17.5,
+    p95: 58.400000005960464,
+    average: 25.678444444470934
+  }
+}

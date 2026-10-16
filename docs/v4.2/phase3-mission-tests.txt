@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/operational-missions.test.ts (10 tests) 763ms
+ ✓ tests/mission-graph.test.ts (5 tests) 5ms
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  05:35:33
+   Duration  1.43s (transform 272ms, setup 0ms, collect 350ms, tests 768ms, environment 0ms, prepare 101ms)

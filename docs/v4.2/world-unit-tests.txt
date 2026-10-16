@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/operation-world.test.ts (3 tests) 1220ms
+   ✓ generates all allowed mission profiles deterministically, including alternate deployment at an extraction cell  1122ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  05:45:28
+   Duration  1.72s (transform 261ms, setup 0ms, collect 324ms, tests 1.22s, environment 0ms, prepare 57ms)

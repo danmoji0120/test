@@ -1,0 +1,59 @@
+{
+  "fixture": "Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence",
+  "browser": "154.0.8037.57",
+  "viewport": "1280x720",
+  "windows": 2,
+  "measurements": [
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "juggernaut": 1,
+        "rush": 7,
+        "heavy": 5,
+        "drone": 2,
+        "walker": 1,
+        "artillery": 1,
+        "rifle": 3
+      },
+      "samples": 600,
+      "medianMs": 23.900000005960464,
+      "p95Ms": 32.29999999701977,
+      "averageMs": 23.683333333333334,
+      "drawMs": {
+        "mean": 4.027500000223517,
+        "p95": 8.799999997019768
+      },
+      "heapMiB": 6.169105529785156
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "juggernaut": 1,
+        "rush": 7,
+        "heavy": 5,
+        "drone": 2,
+        "walker": 1,
+        "artillery": 1,
+        "rifle": 3
+      },
+      "samples": 600,
+      "medianMs": 23.80000001192093,
+      "p95Ms": 33.70000000298023,
+      "averageMs": 23.3728333333383,
+      "drawMs": {
+        "mean": 4.171999999955297,
+        "p95": 9
+      },
+      "heapMiB": 4.670818328857422
+    }
+  ],
+  "chromiumAllProcessesRSSMiB": 1177.03515625,
+  "backgroundBurst": {
+    "events": 10000,
+    "particles": 400,
+    "trails": 4
+  },
+  "errors": []
+}

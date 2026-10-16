@@ -45,4 +45,3 @@ Full input-only mission: success 49.4 seconds [
       Tests  119 passed (119)
    Start at  05:11:44
    Duration  53.96s (transform 307ms, setup 0ms, collect 785ms, tests 51.03s, environment 2ms, prepare 644ms)
-

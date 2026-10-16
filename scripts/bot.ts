@@ -33,6 +33,7 @@ export class Pilot {
   avoidArmor = false;
   rearApproach = false;
   splitTargets = false;
+  protectTarget = false;
   rearEntries = new Map<string, Vec>();
   rearReached = new Set<string>();
   navRevision = -1;
@@ -516,6 +517,12 @@ export class Pilot {
         known
           .filter((o) => !o.optional)
           .sort((a, b) => b.id.localeCompare(a.id))[0]?.id ?? "";
+    else if (this.splitTargets) {
+      const parallel = known
+        .filter((o) => !o.optional)
+        .sort((a, b) => a.id.localeCompare(b.id));
+      manual = parallel[index % Math.max(1, parallel.length)]?.id ?? "";
+    }
     const targetGoal = operationGoal(w, p.carrying ? p : anchor, manual);
     let objective = targetGoal
       ? w.mission.objectives.find(
@@ -611,6 +618,63 @@ export class Pilot {
           }
       }
     }
+    // Optional QA tactic: a defense pilot must leave the console to open a firing
+    // angle on publicly visible attackers, rather than merely surviving at its feet.
+    if (
+      this.protectTarget &&
+      objective?.action === "defend" &&
+      objective.phase
+    ) {
+      const threat = w.enemies
+        .filter(
+          (e) =>
+            e.hp > 0 &&
+            distance(e, objective!.position) < ENEMIES[e.kind].range + 80 &&
+            visible(e, objective!.position, w.map),
+        )
+        .sort(
+          (a, b) =>
+            distance(a, objective!.position) - distance(b, objective!.position),
+        )[0];
+      if (threat) {
+        const a = Math.atan2(
+          threat.y - objective.position.y,
+          threat.x - objective.position.x,
+        );
+        const gun =
+          p.primary === "at" && !armored(threat.kind)
+            ? WEAPONS.pistol
+            : WEAPONS[p.primary];
+        const desired = Math.min(
+          gun.range * 0.65,
+          Math.max(120, distance(threat, objective.position) - 80),
+        );
+        for (const offset of [
+          index % 2 ? 130 : -130,
+          index % 2 ? -130 : 130,
+          220,
+          -220,
+        ]) {
+          const q = {
+            x: threat.x - Math.cos(a) * desired - Math.sin(a) * offset,
+            y: threat.y - Math.sin(a) * desired + Math.cos(a) * offset,
+          };
+          if (
+            !movementBlocked(q, w.map, 20) &&
+            ballisticDistance(
+              w,
+              q,
+              Math.atan2(threat.y - q.y, threat.x - q.x),
+              distance(q, threat),
+            ) >=
+              distance(q, threat) - 20
+          ) {
+            this.destination = q;
+            break;
+          }
+        }
+      }
+    }
     const input = this.input(
       compat,
       p,
@@ -620,6 +684,7 @@ export class Pilot {
       objective &&
       ((objective.action === "drill" && objective.phase === "데이터 수집") ||
         (objective.action === "defend" && !!objective.phase) ||
+        (objective.action === "upload" && !p.carrying) ||
         (objective.action === "upload" && !!w.mission.cargo?.delivered) ||
         (objective.action === "analyze" && !!objective.phase) ||
         (objective.action === "launch" &&

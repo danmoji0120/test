@@ -1,0 +1,3 @@
+{"mission":"launch","count":2,"seed":7,"result":"success","seconds":88,"order":["launch:power","launch:code","launch:launch"],"reason":"작전 목표 달성 · 수송기 탑승 및 분대 귀환","cargoViolations":0}
+{"mission":"launch","count":2,"seed":42,"result":"success","seconds":81,"order":["launch:power","launch:code","launch:launch"],"reason":"작전 목표 달성 · 수송기 탑승 및 분대 귀환","cargoViolations":0}
+{"mission":"launch","count":2,"seed":103,"result":"success","seconds":129,"order":["launch:power","launch:code","launch:launch"],"reason":"작전 목표 달성 · 수송기 탑승 및 분대 귀환","cargoViolations":0}

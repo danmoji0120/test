@@ -1,0 +1,18 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/operation-world.test.ts (5 tests) 4379ms
+   ✓ generates all allowed mission profiles deterministically, including alternate deployment at an extraction cell  3338ms
+   ✓ changing only deployment preserves strategic terrain, roads and facilities  644ms
+ ✓ tests/operational-missions.test.ts (11 tests) 2224ms
+   ✓ operational mission rule fixtures > survey accepts parallel sites and real nearby contest pauses collection  355ms
+   ✓ operational mission rule fixtures > regional radio destruction changes only nearby physical sources; radar never grants enemy vision  348ms
+ ✓ tests/operational-network.test.ts (2 tests) 5513ms
+   ✓ shares a validated four-player insertion/graph, rejects forged progress and restores equipment on reconnect  1665ms
+   ✓ validates mission/profile/version on the server and can deploy each of the six archetypes  2968ms
+ ✓ tests/mission-graph.test.ts (6 tests) 5ms
+
+ Test Files  4 passed (4)
+      Tests  24 passed (24)
+   Start at  06:18:15
+   Duration  13.22s (transform 325ms, setup 0ms, collect 491ms, tests 12.12s, environment 0ms, prepare 178ms)

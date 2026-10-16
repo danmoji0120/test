@@ -1,0 +1,215 @@
+{
+  "fixture": "Actual standard/expanded geometry,4high-health scripted moving targets,20/30nearby mixed enemies and64extreme overload,30simulated seconds,alert4; not gameplay evidence; director admissions disabled to hold load",
+  "rows": [
+    {
+      "mission": "blitz",
+      "profile": "standard",
+      "actors": 20,
+      "generationMs": 131.39066000000003,
+      "tickMs": {
+        "mean": 1.072922851111114,
+        "p95": 4.905670999999984,
+        "max": 14.962103000000013
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.3189026988888883,
+        "p95": 5.163770000000113,
+        "max": 16.80927200000002
+      },
+      "initialBytes": 177731,
+      "deltaSnapshotBytes": {
+        "mean": 41453.44543429844,
+        "p95": 97166,
+        "max": 104463
+      },
+      "approxBytesPerSecond": 621801.6815144765,
+      "heapMiB": 34.86859130859375,
+      "rssMiB": 126.1875,
+      "navigation": {
+        "queries": 600,
+        "hits": 61,
+        "visited": 14973,
+        "cachedPaths": 128,
+        "edgeBytes": 43008,
+        "gridBytes": 43008
+      },
+      "actualEnemies": 20,
+      "peakActors": 20
+    },
+    {
+      "mission": "blitz",
+      "profile": "standard",
+      "actors": 30,
+      "generationMs": 106.3288,
+      "tickMs": {
+        "mean": 1.0621258477777793,
+        "p95": 5.466215999999804,
+        "max": 8.676594999999907
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.3181499944444401,
+        "p95": 5.9286010000000715,
+        "max": 9.592462999999952
+      },
+      "initialBytes": 179335,
+      "deltaSnapshotBytes": {
+        "mean": 47928.752783964366,
+        "p95": 105663,
+        "max": 119352
+      },
+      "approxBytesPerSecond": 718931.2917594655,
+      "heapMiB": 31.402442932128906,
+      "rssMiB": 178.734375,
+      "navigation": {
+        "queries": 711,
+        "hits": 57,
+        "visited": 20548,
+        "cachedPaths": 128,
+        "edgeBytes": 43008,
+        "gridBytes": 43008
+      },
+      "actualEnemies": 30,
+      "peakActors": 30
+    },
+    {
+      "mission": "blitz",
+      "profile": "standard",
+      "actors": 64,
+      "generationMs": 81.34583899999961,
+      "tickMs": {
+        "mean": 1.45994799111111,
+        "p95": 6.090863999999783,
+        "max": 8.83684600000015
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.8049605000000044,
+        "p95": 6.463786000000255,
+        "max": 9.722960000000057
+      },
+      "initialBytes": 183970,
+      "deltaSnapshotBytes": {
+        "mean": 65836.43875278396,
+        "p95": 127796,
+        "max": 140547
+      },
+      "approxBytesPerSecond": 987546.5812917594,
+      "heapMiB": 65.83948516845703,
+      "rssMiB": 186.7734375,
+      "navigation": {
+        "queries": 1470,
+        "hits": 95,
+        "visited": 31420,
+        "cachedPaths": 128,
+        "edgeBytes": 43008,
+        "gridBytes": 43008
+      },
+      "actualEnemies": 64,
+      "peakActors": 64
+    },
+    {
+      "mission": "survey",
+      "profile": "expanded",
+      "actors": 20,
+      "generationMs": 427.56469500000003,
+      "tickMs": {
+        "mean": 0.8298789888888849,
+        "p95": 3.6957710000006045,
+        "max": 8.975113999999849
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.074732780000015,
+        "p95": 4.190825000000586,
+        "max": 8.976725999999871
+      },
+      "initialBytes": 553414,
+      "deltaSnapshotBytes": {
+        "mean": 42780.890868596885,
+        "p95": 92478,
+        "max": 95808
+      },
+      "approxBytesPerSecond": 641713.3630289533,
+      "heapMiB": 62.09648895263672,
+      "rssMiB": 284.93359375,
+      "navigation": {
+        "queries": 414,
+        "hits": 35,
+        "visited": 9296,
+        "cachedPaths": 128,
+        "edgeBytes": 172032,
+        "gridBytes": 172032
+      },
+      "actualEnemies": 20,
+      "peakActors": 20
+    },
+    {
+      "mission": "survey",
+      "profile": "expanded",
+      "actors": 30,
+      "generationMs": 407.4551899999997,
+      "tickMs": {
+        "mean": 0.9032649922222097,
+        "p95": 3.692345999999816,
+        "max": 14.061697000000095
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.1935024855555387,
+        "p95": 4.301943000000392,
+        "max": 15.021111000000019
+      },
+      "initialBytes": 555441,
+      "deltaSnapshotBytes": {
+        "mean": 47500.305122494436,
+        "p95": 97904,
+        "max": 101972
+      },
+      "approxBytesPerSecond": 712504.5768374165,
+      "heapMiB": 63.29457092285156,
+      "rssMiB": 284.27734375,
+      "navigation": {
+        "queries": 673,
+        "hits": 25,
+        "visited": 14156,
+        "cachedPaths": 128,
+        "edgeBytes": 172032,
+        "gridBytes": 172032
+      },
+      "actualEnemies": 30,
+      "peakActors": 30
+    },
+    {
+      "mission": "survey",
+      "profile": "expanded",
+      "actors": 64,
+      "generationMs": 409.0702599999995,
+      "tickMs": {
+        "mean": 1.1932200544444378,
+        "p95": 3.9536480000006122,
+        "max": 7.725013999999646
+      },
+      "tickPlusSnapshotMs": {
+        "mean": 1.573665704444411,
+        "p95": 4.470435999999609,
+        "max": 11.41521499999999
+      },
+      "initialBytes": 562223,
+      "deltaSnapshotBytes": {
+        "mean": 64334.70824053452,
+        "p95": 117476,
+        "max": 130027
+      },
+      "approxBytesPerSecond": 965020.6236080178,
+      "heapMiB": 40.41880798339844,
+      "rssMiB": 297.703125,
+      "navigation": {
+        "queries": 1533,
+        "hits": 200,
+        "visited": 39747,
+        "cachedPaths": 128,
+        "edgeBytes": 172032,
+        "gridBytes": 172032
+      },
+      "actualEnemies": 64,
+      "peakActors": 64
+    }
+  ]
+}

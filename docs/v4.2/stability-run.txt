@@ -1,0 +1,264 @@
+REPEAT {
+  run: 0,
+  mission: 'launch',
+  seed: 7,
+  result: 'success',
+  seconds: 112.26666666666286,
+  maxEvents: 160,
+  maxActors: 16,
+  heapMiB: 10.623069763183594,
+  rssMiB: 233.72265625
+}
+REPEAT {
+  run: 1,
+  mission: 'reactor',
+  seed: 7,
+  result: 'success',
+  seconds: 66.66666666666545,
+  maxEvents: 160,
+  maxActors: 19,
+  heapMiB: 10.785316467285156,
+  rssMiB: 233.23828125
+}
+REPEAT {
+  run: 2,
+  mission: 'transfer',
+  seed: 7,
+  result: 'success',
+  seconds: 84.36666666666444,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 10.869796752929688,
+  rssMiB: 230.1328125
+}
+REPEAT {
+  run: 3,
+  mission: 'survey',
+  seed: 7,
+  result: 'success',
+  seconds: 130.06666666666186,
+  maxEvents: 160,
+  maxActors: 20,
+  heapMiB: 11.287155151367188,
+  rssMiB: 230.6875
+}
+REPEAT {
+  run: 4,
+  mission: 'blitz',
+  seed: 7,
+  result: 'success',
+  seconds: 45.433333333333316,
+  maxEvents: 160,
+  maxActors: 19,
+  heapMiB: 11.377983093261719,
+  rssMiB: 237.75390625
+}
+REPEAT {
+  run: 5,
+  mission: 'defense',
+  seed: 7,
+  result: 'success',
+  seconds: 111.16666666666292,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 11.55535888671875,
+  rssMiB: 238.44140625
+}
+REPEAT {
+  run: 6,
+  mission: 'launch',
+  seed: 42,
+  result: 'success',
+  seconds: 102.16666666666343,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 11.271499633789062,
+  rssMiB: 241.18359375
+}
+REPEAT {
+  run: 7,
+  mission: 'reactor',
+  seed: 42,
+  result: 'success',
+  seconds: 54.76666666666612,
+  maxEvents: 160,
+  maxActors: 17,
+  heapMiB: 12.241218566894531,
+  rssMiB: 237.07421875
+}
+REPEAT {
+  run: 8,
+  mission: 'transfer',
+  seed: 42,
+  result: 'success',
+  seconds: 74.26666666666502,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 11.395118713378906,
+  rssMiB: 236.41796875
+}
+REPEAT {
+  run: 9,
+  mission: 'survey',
+  seed: 42,
+  result: 'success',
+  seconds: 170.36666666665957,
+  maxEvents: 160,
+  maxActors: 19,
+  heapMiB: 11.649986267089844,
+  rssMiB: 250.48828125
+}
+REPEAT {
+  run: 10,
+  mission: 'blitz',
+  seed: 42,
+  result: 'success',
+  seconds: 45.53333333333331,
+  maxEvents: 160,
+  maxActors: 21,
+  heapMiB: 11.479324340820312,
+  rssMiB: 240.3671875
+}
+REPEAT {
+  run: 11,
+  mission: 'defense',
+  seed: 42,
+  result: 'failed',
+  seconds: 48.166666666666494,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 11.275558471679688,
+  rssMiB: 245.25390625
+}
+REPEAT {
+  run: 12,
+  mission: 'launch',
+  seed: 103,
+  result: 'success',
+  seconds: 87.16666666666428,
+  maxEvents: 160,
+  maxActors: 17,
+  heapMiB: 11.518226623535156,
+  rssMiB: 240.8203125
+}
+REPEAT {
+  run: 13,
+  mission: 'reactor',
+  seed: 103,
+  result: 'success',
+  seconds: 54.36666666666614,
+  maxEvents: 130,
+  maxActors: 15,
+  heapMiB: 11.518951416015625,
+  rssMiB: 245.1640625
+}
+REPEAT {
+  run: 14,
+  mission: 'transfer',
+  seed: 103,
+  result: 'success',
+  seconds: 103.46666666666336,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 11.662528991699219,
+  rssMiB: 241.35546875
+}
+REPEAT {
+  run: 15,
+  mission: 'survey',
+  seed: 103,
+  result: 'success',
+  seconds: 141.4666666666612,
+  maxEvents: 160,
+  maxActors: 19,
+  heapMiB: 11.561187744140625,
+  rssMiB: 247.6015625
+}
+REPEAT {
+  run: 16,
+  mission: 'blitz',
+  seed: 103,
+  result: 'success',
+  seconds: 46.03333333333328,
+  maxEvents: 160,
+  maxActors: 22,
+  heapMiB: 11.522178649902344,
+  rssMiB: 240.96875
+}
+REPEAT {
+  run: 17,
+  mission: 'defense',
+  seed: 103,
+  result: 'success',
+  seconds: 116.36666666666262,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 11.614280700683594,
+  rssMiB: 243.09765625
+}
+REPEAT {
+  run: 18,
+  mission: 'launch',
+  seed: 211,
+  result: 'success',
+  seconds: 88.96666666666418,
+  maxEvents: 160,
+  maxActors: 18,
+  heapMiB: 11.462265014648438,
+  rssMiB: 243.8671875
+}
+REPEAT {
+  run: 19,
+  mission: 'reactor',
+  seed: 211,
+  result: 'success',
+  seconds: 47.76666666666652,
+  maxEvents: 160,
+  maxActors: 19,
+  heapMiB: 11.325271606445312,
+  rssMiB: 244.76953125
+}
+REPEAT {
+  run: 20,
+  mission: 'transfer',
+  seed: 211,
+  result: 'success',
+  seconds: 80.16666666666468,
+  maxEvents: 160,
+  maxActors: 15,
+  heapMiB: 11.087669372558594,
+  rssMiB: 242.8671875
+}
+REPEAT {
+  run: 21,
+  mission: 'survey',
+  seed: 211,
+  result: 'success',
+  seconds: 126.46666666666205,
+  maxEvents: 160,
+  maxActors: 19,
+  heapMiB: 11.684852600097656,
+  rssMiB: 242.015625
+}
+REPEAT {
+  run: 22,
+  mission: 'blitz',
+  seed: 211,
+  result: 'success',
+  seconds: 55.56666666666607,
+  maxEvents: 160,
+  maxActors: 20,
+  heapMiB: 11.459175109863281,
+  rssMiB: 242.62890625
+}
+REPEAT {
+  run: 23,
+  mission: 'defense',
+  seed: 211,
+  result: 'failed',
+  seconds: 80.399999999998,
+  maxEvents: 160,
+  maxActors: 14,
+  heapMiB: 11.144515991210938,
+  rssMiB: 241.73046875
+}

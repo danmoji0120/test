@@ -1,0 +1,103 @@
+{
+  "fixture": "Synthetic mixed infantry/armor/drone/artillery+projectiles,4friendlies20enemies per window,Fog,alert4; zero-damage performance fixture,not gameplay/difficulty evidence",
+  "browser": "154.0.8037.57",
+  "viewport": "1920x1080",
+  "windows": 4,
+  "measurements": [
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "juggernaut": 1,
+        "rush": 7,
+        "heavy": 5,
+        "drone": 2,
+        "walker": 1,
+        "artillery": 1,
+        "rifle": 3
+      },
+      "samples": 199,
+      "medianMs": 83.29999999701977,
+      "p95Ms": 206.69999998807907,
+      "averageMs": 96.01507537688443,
+      "drawMs": {
+        "mean": 89.16030150681884,
+        "p95": 204.8999999910593
+      },
+      "heapMiB": 5.368749618530273
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "juggernaut": 1,
+        "rush": 7,
+        "heavy": 5,
+        "drone": 2,
+        "walker": 1,
+        "artillery": 1,
+        "rifle": 3
+      },
+      "samples": 222,
+      "medianMs": 63.1000000089407,
+      "p95Ms": 200,
+      "averageMs": 83.94144144144144,
+      "drawMs": {
+        "mean": 79.65630630578275,
+        "p95": 196.5
+      },
+      "heapMiB": 5.239683151245117
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "juggernaut": 1,
+        "rush": 7,
+        "heavy": 5,
+        "drone": 2,
+        "walker": 1,
+        "artillery": 1,
+        "rifle": 3
+      },
+      "samples": 274,
+      "medianMs": 62.1000000089407,
+      "p95Ms": 114.79999999701977,
+      "averageMs": 65.55729927008387,
+      "drawMs": {
+        "mean": 60.67919708059652,
+        "p95": 108.3999999910593
+      },
+      "heapMiB": 5.658632278442383
+    },
+    {
+      "players": 4,
+      "enemies": 20,
+      "roster": {
+        "juggernaut": 1,
+        "rush": 7,
+        "heavy": 5,
+        "drone": 2,
+        "walker": 1,
+        "artillery": 1,
+        "rifle": 3
+      },
+      "samples": 235,
+      "medianMs": 72.59999999403954,
+      "p95Ms": 112.70000000298023,
+      "averageMs": 72.3417021276469,
+      "drawMs": {
+        "mean": 68.03106382996478,
+        "p95": 110.30000001192093
+      },
+      "heapMiB": 5.767675399780273
+    }
+  ],
+  "chromiumAllProcessesRSSMiB": 1769.328125,
+  "backgroundBurst": {
+    "events": 10000,
+    "particles": 400,
+    "trails": 4
+  },
+  "errors": []
+}

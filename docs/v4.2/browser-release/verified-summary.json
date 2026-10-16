@@ -1,0 +1,2119 @@
+{
+  "method": "Audit of10actual production DOM/WebSocket operation records,including genuine failures and a stronger public-information defense pilot; no gameplay state injection; gameSeconds is simulation clock, not human playtime",
+  "successes": 7,
+  "failures": 3,
+  "trajectories": 162,
+  "points": 7678,
+  "violations": 0,
+  "runs": [
+    {
+      "directory": "blitz-1",
+      "mission": "blitz",
+      "players": 1,
+      "seed": 42,
+      "operation": {
+        "missionId": "blitz",
+        "profile": "standard",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "success",
+      "gameSeconds": 74.73333333333166,
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "reconnect": false,
+      "revives": 0,
+      "order": [
+        "blitz:factory-0",
+        "blitz:factory-3",
+        "blitz:factory-2"
+      ],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e11",
+          "source": "source-8",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 50
+        },
+        {
+          "enemy": "e12",
+          "source": "source-8",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 50
+        },
+        {
+          "enemy": "e112",
+          "source": "external-2",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 29
+        },
+        {
+          "enemy": "e113",
+          "source": "external-2",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 29
+        },
+        {
+          "enemy": "e126",
+          "source": "external-1",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 41
+        },
+        {
+          "enemy": "e127",
+          "source": "external-1",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 41
+        },
+        {
+          "enemy": "e9",
+          "source": "source-6",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 10
+        },
+        {
+          "enemy": "e10",
+          "source": "source-6",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 10
+        },
+        {
+          "enemy": "e235",
+          "source": "external-0",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 55
+        },
+        {
+          "enemy": "e236",
+          "source": "external-0",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 24
+        },
+        {
+          "enemy": "e298",
+          "source": "external-3",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 57
+        },
+        {
+          "enemy": "e299",
+          "source": "external-3",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 57
+        }
+      ],
+      "firstContact": 9.866666666666642,
+      "combatSeconds": 12.733333333333299,
+      "frameMs": {
+        "samples": 390,
+        "median": 16.100000008940697,
+        "p95": 35.5,
+        "average": 18.188205128182204
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 0.5451339172223683,
+          "p50": 0.2800020000067889,
+          "p95": 1.6199579999956768,
+          "p99": 5.276322000005166,
+          "max": 14.546111999999994
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 33.31056927777781,
+          "p50": 33.17575999999826,
+          "p95": 34.68917800000054,
+          "p99": 36.72242499999993,
+          "max": 43.30956300000253
+        },
+        "snapshotBytes": {
+          "samples": 1121,
+          "mean": 10720.704727921498,
+          "p50": 7858,
+          "p95": 27143,
+          "p99": 38273,
+          "max": 136279
+        },
+        "totalBytes": 12017910,
+        "totalMessages": 1121,
+        "heapMiB": 17.79676055908203,
+        "rssMiB": 114.6015625
+      }
+    },
+    {
+      "directory": "defense-4",
+      "mission": "defense",
+      "players": 4,
+      "seed": 103,
+      "operation": {
+        "missionId": "defense",
+        "profile": "compact",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "failed",
+      "gameSeconds": 75.49999999999828,
+      "outcome": {
+        "primaryAchieved": false,
+        "extracted": false
+      },
+      "reconnect": true,
+      "revives": 0,
+      "order": [],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e12",
+          "source": "source-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 5
+        },
+        {
+          "enemy": "e13",
+          "source": "source-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 5
+        },
+        {
+          "enemy": "e14",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 12
+        },
+        {
+          "enemy": "e15",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 12
+        },
+        {
+          "enemy": "e707",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 19
+        },
+        {
+          "enemy": "e708",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 19
+        },
+        {
+          "enemy": "e709",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 19
+        },
+        {
+          "enemy": "e961",
+          "source": "external-1",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 13
+        },
+        {
+          "enemy": "e962",
+          "source": "external-1",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 13
+        },
+        {
+          "enemy": "e963",
+          "source": "external-1",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 13
+        }
+      ],
+      "firstContact": 4.166666666666662,
+      "combatSeconds": 33.9666666666673,
+      "frameMs": {
+        "samples": 240,
+        "median": 49,
+        "p95": 95.5,
+        "average": 48.892083333370586
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 1.8487154699998731,
+          "p50": 0.25851899999543093,
+          "p95": 9.478608000004897,
+          "p99": 36.19262400000298,
+          "max": 46.257888000000094
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 44.575139322222256,
+          "p50": 34.235407999993186,
+          "p95": 68.27444100000139,
+          "p99": 73.04648900000029,
+          "max": 92.16334800000186
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 24354.29111111111,
+          "p50": 13633,
+          "p95": 68694,
+          "p99": 69812,
+          "max": 77024
+        },
+        "totalBytes": 117068456,
+        "totalMessages": 4538,
+        "heapMiB": 15.009712219238281,
+        "rssMiB": 108.96484375
+      }
+    },
+    {
+      "directory": "defense-4-protect",
+      "mission": "defense",
+      "players": 4,
+      "seed": 103,
+      "operation": {
+        "missionId": "defense",
+        "profile": "compact",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "automation": {
+        "strategy": "primary",
+        "split": false,
+        "protectTarget": true
+      },
+      "result": "success",
+      "gameSeconds": 128.76666666666193,
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "reconnect": true,
+      "revives": 1,
+      "order": [
+        "defense:defense"
+      ],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e12",
+          "source": "source-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 5
+        },
+        {
+          "enemy": "e13",
+          "source": "source-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 5
+        },
+        {
+          "enemy": "e14",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 8
+        },
+        {
+          "enemy": "e15",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 7
+        },
+        {
+          "enemy": "e707",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 12
+        },
+        {
+          "enemy": "e708",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 12
+        },
+        {
+          "enemy": "e709",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 12
+        },
+        {
+          "enemy": "e954",
+          "source": "external-1",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 14
+        },
+        {
+          "enemy": "e955",
+          "source": "external-1",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 13
+        },
+        {
+          "enemy": "e956",
+          "source": "external-1",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 14
+        },
+        {
+          "enemy": "e1282",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 24
+        },
+        {
+          "enemy": "e1283",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 20
+        },
+        {
+          "enemy": "e1284",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 24
+        },
+        {
+          "enemy": "e1571",
+          "source": "external-0",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 35
+        },
+        {
+          "enemy": "e1572",
+          "source": "external-0",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 35
+        },
+        {
+          "enemy": "e1573",
+          "source": "external-0",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 35
+        }
+      ],
+      "firstContact": 4.433333333333327,
+      "combatSeconds": 78.0666666666648,
+      "frameMs": {
+        "samples": 390,
+        "median": 48.20000000298023,
+        "p95": 98.29999999701977,
+        "average": 49.27923076916964
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 1.0661826033334607,
+          "p50": 0.20289500000944827,
+          "p95": 4.306012000000919,
+          "p99": 32.3244560000021,
+          "max": 42.81861200000276
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 42.97874591944445,
+          "p50": 33.81740299999365,
+          "p95": 67.51916399999755,
+          "p99": 70.0969669999904,
+          "max": 109.34018900000956
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 15555.604444444445,
+          "p50": 12903,
+          "p95": 48932,
+          "p99": 61649,
+          "max": 67978
+        },
+        "totalBytes": 206970310,
+        "totalMessages": 7733,
+        "heapMiB": 15.281967163085938,
+        "rssMiB": 112.28125
+      }
+    },
+    {
+      "directory": "defense-4-seed7",
+      "mission": "defense",
+      "players": 4,
+      "seed": 7,
+      "operation": {
+        "missionId": "defense",
+        "profile": "compact",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "failed",
+      "gameSeconds": 76.2666666666649,
+      "outcome": {
+        "primaryAchieved": false,
+        "extracted": false
+      },
+      "reconnect": true,
+      "revives": 0,
+      "order": [],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e12",
+          "source": "source-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 15
+        },
+        {
+          "enemy": "e13",
+          "source": "source-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 15
+        },
+        {
+          "enemy": "e14",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 12
+        },
+        {
+          "enemy": "e15",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 12
+        },
+        {
+          "enemy": "e391",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 24
+        },
+        {
+          "enemy": "e392",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 15
+        },
+        {
+          "enemy": "e393",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 25
+        },
+        {
+          "enemy": "e642",
+          "source": "external-2",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 11
+        },
+        {
+          "enemy": "e643",
+          "source": "external-2",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 11
+        },
+        {
+          "enemy": "e644",
+          "source": "external-2",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 14
+        },
+        {
+          "enemy": "e900",
+          "source": "external-1",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 18
+        },
+        {
+          "enemy": "e901",
+          "source": "external-1",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 18
+        },
+        {
+          "enemy": "e902",
+          "source": "external-1",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 18
+        }
+      ],
+      "firstContact": 0.03333333333333333,
+      "combatSeconds": 51.49999999999964,
+      "frameMs": {
+        "samples": 210,
+        "median": 39.900000005960464,
+        "p95": 95.1000000089407,
+        "average": 47.03523809526648
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 2.4048018544444676,
+          "p50": 0.380103000003146,
+          "p95": 13.106834999998682,
+          "p99": 36.51349599999958,
+          "max": 57.6516100000008
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 45.371175536111096,
+          "p50": 34.895174999997835,
+          "p95": 68.45846999999776,
+          "p99": 73.46089099999517,
+          "max": 114.27737299999717
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 24716.315555555557,
+          "p50": 12650,
+          "p95": 90664,
+          "p99": 92602,
+          "max": 95131
+        },
+        "totalBytes": 135509765,
+        "totalMessages": 4581,
+        "heapMiB": 16.297256469726562,
+        "rssMiB": 115.90234375
+      }
+    },
+    {
+      "directory": "launch-1",
+      "mission": "launch",
+      "players": 1,
+      "seed": 42,
+      "operation": {
+        "missionId": "launch",
+        "profile": "large",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "success",
+      "gameSeconds": 284.4666666666773,
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "reconnect": false,
+      "revives": 0,
+      "order": [
+        "launch:code",
+        "launch:power",
+        "launch:launch"
+      ],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e9",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 108
+        },
+        {
+          "enemy": "e10",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 108
+        },
+        {
+          "enemy": "e11",
+          "source": "source-9",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 104
+        },
+        {
+          "enemy": "e12",
+          "source": "source-9",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 104
+        },
+        {
+          "enemy": "e197",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 43
+        },
+        {
+          "enemy": "e198",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 43
+        },
+        {
+          "enemy": "e200",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 57
+        },
+        {
+          "enemy": "e201",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 57
+        },
+        {
+          "enemy": "e403",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 104
+        },
+        {
+          "enemy": "e404",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 104
+        },
+        {
+          "enemy": "e410",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 11
+        },
+        {
+          "enemy": "e411",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 11
+        },
+        {
+          "enemy": "e561",
+          "source": "external-3",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 128
+        },
+        {
+          "enemy": "e562",
+          "source": "external-3",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 128
+        },
+        {
+          "enemy": "e647",
+          "source": "external-0",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 35
+        },
+        {
+          "enemy": "e648",
+          "source": "external-0",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 35
+        },
+        {
+          "enemy": "e737",
+          "source": "external-1",
+          "request": "dispatch-9",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 43
+        },
+        {
+          "enemy": "e738",
+          "source": "external-1",
+          "request": "dispatch-9",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 43
+        },
+        {
+          "enemy": "e898",
+          "source": "external-3",
+          "request": "dispatch-10",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 76
+        },
+        {
+          "enemy": "e899",
+          "source": "external-3",
+          "request": "dispatch-10",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 76
+        },
+        {
+          "enemy": "e901",
+          "source": "external-2",
+          "request": "dispatch-11",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 86
+        },
+        {
+          "enemy": "e902",
+          "source": "external-2",
+          "request": "dispatch-11",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 86
+        },
+        {
+          "enemy": "e1035",
+          "source": "external-0",
+          "request": "dispatch-12",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 29
+        },
+        {
+          "enemy": "e1036",
+          "source": "external-0",
+          "request": "dispatch-12",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 29
+        }
+      ],
+      "firstContact": 26.40000000000047,
+      "combatSeconds": 29.53333333333396,
+      "frameMs": {
+        "samples": 990,
+        "median": 16.299999997019768,
+        "p95": 49.70000000298023,
+        "average": 19.55161616159509
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 0.3967281222224604,
+          "p50": 0.27404200000455603,
+          "p95": 0.9982320000126492,
+          "p99": 2.7105400000000373,
+          "max": 13.074550000019372
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 33.41933202388887,
+          "p50": 33.22829900000943,
+          "p95": 35.176026000001,
+          "p99": 37.52894299995387,
+          "max": 56.7979649999761
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 14380.193333333333,
+          "p50": 11512,
+          "p95": 31403,
+          "p99": 38432,
+          "max": 40091
+        },
+        "totalBytes": 60890345,
+        "totalMessages": 4267,
+        "heapMiB": 18.17279815673828,
+        "rssMiB": 115.22265625
+      }
+    },
+    {
+      "directory": "launch-2",
+      "mission": "launch",
+      "players": 2,
+      "seed": 42,
+      "operation": {
+        "missionId": "launch",
+        "profile": "large",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "success",
+      "gameSeconds": 197.36666666665803,
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "reconnect": true,
+      "revives": 1,
+      "order": [
+        "launch:power",
+        "launch:code",
+        "launch:launch"
+      ],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e12",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 14
+        },
+        {
+          "enemy": "e13",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 14
+        },
+        {
+          "enemy": "e10",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 96
+        },
+        {
+          "enemy": "e11",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 96
+        },
+        {
+          "enemy": "e309",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 34
+        },
+        {
+          "enemy": "e310",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 34
+        },
+        {
+          "enemy": "e479",
+          "source": "external-3",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 53
+        },
+        {
+          "enemy": "e480",
+          "source": "external-3",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 53
+        },
+        {
+          "enemy": "e574",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 115
+        },
+        {
+          "enemy": "e575",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 115
+        },
+        {
+          "enemy": "e594",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 59
+        },
+        {
+          "enemy": "e595",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 56
+        },
+        {
+          "enemy": "e848",
+          "source": "external-0",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 44
+        },
+        {
+          "enemy": "e849",
+          "source": "external-0",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 44
+        },
+        {
+          "enemy": "e1106",
+          "source": "external-3",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 2
+        },
+        {
+          "enemy": "e1107",
+          "source": "external-3",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 2
+        }
+      ],
+      "firstContact": 13.099999999999964,
+      "combatSeconds": 69.53333333333195,
+      "frameMs": {
+        "samples": 450,
+        "median": 17.5,
+        "p95": 58.400000005960464,
+        "average": 25.678444444470934
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 0.692805723889097,
+          "p50": 0.2544530000013765,
+          "p95": 2.284918999997899,
+          "p99": 8.783601000002818,
+          "max": 44.23716599997715
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 35.590946325,
+          "p50": 33.35265400001663,
+          "p95": 60.981958999997005,
+          "p99": 67.2186020000081,
+          "max": 91.36792299998342
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 15411.064444444444,
+          "p50": 11305,
+          "p95": 47030,
+          "p99": 65855,
+          "max": 69692
+        },
+        "totalBytes": 95175433,
+        "totalMessages": 5923,
+        "heapMiB": 25.149696350097656,
+        "rssMiB": 111.625
+      }
+    },
+    {
+      "directory": "reactor-1",
+      "mission": "reactor",
+      "players": 1,
+      "seed": 42,
+      "operation": {
+        "missionId": "reactor",
+        "profile": "large",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "success",
+      "gameSeconds": 153.5333333333272,
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "reconnect": false,
+      "revives": 0,
+      "order": [
+        "reactor:cooling",
+        "reactor:security",
+        "reactor:reactor"
+      ],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e61",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 34
+        },
+        {
+          "enemy": "e62",
+          "source": "external-1",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 34
+        },
+        {
+          "enemy": "e66",
+          "source": "external-0",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 35
+        },
+        {
+          "enemy": "e67",
+          "source": "external-0",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 35
+        },
+        {
+          "enemy": "e9",
+          "source": "source-4",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 41
+        },
+        {
+          "enemy": "e10",
+          "source": "source-4",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 41
+        },
+        {
+          "enemy": "e229",
+          "source": "external-3",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 17
+        },
+        {
+          "enemy": "e230",
+          "source": "external-3",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 17
+        },
+        {
+          "enemy": "e11",
+          "source": "source-9",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 80
+        },
+        {
+          "enemy": "e12",
+          "source": "source-9",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 80
+        },
+        {
+          "enemy": "e466",
+          "source": "external-0",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 20
+        },
+        {
+          "enemy": "e467",
+          "source": "external-0",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 20
+        },
+        {
+          "enemy": "e547",
+          "source": "external-2",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 64
+        },
+        {
+          "enemy": "e548",
+          "source": "external-2",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 64
+        },
+        {
+          "enemy": "e583",
+          "source": "external-1",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 58
+        },
+        {
+          "enemy": "e584",
+          "source": "external-1",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 58
+        }
+      ],
+      "firstContact": 5.59999999999999,
+      "combatSeconds": 40.066666666666954,
+      "frameMs": {
+        "samples": 510,
+        "median": 16.299999997019768,
+        "p95": 53.3999999910593,
+        "average": 20.414313725572008
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 0.5089657238891636,
+          "p50": 0.2913180000032298,
+          "p95": 1.4044839999987744,
+          "p99": 3.99157899999409,
+          "max": 39.62928200000897
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 33.429771615,
+          "p50": 33.22497199999634,
+          "p95": 34.94672300000093,
+          "p99": 37.87748599998304,
+          "max": 60.76253700000234
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 12690.286666666667,
+          "p50": 9765,
+          "p95": 28465,
+          "p99": 32006,
+          "max": 33542
+        },
+        "totalBytes": 28375958,
+        "totalMessages": 2304,
+        "heapMiB": 13.760902404785156,
+        "rssMiB": 81.19140625
+      }
+    },
+    {
+      "directory": "survey-1-seed7",
+      "mission": "survey",
+      "players": 1,
+      "seed": 7,
+      "operation": {
+        "missionId": "survey",
+        "profile": "expanded",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "success",
+      "gameSeconds": 252.49999999998823,
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "reconnect": false,
+      "revives": 0,
+      "order": [
+        "survey:survey-a",
+        "survey:survey-b",
+        "survey:analysis"
+      ],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e11",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 72
+        },
+        {
+          "enemy": "e12",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 72
+        },
+        {
+          "enemy": "e9",
+          "source": "source-4",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 110
+        },
+        {
+          "enemy": "e10",
+          "source": "source-4",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 110
+        },
+        {
+          "enemy": "e108",
+          "source": "external-3",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 13
+        },
+        {
+          "enemy": "e109",
+          "source": "external-3",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 11
+        },
+        {
+          "enemy": "e258",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 115
+        },
+        {
+          "enemy": "e259",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 115
+        },
+        {
+          "enemy": "e13",
+          "source": "source-13",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 136
+        },
+        {
+          "enemy": "e14",
+          "source": "source-13",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 136
+        },
+        {
+          "enemy": "e365",
+          "source": "external-2",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 122
+        },
+        {
+          "enemy": "e366",
+          "source": "external-2",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 122
+        },
+        {
+          "enemy": "e437",
+          "source": "external-1",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 175
+        },
+        {
+          "enemy": "e438",
+          "source": "external-1",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 175
+        },
+        {
+          "enemy": "e835",
+          "source": "external-3",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 61
+        },
+        {
+          "enemy": "e836",
+          "source": "external-3",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 61
+        },
+        {
+          "enemy": "e949",
+          "source": "external-0",
+          "request": "dispatch-9",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 90
+        },
+        {
+          "enemy": "e950",
+          "source": "external-0",
+          "request": "dispatch-9",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 90
+        },
+        {
+          "enemy": "e1040",
+          "source": "external-2",
+          "request": "dispatch-10",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 111
+        },
+        {
+          "enemy": "e1041",
+          "source": "external-2",
+          "request": "dispatch-10",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 111
+        },
+        {
+          "enemy": "e1088",
+          "source": "external-1",
+          "request": "dispatch-11",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 126
+        },
+        {
+          "enemy": "e1089",
+          "source": "external-1",
+          "request": "dispatch-11",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 126
+        },
+        {
+          "enemy": "e1264",
+          "source": "external-0",
+          "request": "dispatch-12",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 2
+        },
+        {
+          "enemy": "e1265",
+          "source": "external-0",
+          "request": "dispatch-12",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 2
+        }
+      ],
+      "firstContact": 11.999999999999968,
+      "combatSeconds": 35.86666666666719,
+      "frameMs": {
+        "samples": 540,
+        "median": 16.5,
+        "p95": 39.099999994039536,
+        "average": 20.296666666672184
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 0.46876628833308737,
+          "p50": 0.29224100001738407,
+          "p95": 1.579226000001654,
+          "p99": 3.5050849999825004,
+          "max": 11.28942200000165
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 33.44270486888888,
+          "p50": 33.202756999991834,
+          "p95": 35.30104600000777,
+          "p99": 37.90786000000662,
+          "max": 62.61740899999859
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 13160.38,
+          "p50": 10564,
+          "p95": 26938,
+          "p99": 32349,
+          "max": 33469
+        },
+        "totalBytes": 50043899,
+        "totalMessages": 3788,
+        "heapMiB": 26.687095642089844,
+        "rssMiB": 145.1171875
+      }
+    },
+    {
+      "directory": "survey-4",
+      "mission": "survey",
+      "players": 4,
+      "seed": 42,
+      "operation": {
+        "missionId": "survey",
+        "profile": "expanded",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "failed",
+      "gameSeconds": 90.03333333333079,
+      "outcome": {
+        "primaryAchieved": false,
+        "extracted": false
+      },
+      "reconnect": true,
+      "revives": 0,
+      "order": [],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e12",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 20
+        },
+        {
+          "enemy": "e13",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 20
+        },
+        {
+          "enemy": "e16",
+          "source": "source-13",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 8
+        },
+        {
+          "enemy": "e17",
+          "source": "source-13",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 8
+        },
+        {
+          "enemy": "e461",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 9
+        },
+        {
+          "enemy": "e462",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 9
+        },
+        {
+          "enemy": "e463",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 9
+        },
+        {
+          "enemy": "e14",
+          "source": "source-9",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 3
+        },
+        {
+          "enemy": "e15",
+          "source": "source-9",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 3
+        }
+      ],
+      "firstContact": 40.533333333333594,
+      "combatSeconds": 45.99999999999995,
+      "frameMs": {
+        "samples": 60,
+        "median": 24.700000002980232,
+        "p95": 71.20000000298023,
+        "average": 33.478333333383006
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 1.7803060266666701,
+          "p50": 0.378911000007065,
+          "p95": 8.310537000012118,
+          "p99": 29.95665999999619,
+          "max": 82.85587500000838
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 46.44586898444445,
+          "p50": 35.537112000005436,
+          "p95": 68.65824100001191,
+          "p99": 73.8012149999995,
+          "max": 116.64505900000222
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 27386.475555555557,
+          "p50": 15705,
+          "p95": 69483,
+          "p99": 72681,
+          "max": 75260
+        },
+        "totalBytes": 151352779,
+        "totalMessages": 5410,
+        "heapMiB": 12.57763671875,
+        "rssMiB": 146.73046875
+      }
+    },
+    {
+      "directory": "transfer-2",
+      "mission": "transfer",
+      "players": 2,
+      "seed": 42,
+      "operation": {
+        "missionId": "transfer",
+        "profile": "large",
+        "deployment": 0,
+        "generatorVersion": 42
+      },
+      "result": "success",
+      "gameSeconds": 331.43333333338137,
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "reconnect": true,
+      "revives": 1,
+      "order": [
+        "transfer:auth",
+        "transfer:case",
+        "transfer:upload"
+      ],
+      "errors": [],
+      "provenance": [
+        {
+          "enemy": "e10",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 14
+        },
+        {
+          "enemy": "e11",
+          "source": "source-4",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 14
+        },
+        {
+          "enemy": "e12",
+          "source": "source-9",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 57
+        },
+        {
+          "enemy": "e13",
+          "source": "source-9",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 57
+        },
+        {
+          "enemy": "e277",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 27
+        },
+        {
+          "enemy": "e278",
+          "source": "external-0",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 27
+        },
+        {
+          "enemy": "e396",
+          "source": "external-3",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 43
+        },
+        {
+          "enemy": "e397",
+          "source": "external-3",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 43
+        },
+        {
+          "enemy": "e409",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 67
+        },
+        {
+          "enemy": "e410",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 67
+        },
+        {
+          "enemy": "e459",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 83
+        },
+        {
+          "enemy": "e460",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 83
+        },
+        {
+          "enemy": "e893",
+          "source": "external-2",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 55
+        },
+        {
+          "enemy": "e894",
+          "source": "external-2",
+          "request": "dispatch-7",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 55
+        },
+        {
+          "enemy": "e898",
+          "source": "external-3",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 37
+        },
+        {
+          "enemy": "e899",
+          "source": "external-3",
+          "request": "dispatch-8",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 33
+        },
+        {
+          "enemy": "e922",
+          "source": "external-0",
+          "request": "dispatch-9",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 68
+        },
+        {
+          "enemy": "e923",
+          "source": "external-0",
+          "request": "dispatch-9",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 68
+        },
+        {
+          "enemy": "e1047",
+          "source": "external-1",
+          "request": "dispatch-10",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 84
+        },
+        {
+          "enemy": "e1048",
+          "source": "external-1",
+          "request": "dispatch-10",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 84
+        },
+        {
+          "enemy": "e1192",
+          "source": "external-3",
+          "request": "dispatch-11",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 8
+        },
+        {
+          "enemy": "e1193",
+          "source": "external-3",
+          "request": "dispatch-11",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 8
+        }
+      ],
+      "firstContact": 26.93333333333383,
+      "combatSeconds": 49.06666666666644,
+      "frameMs": {
+        "samples": 690,
+        "median": 39.19999998807907,
+        "p95": 113.1000000089407,
+        "average": 48.32434782610423
+      },
+      "measurements": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 1.8473732761104475,
+          "p50": 0.2442779999691993,
+          "p95": 11.768908000027295,
+          "p99": 38.623105000006035,
+          "max": 87.25548200000776
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 39.12941531944444,
+          "p50": 33.580833000014536,
+          "p95": 66.196202000021,
+          "p99": 69.38273900002241,
+          "max": 296.4299319999991
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 22366.18,
+          "p50": 12647,
+          "p95": 70511,
+          "p99": 75295,
+          "max": 77083
+        },
+        "totalBytes": 207723992,
+        "totalMessages": 9946,
+        "heapMiB": 39.62150573730469,
+        "rssMiB": 145.63671875
+      }
+    }
+  ]
+}

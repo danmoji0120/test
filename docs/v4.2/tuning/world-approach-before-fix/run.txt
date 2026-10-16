@@ -1,0 +1,35 @@
+{"mission":"launch","profile":"large","count":1,"rows":100,"failures":0,"ms":5346.674826}
+{"mission":"launch","profile":"large","count":2,"rows":200,"failures":0,"ms":5091.131891}
+{"mission":"launch","profile":"large","count":4,"rows":300,"failures":0,"ms":5078.791532000001}
+{"mission":"launch","profile":"expanded","count":1,"rows":400,"failures":0,"ms":10455.728932999999}
+{"mission":"launch","profile":"expanded","count":2,"rows":500,"failures":0,"ms":10456.748773000003}
+{"mission":"launch","profile":"expanded","count":4,"rows":600,"failures":0,"ms":10543.658466}
+FAIL {"mission":"reactor","profile":"standard","count":1,"seed":27,"deployment":0,"error":"Error: Heavy cannot reach site approach installation-reactor-security"}
+{"mission":"reactor","profile":"standard","count":1,"rows":699,"failures":1,"ms":1992.7698000000019}
+{"mission":"reactor","profile":"standard","count":2,"rows":799,"failures":1,"ms":2071.511580999999}
+{"mission":"reactor","profile":"standard","count":4,"rows":899,"failures":1,"ms":2030.6867060000004}
+{"mission":"reactor","profile":"large","count":1,"rows":999,"failures":1,"ms":4967.589568999996}
+{"mission":"reactor","profile":"large","count":2,"rows":1099,"failures":1,"ms":5122.247503999999}
+{"mission":"reactor","profile":"large","count":4,"rows":1199,"failures":1,"ms":5064.922674000009}
+{"mission":"reactor","profile":"expanded","count":1,"rows":1299,"failures":1,"ms":10391.343156999996}
+{"mission":"reactor","profile":"expanded","count":2,"rows":1399,"failures":1,"ms":10501.189937999996}
+{"mission":"reactor","profile":"expanded","count":4,"rows":1499,"failures":1,"ms":11553.116809}
+{"mission":"transfer","profile":"large","count":1,"rows":1599,"failures":1,"ms":5192.7895290000015}
+{"mission":"transfer","profile":"large","count":2,"rows":1699,"failures":1,"ms":5154.243030999991}
+{"mission":"transfer","profile":"large","count":4,"rows":1799,"failures":1,"ms":5103.250688999993}
+{"mission":"transfer","profile":"expanded","count":1,"rows":1899,"failures":1,"ms":10391.756053000005}
+{"mission":"transfer","profile":"expanded","count":2,"rows":1999,"failures":1,"ms":10565.939832000018}
+{"mission":"transfer","profile":"expanded","count":4,"rows":2099,"failures":1,"ms":10535.64823999998}
+{"mission":"survey","profile":"large","count":1,"rows":2199,"failures":1,"ms":5107.2845590000215}
+{"mission":"survey","profile":"large","count":2,"rows":2299,"failures":1,"ms":5112.7669129999995}
+{"mission":"survey","profile":"large","count":4,"rows":2399,"failures":1,"ms":5253.083704999997}
+{"mission":"survey","profile":"expanded","count":1,"rows":2499,"failures":1,"ms":11679.45053599999}
+{"mission":"survey","profile":"expanded","count":2,"rows":2599,"failures":1,"ms":10748.096011999995}
+{"mission":"survey","profile":"expanded","count":4,"rows":2699,"failures":1,"ms":10776.840522999992}
+{"mission":"blitz","profile":"standard","count":1,"rows":2799,"failures":1,"ms":2133.9937419999915}
+{"mission":"blitz","profile":"standard","count":2,"rows":2899,"failures":1,"ms":2119.545813999983}
+{"mission":"blitz","profile":"standard","count":4,"rows":2999,"failures":1,"ms":2127.2784240000183}
+{"mission":"defense","profile":"compact","count":1,"rows":3099,"failures":1,"ms":497.0899930000014}
+{"mission":"defense","profile":"compact","count":2,"rows":3199,"failures":1,"ms":491.95652499998687}
+FAIL {"mission":"defense","profile":"compact","count":4,"seed":59,"deployment":2,"error":"Error: Heavy cannot reach site approach installation-defense-barracks"}
+{"mission":"defense","profile":"compact","count":4,"rows":3298,"failures":2,"ms":487.5818600000057}

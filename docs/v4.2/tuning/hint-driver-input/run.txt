@@ -1,0 +1,15 @@
+DOLL SQUAD ready: http://localhost:3435
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+page.evaluate: TypeError: Failed to construct 'MouseEvent': Failed to read the 'clientX' property from 'MouseEventInit': The provided double value is non-finite.
+    at eval (eval at evaluate (:370:30), <anonymous>:1:1213)
+    at UtilityScript.evaluate (<anonymous>:372:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+    at drive (/workspace/doll-squad/scripts/browser-driver.ts:4:14)
+    at <anonymous> (/workspace/doll-squad/scripts/v42-hint-browser-qa.ts:41:13) {
+  log: []
+}
+
+Node.js v24.19.0

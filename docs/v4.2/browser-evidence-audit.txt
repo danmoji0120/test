@@ -1,0 +1,7 @@
+{
+  successes: 7,
+  failures: 3,
+  trajectories: 162,
+  points: 7678,
+  violations: 0
+}

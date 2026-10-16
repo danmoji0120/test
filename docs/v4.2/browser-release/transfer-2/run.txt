@@ -1,0 +1,31 @@
+DOLL SQUAD ready: http://localhost:3432
+STAGE recon 2.1
+PLAY 2 아리아:100hp/0k@7380,260 루나:100hp/0k@7440,260 enemies 0
+STAGE operate 27.1
+PLAY 28 아리아:89hp/0k@4834,619 루나:100hp/0k@5442,555 enemies 0
+PLAY 53 아리아:89hp/1k@3470,790 루나:86hp/2k@3066,903 enemies 1
+PLAY 80 아리아:89hp/2k@1603,1087 루나:86hp/2k@1644,1273 enemies 0
+PLAY 106 아리아:89hp/3k@1410,3073 루나:86hp/2k@1287,3059 enemies 0
+PLAY 131 아리아:89hp/3k@4501,3130 루나:64hp/2k@4235,3335 enemies 0
+PLAY 157 아리아:89hp/3k@5382,2051 루나:45hp/2k@5390,2082 enemies 0
+RECONNECT PASS
+PLAY 183 아리아:89hp/3k@4975,1166 루나:100hp/2k@4592,1490 enemies 0
+PLAY 208 아리아:89hp/3k@4458,2410 루나:100hp/2k@4390,2994 enemies 6
+PLAY 234 아리아:56hp/4k@4473,3505 루나:45hp/8k@4482,3514 enemies 0
+PLAY 260 아리아:56hp/5k@2913,4871 루나:100hp/8k@3218,4995 enemies 0
+PLAY 285 아리아:100hp/5k@3825,5270 루나:100hp/8k@3803,5588 enemies 0
+STAGE extract 303.4
+PLAY 311 아리아:100hp/5k@2780,5973 루나:100hp/8k@2782,6047 enemies 0
+{
+  result: 'success',
+  elapsed: 331.43333333338137,
+  reconnect: true,
+  repeatDeployment: true,
+  errors: [],
+  frameMs: {
+    samples: 690,
+    median: 39.19999998807907,
+    p95: 113.1000000089407,
+    average: 48.32434782610423
+  }
+}

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="ko">
+  <meta charset="utf-8" /><title>V4.2 terrain performance fixture</title>
+  <style>
+    body {
+      margin: 0;
+      background: #10131e;
+      color: white;
+    }
+    canvas {
+      position: fixed;
+      inset: 0;
+    }
+    aside {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      font: 15px sans-serif;
+      background: #131b2dd9;
+      padding: 12px;
+      z-index: 2;
+    }
+  </style>
+  <canvas></canvas>
+  <aside>성능 통제 fixture · 실제 작전 성공 증거 아님</aside>
+  <script type="module">
+    import {
+      createWorld,
+      makePlayer,
+      spawnEnemy,
+    } from "/src/game/simulation.ts";
+    import { operationOptions } from "/src/shared/missions.ts";
+    import { updateVision } from "/src/game/visibility.ts";
+    import { Renderer } from "/src/client/render.ts";
+    import { AudioEngine } from "/src/client/audio.ts";
+    import { paintTerrain } from "/src/client/terrain.ts";
+    import { TerrainChunks } from "/src/client/terrain-chunks.ts";
+    const profile =
+      new URLSearchParams(location.search).get("profile") || "expanded";
+    const mission =
+      profile === "compact"
+        ? "defense"
+        : profile === "standard"
+          ? "blitz"
+          : profile === "large"
+            ? "launch"
+            : "survey";
+    const t = performance.now(),
+      players = Array.from({ length: 4 }, (_, i) =>
+        makePlayer("p" + i, "FIXTURE " + i),
+      );
+    const w = createWorld(
+      "terrain-" + profile,
+      42,
+      players,
+      8,
+      "blackout",
+      operationOptions(mission, profile),
+    );
+    const generationMs = performance.now() - t;
+    w.alertState.level = 4;
+    const renderer = new Renderer(
+      document.querySelector("canvas"),
+      new AudioEngine(),
+    );
+    const costs = [],
+      original = renderer.draw.bind(renderer);
+    renderer.draw = (...args) => {
+      const t = performance.now();
+      original(...args);
+      costs.push(performance.now() - t);
+      if (costs.length > 900) costs.shift();
+    };
+    updateVision(w, true);
+    renderer.set(w, "p0");
+    renderer.start();
+    const ready = async () => {
+      await renderer.environmentAtlas.decode();
+      await renderer.atlas.decode();
+    };
+    window.measure = () => ({
+      profile,
+      mission,
+      dimensions: [w.map.width, w.map.height],
+      generationMs,
+      frames: renderer.frames,
+      drawMs: costs,
+      chunks: renderer.terrainChunks.stats(),
+      floor: renderer.floor,
+      heapMiB: performance.memory?.usedJSHeapSize / 1048576,
+      actors: w.enemies.length,
+    });
+    window.traverse = async () => {
+      await ready();
+      for (let y = 600; y < w.map.height; y += 1000)
+        for (let x = 600; x < w.map.width; x += 1000) {
+          players.forEach((p, i) => {
+            p.x = x + i * 20;
+            p.y = y;
+          });
+          renderer.camera = { x, y };
+          updateVision(w, true);
+          renderer.set(w, "p0");
+          await new Promise((r) => setTimeout(r, 35));
+        }
+      return window.measure();
+    };
+    window.chunkChecks = async () => {
+      await ready();
+      const atlas = renderer.environmentAtlas;
+      function paint(x, y, width = 1024) {
+        const c = document.createElement("canvas");
+        c.width = width;
+        c.height = 1024;
+        const g = c.getContext("2d", { willReadFrequently: true });
+        g.translate(-x, -y);
+        paintTerrain(g, w, atlas, { x, y, w: width, h: 1024 });
+        return c;
+      }
+      function pixels(c) {
+        return c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
+      }
+      let maxDifference = 0,
+        nearBoundary = 0;
+      const samples = [];
+      let mismatch = 0,
+        repaintMismatch = 0;
+      const wide = paint(0, 1024, 2048),
+        a = paint(0, 1024),
+        b = paint(1024, 1024),
+        wp = pixels(wide),
+        ap = pixels(a),
+        bp = pixels(b);
+      for (let y = 0; y < 1024; y++)
+        for (let x = 0; x < 2048; x++)
+          for (let k = 0; k < 4; k++)
+            if (
+              wp[(y * 2048 + x) * 4 + k] !==
+              (x < 1024 ? ap : bp)[(y * 1024 + (x % 1024)) * 4 + k]
+            ) {
+              mismatch++;
+              const left = wp[(y * 2048 + x) * 4 + k],
+                right = (x < 1024 ? ap : bp)[(y * 1024 + (x % 1024)) * 4 + k];
+              maxDifference = Math.max(maxDifference, Math.abs(left - right));
+              if (Math.abs(x - 1024) < 4) nearBoundary++;
+              if (samples.length < 20) samples.push({ x, y, k, left, right });
+            }
+      const interloper = paint(2048, 0);
+      const saved = w.map.zones.map((z) => ({ label: z.label, kind: z.kind }));
+      w.map.zones.forEach((z) => {
+        z.label = "DISCOVERED";
+        z.kind = "reactor";
+      });
+      const repeat = paint(0, 1024),
+        rp = pixels(repeat);
+      w.map.zones.forEach((z, i) => Object.assign(z, saved[i]));
+      for (let i = 0; i < ap.length; i++)
+        if (ap[i] !== rp[i]) repaintMismatch++;
+      for (const c of [wide, a, b, interloper, repeat]) {
+        c.width = 0;
+        c.height = 0;
+      }
+      return {
+        comparedPixels: 2048 * 1024,
+        mismatchChannels: mismatch,
+        repaintMismatchChannels: repaintMismatch,
+        maxDifference,
+        nearBoundary,
+        samples,
+      };
+    };
+  </script>
+</html>

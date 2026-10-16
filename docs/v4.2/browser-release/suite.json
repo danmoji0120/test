@@ -1,0 +1,44 @@
+[
+  {
+    "mission": "launch",
+    "count": 1,
+    "seed": 42,
+    "code": 0
+  },
+  {
+    "mission": "launch",
+    "count": 2,
+    "seed": 42,
+    "code": 0
+  },
+  {
+    "mission": "reactor",
+    "count": 1,
+    "seed": 42,
+    "code": 0
+  },
+  {
+    "mission": "transfer",
+    "count": 2,
+    "seed": 42,
+    "code": 0
+  },
+  {
+    "mission": "survey",
+    "count": 4,
+    "seed": 42,
+    "code": 0
+  },
+  {
+    "mission": "blitz",
+    "count": 1,
+    "seed": 42,
+    "code": 0
+  },
+  {
+    "mission": "defense",
+    "count": 4,
+    "seed": 103,
+    "code": 0
+  }
+]

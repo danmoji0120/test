@@ -1,0 +1,33 @@
+{
+  "source": "page@5dbf03704473d5e1c3761309710b0ded.webm",
+  "output": "capture.mp4",
+  "method": "Lossy H264 CRF28 veryfast re-encode of the complete actual browser recording; no composition, cropping, time acceleration or generated frames; source retained locally, excluded fromGit because one capture exceeds100MiB",
+  "args": [
+    "ffmpeg",
+    "-y",
+    "-i",
+    "docs/v4.2/browser-release/transfer-2/video/page@5dbf03704473d5e1c3761309710b0ded.webm",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "veryfast",
+    "-crf",
+    "28",
+    "-threads",
+    "1",
+    "-pix_fmt",
+    "yuv420p",
+    "-movflags",
+    "+faststart",
+    "-an",
+    "docs/v4.2/browser-release/transfer-2/video/capture.mp4"
+  ],
+  "sourceInfo": {
+    "duration": "399.280000",
+    "size": "110535708"
+  },
+  "outputInfo": {
+    "duration": "399.280000",
+    "size": "16940896"
+  }
+}

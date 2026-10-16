@@ -1,0 +1,6479 @@
+{
+  "method": "Actual authoritative30Hz, ordinary discrete10Hz WASD inputs, public fog-filtered state; full public terrain known to navigation; no teleport/scripted damage/forced defeat; rule fixtures are separate",
+  "report": [
+    {
+      "mission": "launch",
+      "count": 2,
+      "seed": 42,
+      "level": 1,
+      "strategy": "primary",
+      "reverse": false,
+      "budget": 600,
+      "result": "success",
+      "reason": "작전 목표 달성 · 수송기 탑승 및 분대 귀환",
+      "outcome": {
+        "primaryAchieved": true,
+        "extracted": true
+      },
+      "seconds": 71.96666666666515,
+      "firstContact": 3.0999999999999988,
+      "combatSeconds": 10.699999999999973,
+      "objectiveOrder": [
+        "launch:power",
+        "launch:code",
+        "launch:launch"
+      ],
+      "phases": [
+        {
+          "at": 0.03333333333333333,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:power",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:launch",
+              "state": "locked",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 12.2333333333333,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:power",
+              "state": "active",
+              "phase": "스위치 1/3",
+              "progress": 0.03333333333333333
+            },
+            {
+              "id": "launch:launch",
+              "state": "locked",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 13.233333333333297,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:power",
+              "state": "active",
+              "phase": "스위치 2/3",
+              "progress": 1.0333333333333332
+            },
+            {
+              "id": "launch:launch",
+              "state": "locked",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 15.166666666666623,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:power",
+              "state": "active",
+              "phase": "스위치 3/3",
+              "progress": 2.0000000000000027
+            },
+            {
+              "id": "launch:launch",
+              "state": "locked",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 16.533333333333314,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "locked",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 18.833333333333428,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "active",
+              "progress": 0.03333333333333333
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "locked",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 20.800000000000193,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "complete",
+              "progress": 2
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 20.833333333333528,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "complete",
+              "progress": 2
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "available",
+              "phase": "장치 가동",
+              "progress": 0
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 25.13333333333374,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "complete",
+              "progress": 2
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "active",
+              "phase": "장치 가동",
+              "progress": 0.03333333333333333
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 26.13333333333379,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "complete",
+              "progress": 2
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "active",
+              "phase": "발사 준비",
+              "progress": 1
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 35.1333333333339,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "complete",
+              "progress": 2
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "active",
+              "phase": "최종 승인",
+              "progress": 1
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 36.50000000000049,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "complete",
+              "progress": 2
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "active",
+              "phase": "미사일 발사",
+              "progress": 2.000000000000003
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "at": 39.53333333333365,
+          "nodes": [
+            {
+              "id": "launch:code",
+              "state": "complete",
+              "progress": 2
+            },
+            {
+              "id": "launch:power",
+              "state": "complete",
+              "phase": "스위치 3/3",
+              "progress": 3
+            },
+            {
+              "id": "launch:launch",
+              "state": "complete",
+              "phase": "미사일 발사",
+              "progress": 3
+            },
+            {
+              "id": "launch:radio",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:barracks",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:radar",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:depot",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:artillery",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-0",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-1",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-2",
+              "state": "available",
+              "progress": 0
+            },
+            {
+              "id": "launch:poi-3",
+              "state": "available",
+              "progress": 0
+            }
+          ]
+        }
+      ],
+      "cargoViolations": 0,
+      "provenance": [
+        {
+          "enemy": "e12",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 10
+        },
+        {
+          "enemy": "e13",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 10
+        },
+        {
+          "enemy": "e10",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 99
+        },
+        {
+          "enemy": "e11",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 99
+        },
+        {
+          "enemy": "e171",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 8
+        },
+        {
+          "enemy": "e172",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 7
+        },
+        {
+          "enemy": "e183",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 39
+        },
+        {
+          "enemy": "e184",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 39
+        },
+        {
+          "enemy": "e239",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 39
+        },
+        {
+          "enemy": "e240",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 39
+        },
+        {
+          "enemy": "e278",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 27
+        },
+        {
+          "enemy": "e279",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "validOrigin": true,
+          "route": true,
+          "continuous": true,
+          "samples": 27
+        }
+      ],
+      "remainingEnemies": 12,
+      "requests": [
+        {
+          "id": "dispatch-1",
+          "key": "call-e4-4",
+          "squad": "guard-3",
+          "sourceId": "source-9",
+          "members": [
+            "e12",
+            "e13"
+          ],
+          "roster": [
+            "rifle",
+            "rush"
+          ],
+          "task": "assault",
+          "radius": 19,
+          "target": {
+            "x": 843.3659859582089,
+            "y": 1626.5079344871103
+          },
+          "path": [
+            {
+              "x": 2150,
+              "y": 4085
+            },
+            {
+              "x": 2175,
+              "y": 4075
+            },
+            {
+              "x": 2125,
+              "y": 4075
+            },
+            {
+              "x": 2075,
+              "y": 4075
+            },
+            {
+              "x": 2025,
+              "y": 4075
+            },
+            {
+              "x": 1975,
+              "y": 4075
+            },
+            {
+              "x": 1925,
+              "y": 4075
+            },
+            {
+              "x": 1875,
+              "y": 4075
+            },
+            {
+              "x": 1825,
+              "y": 4075
+            },
+            {
+              "x": 1775,
+              "y": 4075
+            },
+            {
+              "x": 1725,
+              "y": 4075
+            },
+            {
+              "x": 1675,
+              "y": 4075
+            },
+            {
+              "x": 1625,
+              "y": 4075
+            },
+            {
+              "x": 1575,
+              "y": 4075
+            },
+            {
+              "x": 1525,
+              "y": 4075
+            },
+            {
+              "x": 1475,
+              "y": 4075
+            },
+            {
+              "x": 1425,
+              "y": 4075
+            },
+            {
+              "x": 1375,
+              "y": 4075
+            },
+            {
+              "x": 1325,
+              "y": 4075
+            },
+            {
+              "x": 1275,
+              "y": 4075
+            },
+            {
+              "x": 1225,
+              "y": 4075
+            },
+            {
+              "x": 1175,
+              "y": 4075
+            },
+            {
+              "x": 1125,
+              "y": 4075
+            },
+            {
+              "x": 1075,
+              "y": 4075
+            },
+            {
+              "x": 1025,
+              "y": 4075
+            },
+            {
+              "x": 1025,
+              "y": 4025
+            },
+            {
+              "x": 1025,
+              "y": 3975
+            },
+            {
+              "x": 1025,
+              "y": 3925
+            },
+            {
+              "x": 1025,
+              "y": 3875
+            },
+            {
+              "x": 1025,
+              "y": 3825
+            },
+            {
+              "x": 1025,
+              "y": 3775
+            },
+            {
+              "x": 1025,
+              "y": 3725
+            },
+            {
+              "x": 1025,
+              "y": 3675
+            },
+            {
+              "x": 975,
+              "y": 3675
+            },
+            {
+              "x": 925,
+              "y": 3675
+            },
+            {
+              "x": 875,
+              "y": 3675
+            },
+            {
+              "x": 875,
+              "y": 3625
+            },
+            {
+              "x": 875,
+              "y": 3575
+            },
+            {
+              "x": 875,
+              "y": 3525
+            },
+            {
+              "x": 875,
+              "y": 3475
+            },
+            {
+              "x": 875,
+              "y": 3425
+            },
+            {
+              "x": 875,
+              "y": 3375
+            },
+            {
+              "x": 875,
+              "y": 3325
+            },
+            {
+              "x": 875,
+              "y": 3275
+            },
+            {
+              "x": 875,
+              "y": 3225
+            },
+            {
+              "x": 875,
+              "y": 3175
+            },
+            {
+              "x": 875,
+              "y": 3125
+            },
+            {
+              "x": 875,
+              "y": 3075
+            },
+            {
+              "x": 875,
+              "y": 3025
+            },
+            {
+              "x": 875,
+              "y": 2975
+            },
+            {
+              "x": 875,
+              "y": 2925
+            },
+            {
+              "x": 875,
+              "y": 2875
+            },
+            {
+              "x": 875,
+              "y": 2825
+            },
+            {
+              "x": 875,
+              "y": 2775
+            },
+            {
+              "x": 875,
+              "y": 2725
+            },
+            {
+              "x": 875,
+              "y": 2675
+            },
+            {
+              "x": 875,
+              "y": 2625
+            },
+            {
+              "x": 875,
+              "y": 2575
+            },
+            {
+              "x": 875,
+              "y": 2525
+            },
+            {
+              "x": 875,
+              "y": 2475
+            },
+            {
+              "x": 875,
+              "y": 2425
+            },
+            {
+              "x": 875,
+              "y": 2375
+            },
+            {
+              "x": 875,
+              "y": 2325
+            },
+            {
+              "x": 875,
+              "y": 2275
+            },
+            {
+              "x": 875,
+              "y": 2225
+            },
+            {
+              "x": 875,
+              "y": 2175
+            },
+            {
+              "x": 875,
+              "y": 2125
+            },
+            {
+              "x": 875,
+              "y": 2075
+            },
+            {
+              "x": 875,
+              "y": 2025
+            },
+            {
+              "x": 875,
+              "y": 1975
+            },
+            {
+              "x": 875,
+              "y": 1925
+            },
+            {
+              "x": 875,
+              "y": 1875
+            },
+            {
+              "x": 825,
+              "y": 1875
+            },
+            {
+              "x": 825,
+              "y": 1825
+            },
+            {
+              "x": 825,
+              "y": 1775
+            },
+            {
+              "x": 825,
+              "y": 1725
+            },
+            {
+              "x": 825,
+              "y": 1675
+            },
+            {
+              "x": 825,
+              "y": 1625
+            }
+          ],
+          "requested": 4.633333333333327,
+          "departed": 15.066666666666624,
+          "arrived": 19.866666666666813,
+          "eta": 40.556862745097995,
+          "state": "deployed",
+          "reason": ""
+        },
+        {
+          "id": "dispatch-2",
+          "key": "call-e9-9",
+          "squad": "patrol-0",
+          "sourceId": "source-4",
+          "members": [
+            "e10",
+            "e11"
+          ],
+          "roster": [
+            "rifle",
+            "rush"
+          ],
+          "task": "assault",
+          "radius": 19,
+          "target": {
+            "x": 861.8797157278675,
+            "y": 3417.642751598046
+          },
+          "path": [
+            {
+              "x": 8650,
+              "y": 1585
+            },
+            {
+              "x": 8675,
+              "y": 1575
+            },
+            {
+              "x": 8625,
+              "y": 1575
+            },
+            {
+              "x": 8575,
+              "y": 1575
+            },
+            {
+              "x": 8525,
+              "y": 1575
+            },
+            {
+              "x": 8475,
+              "y": 1575
+            },
+            {
+              "x": 8425,
+              "y": 1575
+            },
+            {
+              "x": 8375,
+              "y": 1575
+            },
+            {
+              "x": 8325,
+              "y": 1575
+            },
+            {
+              "x": 8275,
+              "y": 1575
+            },
+            {
+              "x": 8225,
+              "y": 1575
+            },
+            {
+              "x": 8175,
+              "y": 1575
+            },
+            {
+              "x": 8125,
+              "y": 1575
+            },
+            {
+              "x": 8075,
+              "y": 1575
+            },
+            {
+              "x": 8025,
+              "y": 1575
+            },
+            {
+              "x": 7975,
+              "y": 1575
+            },
+            {
+              "x": 7925,
+              "y": 1575
+            },
+            {
+              "x": 7875,
+              "y": 1575
+            },
+            {
+              "x": 7825,
+              "y": 1575
+            },
+            {
+              "x": 7775,
+              "y": 1575
+            },
+            {
+              "x": 7725,
+              "y": 1575
+            },
+            {
+              "x": 7675,
+              "y": 1575
+            },
+            {
+              "x": 7625,
+              "y": 1575
+            },
+            {
+              "x": 7575,
+              "y": 1575
+            },
+            {
+              "x": 7525,
+              "y": 1575
+            },
+            {
+              "x": 7475,
+              "y": 1575
+            },
+            {
+              "x": 7425,
+              "y": 1575
+            },
+            {
+              "x": 7375,
+              "y": 1575
+            },
+            {
+              "x": 7325,
+              "y": 1575
+            },
+            {
+              "x": 7275,
+              "y": 1575
+            },
+            {
+              "x": 7225,
+              "y": 1575
+            },
+            {
+              "x": 7175,
+              "y": 1575
+            },
+            {
+              "x": 7125,
+              "y": 1575
+            },
+            {
+              "x": 7075,
+              "y": 1575
+            },
+            {
+              "x": 7025,
+              "y": 1575
+            },
+            {
+              "x": 6975,
+              "y": 1575
+            },
+            {
+              "x": 6925,
+              "y": 1575
+            },
+            {
+              "x": 6875,
+              "y": 1575
+            },
+            {
+              "x": 6825,
+              "y": 1575
+            },
+            {
+              "x": 6775,
+              "y": 1575
+            },
+            {
+              "x": 6725,
+              "y": 1575
+            },
+            {
+              "x": 6675,
+              "y": 1575
+            },
+            {
+              "x": 6625,
+              "y": 1575
+            },
+            {
+              "x": 6575,
+              "y": 1575
+            },
+            {
+              "x": 6525,
+              "y": 1575
+            },
+            {
+              "x": 6475,
+              "y": 1575
+            },
+            {
+              "x": 6425,
+              "y": 1575
+            },
+            {
+              "x": 6375,
+              "y": 1575
+            },
+            {
+              "x": 6325,
+              "y": 1575
+            },
+            {
+              "x": 6275,
+              "y": 1575
+            },
+            {
+              "x": 6225,
+              "y": 1575
+            },
+            {
+              "x": 6175,
+              "y": 1575
+            },
+            {
+              "x": 6125,
+              "y": 1575
+            },
+            {
+              "x": 6075,
+              "y": 1575
+            },
+            {
+              "x": 6025,
+              "y": 1575
+            },
+            {
+              "x": 5975,
+              "y": 1575
+            },
+            {
+              "x": 5925,
+              "y": 1575
+            },
+            {
+              "x": 5875,
+              "y": 1575
+            },
+            {
+              "x": 5825,
+              "y": 1575
+            },
+            {
+              "x": 5775,
+              "y": 1575
+            },
+            {
+              "x": 5725,
+              "y": 1575
+            },
+            {
+              "x": 5675,
+              "y": 1575
+            },
+            {
+              "x": 5625,
+              "y": 1575
+            },
+            {
+              "x": 5575,
+              "y": 1575
+            },
+            {
+              "x": 5525,
+              "y": 1575
+            },
+            {
+              "x": 5475,
+              "y": 1575
+            },
+            {
+              "x": 5425,
+              "y": 1575
+            },
+            {
+              "x": 5375,
+              "y": 1575
+            },
+            {
+              "x": 5325,
+              "y": 1575
+            },
+            {
+              "x": 5275,
+              "y": 1575
+            },
+            {
+              "x": 5225,
+              "y": 1575
+            },
+            {
+              "x": 5175,
+              "y": 1575
+            },
+            {
+              "x": 5125,
+              "y": 1575
+            },
+            {
+              "x": 5075,
+              "y": 1575
+            },
+            {
+              "x": 5025,
+              "y": 1575
+            },
+            {
+              "x": 4975,
+              "y": 1575
+            },
+            {
+              "x": 4925,
+              "y": 1575
+            },
+            {
+              "x": 4875,
+              "y": 1575
+            },
+            {
+              "x": 4825,
+              "y": 1575
+            },
+            {
+              "x": 4775,
+              "y": 1575
+            },
+            {
+              "x": 4725,
+              "y": 1575
+            },
+            {
+              "x": 4675,
+              "y": 1575
+            },
+            {
+              "x": 4625,
+              "y": 1575
+            },
+            {
+              "x": 4575,
+              "y": 1575
+            },
+            {
+              "x": 4525,
+              "y": 1575
+            },
+            {
+              "x": 4475,
+              "y": 1575
+            },
+            {
+              "x": 4425,
+              "y": 1575
+            },
+            {
+              "x": 4375,
+              "y": 1575
+            },
+            {
+              "x": 4325,
+              "y": 1575
+            },
+            {
+              "x": 4275,
+              "y": 1575
+            },
+            {
+              "x": 4225,
+              "y": 1575
+            },
+            {
+              "x": 4175,
+              "y": 1575
+            },
+            {
+              "x": 4125,
+              "y": 1575
+            },
+            {
+              "x": 4075,
+              "y": 1575
+            },
+            {
+              "x": 4025,
+              "y": 1575
+            },
+            {
+              "x": 3975,
+              "y": 1575
+            },
+            {
+              "x": 3925,
+              "y": 1575
+            },
+            {
+              "x": 3875,
+              "y": 1575
+            },
+            {
+              "x": 3825,
+              "y": 1575
+            },
+            {
+              "x": 3775,
+              "y": 1575
+            },
+            {
+              "x": 3725,
+              "y": 1575
+            },
+            {
+              "x": 3675,
+              "y": 1575
+            },
+            {
+              "x": 3675,
+              "y": 1625
+            },
+            {
+              "x": 3675,
+              "y": 1675
+            },
+            {
+              "x": 3675,
+              "y": 1725
+            },
+            {
+              "x": 3625,
+              "y": 1725
+            },
+            {
+              "x": 3575,
+              "y": 1725
+            },
+            {
+              "x": 3525,
+              "y": 1725
+            },
+            {
+              "x": 3475,
+              "y": 1725
+            },
+            {
+              "x": 3425,
+              "y": 1725
+            },
+            {
+              "x": 3375,
+              "y": 1725
+            },
+            {
+              "x": 3325,
+              "y": 1725
+            },
+            {
+              "x": 3275,
+              "y": 1725
+            },
+            {
+              "x": 3225,
+              "y": 1725
+            },
+            {
+              "x": 3175,
+              "y": 1725
+            },
+            {
+              "x": 3125,
+              "y": 1725
+            },
+            {
+              "x": 3075,
+              "y": 1725
+            },
+            {
+              "x": 3025,
+              "y": 1725
+            },
+            {
+              "x": 2975,
+              "y": 1725
+            },
+            {
+              "x": 2925,
+              "y": 1725
+            },
+            {
+              "x": 2875,
+              "y": 1725
+            },
+            {
+              "x": 2825,
+              "y": 1725
+            },
+            {
+              "x": 2775,
+              "y": 1725
+            },
+            {
+              "x": 2725,
+              "y": 1725
+            },
+            {
+              "x": 2675,
+              "y": 1725
+            },
+            {
+              "x": 2625,
+              "y": 1725
+            },
+            {
+              "x": 2575,
+              "y": 1725
+            },
+            {
+              "x": 2525,
+              "y": 1725
+            },
+            {
+              "x": 2475,
+              "y": 1725
+            },
+            {
+              "x": 2425,
+              "y": 1725
+            },
+            {
+              "x": 2375,
+              "y": 1725
+            },
+            {
+              "x": 2325,
+              "y": 1725
+            },
+            {
+              "x": 2275,
+              "y": 1725
+            },
+            {
+              "x": 2225,
+              "y": 1725
+            },
+            {
+              "x": 2175,
+              "y": 1725
+            },
+            {
+              "x": 2125,
+              "y": 1725
+            },
+            {
+              "x": 2075,
+              "y": 1725
+            },
+            {
+              "x": 2025,
+              "y": 1725
+            },
+            {
+              "x": 1975,
+              "y": 1725
+            },
+            {
+              "x": 1925,
+              "y": 1725
+            },
+            {
+              "x": 1875,
+              "y": 1725
+            },
+            {
+              "x": 1825,
+              "y": 1725
+            },
+            {
+              "x": 1775,
+              "y": 1725
+            },
+            {
+              "x": 1725,
+              "y": 1725
+            },
+            {
+              "x": 1675,
+              "y": 1725
+            },
+            {
+              "x": 1625,
+              "y": 1725
+            },
+            {
+              "x": 1575,
+              "y": 1725
+            },
+            {
+              "x": 1525,
+              "y": 1725
+            },
+            {
+              "x": 1475,
+              "y": 1725
+            },
+            {
+              "x": 1425,
+              "y": 1725
+            },
+            {
+              "x": 1375,
+              "y": 1725
+            },
+            {
+              "x": 1325,
+              "y": 1725
+            },
+            {
+              "x": 1275,
+              "y": 1725
+            },
+            {
+              "x": 1225,
+              "y": 1725
+            },
+            {
+              "x": 1175,
+              "y": 1725
+            },
+            {
+              "x": 1125,
+              "y": 1725
+            },
+            {
+              "x": 1075,
+              "y": 1725
+            },
+            {
+              "x": 1025,
+              "y": 1725
+            },
+            {
+              "x": 975,
+              "y": 1725
+            },
+            {
+              "x": 925,
+              "y": 1725
+            },
+            {
+              "x": 875,
+              "y": 1725
+            },
+            {
+              "x": 875,
+              "y": 1775
+            },
+            {
+              "x": 875,
+              "y": 1825
+            },
+            {
+              "x": 875,
+              "y": 1875
+            },
+            {
+              "x": 875,
+              "y": 1925
+            },
+            {
+              "x": 875,
+              "y": 1975
+            },
+            {
+              "x": 875,
+              "y": 2025
+            },
+            {
+              "x": 875,
+              "y": 2075
+            },
+            {
+              "x": 875,
+              "y": 2125
+            },
+            {
+              "x": 875,
+              "y": 2175
+            },
+            {
+              "x": 875,
+              "y": 2225
+            },
+            {
+              "x": 875,
+              "y": 2275
+            },
+            {
+              "x": 875,
+              "y": 2325
+            },
+            {
+              "x": 875,
+              "y": 2375
+            },
+            {
+              "x": 875,
+              "y": 2425
+            },
+            {
+              "x": 875,
+              "y": 2475
+            },
+            {
+              "x": 875,
+              "y": 2525
+            },
+            {
+              "x": 875,
+              "y": 2575
+            },
+            {
+              "x": 875,
+              "y": 2625
+            },
+            {
+              "x": 875,
+              "y": 2675
+            },
+            {
+              "x": 875,
+              "y": 2725
+            },
+            {
+              "x": 875,
+              "y": 2775
+            },
+            {
+              "x": 875,
+              "y": 2825
+            },
+            {
+              "x": 875,
+              "y": 2875
+            },
+            {
+              "x": 875,
+              "y": 2925
+            },
+            {
+              "x": 875,
+              "y": 2975
+            },
+            {
+              "x": 875,
+              "y": 3025
+            },
+            {
+              "x": 875,
+              "y": 3075
+            },
+            {
+              "x": 875,
+              "y": 3125
+            },
+            {
+              "x": 875,
+              "y": 3175
+            },
+            {
+              "x": 875,
+              "y": 3225
+            },
+            {
+              "x": 875,
+              "y": 3275
+            },
+            {
+              "x": 875,
+              "y": 3325
+            },
+            {
+              "x": 875,
+              "y": 3375
+            },
+            {
+              "x": 875,
+              "y": 3425
+            }
+          ],
+          "requested": 9.666666666666643,
+          "departed": 20.066666666666823,
+          "arrived": 67.43333333333207,
+          "eta": 83.79215686274526,
+          "state": "traveling",
+          "reason": ""
+        },
+        {
+          "id": "dispatch-3",
+          "key": "launch:launch:준비",
+          "squad": "mission",
+          "sourceId": "external-3",
+          "members": [
+            "e171",
+            "e172"
+          ],
+          "roster": [
+            "rifle",
+            "rush"
+          ],
+          "task": "assault",
+          "radius": 19,
+          "target": {
+            "x": 4838.3727265754715,
+            "y": 5073.575320383534
+          },
+          "path": [
+            {
+              "x": 3089.0000000000005,
+              "y": 6210
+            },
+            {
+              "x": 3075,
+              "y": 6225
+            },
+            {
+              "x": 3125,
+              "y": 6225
+            },
+            {
+              "x": 3175,
+              "y": 6225
+            },
+            {
+              "x": 3225,
+              "y": 6225
+            },
+            {
+              "x": 3275,
+              "y": 6225
+            },
+            {
+              "x": 3325,
+              "y": 6225
+            },
+            {
+              "x": 3375,
+              "y": 6225
+            },
+            {
+              "x": 3425,
+              "y": 6225
+            },
+            {
+              "x": 3475,
+              "y": 6225
+            },
+            {
+              "x": 3525,
+              "y": 6225
+            },
+            {
+              "x": 3575,
+              "y": 6225
+            },
+            {
+              "x": 3625,
+              "y": 6225
+            },
+            {
+              "x": 3675,
+              "y": 6225
+            },
+            {
+              "x": 3725,
+              "y": 6225
+            },
+            {
+              "x": 3775,
+              "y": 6225
+            },
+            {
+              "x": 3825,
+              "y": 6225
+            },
+            {
+              "x": 3875,
+              "y": 6225
+            },
+            {
+              "x": 3925,
+              "y": 6225
+            },
+            {
+              "x": 3975,
+              "y": 6225
+            },
+            {
+              "x": 4025,
+              "y": 6225
+            },
+            {
+              "x": 4075,
+              "y": 6225
+            },
+            {
+              "x": 4125,
+              "y": 6225
+            },
+            {
+              "x": 4175,
+              "y": 6225
+            },
+            {
+              "x": 4225,
+              "y": 6225
+            },
+            {
+              "x": 4275,
+              "y": 6225
+            },
+            {
+              "x": 4325,
+              "y": 6225
+            },
+            {
+              "x": 4375,
+              "y": 6225
+            },
+            {
+              "x": 4425,
+              "y": 6225
+            },
+            {
+              "x": 4475,
+              "y": 6225
+            },
+            {
+              "x": 4525,
+              "y": 6225
+            },
+            {
+              "x": 4575,
+              "y": 6225
+            },
+            {
+              "x": 4625,
+              "y": 6225
+            },
+            {
+              "x": 4675,
+              "y": 6225
+            },
+            {
+              "x": 4725,
+              "y": 6225
+            },
+            {
+              "x": 4775,
+              "y": 6225
+            },
+            {
+              "x": 4775,
+              "y": 6175
+            },
+            {
+              "x": 4775,
+              "y": 6125
+            },
+            {
+              "x": 4775,
+              "y": 6075
+            },
+            {
+              "x": 4775,
+              "y": 6025
+            },
+            {
+              "x": 4775,
+              "y": 5975
+            },
+            {
+              "x": 4775,
+              "y": 5925
+            },
+            {
+              "x": 4775,
+              "y": 5875
+            },
+            {
+              "x": 4775,
+              "y": 5825
+            },
+            {
+              "x": 4775,
+              "y": 5775
+            },
+            {
+              "x": 4775,
+              "y": 5725
+            },
+            {
+              "x": 4775,
+              "y": 5675
+            },
+            {
+              "x": 4775,
+              "y": 5625
+            },
+            {
+              "x": 4775,
+              "y": 5575
+            },
+            {
+              "x": 4775,
+              "y": 5525
+            },
+            {
+              "x": 4775,
+              "y": 5475
+            },
+            {
+              "x": 4775,
+              "y": 5425
+            },
+            {
+              "x": 4775,
+              "y": 5375
+            },
+            {
+              "x": 4775,
+              "y": 5325
+            },
+            {
+              "x": 4775,
+              "y": 5275
+            },
+            {
+              "x": 4775,
+              "y": 5225
+            },
+            {
+              "x": 4775,
+              "y": 5175
+            },
+            {
+              "x": 4775,
+              "y": 5125
+            },
+            {
+              "x": 4775,
+              "y": 5075
+            },
+            {
+              "x": 4825,
+              "y": 5075
+            }
+          ],
+          "requested": 26.13333333333379,
+          "departed": 38.900000000000354,
+          "arrived": 42.73333333333347,
+          "eta": 58.50784313725526,
+          "state": "deployed",
+          "reason": ""
+        },
+        {
+          "id": "dispatch-4",
+          "key": "director-3",
+          "squad": "director",
+          "sourceId": "external-0",
+          "members": [
+            "e183",
+            "e184"
+          ],
+          "roster": [
+            "rifle",
+            "rush"
+          ],
+          "task": "defend",
+          "radius": 19,
+          "target": {
+            "x": 1072.6462143007666,
+            "y": 3937.903459277004
+          },
+          "path": [
+            {
+              "x": 90,
+              "y": 2138
+            },
+            {
+              "x": 75,
+              "y": 2125
+            },
+            {
+              "x": 125,
+              "y": 2125
+            },
+            {
+              "x": 175,
+              "y": 2125
+            },
+            {
+              "x": 225,
+              "y": 2125
+            },
+            {
+              "x": 275,
+              "y": 2125
+            },
+            {
+              "x": 325,
+              "y": 2125
+            },
+            {
+              "x": 375,
+              "y": 2125
+            },
+            {
+              "x": 425,
+              "y": 2125
+            },
+            {
+              "x": 475,
+              "y": 2125
+            },
+            {
+              "x": 525,
+              "y": 2125
+            },
+            {
+              "x": 575,
+              "y": 2125
+            },
+            {
+              "x": 625,
+              "y": 2125
+            },
+            {
+              "x": 675,
+              "y": 2125
+            },
+            {
+              "x": 725,
+              "y": 2125
+            },
+            {
+              "x": 775,
+              "y": 2125
+            },
+            {
+              "x": 825,
+              "y": 2125
+            },
+            {
+              "x": 875,
+              "y": 2125
+            },
+            {
+              "x": 925,
+              "y": 2125
+            },
+            {
+              "x": 975,
+              "y": 2125
+            },
+            {
+              "x": 1025,
+              "y": 2125
+            },
+            {
+              "x": 1075,
+              "y": 2125
+            },
+            {
+              "x": 1075,
+              "y": 2175
+            },
+            {
+              "x": 1075,
+              "y": 2225
+            },
+            {
+              "x": 1075,
+              "y": 2275
+            },
+            {
+              "x": 1075,
+              "y": 2325
+            },
+            {
+              "x": 1075,
+              "y": 2375
+            },
+            {
+              "x": 1075,
+              "y": 2425
+            },
+            {
+              "x": 1075,
+              "y": 2475
+            },
+            {
+              "x": 1075,
+              "y": 2525
+            },
+            {
+              "x": 1075,
+              "y": 2575
+            },
+            {
+              "x": 1075,
+              "y": 2625
+            },
+            {
+              "x": 1075,
+              "y": 2675
+            },
+            {
+              "x": 1075,
+              "y": 2725
+            },
+            {
+              "x": 1075,
+              "y": 2775
+            },
+            {
+              "x": 1075,
+              "y": 2825
+            },
+            {
+              "x": 1075,
+              "y": 2875
+            },
+            {
+              "x": 1075,
+              "y": 2925
+            },
+            {
+              "x": 1075,
+              "y": 2975
+            },
+            {
+              "x": 1075,
+              "y": 3025
+            },
+            {
+              "x": 1075,
+              "y": 3075
+            },
+            {
+              "x": 1075,
+              "y": 3125
+            },
+            {
+              "x": 1075,
+              "y": 3175
+            },
+            {
+              "x": 1075,
+              "y": 3225
+            },
+            {
+              "x": 1075,
+              "y": 3275
+            },
+            {
+              "x": 1075,
+              "y": 3325
+            },
+            {
+              "x": 1075,
+              "y": 3375
+            },
+            {
+              "x": 1075,
+              "y": 3425
+            },
+            {
+              "x": 1075,
+              "y": 3475
+            },
+            {
+              "x": 1075,
+              "y": 3525
+            },
+            {
+              "x": 1075,
+              "y": 3575
+            },
+            {
+              "x": 1075,
+              "y": 3625
+            },
+            {
+              "x": 1075,
+              "y": 3675
+            },
+            {
+              "x": 1075,
+              "y": 3725
+            },
+            {
+              "x": 1075,
+              "y": 3775
+            },
+            {
+              "x": 1075,
+              "y": 3825
+            },
+            {
+              "x": 1075,
+              "y": 3875
+            },
+            {
+              "x": 1075,
+              "y": 3925
+            }
+          ],
+          "requested": 28.13333333333389,
+          "departed": 40.90000000000024,
+          "arrived": 61.199999999999086,
+          "eta": 59.85424836601331,
+          "state": "deployed",
+          "reason": ""
+        },
+        {
+          "id": "dispatch-5",
+          "key": "director-4",
+          "squad": "director",
+          "sourceId": "external-2",
+          "members": [
+            "e239",
+            "e240"
+          ],
+          "roster": [
+            "rifle",
+            "rush"
+          ],
+          "task": "search",
+          "radius": 19,
+          "target": {
+            "x": 2029.7410622710734,
+            "y": 3666.6543918990465
+          },
+          "path": [
+            {
+              "x": 6360,
+              "y": 90
+            },
+            {
+              "x": 6375,
+              "y": 75
+            },
+            {
+              "x": 6325,
+              "y": 75
+            },
+            {
+              "x": 6275,
+              "y": 75
+            },
+            {
+              "x": 6225,
+              "y": 75
+            },
+            {
+              "x": 6175,
+              "y": 75
+            },
+            {
+              "x": 6125,
+              "y": 75
+            },
+            {
+              "x": 6075,
+              "y": 75
+            },
+            {
+              "x": 6025,
+              "y": 75
+            },
+            {
+              "x": 5975,
+              "y": 75
+            },
+            {
+              "x": 5925,
+              "y": 75
+            },
+            {
+              "x": 5875,
+              "y": 75
+            },
+            {
+              "x": 5825,
+              "y": 75
+            },
+            {
+              "x": 5775,
+              "y": 75
+            },
+            {
+              "x": 5725,
+              "y": 75
+            },
+            {
+              "x": 5675,
+              "y": 75
+            },
+            {
+              "x": 5625,
+              "y": 75
+            },
+            {
+              "x": 5575,
+              "y": 75
+            },
+            {
+              "x": 5525,
+              "y": 75
+            },
+            {
+              "x": 5475,
+              "y": 75
+            },
+            {
+              "x": 5425,
+              "y": 75
+            },
+            {
+              "x": 5375,
+              "y": 75
+            },
+            {
+              "x": 5325,
+              "y": 75
+            },
+            {
+              "x": 5275,
+              "y": 75
+            },
+            {
+              "x": 5225,
+              "y": 75
+            },
+            {
+              "x": 5175,
+              "y": 75
+            },
+            {
+              "x": 5125,
+              "y": 75
+            },
+            {
+              "x": 5075,
+              "y": 75
+            },
+            {
+              "x": 5025,
+              "y": 75
+            },
+            {
+              "x": 4975,
+              "y": 75
+            },
+            {
+              "x": 4925,
+              "y": 75
+            },
+            {
+              "x": 4875,
+              "y": 75
+            },
+            {
+              "x": 4825,
+              "y": 75
+            },
+            {
+              "x": 4775,
+              "y": 75
+            },
+            {
+              "x": 4725,
+              "y": 75
+            },
+            {
+              "x": 4675,
+              "y": 75
+            },
+            {
+              "x": 4625,
+              "y": 75
+            },
+            {
+              "x": 4575,
+              "y": 75
+            },
+            {
+              "x": 4525,
+              "y": 75
+            },
+            {
+              "x": 4475,
+              "y": 75
+            },
+            {
+              "x": 4425,
+              "y": 75
+            },
+            {
+              "x": 4375,
+              "y": 75
+            },
+            {
+              "x": 4325,
+              "y": 75
+            },
+            {
+              "x": 4275,
+              "y": 75
+            },
+            {
+              "x": 4225,
+              "y": 75
+            },
+            {
+              "x": 4175,
+              "y": 75
+            },
+            {
+              "x": 4125,
+              "y": 75
+            },
+            {
+              "x": 4075,
+              "y": 75
+            },
+            {
+              "x": 4025,
+              "y": 75
+            },
+            {
+              "x": 3975,
+              "y": 75
+            },
+            {
+              "x": 3925,
+              "y": 75
+            },
+            {
+              "x": 3875,
+              "y": 75
+            },
+            {
+              "x": 3825,
+              "y": 75
+            },
+            {
+              "x": 3775,
+              "y": 75
+            },
+            {
+              "x": 3725,
+              "y": 75
+            },
+            {
+              "x": 3675,
+              "y": 75
+            },
+            {
+              "x": 3625,
+              "y": 75
+            },
+            {
+              "x": 3575,
+              "y": 75
+            },
+            {
+              "x": 3525,
+              "y": 75
+            },
+            {
+              "x": 3475,
+              "y": 75
+            },
+            {
+              "x": 3425,
+              "y": 75
+            },
+            {
+              "x": 3375,
+              "y": 75
+            },
+            {
+              "x": 3325,
+              "y": 75
+            },
+            {
+              "x": 3275,
+              "y": 75
+            },
+            {
+              "x": 3225,
+              "y": 75
+            },
+            {
+              "x": 3175,
+              "y": 75
+            },
+            {
+              "x": 3125,
+              "y": 75
+            },
+            {
+              "x": 3075,
+              "y": 75
+            },
+            {
+              "x": 3025,
+              "y": 75
+            },
+            {
+              "x": 2975,
+              "y": 75
+            },
+            {
+              "x": 2925,
+              "y": 75
+            },
+            {
+              "x": 2875,
+              "y": 75
+            },
+            {
+              "x": 2825,
+              "y": 75
+            },
+            {
+              "x": 2775,
+              "y": 75
+            },
+            {
+              "x": 2725,
+              "y": 75
+            },
+            {
+              "x": 2675,
+              "y": 75
+            },
+            {
+              "x": 2625,
+              "y": 75
+            },
+            {
+              "x": 2575,
+              "y": 75
+            },
+            {
+              "x": 2525,
+              "y": 75
+            },
+            {
+              "x": 2475,
+              "y": 75
+            },
+            {
+              "x": 2425,
+              "y": 75
+            },
+            {
+              "x": 2375,
+              "y": 75
+            },
+            {
+              "x": 2325,
+              "y": 75
+            },
+            {
+              "x": 2275,
+              "y": 75
+            },
+            {
+              "x": 2275,
+              "y": 125
+            },
+            {
+              "x": 2275,
+              "y": 175
+            },
+            {
+              "x": 2275,
+              "y": 225
+            },
+            {
+              "x": 2275,
+              "y": 275
+            },
+            {
+              "x": 2275,
+              "y": 325
+            },
+            {
+              "x": 2275,
+              "y": 375
+            },
+            {
+              "x": 2275,
+              "y": 425
+            },
+            {
+              "x": 2275,
+              "y": 475
+            },
+            {
+              "x": 2275,
+              "y": 525
+            },
+            {
+              "x": 2275,
+              "y": 575
+            },
+            {
+              "x": 2275,
+              "y": 625
+            },
+            {
+              "x": 2275,
+              "y": 675
+            },
+            {
+              "x": 2275,
+              "y": 725
+            },
+            {
+              "x": 2275,
+              "y": 775
+            },
+            {
+              "x": 2275,
+              "y": 825
+            },
+            {
+              "x": 2275,
+              "y": 875
+            },
+            {
+              "x": 2275,
+              "y": 925
+            },
+            {
+              "x": 2275,
+              "y": 975
+            },
+            {
+              "x": 2275,
+              "y": 1025
+            },
+            {
+              "x": 2275,
+              "y": 1075
+            },
+            {
+              "x": 2275,
+              "y": 1125
+            },
+            {
+              "x": 2275,
+              "y": 1175
+            },
+            {
+              "x": 2275,
+              "y": 1225
+            },
+            {
+              "x": 2275,
+              "y": 1275
+            },
+            {
+              "x": 2225,
+              "y": 1275
+            },
+            {
+              "x": 2175,
+              "y": 1275
+            },
+            {
+              "x": 2125,
+              "y": 1275
+            },
+            {
+              "x": 2075,
+              "y": 1275
+            },
+            {
+              "x": 2075,
+              "y": 1325
+            },
+            {
+              "x": 2075,
+              "y": 1375
+            },
+            {
+              "x": 2075,
+              "y": 1425
+            },
+            {
+              "x": 2075,
+              "y": 1475
+            },
+            {
+              "x": 2075,
+              "y": 1525
+            },
+            {
+              "x": 2075,
+              "y": 1575
+            },
+            {
+              "x": 2075,
+              "y": 1625
+            },
+            {
+              "x": 2075,
+              "y": 1675
+            },
+            {
+              "x": 2075,
+              "y": 1725
+            },
+            {
+              "x": 2075,
+              "y": 1775
+            },
+            {
+              "x": 2075,
+              "y": 1825
+            },
+            {
+              "x": 2075,
+              "y": 1875
+            },
+            {
+              "x": 2075,
+              "y": 1925
+            },
+            {
+              "x": 2075,
+              "y": 1975
+            },
+            {
+              "x": 2075,
+              "y": 2025
+            },
+            {
+              "x": 2075,
+              "y": 2075
+            },
+            {
+              "x": 2075,
+              "y": 2125
+            },
+            {
+              "x": 2075,
+              "y": 2175
+            },
+            {
+              "x": 2075,
+              "y": 2225
+            },
+            {
+              "x": 2075,
+              "y": 2275
+            },
+            {
+              "x": 2075,
+              "y": 2325
+            },
+            {
+              "x": 2075,
+              "y": 2375
+            },
+            {
+              "x": 2075,
+              "y": 2425
+            },
+            {
+              "x": 2075,
+              "y": 2475
+            },
+            {
+              "x": 2075,
+              "y": 2525
+            },
+            {
+              "x": 2075,
+              "y": 2575
+            },
+            {
+              "x": 2075,
+              "y": 2625
+            },
+            {
+              "x": 2075,
+              "y": 2675
+            },
+            {
+              "x": 2075,
+              "y": 2725
+            },
+            {
+              "x": 2075,
+              "y": 2775
+            },
+            {
+              "x": 2075,
+              "y": 2825
+            },
+            {
+              "x": 2075,
+              "y": 2875
+            },
+            {
+              "x": 2075,
+              "y": 2925
+            },
+            {
+              "x": 2075,
+              "y": 2975
+            },
+            {
+              "x": 2075,
+              "y": 3025
+            },
+            {
+              "x": 2075,
+              "y": 3075
+            },
+            {
+              "x": 2075,
+              "y": 3125
+            },
+            {
+              "x": 2075,
+              "y": 3175
+            },
+            {
+              "x": 2075,
+              "y": 3225
+            },
+            {
+              "x": 2075,
+              "y": 3275
+            },
+            {
+              "x": 2075,
+              "y": 3325
+            },
+            {
+              "x": 2075,
+              "y": 3375
+            },
+            {
+              "x": 2075,
+              "y": 3425
+            },
+            {
+              "x": 2075,
+              "y": 3475
+            },
+            {
+              "x": 2075,
+              "y": 3525
+            },
+            {
+              "x": 2025,
+              "y": 3525
+            },
+            {
+              "x": 2025,
+              "y": 3575
+            },
+            {
+              "x": 2025,
+              "y": 3625
+            },
+            {
+              "x": 2025,
+              "y": 3675
+            }
+          ],
+          "requested": 38.53333333333371,
+          "departed": 51.29999999999965,
+          "arrived": -1,
+          "eta": 103.91437908496697,
+          "state": "traveling",
+          "reason": ""
+        },
+        {
+          "id": "dispatch-6",
+          "key": "director-5",
+          "squad": "director",
+          "sourceId": "external-1",
+          "members": [
+            "e278",
+            "e279"
+          ],
+          "roster": [
+            "rifle",
+            "rush"
+          ],
+          "task": "assault",
+          "radius": 19,
+          "target": {
+            "x": 3064.2106218496338,
+            "y": 6040
+          },
+          "path": [
+            {
+              "x": 9510,
+              "y": 4390
+            },
+            {
+              "x": 9525,
+              "y": 4375
+            },
+            {
+              "x": 9475,
+              "y": 4375
+            },
+            {
+              "x": 9425,
+              "y": 4375
+            },
+            {
+              "x": 9375,
+              "y": 4375
+            },
+            {
+              "x": 9325,
+              "y": 4375
+            },
+            {
+              "x": 9275,
+              "y": 4375
+            },
+            {
+              "x": 9225,
+              "y": 4375
+            },
+            {
+              "x": 9175,
+              "y": 4375
+            },
+            {
+              "x": 9125,
+              "y": 4375
+            },
+            {
+              "x": 9075,
+              "y": 4375
+            },
+            {
+              "x": 9025,
+              "y": 4375
+            },
+            {
+              "x": 8975,
+              "y": 4375
+            },
+            {
+              "x": 8925,
+              "y": 4375
+            },
+            {
+              "x": 8875,
+              "y": 4375
+            },
+            {
+              "x": 8825,
+              "y": 4375
+            },
+            {
+              "x": 8775,
+              "y": 4375
+            },
+            {
+              "x": 8725,
+              "y": 4375
+            },
+            {
+              "x": 8675,
+              "y": 4375
+            },
+            {
+              "x": 8625,
+              "y": 4375
+            },
+            {
+              "x": 8575,
+              "y": 4375
+            },
+            {
+              "x": 8525,
+              "y": 4375
+            },
+            {
+              "x": 8475,
+              "y": 4375
+            },
+            {
+              "x": 8425,
+              "y": 4375
+            },
+            {
+              "x": 8375,
+              "y": 4375
+            },
+            {
+              "x": 8325,
+              "y": 4375
+            },
+            {
+              "x": 8275,
+              "y": 4375
+            },
+            {
+              "x": 8225,
+              "y": 4375
+            },
+            {
+              "x": 8175,
+              "y": 4375
+            },
+            {
+              "x": 8125,
+              "y": 4375
+            },
+            {
+              "x": 8075,
+              "y": 4375
+            },
+            {
+              "x": 8025,
+              "y": 4375
+            },
+            {
+              "x": 7975,
+              "y": 4375
+            },
+            {
+              "x": 7925,
+              "y": 4375
+            },
+            {
+              "x": 7875,
+              "y": 4375
+            },
+            {
+              "x": 7825,
+              "y": 4375
+            },
+            {
+              "x": 7775,
+              "y": 4375
+            },
+            {
+              "x": 7725,
+              "y": 4375
+            },
+            {
+              "x": 7675,
+              "y": 4375
+            },
+            {
+              "x": 7625,
+              "y": 4375
+            },
+            {
+              "x": 7575,
+              "y": 4375
+            },
+            {
+              "x": 7525,
+              "y": 4375
+            },
+            {
+              "x": 7525,
+              "y": 4425
+            },
+            {
+              "x": 7525,
+              "y": 4475
+            },
+            {
+              "x": 7475,
+              "y": 4475
+            },
+            {
+              "x": 7475,
+              "y": 4525
+            },
+            {
+              "x": 7475,
+              "y": 4575
+            },
+            {
+              "x": 7425,
+              "y": 4575
+            },
+            {
+              "x": 7425,
+              "y": 4625
+            },
+            {
+              "x": 7425,
+              "y": 4675
+            },
+            {
+              "x": 7375,
+              "y": 4675
+            },
+            {
+              "x": 7325,
+              "y": 4675
+            },
+            {
+              "x": 7275,
+              "y": 4675
+            },
+            {
+              "x": 7225,
+              "y": 4675
+            },
+            {
+              "x": 7175,
+              "y": 4675
+            },
+            {
+              "x": 7125,
+              "y": 4675
+            },
+            {
+              "x": 7075,
+              "y": 4675
+            },
+            {
+              "x": 7025,
+              "y": 4675
+            },
+            {
+              "x": 6975,
+              "y": 4675
+            },
+            {
+              "x": 6925,
+              "y": 4675
+            },
+            {
+              "x": 6875,
+              "y": 4675
+            },
+            {
+              "x": 6825,
+              "y": 4675
+            },
+            {
+              "x": 6775,
+              "y": 4675
+            },
+            {
+              "x": 6725,
+              "y": 4675
+            },
+            {
+              "x": 6675,
+              "y": 4675
+            },
+            {
+              "x": 6625,
+              "y": 4675
+            },
+            {
+              "x": 6575,
+              "y": 4675
+            },
+            {
+              "x": 6525,
+              "y": 4675
+            },
+            {
+              "x": 6475,
+              "y": 4675
+            },
+            {
+              "x": 6425,
+              "y": 4675
+            },
+            {
+              "x": 6375,
+              "y": 4675
+            },
+            {
+              "x": 6325,
+              "y": 4675
+            },
+            {
+              "x": 6325,
+              "y": 4725
+            },
+            {
+              "x": 6275,
+              "y": 4725
+            },
+            {
+              "x": 6275,
+              "y": 4775
+            },
+            {
+              "x": 6225,
+              "y": 4775
+            },
+            {
+              "x": 6175,
+              "y": 4775
+            },
+            {
+              "x": 6125,
+              "y": 4775
+            },
+            {
+              "x": 6075,
+              "y": 4775
+            },
+            {
+              "x": 6025,
+              "y": 4775
+            },
+            {
+              "x": 5975,
+              "y": 4775
+            },
+            {
+              "x": 5925,
+              "y": 4775
+            },
+            {
+              "x": 5875,
+              "y": 4775
+            },
+            {
+              "x": 5825,
+              "y": 4775
+            },
+            {
+              "x": 5775,
+              "y": 4775
+            },
+            {
+              "x": 5725,
+              "y": 4775
+            },
+            {
+              "x": 5675,
+              "y": 4775
+            },
+            {
+              "x": 5625,
+              "y": 4775
+            },
+            {
+              "x": 5575,
+              "y": 4775
+            },
+            {
+              "x": 5525,
+              "y": 4775
+            },
+            {
+              "x": 5475,
+              "y": 4775
+            },
+            {
+              "x": 5425,
+              "y": 4775
+            },
+            {
+              "x": 5375,
+              "y": 4775
+            },
+            {
+              "x": 5325,
+              "y": 4775
+            },
+            {
+              "x": 5275,
+              "y": 4775
+            },
+            {
+              "x": 5225,
+              "y": 4775
+            },
+            {
+              "x": 5175,
+              "y": 4775
+            },
+            {
+              "x": 5125,
+              "y": 4775
+            },
+            {
+              "x": 5075,
+              "y": 4775
+            },
+            {
+              "x": 5025,
+              "y": 4775
+            },
+            {
+              "x": 4975,
+              "y": 4775
+            },
+            {
+              "x": 4925,
+              "y": 4775
+            },
+            {
+              "x": 4875,
+              "y": 4775
+            },
+            {
+              "x": 4825,
+              "y": 4775
+            },
+            {
+              "x": 4775,
+              "y": 4775
+            },
+            {
+              "x": 4725,
+              "y": 4775
+            },
+            {
+              "x": 4675,
+              "y": 4775
+            },
+            {
+              "x": 4625,
+              "y": 4775
+            },
+            {
+              "x": 4575,
+              "y": 4775
+            },
+            {
+              "x": 4525,
+              "y": 4775
+            },
+            {
+              "x": 4475,
+              "y": 4775
+            },
+            {
+              "x": 4425,
+              "y": 4775
+            },
+            {
+              "x": 4375,
+              "y": 4775
+            },
+            {
+              "x": 4325,
+              "y": 4775
+            },
+            {
+              "x": 4275,
+              "y": 4775
+            },
+            {
+              "x": 4225,
+              "y": 4775
+            },
+            {
+              "x": 4175,
+              "y": 4775
+            },
+            {
+              "x": 4175,
+              "y": 4825
+            },
+            {
+              "x": 4175,
+              "y": 4875
+            },
+            {
+              "x": 4175,
+              "y": 4925
+            },
+            {
+              "x": 4125,
+              "y": 4925
+            },
+            {
+              "x": 4125,
+              "y": 4975
+            },
+            {
+              "x": 4125,
+              "y": 5025
+            },
+            {
+              "x": 4075,
+              "y": 5025
+            },
+            {
+              "x": 4025,
+              "y": 5025
+            },
+            {
+              "x": 3975,
+              "y": 5025
+            },
+            {
+              "x": 3975,
+              "y": 5075
+            },
+            {
+              "x": 3925,
+              "y": 5075
+            },
+            {
+              "x": 3875,
+              "y": 5075
+            },
+            {
+              "x": 3875,
+              "y": 5125
+            },
+            {
+              "x": 3825,
+              "y": 5125
+            },
+            {
+              "x": 3775,
+              "y": 5125
+            },
+            {
+              "x": 3725,
+              "y": 5125
+            },
+            {
+              "x": 3725,
+              "y": 5175
+            },
+            {
+              "x": 3675,
+              "y": 5175
+            },
+            {
+              "x": 3675,
+              "y": 5225
+            },
+            {
+              "x": 3625,
+              "y": 5225
+            },
+            {
+              "x": 3575,
+              "y": 5225
+            },
+            {
+              "x": 3525,
+              "y": 5225
+            },
+            {
+              "x": 3525,
+              "y": 5275
+            },
+            {
+              "x": 3475,
+              "y": 5275
+            },
+            {
+              "x": 3425,
+              "y": 5275
+            },
+            {
+              "x": 3375,
+              "y": 5275
+            },
+            {
+              "x": 3375,
+              "y": 5325
+            },
+            {
+              "x": 3325,
+              "y": 5325
+            },
+            {
+              "x": 3325,
+              "y": 5375
+            },
+            {
+              "x": 3325,
+              "y": 5425
+            },
+            {
+              "x": 3325,
+              "y": 5475
+            },
+            {
+              "x": 3325,
+              "y": 5525
+            },
+            {
+              "x": 3275,
+              "y": 5525
+            },
+            {
+              "x": 3225,
+              "y": 5525
+            },
+            {
+              "x": 3175,
+              "y": 5525
+            },
+            {
+              "x": 3175,
+              "y": 5575
+            },
+            {
+              "x": 3125,
+              "y": 5575
+            },
+            {
+              "x": 3075,
+              "y": 5575
+            },
+            {
+              "x": 3075,
+              "y": 5625
+            },
+            {
+              "x": 3075,
+              "y": 5675
+            },
+            {
+              "x": 3075,
+              "y": 5725
+            },
+            {
+              "x": 3075,
+              "y": 5775
+            },
+            {
+              "x": 3075,
+              "y": 5825
+            },
+            {
+              "x": 3075,
+              "y": 5875
+            },
+            {
+              "x": 3075,
+              "y": 5925
+            },
+            {
+              "x": 3075,
+              "y": 5975
+            },
+            {
+              "x": 3075,
+              "y": 6025
+            }
+          ],
+          "requested": 44.933333333333344,
+          "departed": 57.699999999999285,
+          "arrived": -1,
+          "eta": 111.29477124182935,
+          "state": "traveling",
+          "reason": ""
+        }
+      ],
+      "trajectories": [
+        {
+          "enemy": "e12",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "born": {
+            "x": 2095,
+            "y": 3760
+          },
+          "points": [
+            {
+              "x": 2095,
+              "y": 3760,
+              "at": 15.066666666666624
+            },
+            {
+              "x": 2144.9073054462256,
+              "y": 3774.8196263924556,
+              "at": 15.599999999999955
+            },
+            {
+              "x": 2174.6406267675966,
+              "y": 3825.780089729523,
+              "at": 16.09999999999996
+            },
+            {
+              "x": 2174.976087374265,
+              "y": 3902.278982474789,
+              "at": 16.599999999999984
+            },
+            {
+              "x": 2174.9992845231964,
+              "y": 3978.778973528357,
+              "at": 17.10000000000001
+            },
+            {
+              "x": 2174.9999701398174,
+              "y": 4055.2789735234282,
+              "at": 17.600000000000033
+            },
+            {
+              "x": 2136.483628611697,
+              "y": 4075.7118497679253,
+              "at": 18.10000000000006
+            },
+            {
+              "x": 2059.994663077781,
+              "y": 4075.023950280988,
+              "at": 18.600000000000083
+            },
+            {
+              "x": 1983.494670314479,
+              "y": 4075.000469705093,
+              "at": 19.100000000000108
+            },
+            {
+              "x": 1906.994670316138,
+              "y": 4075.000033489723,
+              "at": 19.600000000000133
+            }
+          ]
+        },
+        {
+          "enemy": "e13",
+          "source": "source-9",
+          "request": "dispatch-1",
+          "born": {
+            "x": 2205,
+            "y": 3760
+          },
+          "points": [
+            {
+              "x": 2205,
+              "y": 3760,
+              "at": 15.066666666666624
+            },
+            {
+              "x": 2175.571335721354,
+              "y": 3830.987106052015,
+              "at": 15.599999999999955
+            },
+            {
+              "x": 2175.003347755323,
+              "y": 3936.7340306707133,
+              "at": 16.09999999999996
+            },
+            {
+              "x": 2175.000011054721,
+              "y": 4042.4840305352027,
+              "at": 16.599999999999984
+            },
+            {
+              "x": 2127.7355688805155,
+              "y": 4075.102443711008,
+              "at": 17.10000000000001
+            },
+            {
+              "x": 2021.9856623702374,
+              "y": 4075.000432315028,
+              "at": 17.600000000000033
+            },
+            {
+              "x": 1916.2356623720423,
+              "y": 4075.000003134647,
+              "at": 18.10000000000006
+            },
+            {
+              "x": 1810.485662372043,
+              "y": 4075.0000000337905,
+              "at": 18.600000000000083
+            },
+            {
+              "x": 1704.7356623720436,
+              "y": 4075.0000000004934,
+              "at": 19.100000000000108
+            },
+            {
+              "x": 1639.7189957053774,
+              "y": 4075.0000000000045,
+              "at": 19.600000000000133
+            }
+          ]
+        },
+        {
+          "enemy": "e10",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "born": {
+            "x": 8595,
+            "y": 1260
+          },
+          "points": [
+            {
+              "x": 8595,
+              "y": 1260,
+              "at": 20.066666666666823
+            },
+            {
+              "x": 8639.807397058212,
+              "y": 1274.7890578811362,
+              "at": 20.566666666666848
+            },
+            {
+              "x": 8674.603390725848,
+              "y": 1320.680225664943,
+              "at": 21.066666666666872
+            },
+            {
+              "x": 8674.970719906742,
+              "y": 1397.1789852992727,
+              "at": 21.566666666666897
+            },
+            {
+              "x": 8674.99920557792,
+              "y": 1473.6789735289694,
+              "at": 22.066666666666922
+            },
+            {
+              "x": 8674.999962417762,
+              "y": 1550.1789735234354,
+              "at": 22.566666666666947
+            },
+            {
+              "x": 8641.573858282385,
+              "y": 1576.0273840761383,
+              "at": 23.066666666666972
+            },
+            {
+              "x": 8565.094661883359,
+              "y": 1575.0274407104912,
+              "at": 23.566666666666997
+            },
+            {
+              "x": 8488.594670306671,
+              "y": 1575.0007517049692,
+              "at": 24.06666666666702
+            },
+            {
+              "x": 8412.094670316132,
+              "y": 1575.0000388280368,
+              "at": 24.566666666667047
+            },
+            {
+              "x": 8335.594670316148,
+              "y": 1575.000001274885,
+              "at": 25.06666666666707
+            },
+            {
+              "x": 8259.094670316143,
+              "y": 1575.0000000335044,
+              "at": 25.566666666667096
+            },
+            {
+              "x": 8182.594670316137,
+              "y": 1575.0000000010948,
+              "at": 26.06666666666712
+            },
+            {
+              "x": 8106.094670316132,
+              "y": 1575.0000000000687,
+              "at": 26.566666666667146
+            },
+            {
+              "x": 8029.594670316126,
+              "y": 1575.000000000001,
+              "at": 27.06666666666717
+            },
+            {
+              "x": 7953.094670316121,
+              "y": 1575.0000000000002,
+              "at": 27.566666666667196
+            },
+            {
+              "x": 7876.594670316115,
+              "y": 1575.0000000000002,
+              "at": 28.06666666666722
+            },
+            {
+              "x": 7800.09467031611,
+              "y": 1575.0000000000002,
+              "at": 28.566666666667246
+            },
+            {
+              "x": 7723.594670316104,
+              "y": 1575,
+              "at": 29.06666666666727
+            },
+            {
+              "x": 7647.094670316099,
+              "y": 1575,
+              "at": 29.566666666667295
+            },
+            {
+              "x": 7570.5946703160935,
+              "y": 1575,
+              "at": 30.06666666666732
+            },
+            {
+              "x": 7494.094670316088,
+              "y": 1575,
+              "at": 30.566666666667345
+            },
+            {
+              "x": 7417.594670316083,
+              "y": 1575,
+              "at": 31.06666666666737
+            },
+            {
+              "x": 7341.094670316077,
+              "y": 1575,
+              "at": 31.566666666667395
+            },
+            {
+              "x": 7264.594670316072,
+              "y": 1575,
+              "at": 32.06666666666741
+            },
+            {
+              "x": 7182.994670316066,
+              "y": 1575,
+              "at": 32.60000000000071
+            },
+            {
+              "x": 7101.39467031606,
+              "y": 1575,
+              "at": 33.133333333334015
+            },
+            {
+              "x": 7019.794670316054,
+              "y": 1575,
+              "at": 33.66666666666732
+            },
+            {
+              "x": 6938.194670316048,
+              "y": 1575,
+              "at": 34.20000000000062
+            },
+            {
+              "x": 6856.5946703160425,
+              "y": 1575,
+              "at": 34.733333333333924
+            },
+            {
+              "x": 6774.994670316037,
+              "y": 1575,
+              "at": 35.26666666666723
+            },
+            {
+              "x": 6693.394670316031,
+              "y": 1575,
+              "at": 35.80000000000053
+            },
+            {
+              "x": 6611.794670316025,
+              "y": 1575,
+              "at": 36.33333333333383
+            },
+            {
+              "x": 6530.194670316019,
+              "y": 1575,
+              "at": 36.866666666667136
+            },
+            {
+              "x": 6448.594670316013,
+              "y": 1575,
+              "at": 37.40000000000044
+            },
+            {
+              "x": 6366.994670316008,
+              "y": 1575,
+              "at": 37.93333333333374
+            },
+            {
+              "x": 6285.394670316002,
+              "y": 1575,
+              "at": 38.466666666667045
+            },
+            {
+              "x": 6203.794670315996,
+              "y": 1575,
+              "at": 39.00000000000035
+            },
+            {
+              "x": 6122.19467031599,
+              "y": 1575,
+              "at": 39.53333333333365
+            },
+            {
+              "x": 6040.594670315984,
+              "y": 1575,
+              "at": 40.066666666666954
+            },
+            {
+              "x": 5958.9946703159785,
+              "y": 1575,
+              "at": 40.60000000000026
+            },
+            {
+              "x": 5877.394670315973,
+              "y": 1575,
+              "at": 41.13333333333356
+            },
+            {
+              "x": 5795.794670315967,
+              "y": 1575,
+              "at": 41.66666666666686
+            },
+            {
+              "x": 5714.194670315961,
+              "y": 1575,
+              "at": 42.200000000000166
+            },
+            {
+              "x": 5632.594670315955,
+              "y": 1575,
+              "at": 42.73333333333347
+            },
+            {
+              "x": 5550.994670315949,
+              "y": 1575,
+              "at": 43.26666666666677
+            },
+            {
+              "x": 5469.394670315944,
+              "y": 1575,
+              "at": 43.800000000000075
+            },
+            {
+              "x": 5387.794670315938,
+              "y": 1575,
+              "at": 44.33333333333338
+            },
+            {
+              "x": 5306.194670315932,
+              "y": 1575,
+              "at": 44.86666666666668
+            },
+            {
+              "x": 5224.594670315926,
+              "y": 1575,
+              "at": 45.399999999999984
+            },
+            {
+              "x": 5142.99467031592,
+              "y": 1575,
+              "at": 45.93333333333329
+            },
+            {
+              "x": 5061.3946703159145,
+              "y": 1575,
+              "at": 46.46666666666659
+            },
+            {
+              "x": 4979.794670315909,
+              "y": 1575,
+              "at": 46.99999999999989
+            },
+            {
+              "x": 4898.194670315903,
+              "y": 1575,
+              "at": 47.533333333333196
+            },
+            {
+              "x": 4816.594670315897,
+              "y": 1575,
+              "at": 48.0666666666665
+            },
+            {
+              "x": 4734.994670315891,
+              "y": 1575,
+              "at": 48.5999999999998
+            },
+            {
+              "x": 4653.394670315885,
+              "y": 1575,
+              "at": 49.133333333333105
+            },
+            {
+              "x": 4571.79467031588,
+              "y": 1575,
+              "at": 49.66666666666641
+            },
+            {
+              "x": 4490.194670315874,
+              "y": 1575,
+              "at": 50.19999999999971
+            },
+            {
+              "x": 4408.594670315868,
+              "y": 1575,
+              "at": 50.733333333333015
+            },
+            {
+              "x": 4326.994670315862,
+              "y": 1575,
+              "at": 51.26666666666632
+            },
+            {
+              "x": 4245.394670315856,
+              "y": 1575,
+              "at": 51.79999999999962
+            },
+            {
+              "x": 4163.79467031585,
+              "y": 1575,
+              "at": 52.333333333332924
+            },
+            {
+              "x": 4082.194670315846,
+              "y": 1575,
+              "at": 52.86666666666623
+            },
+            {
+              "x": 4000.5946703158475,
+              "y": 1575,
+              "at": 53.39999999999953
+            },
+            {
+              "x": 3918.994670315849,
+              "y": 1575,
+              "at": 53.93333333333283
+            },
+            {
+              "x": 3837.3946703158504,
+              "y": 1575,
+              "at": 54.466666666666136
+            },
+            {
+              "x": 3755.794670315852,
+              "y": 1575,
+              "at": 54.99999999999944
+            },
+            {
+              "x": 3678.8582209762226,
+              "y": 1580.0812903847286,
+              "at": 55.53333333333274
+            },
+            {
+              "x": 3675.090995989238,
+              "y": 1661.530682421962,
+              "at": 56.066666666666045
+            },
+            {
+              "x": 3649.7796051330347,
+              "y": 1721.3482762461506,
+              "at": 56.59999999999935
+            },
+            {
+              "x": 3568.401137989743,
+              "y": 1724.9201658261272,
+              "at": 57.13333333333265
+            },
+            {
+              "x": 3486.801199769617,
+              "y": 1724.997102740745,
+              "at": 57.666666666665954
+            },
+            {
+              "x": 3405.2011999448946,
+              "y": 1724.999910309294,
+              "at": 58.19999999999926
+            },
+            {
+              "x": 3323.6011999450075,
+              "y": 1724.9999981433168,
+              "at": 58.73333333333256
+            },
+            {
+              "x": 3242.001199945009,
+              "y": 1724.9999999123415,
+              "at": 59.26666666666586
+            },
+            {
+              "x": 3160.4011999450104,
+              "y": 1724.999999997728,
+              "at": 59.799999999999166
+            },
+            {
+              "x": 3078.801199945012,
+              "y": 1724.999999999954,
+              "at": 60.33333333333247
+            },
+            {
+              "x": 2997.2011999450133,
+              "y": 1724.9999999999975,
+              "at": 60.86666666666577
+            },
+            {
+              "x": 2915.6011999450147,
+              "y": 1724.9999999999998,
+              "at": 61.399999999999075
+            },
+            {
+              "x": 2834.001199945016,
+              "y": 1725,
+              "at": 61.93333333333238
+            },
+            {
+              "x": 2752.4011999450177,
+              "y": 1725,
+              "at": 62.46666666666568
+            },
+            {
+              "x": 2670.801199945019,
+              "y": 1725,
+              "at": 62.999999999998984
+            },
+            {
+              "x": 2589.2011999450206,
+              "y": 1725,
+              "at": 63.53333333333229
+            },
+            {
+              "x": 2507.601199945022,
+              "y": 1725,
+              "at": 64.0666666666656
+            },
+            {
+              "x": 2426.0011999450235,
+              "y": 1725,
+              "at": 64.5999999999989
+            },
+            {
+              "x": 2344.401199945025,
+              "y": 1725,
+              "at": 65.1333333333322
+            },
+            {
+              "x": 2262.8011999450264,
+              "y": 1725,
+              "at": 65.6666666666655
+            },
+            {
+              "x": 2181.201199945028,
+              "y": 1725,
+              "at": 66.19999999999881
+            },
+            {
+              "x": 2099.6011999450293,
+              "y": 1725,
+              "at": 66.73333333333211
+            },
+            {
+              "x": 2018.0011999450307,
+              "y": 1725,
+              "at": 67.26666666666542
+            },
+            {
+              "x": 1936.4011999450322,
+              "y": 1725,
+              "at": 67.79999999999872
+            },
+            {
+              "x": 1854.8011999450337,
+              "y": 1725,
+              "at": 68.33333333333202
+            },
+            {
+              "x": 1773.2011999450351,
+              "y": 1725,
+              "at": 68.86666666666532
+            },
+            {
+              "x": 1691.6011999450366,
+              "y": 1725,
+              "at": 69.39999999999863
+            },
+            {
+              "x": 1610.001199945038,
+              "y": 1725,
+              "at": 69.93333333333193
+            },
+            {
+              "x": 1528.4011999450395,
+              "y": 1725,
+              "at": 70.46666666666523
+            },
+            {
+              "x": 1446.801199945041,
+              "y": 1725,
+              "at": 70.99999999999854
+            },
+            {
+              "x": 1365.2011999450424,
+              "y": 1725,
+              "at": 71.53333333333184
+            }
+          ]
+        },
+        {
+          "enemy": "e11",
+          "source": "source-4",
+          "request": "dispatch-2",
+          "born": {
+            "x": 8705,
+            "y": 1260
+          },
+          "points": [
+            {
+              "x": 8705,
+              "y": 1260,
+              "at": 20.066666666666823
+            },
+            {
+              "x": 8675.662844757619,
+              "y": 1323.9376999709139,
+              "at": 20.566666666666848
+            },
+            {
+              "x": 8675.00396453507,
+              "y": 1429.6840306976915,
+              "at": 21.066666666666872
+            },
+            {
+              "x": 8675.000013451569,
+              "y": 1535.434030535199,
+              "at": 21.566666666666897
+            },
+            {
+              "x": 8634.780630575446,
+              "y": 1575.36627266061,
+              "at": 22.066666666666922
+            },
+            {
+              "x": 8529.035662369946,
+              "y": 1575.0004971820704,
+              "at": 22.566666666666947
+            },
+            {
+              "x": 8423.285662372058,
+              "y": 1575.0000036705733,
+              "at": 23.066666666666972
+            },
+            {
+              "x": 8317.535662372069,
+              "y": 1575.0000000405041,
+              "at": 23.566666666666997
+            },
+            {
+              "x": 8211.78566237208,
+              "y": 1575.0000000006105,
+              "at": 24.06666666666702
+            },
+            {
+              "x": 8106.035662372079,
+              "y": 1575.0000000000032,
+              "at": 24.566666666667047
+            },
+            {
+              "x": 8000.285662372076,
+              "y": 1575,
+              "at": 25.06666666666707
+            },
+            {
+              "x": 7894.535662372074,
+              "y": 1575,
+              "at": 25.566666666667096
+            },
+            {
+              "x": 7788.785662372071,
+              "y": 1575,
+              "at": 26.06666666666712
+            },
+            {
+              "x": 7683.035662372068,
+              "y": 1575,
+              "at": 26.566666666667146
+            },
+            {
+              "x": 7577.285662372065,
+              "y": 1575,
+              "at": 27.06666666666717
+            },
+            {
+              "x": 7471.535662372063,
+              "y": 1575,
+              "at": 27.566666666667196
+            },
+            {
+              "x": 7365.78566237206,
+              "y": 1575,
+              "at": 28.06666666666722
+            },
+            {
+              "x": 7260.035662372057,
+              "y": 1575,
+              "at": 28.566666666667246
+            },
+            {
+              "x": 7154.2856623720545,
+              "y": 1575,
+              "at": 29.06666666666727
+            },
+            {
+              "x": 7048.535662372052,
+              "y": 1575,
+              "at": 29.566666666667295
+            },
+            {
+              "x": 6942.785662372049,
+              "y": 1575,
+              "at": 30.06666666666732
+            },
+            {
+              "x": 6837.035662372046,
+              "y": 1575,
+              "at": 30.566666666667345
+            },
+            {
+              "x": 6731.285662372044,
+              "y": 1575,
+              "at": 31.06666666666737
+            },
+            {
+              "x": 6625.535662372041,
+              "y": 1575,
+              "at": 31.566666666667395
+            },
+            {
+              "x": 6519.785662372038,
+              "y": 1575,
+              "at": 32.06666666666741
+            },
+            {
+              "x": 6406.985662372035,
+              "y": 1575,
+              "at": 32.60000000000071
+            },
+            {
+              "x": 6294.185662372032,
+              "y": 1575,
+              "at": 33.133333333334015
+            },
+            {
+              "x": 6181.385662372029,
+              "y": 1575,
+              "at": 33.66666666666732
+            },
+            {
+              "x": 6068.5856623720265,
+              "y": 1575,
+              "at": 34.20000000000062
+            },
+            {
+              "x": 5955.785662372024,
+              "y": 1575,
+              "at": 34.733333333333924
+            },
+            {
+              "x": 5842.985662372021,
+              "y": 1575,
+              "at": 35.26666666666723
+            },
+            {
+              "x": 5730.185662372018,
+              "y": 1575,
+              "at": 35.80000000000053
+            },
+            {
+              "x": 5617.385662372015,
+              "y": 1575,
+              "at": 36.33333333333383
+            },
+            {
+              "x": 5504.585662372012,
+              "y": 1575,
+              "at": 36.866666666667136
+            },
+            {
+              "x": 5391.785662372009,
+              "y": 1575,
+              "at": 37.40000000000044
+            },
+            {
+              "x": 5278.985662372006,
+              "y": 1575,
+              "at": 37.93333333333374
+            },
+            {
+              "x": 5166.185662372003,
+              "y": 1575,
+              "at": 38.466666666667045
+            },
+            {
+              "x": 5053.385662372,
+              "y": 1575,
+              "at": 39.00000000000035
+            },
+            {
+              "x": 4940.585662371997,
+              "y": 1575,
+              "at": 39.53333333333365
+            },
+            {
+              "x": 4827.7856623719945,
+              "y": 1575,
+              "at": 40.066666666666954
+            },
+            {
+              "x": 4714.985662371992,
+              "y": 1575,
+              "at": 40.60000000000026
+            },
+            {
+              "x": 4602.185662371989,
+              "y": 1575,
+              "at": 41.13333333333356
+            },
+            {
+              "x": 4489.385662371986,
+              "y": 1575,
+              "at": 41.66666666666686
+            },
+            {
+              "x": 4376.585662371983,
+              "y": 1575,
+              "at": 42.200000000000166
+            },
+            {
+              "x": 4263.78566237198,
+              "y": 1575,
+              "at": 42.73333333333347
+            },
+            {
+              "x": 4150.985662371977,
+              "y": 1575,
+              "at": 43.26666666666677
+            },
+            {
+              "x": 4038.185662371974,
+              "y": 1575,
+              "at": 43.800000000000075
+            },
+            {
+              "x": 3925.385662371971,
+              "y": 1575,
+              "at": 44.33333333333338
+            },
+            {
+              "x": 3812.5856623719683,
+              "y": 1575,
+              "at": 44.86666666666668
+            },
+            {
+              "x": 3699.7856623719654,
+              "y": 1575,
+              "at": 45.399999999999984
+            },
+            {
+              "x": 3675.083155639517,
+              "y": 1666.536235188039,
+              "at": 45.93333333333329
+            },
+            {
+              "x": 3618.639135211016,
+              "y": 1724.758584851346,
+              "at": 46.46666666666659
+            },
+            {
+              "x": 3505.8396924195263,
+              "y": 1724.9990618415875,
+              "at": 46.99999999999989
+            },
+            {
+              "x": 3393.03969243263,
+              "y": 1724.99999830118,
+              "at": 47.533333333333196
+            },
+            {
+              "x": 3280.239692432627,
+              "y": 1724.99999999697,
+              "at": 48.0666666666665
+            },
+            {
+              "x": 3167.4396924326243,
+              "y": 1724.9999999999716,
+              "at": 48.5999999999998
+            },
+            {
+              "x": 3054.6396924326214,
+              "y": 1724.9999999999995,
+              "at": 49.133333333333105
+            },
+            {
+              "x": 2941.8396924326184,
+              "y": 1725,
+              "at": 49.66666666666641
+            },
+            {
+              "x": 2829.0396924326155,
+              "y": 1725,
+              "at": 50.19999999999971
+            },
+            {
+              "x": 2716.2396924326126,
+              "y": 1725,
+              "at": 50.733333333333015
+            },
+            {
+              "x": 2603.4396924326097,
+              "y": 1725,
+              "at": 51.26666666666632
+            },
+            {
+              "x": 2490.639692432607,
+              "y": 1725,
+              "at": 51.79999999999962
+            },
+            {
+              "x": 2377.839692432604,
+              "y": 1725,
+              "at": 52.333333333332924
+            },
+            {
+              "x": 2265.039692432601,
+              "y": 1725,
+              "at": 52.86666666666623
+            },
+            {
+              "x": 2152.239692432598,
+              "y": 1725,
+              "at": 53.39999999999953
+            },
+            {
+              "x": 2039.4396924325956,
+              "y": 1725,
+              "at": 53.93333333333283
+            },
+            {
+              "x": 1926.6396924325963,
+              "y": 1725,
+              "at": 54.466666666666136
+            },
+            {
+              "x": 1813.839692432597,
+              "y": 1725,
+              "at": 54.99999999999944
+            },
+            {
+              "x": 1701.0396924325978,
+              "y": 1725,
+              "at": 55.53333333333274
+            },
+            {
+              "x": 1588.2396924325985,
+              "y": 1725,
+              "at": 56.066666666666045
+            },
+            {
+              "x": 1475.4396924325993,
+              "y": 1725,
+              "at": 56.59999999999935
+            },
+            {
+              "x": 1362.6396924326,
+              "y": 1725,
+              "at": 57.13333333333265
+            },
+            {
+              "x": 1249.8396924326007,
+              "y": 1725,
+              "at": 57.666666666665954
+            },
+            {
+              "x": 1137.0396924326014,
+              "y": 1725,
+              "at": 58.19999999999926
+            },
+            {
+              "x": 1024.2396924326022,
+              "y": 1725,
+              "at": 58.73333333333256
+            },
+            {
+              "x": 911.4396924326029,
+              "y": 1725,
+              "at": 59.26666666666586
+            },
+            {
+              "x": 875.3733442564213,
+              "y": 1809.0255214533759,
+              "at": 59.799999999999166
+            },
+            {
+              "x": 875.0005410236168,
+              "y": 1921.8232426467946,
+              "at": 60.33333333333247
+            },
+            {
+              "x": 875.0000023999978,
+              "y": 2034.6232426442266,
+              "at": 60.86666666666577
+            },
+            {
+              "x": 875.0000000157883,
+              "y": 2147.423242644229,
+              "at": 61.399999999999075
+            },
+            {
+              "x": 875.0000000001195,
+              "y": 2260.223242644232,
+              "at": 61.93333333333238
+            },
+            {
+              "x": 875.0000000000003,
+              "y": 2373.023242644235,
+              "at": 62.46666666666568
+            },
+            {
+              "x": 875,
+              "y": 2485.823242644238,
+              "at": 62.999999999998984
+            },
+            {
+              "x": 875,
+              "y": 2598.6232426442407,
+              "at": 63.53333333333229
+            },
+            {
+              "x": 875,
+              "y": 2711.4232426442436,
+              "at": 64.0666666666656
+            },
+            {
+              "x": 875,
+              "y": 2824.2232426442465,
+              "at": 64.5999999999989
+            },
+            {
+              "x": 875,
+              "y": 2937.0232426442494,
+              "at": 65.1333333333322
+            },
+            {
+              "x": 875,
+              "y": 3049.8232426442523,
+              "at": 65.6666666666655
+            },
+            {
+              "x": 875,
+              "y": 3162.6232426442552,
+              "at": 66.19999999999881
+            },
+            {
+              "x": 875,
+              "y": 3275.423242644258,
+              "at": 66.73333333333211
+            },
+            {
+              "x": 875,
+              "y": 3388.223242644261,
+              "at": 67.26666666666542
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 67.79999999999872
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 68.33333333333202
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 68.86666666666532
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 69.39999999999863
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 69.93333333333193
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 70.46666666666523
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 70.99999999999854
+            },
+            {
+              "x": 875,
+              "y": 3416.423242644262,
+              "at": 71.53333333333184
+            }
+          ]
+        },
+        {
+          "enemy": "e171",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "born": {
+            "x": 3024.0000000000005,
+            "y": 6520
+          },
+          "points": [
+            {
+              "x": 3024.0000000000005,
+              "y": 6520,
+              "at": 38.900000000000354
+            },
+            {
+              "x": 3041.7921270005763,
+              "y": 6435.145240458794,
+              "at": 39.43333333333366
+            },
+            {
+              "x": 3058.5376582952354,
+              "y": 6355.281937361189,
+              "at": 39.96666666666696
+            },
+            {
+              "x": 3075.2831895898944,
+              "y": 6275.418634263584,
+              "at": 40.50000000000026
+            },
+            {
+              "x": 3089.806785063135,
+              "y": 6222.34558594043,
+              "at": 41.033333333333566
+            },
+            {
+              "x": 3171.3191575792694,
+              "y": 6224.948234929673,
+              "at": 41.56666666666687
+            },
+            {
+              "x": 3252.9191359371434,
+              "y": 6224.997132672294,
+              "at": 42.10000000000017
+            },
+            {
+              "x": 3334.5191358019943,
+              "y": 6224.999934941864,
+              "at": 42.633333333333475
+            }
+          ]
+        },
+        {
+          "enemy": "e172",
+          "source": "external-3",
+          "request": "dispatch-3",
+          "born": {
+            "x": 3089.0000000000005,
+            "y": 6520
+          },
+          "points": [
+            {
+              "x": 3089.0000000000005,
+              "y": 6520,
+              "at": 38.900000000000354
+            },
+            {
+              "x": 3089.0000000000005,
+              "y": 6400.149999999997,
+              "at": 39.43333333333366
+            },
+            {
+              "x": 3089.0000000000005,
+              "y": 6287.349999999994,
+              "at": 39.96666666666696
+            },
+            {
+              "x": 3105.0076358956394,
+              "y": 6224.561760408484,
+              "at": 40.50000000000026
+            },
+            {
+              "x": 3217.8041159034274,
+              "y": 6224.998073987393,
+              "at": 41.033333333333566
+            },
+            {
+              "x": 3330.6041158749304,
+              "y": 6224.9999705496975,
+              "at": 41.56666666666687
+            },
+            {
+              "x": 3443.4041158749224,
+              "y": 6224.999999956102,
+              "at": 42.10000000000017
+            }
+          ]
+        },
+        {
+          "enemy": "e183",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "born": {
+            "x": -220,
+            "y": 2073
+          },
+          "points": [
+            {
+              "x": -220,
+              "y": 2073,
+              "at": 40.90000000000024
+            },
+            {
+              "x": -135.14524045879685,
+              "y": 2090.7921270005754,
+              "at": 41.43333333333354
+            },
+            {
+              "x": -55.28193736119388,
+              "y": 2107.5376582952335,
+              "at": 41.966666666666846
+            },
+            {
+              "x": 24.58136573640911,
+              "y": 2124.283189589892,
+              "at": 42.50000000000015
+            },
+            {
+              "x": 88.27019668284514,
+              "y": 2128.0382471399626,
+              "at": 43.03333333333345
+            },
+            {
+              "x": 169.7638978971577,
+              "y": 2125.0480150979733,
+              "at": 43.566666666666755
+            },
+            {
+              "x": 251.36387855805808,
+              "y": 2125.001604762544,
+              "at": 44.10000000000006
+            },
+            {
+              "x": 332.963878520382,
+              "y": 2125.0000521821403,
+              "at": 44.63333333333336
+            },
+            {
+              "x": 414.563878520354,
+              "y": 2125.000001457052,
+              "at": 45.166666666666664
+            },
+            {
+              "x": 496.16387852035433,
+              "y": 2125.000000030982,
+              "at": 45.69999999999997
+            },
+            {
+              "x": 577.7638785203546,
+              "y": 2125.0000000009486,
+              "at": 46.23333333333327
+            },
+            {
+              "x": 659.363878520355,
+              "y": 2125.0000000000355,
+              "at": 46.76666666666657
+            },
+            {
+              "x": 740.9638785203554,
+              "y": 2125.000000000001,
+              "at": 47.299999999999876
+            },
+            {
+              "x": 822.5638785203557,
+              "y": 2125.0000000000005,
+              "at": 47.83333333333318
+            },
+            {
+              "x": 904.1638785203561,
+              "y": 2125.0000000000005,
+              "at": 48.36666666666648
+            },
+            {
+              "x": 985.7638785203565,
+              "y": 2125,
+              "at": 48.899999999999785
+            },
+            {
+              "x": 1067.363878520356,
+              "y": 2125,
+              "at": 49.43333333333309
+            },
+            {
+              "x": 1074.755179566683,
+              "y": 2206.0709109598556,
+              "at": 49.96666666666639
+            },
+            {
+              "x": 1074.990390343609,
+              "y": 2287.6699630295334,
+              "at": 50.499999999999694
+            },
+            {
+              "x": 1074.9998250107446,
+              "y": 2369.2699619918603,
+              "at": 51.033333333333
+            },
+            {
+              "x": 1074.9999934518453,
+              "y": 2450.8699619916088,
+              "at": 51.5666666666663
+            },
+            {
+              "x": 1074.999999765453,
+              "y": 2532.4699619916073,
+              "at": 52.0999999999996
+            },
+            {
+              "x": 1074.9999999927556,
+              "y": 2614.069961991606,
+              "at": 52.63333333333291
+            },
+            {
+              "x": 1074.9999999998215,
+              "y": 2695.6699619916044,
+              "at": 53.16666666666621
+            },
+            {
+              "x": 1074.999999999994,
+              "y": 2777.269961991603,
+              "at": 53.69999999999951
+            },
+            {
+              "x": 1074.9999999999995,
+              "y": 2858.8699619916015,
+              "at": 54.233333333332816
+            },
+            {
+              "x": 1075,
+              "y": 2940.4699619916,
+              "at": 54.76666666666612
+            },
+            {
+              "x": 1075,
+              "y": 3022.0699619915986,
+              "at": 55.29999999999942
+            },
+            {
+              "x": 1075,
+              "y": 3103.669961991597,
+              "at": 55.833333333332725
+            },
+            {
+              "x": 1075,
+              "y": 3185.2699619915957,
+              "at": 56.36666666666603
+            },
+            {
+              "x": 1075,
+              "y": 3266.869961991594,
+              "at": 56.89999999999933
+            },
+            {
+              "x": 1075,
+              "y": 3348.4699619915928,
+              "at": 57.433333333332634
+            },
+            {
+              "x": 1075,
+              "y": 3430.0699619915913,
+              "at": 57.96666666666594
+            },
+            {
+              "x": 1075,
+              "y": 3511.66996199159,
+              "at": 58.49999999999924
+            },
+            {
+              "x": 1075,
+              "y": 3593.2699619915884,
+              "at": 59.03333333333254
+            },
+            {
+              "x": 1075,
+              "y": 3674.869961991587,
+              "at": 59.566666666665846
+            },
+            {
+              "x": 1075,
+              "y": 3756.4699619915855,
+              "at": 60.09999999999915
+            },
+            {
+              "x": 1075,
+              "y": 3838.069961991584,
+              "at": 60.63333333333245
+            },
+            {
+              "x": 1075,
+              "y": 3919.6699619915826,
+              "at": 61.166666666665755
+            }
+          ]
+        },
+        {
+          "enemy": "e184",
+          "source": "external-0",
+          "request": "dispatch-4",
+          "born": {
+            "x": -220,
+            "y": 2138
+          },
+          "points": [
+            {
+              "x": -220,
+              "y": 2138,
+              "at": 40.90000000000024
+            },
+            {
+              "x": -100.14999999999986,
+              "y": 2138,
+              "at": 41.43333333333354
+            },
+            {
+              "x": 12.650000000000112,
+              "y": 2138,
+              "at": 41.966666666666846
+            },
+            {
+              "x": 114.24395051129675,
+              "y": 2126.6576557247813,
+              "at": 42.50000000000015
+            },
+            {
+              "x": 226.95876428038304,
+              "y": 2125.003931226594,
+              "at": 43.03333333333345
+            },
+            {
+              "x": 339.75876413699626,
+              "y": 2125.0000336641037,
+              "at": 43.566666666666755
+            },
+            {
+              "x": 452.5587641369831,
+              "y": 2125.0000003527844,
+              "at": 44.10000000000006
+            },
+            {
+              "x": 565.3587641369828,
+              "y": 2125.0000000033024,
+              "at": 44.63333333333336
+            },
+            {
+              "x": 678.1587641369821,
+              "y": 2125.0000000000036,
+              "at": 45.166666666666664
+            },
+            {
+              "x": 790.9587641369814,
+              "y": 2125,
+              "at": 45.69999999999997
+            },
+            {
+              "x": 903.7587641369806,
+              "y": 2125,
+              "at": 46.23333333333327
+            },
+            {
+              "x": 1016.5587641369799,
+              "y": 2125,
+              "at": 46.76666666666657
+            },
+            {
+              "x": 1074.7613323986834,
+              "y": 2181.3645832883803,
+              "at": 47.299999999999876
+            },
+            {
+              "x": 1074.9990745771834,
+              "y": 2294.1640386110953,
+              "at": 47.83333333333318
+            },
+            {
+              "x": 1074.9999983284163,
+              "y": 2406.9640385983407,
+              "at": 48.36666666666648
+            },
+            {
+              "x": 1074.9999999970248,
+              "y": 2519.7640385983436,
+              "at": 48.899999999999785
+            },
+            {
+              "x": 1074.999999999972,
+              "y": 2632.5640385983465,
+              "at": 49.43333333333309
+            },
+            {
+              "x": 1074.9999999999995,
+              "y": 2745.3640385983495,
+              "at": 49.96666666666639
+            },
+            {
+              "x": 1075,
+              "y": 2858.1640385983524,
+              "at": 50.499999999999694
+            },
+            {
+              "x": 1075,
+              "y": 2970.9640385983553,
+              "at": 51.033333333333
+            },
+            {
+              "x": 1075,
+              "y": 3083.764038598358,
+              "at": 51.5666666666663
+            },
+            {
+              "x": 1075,
+              "y": 3196.564038598361,
+              "at": 52.0999999999996
+            },
+            {
+              "x": 1075,
+              "y": 3309.364038598364,
+              "at": 52.63333333333291
+            },
+            {
+              "x": 1075,
+              "y": 3422.164038598367,
+              "at": 53.16666666666621
+            },
+            {
+              "x": 1075,
+              "y": 3534.96403859837,
+              "at": 53.69999999999951
+            },
+            {
+              "x": 1075,
+              "y": 3647.7640385983727,
+              "at": 54.233333333332816
+            },
+            {
+              "x": 1075,
+              "y": 3760.5640385983756,
+              "at": 54.76666666666612
+            },
+            {
+              "x": 1075,
+              "y": 3873.3640385983786,
+              "at": 55.29999999999942
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 55.833333333332725
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 56.36666666666603
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 56.89999999999933
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 57.433333333332634
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 57.96666666666594
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 58.49999999999924
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 59.03333333333254
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 59.566666666665846
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 60.09999999999915
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 60.63333333333245
+            },
+            {
+              "x": 1075,
+              "y": 3922.71403859838,
+              "at": 61.166666666665755
+            }
+          ]
+        },
+        {
+          "enemy": "e239",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "born": {
+            "x": 6295,
+            "y": -220
+          },
+          "points": [
+            {
+              "x": 6295,
+              "y": -220,
+              "at": 51.29999999999965
+            },
+            {
+              "x": 6312.792127000571,
+              "y": -135.14524045879685,
+              "at": 51.83333333333295
+            },
+            {
+              "x": 6329.537658295227,
+              "y": -55.28193736119435,
+              "at": 52.366666666666255
+            },
+            {
+              "x": 6346.283189589889,
+              "y": 24.581365736407943,
+              "at": 52.89999999999956
+            },
+            {
+              "x": 6357.492059502838,
+              "y": 78.29005427136286,
+              "at": 53.43333333333286
+            },
+            {
+              "x": 6276.025857195261,
+              "y": 75.07030836424035,
+              "at": 53.966666666666164
+            },
+            {
+              "x": 6194.425901061078,
+              "y": 75.00248892810995,
+              "at": 54.49999999999947
+            },
+            {
+              "x": 6112.825901188869,
+              "y": 75.00005219169668,
+              "at": 55.03333333333277
+            },
+            {
+              "x": 6031.2259011888955,
+              "y": 75.00000108471022,
+              "at": 55.56666666666607
+            },
+            {
+              "x": 5949.62590118889,
+              "y": 75.00000004495602,
+              "at": 56.099999999999376
+            },
+            {
+              "x": 5868.025901188884,
+              "y": 75.00000000087381,
+              "at": 56.63333333333268
+            },
+            {
+              "x": 5786.425901188878,
+              "y": 75.00000000002966,
+              "at": 57.16666666666598
+            },
+            {
+              "x": 5704.825901188872,
+              "y": 75.00000000000084,
+              "at": 57.699999999999285
+            },
+            {
+              "x": 5623.225901188866,
+              "y": 75.00000000000001,
+              "at": 58.23333333333259
+            },
+            {
+              "x": 5541.625901188861,
+              "y": 75.00000000000001,
+              "at": 58.76666666666589
+            },
+            {
+              "x": 5460.025901188855,
+              "y": 75.00000000000001,
+              "at": 59.299999999999194
+            },
+            {
+              "x": 5378.425901188849,
+              "y": 75,
+              "at": 59.8333333333325
+            },
+            {
+              "x": 5296.825901188843,
+              "y": 75,
+              "at": 60.3666666666658
+            },
+            {
+              "x": 5215.225901188837,
+              "y": 75,
+              "at": 60.8999999999991
+            },
+            {
+              "x": 5133.625901188831,
+              "y": 75,
+              "at": 61.433333333332406
+            },
+            {
+              "x": 5052.025901188826,
+              "y": 75,
+              "at": 61.96666666666571
+            },
+            {
+              "x": 4970.42590118882,
+              "y": 75,
+              "at": 62.49999999999901
+            },
+            {
+              "x": 4888.825901188814,
+              "y": 75,
+              "at": 63.033333333332315
+            },
+            {
+              "x": 4807.225901188808,
+              "y": 75,
+              "at": 63.56666666666562
+            },
+            {
+              "x": 4725.625901188802,
+              "y": 75,
+              "at": 64.09999999999893
+            },
+            {
+              "x": 4644.0259011887965,
+              "y": 75,
+              "at": 64.63333333333223
+            },
+            {
+              "x": 4562.425901188791,
+              "y": 75,
+              "at": 65.16666666666553
+            },
+            {
+              "x": 4480.825901188785,
+              "y": 75,
+              "at": 65.69999999999884
+            },
+            {
+              "x": 4399.225901188779,
+              "y": 75,
+              "at": 66.23333333333214
+            },
+            {
+              "x": 4317.625901188773,
+              "y": 75,
+              "at": 66.76666666666544
+            },
+            {
+              "x": 4236.025901188767,
+              "y": 75,
+              "at": 67.29999999999875
+            },
+            {
+              "x": 4154.425901188762,
+              "y": 75,
+              "at": 67.83333333333205
+            },
+            {
+              "x": 4072.825901188758,
+              "y": 75,
+              "at": 68.36666666666535
+            },
+            {
+              "x": 3991.2259011887595,
+              "y": 75,
+              "at": 68.89999999999866
+            },
+            {
+              "x": 3909.625901188761,
+              "y": 75,
+              "at": 69.43333333333196
+            },
+            {
+              "x": 3828.0259011887624,
+              "y": 75,
+              "at": 69.96666666666526
+            },
+            {
+              "x": 3746.425901188764,
+              "y": 75,
+              "at": 70.49999999999856
+            },
+            {
+              "x": 3664.8259011887653,
+              "y": 75,
+              "at": 71.03333333333187
+            },
+            {
+              "x": 3583.225901188767,
+              "y": 75,
+              "at": 71.56666666666517
+            }
+          ]
+        },
+        {
+          "enemy": "e240",
+          "source": "external-2",
+          "request": "dispatch-5",
+          "born": {
+            "x": 6360,
+            "y": -220
+          },
+          "points": [
+            {
+              "x": 6360,
+              "y": -220,
+              "at": 51.29999999999965
+            },
+            {
+              "x": 6360,
+              "y": -100.14999999999986,
+              "at": 51.83333333333295
+            },
+            {
+              "x": 6360,
+              "y": 12.650000000000112,
+              "at": 52.366666666666255
+            },
+            {
+              "x": 6344.201982721725,
+              "y": 75.57474972444973,
+              "at": 52.89999999999956
+            },
+            {
+              "x": 6231.408486636428,
+              "y": 75.00183630322675,
+              "at": 53.43333333333286
+            },
+            {
+              "x": 6118.608486662982,
+              "y": 75.0000234580417,
+              "at": 53.966666666666164
+            },
+            {
+              "x": 6005.808486662983,
+              "y": 75.00000008947029,
+              "at": 54.49999999999947
+            },
+            {
+              "x": 5893.00848666298,
+              "y": 75.00000000015865,
+              "at": 55.03333333333277
+            },
+            {
+              "x": 5780.2084866629775,
+              "y": 75.00000000000028,
+              "at": 55.56666666666607
+            },
+            {
+              "x": 5667.408486662975,
+              "y": 75,
+              "at": 56.099999999999376
+            },
+            {
+              "x": 5554.608486662972,
+              "y": 75,
+              "at": 56.63333333333268
+            },
+            {
+              "x": 5441.808486662969,
+              "y": 75,
+              "at": 57.16666666666598
+            },
+            {
+              "x": 5329.008486662966,
+              "y": 75,
+              "at": 57.699999999999285
+            },
+            {
+              "x": 5216.208486662963,
+              "y": 75,
+              "at": 58.23333333333259
+            },
+            {
+              "x": 5103.40848666296,
+              "y": 75,
+              "at": 58.76666666666589
+            },
+            {
+              "x": 4990.608486662957,
+              "y": 75,
+              "at": 59.299999999999194
+            },
+            {
+              "x": 4877.808486662954,
+              "y": 75,
+              "at": 59.8333333333325
+            },
+            {
+              "x": 4765.008486662951,
+              "y": 75,
+              "at": 60.3666666666658
+            },
+            {
+              "x": 4652.208486662948,
+              "y": 75,
+              "at": 60.8999999999991
+            },
+            {
+              "x": 4539.4084866629455,
+              "y": 75,
+              "at": 61.433333333332406
+            },
+            {
+              "x": 4426.608486662943,
+              "y": 75,
+              "at": 61.96666666666571
+            },
+            {
+              "x": 4313.80848666294,
+              "y": 75,
+              "at": 62.49999999999901
+            },
+            {
+              "x": 4201.008486662937,
+              "y": 75,
+              "at": 63.033333333332315
+            },
+            {
+              "x": 4088.208486662934,
+              "y": 75,
+              "at": 63.56666666666562
+            },
+            {
+              "x": 3975.408486662931,
+              "y": 75,
+              "at": 64.09999999999893
+            },
+            {
+              "x": 3862.608486662928,
+              "y": 75,
+              "at": 64.63333333333223
+            },
+            {
+              "x": 3749.808486662925,
+              "y": 75,
+              "at": 65.16666666666553
+            },
+            {
+              "x": 3637.008486662922,
+              "y": 75,
+              "at": 65.69999999999884
+            },
+            {
+              "x": 3524.2084866629193,
+              "y": 75,
+              "at": 66.23333333333214
+            },
+            {
+              "x": 3411.4084866629164,
+              "y": 75,
+              "at": 66.76666666666544
+            },
+            {
+              "x": 3298.6084866629135,
+              "y": 75,
+              "at": 67.29999999999875
+            },
+            {
+              "x": 3185.8084866629106,
+              "y": 75,
+              "at": 67.83333333333205
+            },
+            {
+              "x": 3073.0084866629077,
+              "y": 75,
+              "at": 68.36666666666535
+            },
+            {
+              "x": 2960.2084866629048,
+              "y": 75,
+              "at": 68.89999999999866
+            },
+            {
+              "x": 2847.408486662902,
+              "y": 75,
+              "at": 69.43333333333196
+            },
+            {
+              "x": 2734.608486662899,
+              "y": 75,
+              "at": 69.96666666666526
+            },
+            {
+              "x": 2621.808486662896,
+              "y": 75,
+              "at": 70.49999999999856
+            },
+            {
+              "x": 2509.008486662893,
+              "y": 75,
+              "at": 71.03333333333187
+            },
+            {
+              "x": 2396.20848666289,
+              "y": 75,
+              "at": 71.56666666666517
+            }
+          ]
+        },
+        {
+          "enemy": "e278",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "born": {
+            "x": 9820,
+            "y": 4325
+          },
+          "points": [
+            {
+              "x": 9820,
+              "y": 4325,
+              "at": 57.699999999999285
+            },
+            {
+              "x": 9735.145240458794,
+              "y": 4342.792127000571,
+              "at": 58.23333333333259
+            },
+            {
+              "x": 9655.28193736119,
+              "y": 4359.537658295228,
+              "at": 58.76666666666589
+            },
+            {
+              "x": 9575.418634263584,
+              "y": 4376.283189589891,
+              "at": 59.299999999999194
+            },
+            {
+              "x": 9511.15353746335,
+              "y": 4379.238681621197,
+              "at": 59.8333333333325
+            },
+            {
+              "x": 9429.76544163149,
+              "y": 4375.057729497592,
+              "at": 60.3666666666658
+            },
+            {
+              "x": 9348.165467582827,
+              "y": 4375.003677674459,
+              "at": 60.8999999999991
+            },
+            {
+              "x": 9266.565467787565,
+              "y": 4375.000108290783,
+              "at": 61.433333333332406
+            },
+            {
+              "x": 9184.965467787686,
+              "y": 4375.000002725937,
+              "at": 61.96666666666571
+            },
+            {
+              "x": 9103.36546778768,
+              "y": 4375.000000104617,
+              "at": 62.49999999999901
+            },
+            {
+              "x": 9021.765467787674,
+              "y": 4375.000000002898,
+              "at": 63.033333333332315
+            },
+            {
+              "x": 8940.165467787669,
+              "y": 4375.0000000001,
+              "at": 63.56666666666562
+            },
+            {
+              "x": 8858.565467787663,
+              "y": 4375.000000000003,
+              "at": 64.09999999999893
+            },
+            {
+              "x": 8776.965467787657,
+              "y": 4375.000000000001,
+              "at": 64.63333333333223
+            },
+            {
+              "x": 8695.365467787651,
+              "y": 4375.000000000001,
+              "at": 65.16666666666553
+            },
+            {
+              "x": 8613.765467787645,
+              "y": 4375,
+              "at": 65.69999999999884
+            },
+            {
+              "x": 8532.16546778764,
+              "y": 4375,
+              "at": 66.23333333333214
+            },
+            {
+              "x": 8450.565467787634,
+              "y": 4375,
+              "at": 66.76666666666544
+            },
+            {
+              "x": 8368.965467787628,
+              "y": 4375,
+              "at": 67.29999999999875
+            },
+            {
+              "x": 8287.365467787622,
+              "y": 4375,
+              "at": 67.83333333333205
+            },
+            {
+              "x": 8205.765467787616,
+              "y": 4375,
+              "at": 68.36666666666535
+            },
+            {
+              "x": 8124.16546778761,
+              "y": 4375,
+              "at": 68.89999999999866
+            },
+            {
+              "x": 8042.565467787605,
+              "y": 4375,
+              "at": 69.43333333333196
+            },
+            {
+              "x": 7960.965467787599,
+              "y": 4375,
+              "at": 69.96666666666526
+            },
+            {
+              "x": 7879.365467787593,
+              "y": 4375,
+              "at": 70.49999999999856
+            },
+            {
+              "x": 7797.765467787587,
+              "y": 4375,
+              "at": 71.03333333333187
+            },
+            {
+              "x": 7716.165467787581,
+              "y": 4375,
+              "at": 71.56666666666517
+            }
+          ]
+        },
+        {
+          "enemy": "e279",
+          "source": "external-1",
+          "request": "dispatch-6",
+          "born": {
+            "x": 9820,
+            "y": 4390
+          },
+          "points": [
+            {
+              "x": 9820,
+              "y": 4390,
+              "at": 57.699999999999285
+            },
+            {
+              "x": 9700.150000000012,
+              "y": 4390,
+              "at": 58.23333333333259
+            },
+            {
+              "x": 9587.350000000024,
+              "y": 4390,
+              "at": 58.76666666666589
+            },
+            {
+              "x": 9495.42218019249,
+              "y": 4376.097432715213,
+              "at": 59.299999999999194
+            },
+            {
+              "x": 9382.643410975736,
+              "y": 4375.005673495273,
+              "at": 59.8333333333325
+            },
+            {
+              "x": 9269.843411219637,
+              "y": 4375.000095275521,
+              "at": 60.3666666666658
+            },
+            {
+              "x": 9157.043411219736,
+              "y": 4375.0000001978415,
+              "at": 60.8999999999991
+            },
+            {
+              "x": 9044.243411219748,
+              "y": 4375.0000000006985,
+              "at": 61.433333333332406
+            },
+            {
+              "x": 8931.44341121976,
+              "y": 4375.000000000002,
+              "at": 61.96666666666571
+            },
+            {
+              "x": 8818.643411219771,
+              "y": 4375.000000000001,
+              "at": 62.49999999999901
+            },
+            {
+              "x": 8705.843411219783,
+              "y": 4375,
+              "at": 63.033333333332315
+            },
+            {
+              "x": 8593.043411219795,
+              "y": 4375,
+              "at": 63.56666666666562
+            },
+            {
+              "x": 8480.243411219806,
+              "y": 4375,
+              "at": 64.09999999999893
+            },
+            {
+              "x": 8367.443411219818,
+              "y": 4375,
+              "at": 64.63333333333223
+            },
+            {
+              "x": 8254.64341121983,
+              "y": 4375,
+              "at": 65.16666666666553
+            },
+            {
+              "x": 8141.843411219834,
+              "y": 4375,
+              "at": 65.69999999999884
+            },
+            {
+              "x": 8029.043411219831,
+              "y": 4375,
+              "at": 66.23333333333214
+            },
+            {
+              "x": 7916.243411219828,
+              "y": 4375,
+              "at": 66.76666666666544
+            },
+            {
+              "x": 7803.443411219825,
+              "y": 4375,
+              "at": 67.29999999999875
+            },
+            {
+              "x": 7690.643411219822,
+              "y": 4375,
+              "at": 67.83333333333205
+            },
+            {
+              "x": 7577.843411219819,
+              "y": 4375,
+              "at": 68.36666666666535
+            },
+            {
+              "x": 7525.345703463002,
+              "y": 4438.346190654076,
+              "at": 68.89999999999866
+            },
+            {
+              "x": 7476.573093032715,
+              "y": 4515.337223488092,
+              "at": 69.43333333333196
+            },
+            {
+              "x": 7430.665461689905,
+              "y": 4588.409172929833,
+              "at": 69.96666666666526
+            },
+            {
+              "x": 7396.8844759515105,
+              "y": 4673.977867857116,
+              "at": 70.49999999999856
+            },
+            {
+              "x": 7284.100830598726,
+              "y": 4674.991706873188,
+              "at": 71.03333333333187
+            },
+            {
+              "x": 7171.300833557685,
+              "y": 4674.999994649174,
+              "at": 71.56666666666517
+            }
+          ]
+        }
+      ],
+      "finalPlayers": [
+        {
+          "id": "p0",
+          "hp": 100,
+          "x": 3127.344355658494,
+          "y": 6030.628482196101,
+          "ammo": {
+            "primary": {
+              "id": "ar",
+              "ammo": 17,
+              "reserve": 240,
+              "reload": 0,
+              "cooldown": 0,
+              "recoil": 0
+            },
+            "secondary": {
+              "id": "pistol",
+              "ammo": 12,
+              "reserve": 84,
+              "reload": 0,
+              "cooldown": 0,
+              "recoil": 0
+            }
+          },
+          "goal": {
+            "x": 3064.2106218496338,
+            "y": 6040
+          },
+          "path": [
+            {
+              "x": 3125,
+              "y": 6025
+            },
+            {
+              "x": 3075,
+              "y": 6025
+            }
+          ]
+        },
+        {
+          "id": "p1",
+          "hp": 89,
+          "x": 3141.8286089043963,
+          "y": 6041.202684566387,
+          "ammo": {
+            "primary": {
+              "id": "smg",
+              "ammo": 33,
+              "reserve": 295,
+              "reload": 0,
+              "cooldown": 0,
+              "recoil": 0
+            },
+            "secondary": {
+              "id": "pistol",
+              "ammo": 12,
+              "reserve": 84,
+              "reload": 0,
+              "cooldown": 0,
+              "recoil": 0
+            }
+          },
+          "goal": {
+            "x": 3064.2106218496338,
+            "y": 6040
+          },
+          "path": [
+            {
+              "x": 3475,
+              "y": 5975
+            },
+            {
+              "x": 3425,
+              "y": 5975
+            },
+            {
+              "x": 3375,
+              "y": 5975
+            },
+            {
+              "x": 3325,
+              "y": 5975
+            }
+          ]
+        }
+      ],
+      "tickMs": {
+        "p50": 0.0677619999999024,
+        "p95": 2.1557350000000497,
+        "max": 37.659771999999975
+      }
+    }
+  ]
+}

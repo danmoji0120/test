@@ -1,0 +1,3 @@
+src/shared/snapshot.ts(17,10): error TS7023: 'decodeVision' implicitly has return type 'any' because it does not have a return type annotation and is referenced directly or indirectly in one of its return expressions.
+src/shared/snapshot.ts(19,9): error TS7022: 'base' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+src/shared/snapshot.ts(20,9): error TS7022: 'explored' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.

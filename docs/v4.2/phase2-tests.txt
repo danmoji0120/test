@@ -1,0 +1,98 @@
+
+> project-doll-squad@0.4.1 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 46.9 seconds [
+  { hp: 100, kills: 3, ammo: 220 },
+  { hp: 100, kills: 1, ammo: 220 },
+  { hp: 100, kills: 0, ammo: 240 },
+  { hp: 100, kills: 1, ammo: 240 }
+]
+
+ ❯ tests/game.test.ts (35 tests | 1 failed) 4515ms
+   ✓ seed and collision geometry > reproduces the map and varies layout across seeds 28ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  940ms
+   ✓ seed and collision geometry > blocks movement and supports sliding along walls 5ms
+   ✓ seed and collision geometry > blocks lines of sight and rays at the closest surface 10ms
+   ✓ server combat rules > ar consumes one shell/cartridge and emits the correct number of rays 19ms
+   ✓ server combat rules > smg consumes one shell/cartridge and emits the correct number of rays 11ms
+   ✓ server combat rules > sg consumes one shell/cartridge and emits the correct number of rays 6ms
+   ✓ server combat rules > ar deals damage with line of sight 6ms
+   ✓ server combat rules > smg deals damage with line of sight 8ms
+   ✓ server combat rules > sg deals damage with line of sight 7ms
+   ✓ server combat rules > stops shots at cover and never damages friendlies 8ms
+   ✓ server combat rules > reload conserves total ammunition and cannot fire during reload 16ms
+   ✓ server combat rules > sprinting disables fire and normalized diagonal speed stays bounded 7ms
+   ✓ server combat rules > revives a teammate with continuous nearby input; support is faster 10ms
+   ✓ server combat rules > does not revive through a wall or from far away 10ms
+   ✓ server combat rules > fails once all connected operators are down 9ms
+   ✓ server combat rules > AI cannot see through a wall or walk into solid cover 44ms
+   ✓ server combat rules > shot events and dead enemy state stay bounded under repeated combat 15ms
+   ✓ mission objectives > simultaneous supply interaction cannot duplicate resupply 12ms
+   ✓ mission objectives > starts with a populated theatre and no guard-clearance gate 6ms
+   ✓ mission objectives > requires every connected teammate at extraction and ignores disconnected clients 11ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  1607ms
+   ✓ generators are independently damageable from insertion while enemies remain alive 9ms
+   ✓ shotgun has ten separately resolved rays but one discharge without invented pellet hits 11ms
+   ✓ sustained automatic fire builds recoil and releasing the trigger recovers it 13ms
+   ✓ never boards an inbound transport and gives boarding priority at its departure boundary 8ms
+   ✓ different seeds change facility footprints, hall connections and machinery 72ms
+   ✓ AR uses three close torso hits while SMG uses a faster four-round stream 12ms
+   × completes an operation with discrete WASD held for 100ms updates without waypoint oscillation 1544ms
+     → expected 'failed' to be 'success' // Object.is equality
+   ✓ hits the visible upper torso instead of requiring shots at an enemy's feet 6ms
+   ✓ connects a physically clear cover corner to a free navigation start cell 4ms
+   ✓ freezes combat immediately after boarding instead of damaging escaped teammates 9ms
+   ✓ fires within a quarter second of aligned visual contact; aiming cannot snap through 180 degrees 10ms
+   ✓ relays the observed position to nearby guards but forgets it behind cover 14ms
+   ✓ uses a free flanking goal and anchors a heavy gun at a cover corner 6ms
+ ✓ tests/region.test.ts (3 tests) 1239ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  1076ms
+ ✓ tests/terrain.test.ts (3 tests) 1401ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  705ms
+   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  694ms
+ ✓ tests/network.test.ts (6 tests) 6376ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2626ms
+   ✓ authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect  2321ms
+ ✓ tests/objective-armor-paths.test.ts (1 test) 630ms
+   ✓ keeps an AP1-accessible reachable rear core for both generators across100 seeds, so non-AT primaries are never equipment-locked  629ms
+ ✓ tests/reinforcements.test.ts (5 tests) 845ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  593ms
+ ✓ tests/heavy-combat.test.ts (13 tests) 256ms
+ ✓ tests/difficulty.test.ts (1 test) 276ms
+ ✓ tests/response.test.ts (9 tests) 205ms
+ ✓ tests/combat-system.test.ts (24 tests) 217ms
+ ✓ tests/objectives.test.ts (5 tests) 105ms
+ ✓ tests/visibility.test.ts (6 tests) 88ms
+ ✓ tests/perception.test.ts (5 tests) 90ms
+ ✓ tests/snapshot.test.ts (1 test) 49ms
+ ✓ tests/mission-graph.test.ts (5 tests) 5ms
+ ✓ tests/store.test.ts (2 tests) 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/game.test.ts > completes an operation with discrete WASD held for 100ms updates without waypoint oscillation
+AssertionError: expected 'failed' to be 'success' // Object.is equality
+
+Expected: "success"
+Received: "failed"
+
+ ❯ tests/game.test.ts:408:27
+    406|     tick(w, 1 / 30);
+    407|   }
+    408|   expect(w.mission.stage).toBe("success");
+       |                           ^
+    409| });
+    410|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 15 passed (16)
+      Tests  1 failed | 123 passed (124)
+   Start at  05:21:34
+   Duration  19.45s (transform 328ms, setup 0ms, collect 857ms, tests 16.30s, environment 2ms, prepare 686ms)

@@ -1,0 +1,10 @@
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/game.test.ts (35 tests | 34 skipped) 1181ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  1179ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 34 skipped (35)
+   Start at  05:23:22
+   Duration  1.67s (transform 250ms, setup 0ms, collect 323ms, tests 1.18s, environment 0ms, prepare 52ms)

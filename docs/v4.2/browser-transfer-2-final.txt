@@ -1,0 +1,54 @@
+DOLL SQUAD ready: http://localhost:3432
+STAGE recon 2.1
+PLAY 2 아리아:100hp/0k@7380,260 루나:100hp/0k@7440,260 enemies 0
+STAGE operate 21.6
+PLAY 29 아리아:89hp/0k@5143,419 루나:100hp/0k@5072,356 enemies 1
+PLAY 55 아리아:89hp/1k@3236,642 루나:100hp/1k@2879,805 enemies 1
+PLAY 80 아리아:45hp/2k@943,1751 루나:100hp/1k@1056,1578 enemies 1
+PLAY 106 아리아:89hp/2k@848,2875 루나:89hp/3k@839,2948 enemies 0
+PLAY 132 아리아:89hp/3k@1908,2869 루나:89hp/3k@2031,2809 enemies 0
+PLAY 157 아리아:89hp/3k@5171,1371 루나:89hp/3k@5111,1517 enemies 1
+RECONNECT PASS
+PLAY 183 아리아:100hp/4k@4649,2208 루나:100hp/3k@4699,2478 enemies 0
+PLAY 209 아리아:44hp/5k@4642,3817 루나:78hp/5k@4595,3650 enemies 0
+PLAY 234 아리아:100hp/5k@4007,4745 루나:100hp/5k@4042,4966 enemies 0
+STAGE extract 246.0
+PLAY 260 아리아:100hp/5k@2704,5990 루나:100hp/5k@2704,6076 enemies 0
+page.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('[data-action="return"]')[22m
+[2m    - locator resolved to <button disabled class="primary" data-action="return">…</button>[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not enabled[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at <anonymous> (/workspace/doll-squad/scripts/browser-qa.ts:449:18) {
+  log: [
+    `  - waiting for locator('[data-action="return"]')`,
+    '    - locator resolved to <button disabled class="primary" data-action="return">…</button>',
+    '  - attempting click action',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '    - waiting 20ms',
+    '    2 × waiting for element to be visible, enabled and stable',
+    '      - element is not enabled',
+    '    - retrying click action',
+    '      - waiting 100ms',
+    '    58 × waiting for element to be visible, enabled and stable',
+    '       - element is not enabled',
+    '     - retrying click action',
+    '       - waiting 500ms'
+  ],
+  name: 'TimeoutError'
+}

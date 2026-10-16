@@ -1,0 +1,6 @@
+{"mission":"launch","count":1,"seed":103,"result":"failed","seconds":83,"order":["launch:power","launch:code"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"reactor","count":1,"seed":103,"result":"failed","seconds":69,"order":["reactor:security","reactor:cooling","reactor:reactor"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"transfer","count":1,"seed":103,"result":"failed","seconds":58,"order":["transfer:auth","transfer:case"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"survey","count":1,"seed":103,"result":"failed","seconds":21,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"blitz","count":1,"seed":103,"result":"failed","seconds":17,"order":["blitz:factory-3"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"defense","count":1,"seed":103,"result":"failed","seconds":12,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}

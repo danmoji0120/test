@@ -1,0 +1,288 @@
+{
+  "method": "Actual production WebSocket and DOM inputs, ordinary insertion, no world mutation; UI only, not mission completion",
+  "records": [
+    {
+      "mission": "launch",
+      "operation": {
+        "missionId": "launch",
+        "profile": "large",
+        "deployment": 1,
+        "generatorVersion": 42
+      },
+      "width": 9600,
+      "height": 6300,
+      "spawn": {
+        "x": 9226.428619143553,
+        "y": 6040
+      },
+      "me": {
+        "x": 9226.428619143553,
+        "y": 6040
+      },
+      "terrain": {
+        "chunks": 6,
+        "created": 6,
+        "evicted": 0,
+        "canvasBytes": 25165824,
+        "generationMs": [
+          4.200000002980232,
+          2.7000000029802322,
+          6.4000000059604645,
+          2.9000000059604645,
+          3.6000000089406967,
+          2.7999999970197678
+        ]
+      },
+      "tactical": {
+        "zoom": 1.2,
+        "pan": {
+          "x": 50,
+          "y": 20
+        }
+      },
+      "cameraBefore": {
+        "x": 8819.517629597914,
+        "y": 5860.9780006739575
+      },
+      "cameraAfter": {
+        "x": 8819.512207411122,
+        "y": 5860.9756151627635
+      },
+      "primaryAmmo": 30
+    },
+    {
+      "mission": "reactor",
+      "operation": {
+        "missionId": "reactor",
+        "profile": "large",
+        "deployment": 1,
+        "generatorVersion": 42
+      },
+      "width": 9600,
+      "height": 6300,
+      "spawn": {
+        "x": 260,
+        "y": 2266.647870838642
+      },
+      "me": {
+        "x": 260,
+        "y": 2266.647870838642
+      },
+      "terrain": {
+        "chunks": 4,
+        "created": 4,
+        "evicted": 0,
+        "canvasBytes": 16777216,
+        "generationMs": [
+          4.0999999940395355,
+          4,
+          3.2999999970197678,
+          3.7000000029802322
+        ]
+      },
+      "tactical": {
+        "zoom": 1.2,
+        "pan": {
+          "x": 50,
+          "y": 20
+        }
+      },
+      "cameraBefore": {
+        "x": 780.4823858214714,
+        "y": 2266.647870838642
+      },
+      "cameraAfter": {
+        "x": 780.4877775946882,
+        "y": 2266.647870838642
+      },
+      "primaryAmmo": 30
+    },
+    {
+      "mission": "transfer",
+      "operation": {
+        "missionId": "transfer",
+        "profile": "large",
+        "deployment": 1,
+        "generatorVersion": 42
+      },
+      "width": 9600,
+      "height": 6300,
+      "spawn": {
+        "x": 6493.672949913889,
+        "y": 260
+      },
+      "me": {
+        "x": 6493.672949913889,
+        "y": 260
+      },
+      "terrain": {
+        "chunks": 3,
+        "created": 3,
+        "evicted": 0,
+        "canvasBytes": 12582912,
+        "generationMs": [
+          3.7000000029802322,
+          3.5999999940395355,
+          2.9000000059604645
+        ]
+      },
+      "tactical": {
+        "zoom": 1.2,
+        "pan": {
+          "x": 50,
+          "y": 20
+        }
+      },
+      "cameraBefore": {
+        "x": 6493.672949913889,
+        "y": 439.0229213974979
+      },
+      "cameraAfter": {
+        "x": 6493.672949913889,
+        "y": 439.02438439863346
+      },
+      "primaryAmmo": 30
+    },
+    {
+      "mission": "survey",
+      "operation": {
+        "missionId": "survey",
+        "profile": "expanded",
+        "deployment": 1,
+        "generatorVersion": 42
+      },
+      "width": 12800,
+      "height": 8400,
+      "spawn": {
+        "x": 9990.215480793267,
+        "y": 8140
+      },
+      "me": {
+        "x": 9990.215480793267,
+        "y": 8140
+      },
+      "terrain": {
+        "chunks": 6,
+        "created": 6,
+        "evicted": 0,
+        "canvasBytes": 25165824,
+        "generationMs": [
+          3.9000000059604645,
+          3.7000000029802322,
+          8,
+          3.2000000029802322,
+          2.5999999940395355,
+          1.7000000029802322
+        ]
+      },
+      "tactical": {
+        "zoom": 1.2,
+        "pan": {
+          "x": 50,
+          "y": 20
+        }
+      },
+      "cameraBefore": {
+        "x": 9990.215480793267,
+        "y": 7960.976985613819
+      },
+      "cameraAfter": {
+        "x": 9990.215480793267,
+        "y": 7960.975613421113
+      },
+      "primaryAmmo": 30
+    },
+    {
+      "mission": "blitz",
+      "operation": {
+        "missionId": "blitz",
+        "profile": "standard",
+        "deployment": 1,
+        "generatorVersion": 42
+      },
+      "width": 6400,
+      "height": 4200,
+      "spawn": {
+        "x": 2027.0959058310837,
+        "y": 260
+      },
+      "me": {
+        "x": 2027.0959058310837,
+        "y": 260
+      },
+      "terrain": {
+        "chunks": 2,
+        "created": 2,
+        "evicted": 0,
+        "canvasBytes": 8388608,
+        "generationMs": [
+          7.5999999940395355,
+          4
+        ]
+      },
+      "tactical": {
+        "zoom": 1.2,
+        "pan": {
+          "x": 50,
+          "y": 20
+        }
+      },
+      "cameraBefore": {
+        "x": 2027.0959058310837,
+        "y": 439.0214775530836
+      },
+      "cameraAfter": {
+        "x": 2027.0959058310837,
+        "y": 439.02436376276694
+      },
+      "primaryAmmo": 30
+    },
+    {
+      "mission": "defense",
+      "operation": {
+        "missionId": "defense",
+        "profile": "compact",
+        "deployment": 1,
+        "generatorVersion": 42
+      },
+      "width": 3200,
+      "height": 2400,
+      "spawn": {
+        "x": 2940,
+        "y": 353.5132055869326
+      },
+      "me": {
+        "x": 2940,
+        "y": 353.5132055869326
+      },
+      "terrain": {
+        "chunks": 3,
+        "created": 3,
+        "evicted": 0,
+        "canvasBytes": 12582912,
+        "generationMs": [
+          4.899999991059303,
+          4,
+          2.2999999970197678
+        ]
+      },
+      "tactical": {
+        "zoom": 1.2,
+        "pan": {
+          "x": 50,
+          "y": 20
+        }
+      },
+      "cameraBefore": {
+        "x": 2419.5198010027484,
+        "y": 439.02314067019256
+      },
+      "cameraAfter": {
+        "x": 2419.5123095878575,
+        "y": 439.0243714382453
+      },
+      "primaryAmmo": 30
+    }
+  ],
+  "errors": []
+}

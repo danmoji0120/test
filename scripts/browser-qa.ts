@@ -27,6 +27,8 @@ const errors: string[] = [],
       p.avoidArmor = true;
     }
     if (process.env.QA_REVERSE === "1") p.reverse = true;
+    if (process.env.QA_SPLIT === "1") p.splitTargets = true;
+    if (process.env.QA_PROTECT === "1") p.protectTarget = true;
     return p;
   });
 mkdirSync("docs/screenshots", { recursive: true });
@@ -389,6 +391,11 @@ try {
     runId: final.room.world.id,
     metrics: final.room.world.metrics,
     operation: final.room.operation,
+    automation: {
+      strategy: pilots[0].strategy,
+      split: pilots[0].splitTargets,
+      protectTarget: pilots[0].protectTarget,
+    },
     missionId: final.room.world.mission.id,
     outcome: final.room.world.mission.outcome,
     timeline,

@@ -1,0 +1,5 @@
+{
+  "result": "QA aborted, not an in-game success or defeat",
+  "at": 185.8666666666587,
+  "reason": "Public navigation incorrectly preferred a discovered but locked data case over the available authorization objective. Also found browser-driver mousemove targeted window while production intentionally accepts battle-canvas aiming only."
+}

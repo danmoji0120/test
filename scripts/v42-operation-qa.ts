@@ -5,7 +5,13 @@ import {
   type MissionId,
 } from "../src/shared/missions";
 import { visibleWorld } from "../src/server/visibility";
-import type { World, PrimaryId, ConsumableId } from "../src/shared/data";
+import {
+  ENEMIES,
+  type World,
+  type PrimaryId,
+  type ConsumableId,
+} from "../src/shared/data";
+import { distance } from "../src/game/map";
 import { Pilot } from "./bot";
 import { mkdirSync, writeFileSync } from "node:fs";
 const output = process.env.QA_OUTPUT ?? "docs/v4.2/operations";
@@ -40,9 +46,17 @@ for (const mission of missions)
       );
       const pilots = players.map(() => {
         const p = new Pilot();
-        p.strategy = process.env.QA_STRATEGY === "all" ? "all" : "primary";
+        p.strategy =
+          process.env.QA_STRATEGY === "all"
+            ? "all"
+            : process.env.QA_STRATEGY === "evade"
+              ? "evade"
+              : "primary";
+        p.avoidArmor = process.env.QA_STRATEGY === "evade";
         p.reverse = process.env.QA_REVERSE === "1";
         p.reckless = process.env.QA_RECKLESS === "1";
+        p.splitTargets = process.env.QA_SPLIT === "1";
+        p.protectTarget = process.env.QA_PROTECT === "1";
         return p;
       });
       const phases: any[] = [],
@@ -94,6 +108,48 @@ for (const mission of missions)
         }
       }
       ticks.sort((a, b) => a - b);
+      const provenance = w.trajectories.map((t) => {
+        const source = w.map.sources.find((s) => s.id === t.source);
+        const req = w.reinforcements.find((r) => r.id === t.request);
+        const kind = req?.roster?.[req.members.indexOf(t.enemy)] ?? "rifle";
+        return {
+          enemy: t.enemy,
+          source: t.source,
+          request: t.request,
+          validOrigin:
+            !!source &&
+            (source.kind === "external"
+              ? t.born.x < 0 ||
+                t.born.x > w.map.width ||
+                t.born.y < 0 ||
+                t.born.y > w.map.height
+              : distance(t.born, source) < 130),
+          route: !!req?.path.length,
+          continuous: t.points.every(
+            (p, i) =>
+              i === 0 ||
+              distance(p, t.points[i - 1]) <=
+                Math.max(270, ENEMIES[kind].speed) *
+                  (p.at - t.points[i - 1].at) +
+                  2,
+          ),
+          samples: t.points.length,
+        };
+      });
+      if (
+        cargoViolations ||
+        provenance.some((t) => !t.validOrigin || !t.route || !t.continuous)
+      )
+        throw Error(
+          "Physical continuity violation: " +
+            JSON.stringify({
+              mission,
+              count,
+              seed,
+              provenance,
+              cargoViolations,
+            }),
+        );
       const row = {
         mission,
         count,
@@ -111,6 +167,7 @@ for (const mission of missions)
         objectiveOrder: w.metrics.objectiveOrder,
         phases,
         cargoViolations,
+        provenance,
         remainingEnemies: w.enemies.length,
         requests: w.reinforcements,
         trajectories: w.trajectories,

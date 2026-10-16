@@ -4,3 +4,35 @@ data/
 *.log
 
 .qa-private-*/
+
+# Keep original V4.2 browser captures locally; compact MP4 evidence is committed.
+/docs/v4.2/**/video/*.webm
+
+# Preserve intermediate V4.2 probes locally; commit final evidence and failure summaries.
+/docs/v4.2/defense-probe/
+/docs/v4.2/edge-cache-profile/
+/docs/v4.2/generation/
+/docs/v4.2/generation-final/
+/docs/v4.2/generation-release/
+/docs/v4.2/operation-probe/
+/docs/v4.2/operation-probe2/
+/docs/v4.2/render-debug/
+/docs/v4.2/render-functional/
+/docs/v4.2/render-probe/
+/docs/v4.2/render-readback-probe/
+/docs/v4.2/ui/
+/docs/v4.2/defense-probe-run.txt
+/docs/v4.2/edge-cache-profile.txt
+/docs/v4.2/generation-final-run.txt
+/docs/v4.2/generation-release-run.txt
+/docs/v4.2/operation-probe-run.txt
+/docs/v4.2/operation-probe2-run.txt
+/docs/v4.2/render-debug-run.txt
+/docs/v4.2/render-functional-run.txt
+/docs/v4.2/render-probe-run.txt
+/docs/v4.2/render-readback-probe-run.txt
+/docs/v4.2/ui-run.txt
+/docs/v4.2/ui-build.txt
+/docs/v4.2/world-generation-run.txt
+/docs/v4.2/browser/*/video/
+/docs/v4.2/**/video/encode.txt

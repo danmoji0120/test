@@ -20,7 +20,11 @@
     "qa:dev": "tsx scripts/dev-qa-session.ts",
     "qa:v41": "tsx scripts/v41-operation-qa.ts",
     "qa:v4": "tsx scripts/v4-simulation-qa.ts",
-    "qa:server-stress": "tsx scripts/v4-server-stress.ts"
+    "qa:server-stress": "tsx scripts/v4-server-stress.ts",
+    "qa:v42:world": "tsx scripts/v42-world-qa.ts",
+    "qa:v42:operations": "tsx scripts/v42-operation-qa.ts",
+    "qa:v42:browser": "tsx scripts/v42-browser-suite.ts",
+    "qa:v42:performance": "tsx scripts/v42-performance-suite.ts"
   },
   "dependencies": {
     "vite": "^6.3.5",

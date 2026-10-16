@@ -1,0 +1,23 @@
+{
+  "method": "Final packaging inspection; reuses existing gameplay/seed QA. No new campaign.",
+  "baseline": "51f7432d82aac4abb070a110656a2043101d66f3",
+  "stagedPathsBeforeThisManifest": 397,
+  "stagedBytesBeforeThisManifest": 216173796,
+  "filesAtLeast100MiB": [],
+  "stagedArchivesAndVideos": [
+    "docs/v4.2/browser-release/transfer-2/video/capture.mp4"
+  ],
+  "videoSha256": "19c1b68855d1019336eeb667ed3cebd9709695f618fb87065f160b57c6245008",
+  "preservedLocallyOnly": [
+    "raw V4.2 WebM",
+    "duplicate intermediate videos",
+    "temporary probes and duplicate UI captures"
+  ],
+  "verification": {
+    "existingFullSuite": "19 files / 145 tests passed",
+    "finalBuild": "TypeScript and production build passed",
+    "minimalRegression": "2 files / 4 tests passed",
+    "existingNativeRecords": "10 runs / 7 success / 3 failure; 162 reinforcement trajectories / 7678 samples / 0 violations",
+    "documentationLinks": "11 documents; 0 missing / untracked local links"
+  }
+}

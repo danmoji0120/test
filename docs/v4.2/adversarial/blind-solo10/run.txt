@@ -1,0 +1,18 @@
+{"mission":"launch","count":1,"seed":7,"result":"failed","seconds":38,"order":["launch:power"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"launch","count":1,"seed":42,"result":"failed","seconds":37,"order":["launch:power"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"launch","count":1,"seed":103,"result":"success","seconds":98,"order":["launch:power","launch:code","launch:launch"],"reason":"작전 목표 달성 · 수송기 탑승 및 분대 귀환","cargoViolations":0}
+{"mission":"reactor","count":1,"seed":7,"result":"failed","seconds":15,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"reactor","count":1,"seed":42,"result":"failed","seconds":22,"order":["reactor:security"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"reactor","count":1,"seed":103,"result":"success","seconds":73,"order":["reactor:security","reactor:reactor"],"reason":"작전 목표 달성 · 수송기 탑승 및 분대 귀환","cargoViolations":0}
+{"mission":"transfer","count":1,"seed":7,"result":"failed","seconds":12,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"transfer","count":1,"seed":42,"result":"failed","seconds":17,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"transfer","count":1,"seed":103,"result":"failed","seconds":17,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"survey","count":1,"seed":7,"result":"failed","seconds":26,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"survey","count":1,"seed":42,"result":"failed","seconds":13,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"survey","count":1,"seed":103,"result":"failed","seconds":56,"order":["survey:survey-b"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"blitz","count":1,"seed":7,"result":"failed","seconds":59,"order":["blitz:factory-4","blitz:factory-2","blitz:factory-3"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"blitz","count":1,"seed":42,"result":"failed","seconds":30,"order":["blitz:factory-1","blitz:factory-4"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"blitz","count":1,"seed":103,"result":"failed","seconds":47,"order":["blitz:factory-1","blitz:factory-2","blitz:factory-3"],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"defense","count":1,"seed":7,"result":"failed","seconds":7,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"defense","count":1,"seed":42,"result":"failed","seconds":10,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
+{"mission":"defense","count":1,"seed":103,"result":"failed","seconds":3,"order":[],"reason":"모든 오퍼레이터가 쓰러졌습니다","cargoViolations":0}
