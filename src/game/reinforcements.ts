@@ -39,16 +39,33 @@ export function initializeTheatre(w: World) {
         s.supports.push("artillery");
     }
   }
-  for (const z of w.map.zones.slice(0, 6))
+  const guardZones = w.mission.id
+    ? w.map.zones
+        .filter((z) => !["supply", "radar"].includes(z.role ?? ""))
+        .sort(
+          (a, b) =>
+            Number(
+              w.mission.objectives.some(
+                (o) => !o.optional && o.locationId === `site:${b.id}`,
+              ),
+            ) -
+            Number(
+              w.mission.objectives.some(
+                (o) => !o.optional && o.locationId === `site:${a.id}`,
+              ),
+            ),
+        )
+    : w.map.zones.slice(0, 6);
+  for (const [zoneIndex, z] of guardZones.entries())
     for (
       let i = 0;
       i <
-      Math.floor(config.guardCount / 6) +
-        (z.id < config.guardCount % 6 ? 1 : 0);
+      Math.floor(config.guardCount / guardZones.length) +
+        (zoneIndex < config.guardCount % guardZones.length ? 1 : 0);
       i++
     ) {
       const p = z.pads[i % z.pads.length];
-      if (!p) continue;
+      if (!p || (w.mission.id && distance(p, w.map.spawn) < 650)) continue;
       spawnEnemy(
         w,
         p,
@@ -93,9 +110,17 @@ export function initializeTheatre(w: World) {
   for (const [i, kind] of specials.entries()) {
     const site = w.map.zones[i % 2 === 0 ? 0 : 1],
       anchor =
-        kind === "artillery"
-          ? w.map.sources.find((s) => s.kind === "external")!.entry
-          : site.entry;
+        kind === "artillery" &&
+        w.mission.id &&
+        w.map.installations.some((d) => d.role === "artillery")
+          ? w.map.zones.find(
+              (z) =>
+                z.id ===
+                w.map.installations.find((d) => d.role === "artillery")!.zoneId,
+            )!.entry
+          : kind === "artillery"
+            ? w.map.sources.find((s) => s.kind === "external")!.entry
+            : site.entry;
     for (let n = 0; n < 24; n++) {
       const a = n * 2.399 + i * 1.3,
         r = kind === "artillery" ? 130 + n * 15 : 120 + n * 12,
@@ -242,7 +267,7 @@ export function requestSupport(
       arrived: -1,
       eta:
         w.time +
-        s.prepare +
+        s.prepare * (s.radioDelay ?? 1) +
         (path.length * 50) /
           (Math.min(...roster.map((k) => ENEMIES[k].speed)) * 0.9),
       state: "queued",
@@ -250,7 +275,7 @@ export function requestSupport(
     };
     for (const e of members) e.requestId = r.id;
     s.cooldown = s.interval;
-    s.warning = w.time + s.prepare;
+    s.warning = w.time + s.prepare * (s.radioDelay ?? 1);
     w.reinforcements.push(r);
     w.dispatchKeys[key] = r.id;
     audit(w, "queued", `${r.id} ${s.id} ${roster.join("+")} ${r.task}`);
@@ -369,7 +394,7 @@ export function tickReinforcements(w: World, dt: number) {
         ),
         prep =
           s.prepare *
-          (comms ? 1 : 1.8) *
+          (w.mission.id ? (s.radioDelay ?? 1) : comms ? 1 : 1.8) *
           (w.alertState.level >= 3 ? 0.7 : 1) *
           (s.kind === "external" && r.roster?.some(armored) && !motorpool
             ? 2.3

@@ -14,9 +14,23 @@ export async function drive(page: Page, input: Input) {
     if (input.reload) wanted.add("r");
     if (input.interact) wanted.add("e");
     if (input.revive) wanted.add("f");
+    if (input.drop) wanted.add("x");
     if (input.slot) wanted.add(String(input.slot));
     const old: Set<string> = (window as any).__qaKeys || new Set();
-    for (const k of ["w", "a", "s", "d", "Shift", "r", "e", "f", "1", "2", "3"])
+    for (const k of [
+      "w",
+      "a",
+      "s",
+      "d",
+      "Shift",
+      "r",
+      "e",
+      "f",
+      "x",
+      "1",
+      "2",
+      "3",
+    ])
       document.body.dispatchEvent(
         new KeyboardEvent(wanted.has(k) ? "keydown" : "keyup", {
           key: k,
@@ -45,10 +59,11 @@ export async function drive(page: Page, input: Input) {
           q.camera.y) *
           zoom +
         innerHeight / 2;
-    window.dispatchEvent(
+    const canvas = document.querySelector("#battle")!;
+    canvas.dispatchEvent(
       new MouseEvent("mousemove", { clientX: x, clientY: y, bubbles: true }),
     );
-    const canvas = document.querySelector("canvas")!;
+
     for (const [field, button, on] of [
       ["__qaFire", 0, input.fire],
       ["__qaAim", 2, input.aim],

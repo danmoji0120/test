@@ -15,6 +15,7 @@ const knowledge = new WeakMap<
     doors: Map<string, Rect>;
     supplies: Map<number, boolean>;
     revision: number;
+    cargo?: boolean;
   }
 >();
 /** Team-shared remembered facilities; hidden military state and precise sound origins never cross the wire. */
@@ -25,6 +26,7 @@ export function visibleWorld(w: World) {
     doors: new Map(),
     supplies: new Map(),
     revision: 0,
+    cargo: false,
   };
   knowledge.set(w, k);
   for (const d of w.map.obstacles.filter((o) => o.kind === "door"))
@@ -43,12 +45,32 @@ export function visibleWorld(w: World) {
     if (squadSees(w, s)) k.supplies.set(i, s.used);
   });
   for (const d of w.map.installations)
-    if (d.kind === "generator" || squadSees(w, d))
+    if ((!w.mission.id && d.kind === "generator") || squadSees(w, d)) {
+      if (w.mission.id && !k.fac.has(d.id)) k.revision++;
       k.fac.set(d.id, {
         ...d,
         components: d.components ? structuredClone(d.components) : undefined,
         discovered: true,
       });
+    }
+  if (w.mission.id)
+    for (const d of w.map.installations) {
+      const o = w.mission.objectives.find((o) => o.facilityId === d.id);
+      if (o?.discovered && !k.fac.has(d.id)) {
+        k.revision++;
+        k.fac.set(d.id, {
+          ...d,
+          hp: d.maxHp,
+          components: undefined,
+          discovered: true,
+        });
+      }
+    }
+  if (
+    w.mission.cargo &&
+    (w.mission.cargo.carrier || squadSees(w, w.mission.cargo))
+  )
+    k.cargo = true;
   for (const s of w.map.sources)
     if (squadSees(w, s.entry))
       k.sources.set(s.id, {
@@ -124,31 +146,74 @@ export function visibleWorld(w: World) {
       : {}),
     map: {
       ...w.map,
+      missionNodes: undefined,
+      generation: w.map.generation
+        ? {
+            version: w.map.generation.version,
+            signature: w.map.generation.signature,
+            attempts: w.map.generation.attempts,
+            diagnostics: [],
+          }
+        : undefined,
+      intel: w.mission.id ? { x: 0, y: 0 } : w.map.intel,
       obstacles: w.map.obstacles.map((o) =>
         o.kind === "door" ? (k.doors.get(o.id!) ?? { ...o, open: false }) : o,
       ),
-      supplies: w.map.supplies.map((s, i) => ({
-        ...s,
-        used: k.supplies.get(i) ?? false,
-      })),
-      zones: w.map.zones.map(({ pads, ...z }) => ({ ...z, pads: [] })),
+      supplies: w.map.supplies.flatMap((s, i) =>
+        w.mission.id && !k.supplies.has(i)
+          ? []
+          : [{ ...s, used: k.supplies.get(i) ?? false }],
+      ),
+      zones: w.map.zones.map(({ pads, ...z }) =>
+        w.mission.id && ![...k.fac.values()].some((d) => d.zoneId === z.id)
+          ? {
+              ...z,
+              label: "미확인 구역",
+              role: undefined,
+              kind: "yard",
+              pads: [],
+            }
+          : { ...z, pads: [] },
+      ),
       patrols: [],
       installations: [...k.fac.values()],
       sources: [...k.sources.values()],
     },
     mission: {
       ...w.mission,
+      cargo: !w.mission.id || k.cargo ? w.mission.cargo : undefined,
       objectives: w.mission.objectives.map((o) =>
-        o.discovered || !o.optional || o.state === "complete"
-          ? o
-          : {
-              ...o,
-              position: {
-                x: Math.round(o.position.x / 400) * 400,
-                y: Math.round(o.position.y / 400) * 400,
+        w.mission.id
+          ? o.discovered || o.known === "exact" || o.state === "complete"
+            ? o
+            : {
+                ...o,
+                label: o.optional ? "미확인 신호" : o.label,
+                kind: o.optional ? "intel" : o.kind,
+                action: o.optional ? undefined : o.action,
+                effect: undefined,
+                facilityId: undefined,
+                locationId: undefined,
+                operatingPoint: undefined,
+                position:
+                  o.known === "region"
+                    ? {
+                        x: Math.round(o.position.x / 750) * 750,
+                        y: Math.round(o.position.y / 750) * 750,
+                      }
+                    : { x: 0, y: 0 },
+                progress: 0,
+              }
+          : o.discovered || !o.optional || o.state === "complete"
+            ? o
+            : {
+                ...o,
+                position: {
+                  x: Math.round(o.position.x / 400) * 400,
+                  y: Math.round(o.position.y / 400) * 400,
+                },
+                progress: 0,
               },
-              progress: 0,
-            },
       ),
     },
     difficulty: w.difficulty,

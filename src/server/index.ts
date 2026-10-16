@@ -1,3 +1,5 @@
+import { operationBrief } from "../game/operation-brief";
+import { operationOptions, isMissionId, isProfileId } from "../shared/missions";
 import { validateLoadout, isPrimary, migrateLoadout } from "../shared/loadout";
 import {
   timerSample,
@@ -125,6 +127,16 @@ function view(room: Room) {
     seed: room.seed,
     difficulty: room.difficulty,
     contract: room.contract,
+    operation: room.operation,
+    brief:
+      room.phase === "lobby" && room.operation
+        ? operationBrief(
+            room.seed,
+            room.operation,
+            room.difficulty,
+            room.players.filter((p) => p.connected).length,
+          )
+        : undefined,
     players: room.players.map(({ input, inputAt, ...p }) => p),
     world: room.world ? visibleWorld(room.world) : null,
   };
@@ -160,7 +172,20 @@ function leave(c: Client) {
   c.room = undefined;
   broadcast(r);
 }
-function cleanInput(data: Record<string, unknown>): Input {
+function checkedOperation(data: any) {
+  if (
+    !isMissionId(data?.missionId) ||
+    !isProfileId(data?.profile) ||
+    data?.generatorVersion !== 42
+  )
+    throw Error("유효하지 않은 작전 설정");
+  return operationOptions(data.missionId, data.profile, data.deployment);
+}
+function cleanInput(
+  data: Record<string, unknown>,
+  width = 6400,
+  height = 4200,
+): Input {
   const num = (k: string, min: number, max: number) =>
     typeof data[k] === "number" && Number.isFinite(data[k])
       ? Math.max(min, Math.min(max, data[k] as number))
@@ -175,17 +200,18 @@ function cleanInput(data: Record<string, unknown>): Input {
     reload: data.reload === true,
     interact: data.interact === true,
     revive: data.revive === true,
+    drop: data.drop === true,
     slot:
       data.slot === 1 || data.slot === 2 || data.slot === 3
         ? data.slot
         : undefined,
     targetX:
       typeof data.targetX === "number" && Number.isFinite(data.targetX)
-        ? Math.max(0, Math.min(6400, data.targetX))
+        ? Math.max(0, Math.min(width, data.targetX))
         : undefined,
     targetY:
       typeof data.targetY === "number" && Number.isFinite(data.targetY)
-        ? Math.max(0, Math.min(4200, data.targetY))
+        ? Math.max(0, Math.min(height, data.targetY))
         : undefined,
   };
 }
@@ -245,7 +271,11 @@ wss.on("connection", (ws) => {
       if (m.type === "input") {
         const p = c.room?.players.find((p) => p.id === c!.id);
         if (p && c.room?.phase === "playing") {
-          p.input = cleanInput(m);
+          p.input = cleanInput(
+            m,
+            c.room.world?.map.width,
+            c.room.world?.map.height,
+          );
           p.inputAt = Date.now();
         }
         return;
@@ -292,6 +322,7 @@ wss.on("connection", (ws) => {
             seed: Math.floor(Math.random() * 999999),
             difficulty: 3,
             contract: "blackout",
+            operation: m.operation ? checkedOperation(m.operation) : undefined,
             world: null,
             emptyAt: 0,
             run: 0,
@@ -383,6 +414,11 @@ wss.on("connection", (ws) => {
       }
       if (m.type === "ready" && r.phase === "lobby") p.ready = !p.ready;
       if (m.type === "settings" && r.phase === "lobby" && r.host === c.id) {
+        const nextOperation = m.operation
+          ? checkedOperation(m.operation)
+          : r.operation;
+        if (nextOperation) r.operation = nextOperation;
+        if (r.operation) r.players.forEach((p) => (p.ready = false));
         if (Number.isInteger(m.seed) && m.seed >= 0 && m.seed <= 999999)
           r.seed = m.seed;
         if (m.contract === "blackout" || m.contract === "recon")
@@ -400,12 +436,25 @@ wss.on("connection", (ws) => {
           error(c, "모든 오퍼레이터가 준비해야 합니다.");
           return;
         }
+        if (r.operation) {
+          const brief = operationBrief(
+            r.seed,
+            r.operation,
+            r.difficulty,
+            r.players.filter((p) => p.connected).length,
+          );
+          if (brief.error) {
+            error(c, brief.error);
+            return;
+          }
+        }
         r.world = createWorld(
           randomUUID(),
           r.seed,
           r.players,
           r.difficulty,
           r.contract,
+          r.operation,
         );
         r.phase = "playing";
         r.run++;

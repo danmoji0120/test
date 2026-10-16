@@ -15,12 +15,26 @@ export function paintTerrain(
   g: CanvasRenderingContext2D,
   w: World,
   atlas: HTMLImageElement,
+  bounds = { x: 0, y: 0, w: w.map.width, h: w.map.height },
 ) {
   const m = w.map,
-    random = rng(m.seed + 1009);
+    random = rng(m.seed + 1009),
+    intersects = (x: number, y: number, width: number, height: number) =>
+      x + width >= bounds.x &&
+      y + height >= bounds.y &&
+      x <= bounds.x + bounds.w &&
+      y <= bounds.y + bounds.h;
   // Continuous field rather than steel tiles: broad strata, fine sand and scattered gravel.
-  for (let y = 0; y < m.height; y += 24)
-    for (let x = 0; x < m.width; x += 24) {
+  for (
+    let y = Math.floor(bounds.y / 24) * 24;
+    y < Math.min(m.height, bounds.y + bounds.h);
+    y += 24
+  )
+    for (
+      let x = Math.floor(bounds.x / 24) * 24;
+      x < Math.min(m.width, bounds.x + bounds.w);
+      x += 24
+    ) {
       const h = elevation(x, y, m.seed),
         shade = terrainNoise(x / 1400, y / 1400, m.seed + 143),
         r = 82 + h * 57 + shade * 14,
@@ -29,13 +43,39 @@ export function paintTerrain(
       g.fillStyle = `rgb(${r | 0},${green | 0},${blue | 0})`;
       g.fillRect(x, y, 25, 25);
     }
-  for (let i = 0; i < 22000; i++) {
-    const x = random() * m.width,
-      y = random() * m.height;
-    g.fillStyle = i % 3 ? "#c5af7922" : "#211f1d35";
-    g.fillRect(x, y, 1 + random() * 4, 1 + random() * 2);
-  }
+  // Each globally aligned gravel cell owns its random samples; LRU/load order cannot change detail.
+  for (
+    let cy = Math.floor((bounds.y - 16) / 128);
+    cy <= Math.floor((bounds.y + bounds.h + 16) / 128);
+    cy++
+  )
+    for (
+      let cx = Math.floor((bounds.x - 16) / 128);
+      cx <= Math.floor((bounds.x + bounds.w + 16) / 128);
+      cx++
+    ) {
+      const sample = rng(
+        m.seed ^ Math.imul(cx, 73856093) ^ Math.imul(cy, 19349663),
+      );
+      for (let i = 0; i < 14; i++) {
+        const x = cx * 128 + sample() * 128,
+          y = cy * 128 + sample() * 128;
+        g.fillStyle = i % 3 ? "#c5af7922" : "#211f1d35";
+        g.fillRect(x, y, 1 + sample() * 4, 1 + sample() * 2);
+      }
+    }
   for (const road of m.roads) {
+    const xs = road.points.map((p) => p.x),
+      ys = road.points.map((p) => p.y);
+    if (
+      !intersects(
+        Math.min(...xs) - road.width,
+        Math.min(...ys) - road.width,
+        Math.max(...xs) - Math.min(...xs) + road.width * 2,
+        Math.max(...ys) - Math.min(...ys) + road.width * 2,
+      )
+    )
+      continue;
     g.lineCap = "round";
     g.lineJoin = "round";
     g.beginPath();
@@ -55,13 +95,15 @@ export function paintTerrain(
     g.setLineDash([]);
   }
   for (const z of m.zones) {
-    g.fillStyle = z.kind === "reactor" ? "#252e2b66" : "#36342d55";
+    if (!intersects(z.x - 40, z.y - 40, z.w + 80, z.h + 80)) continue;
+    g.fillStyle =
+      !m.operation && z.kind === "reactor" ? "#252e2b66" : "#36342d55";
     g.beginPath();
     g.roundRect(z.x - 40, z.y - 40, z.w + 80, z.h + 80, 70);
     g.fill();
     g.fillStyle = "#a8b6a83a";
     g.font = "bold 17px sans-serif";
-    g.fillText(z.label, z.x + 45, z.y + 65);
+    if (!m.operation) g.fillText(z.label, z.x + 45, z.y + 65);
     g.strokeStyle = "#bba17035";
     g.setLineDash([14, 14]);
     g.lineWidth = 2;
@@ -69,6 +111,8 @@ export function paintTerrain(
     g.setLineDash([]);
   }
   for (const d of m.terrain?.decor ?? []) {
+    if (!intersects(d.x - d.size, d.y - d.size, d.size * 2, d.size * 2))
+      continue;
     g.save();
     g.translate(d.x, d.y);
     g.rotate(d.angle);
@@ -85,6 +129,7 @@ export function paintTerrain(
     g.restore();
   }
   for (const o of m.obstacles) {
+    if (!intersects(o.x - 32, o.y - 32, o.w + 80, o.h + 100)) continue;
     if (o.kind === "door") continue;
     if (o.kind === "rock") {
       polygon(g, o, 13, 24);

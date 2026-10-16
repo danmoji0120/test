@@ -1,3 +1,5 @@
+import type { SpatialPlan } from "./world-plan";
+import { facilityGrammar } from "./facility-grammar";
 import type {
   GameMap,
   Rect,
@@ -23,11 +25,11 @@ export function segmentDistance(p: Vec, a: Vec, b: Vec) {
   return distance(p, { x: a.x + dx * t, y: a.y + dy * t });
 }
 /** Continuous seeded strategic sites inside a natural battlefield, with reserved navigable road loops. */
-export function region(seed: number): GameMap {
-  const random = rng(seed),
-    width = 6400,
-    height = 4200,
-    count = 6 + (seed % 2),
+export function region(seed: number, plan?: SpatialPlan): GameMap {
+  const random = rng(plan?.seed ?? seed),
+    width = plan?.width ?? 6400,
+    height = plan?.height ?? 4200,
+    count = plan?.sites.length ?? 6 + (seed % 2),
     obstacles: Rect[] = [],
     zones: Zone[] = [],
     roads: Road[] = [];
@@ -89,9 +91,30 @@ export function region(seed: number): GameMap {
                   ? "병영·정비 거점"
                   : "폐허 보급소",
       variant,
+      role: plan?.sites[id].role,
       entry: { x: center.x, y: center.y + h / 2 + 90 },
       pads: [],
     };
+    if (plan) {
+      z.label = plan.sites[id].label;
+      const side = variant % 4;
+      z.entry =
+        side === 0
+          ? { x: center.x + w / 2 + 90, y: center.y }
+          : side === 1
+            ? { x: center.x, y: center.y + h / 2 + 90 }
+            : side === 2
+              ? { x: center.x - w / 2 - 90, y: center.y }
+              : { x: center.x, y: center.y - h / 2 - 90 };
+      z.kind =
+        z.role === "reactor"
+          ? "reactor"
+          : z.role === "production"
+            ? "warehouse"
+            : ["command", "archive", "radar", "transmitter"].includes(z.role!)
+              ? "security"
+              : "yard";
+    }
     zones.push(z);
     const add = (
       x: number,
@@ -101,20 +124,30 @@ export function region(seed: number): GameMap {
       kind: Rect["kind"] = "wall",
     ) => obstacles.push({ x: z.x + x, y: z.y + y, w, h, kind });
     // Open gun pits, ruined corners, split hangars and U-shaped compounds have different footprints.
-    if (variant === 0) {
+    if (plan)
+      facilityGrammar(z, plan.sites[id].role, (x, y, cw, ch, kind) =>
+        add(
+          variant & 1 ? w - x - cw : x,
+          variant & 2 ? h - y - ch : y,
+          cw,
+          ch,
+          kind,
+        ),
+      );
+    if (!plan && variant === 0) {
       add(0, 0, w * 0.3, 30);
       add(0, 0, 30, h * 0.35);
       add(w - 30, h * 0.6, 30, h * 0.4);
       add(w * 0.65, h - 30, w * 0.35, 30);
     }
-    if (variant === 1) {
+    if (!plan && variant === 1) {
       add(0, 0, w * 0.35, 35);
       add(w * 0.65, 0, w * 0.35, 35);
       add(0, 0, 35, h * 0.6);
       add(w - 35, h * 0.4, 35, h * 0.6);
       add(w * 0.3, h - 35, w * 0.7, 35);
     }
-    if (variant === 2) {
+    if (!plan && variant === 2) {
       add(0, 0, w * 0.28, 35);
       add(w * 0.7, 0, w * 0.3, 35);
       add(0, h - 35, w * 0.28, 35);
@@ -123,14 +156,14 @@ export function region(seed: number): GameMap {
       add(w - 35, h * 0.7, 35, h * 0.3);
       add(100, 100, 65, 80, "container");
     }
-    if (variant === 3) {
+    if (!plan && variant === 3) {
       add(0, 0, w * 0.6, 35);
       add(0, 0, 35, h);
       add(w - 35, 0, 35, h * 0.4);
       add(0, h - 35, w * 0.3, 35);
       add(w * 0.6, h - 35, w * 0.4, 35);
     }
-    if (id === 3) {
+    if (!plan && id === 3) {
       add(110, 80, 70, 70, "crate");
       add(w - 150, h - 140, 60, 60, "container");
     }
@@ -167,10 +200,30 @@ export function region(seed: number): GameMap {
   const spawn = chooseEdge(side),
     extractions = [1, 2, 3].map((n) => chooseEdge((side + n) % 4));
   const entries = [
-    { x: 90, y: 1000 + Math.floor(random() * 500) },
-    { x: width - 90, y: 2600 + Math.floor(random() * 500) },
-    { x: 3600 + Math.floor(random() * 800), y: 90 },
-    { x: 1800 + Math.floor(random() * 800), y: height - 90 },
+    {
+      x: 90,
+      y:
+        (plan ? height * 0.24 : 1000) +
+        Math.floor(random() * (plan ? height * 0.1 : 500)),
+    },
+    {
+      x: width - 90,
+      y:
+        (plan ? height * 0.6 : 2600) +
+        Math.floor(random() * (plan ? height * 0.1 : 500)),
+    },
+    {
+      x:
+        (plan ? width * 0.55 : 3600) +
+        Math.floor(random() * (plan ? width * 0.12 : 800)),
+      y: 90,
+    },
+    {
+      x:
+        (plan ? width * 0.28 : 1800) +
+        Math.floor(random() * (plan ? width * 0.12 : 800)),
+      y: height - 90,
+    },
   ];
   // Borders have physical wide gates, suitable for heavy units.
   const gates = [
@@ -268,7 +321,11 @@ export function region(seed: number): GameMap {
     connect(best[0], best[1]);
     joined.add(best[1]);
   }
-  for (let n = 0, added = 0; n < 100 && added < 4; n++) {
+  for (
+    let n = 0, added = 0;
+    n < 200 && added < (plan ? Math.ceil(count * 0.7) : 4);
+    n++
+  ) {
     const a = Math.floor(random() * count),
       b = Math.floor(random() * count);
     if (
@@ -281,19 +338,52 @@ export function region(seed: number): GameMap {
       added++;
     }
   }
-  const installations: Installation[] = zones.slice(0, 6).map((z, i) => ({
-    id: "facility-" + i,
-    kind:
-      i < 2 ? "generator" : i === 2 ? "comms" : i < 5 ? "outpost" : "barracks",
-    x: z.center.x,
-    y: z.center.y,
-    hp: i < 2 ? 420 : 260,
-    maxHp: i < 2 ? 420 : 260,
-    sourceId: i >= 3 ? "source-" + i : undefined,
-    discovered: i < 2,
-  }));
+  const installations: Installation[] = plan
+    ? zones.map((z, i) => {
+        const n = plan.sites[i],
+          hp =
+            n.role === "beacon" ? 1000 : n.action === "destroy" ? n.work : 260;
+        return {
+          id: `installation-${plan.options.missionId}-${n.id}`,
+          objectiveId: n.id,
+          zoneId: z.id,
+          role: n.role,
+          kind:
+            n.role === "reactor"
+              ? "generator"
+              : n.role === "comms"
+                ? "comms"
+                : n.role === "barracks"
+                  ? "barracks"
+                  : "outpost",
+          x: z.center.x,
+          y: z.center.y,
+          hp,
+          maxHp: hp,
+          discovered: false,
+        };
+      })
+    : zones.slice(0, 6).map((z, i) => ({
+        id: "facility-" + i,
+        kind:
+          i < 2
+            ? "generator"
+            : i === 2
+              ? "comms"
+              : i < 5
+                ? "outpost"
+                : "barracks",
+        x: z.center.x,
+        y: z.center.y,
+        hp: i < 2 ? 420 : 260,
+        maxHp: i < 2 ? 420 : 260,
+        sourceId: i >= 3 ? "source-" + i : undefined,
+        discovered: i < 2,
+      }));
   const sources: DispatchSource[] = [];
-  for (const z of zones.slice(3, 6)) {
+  for (const z of plan
+    ? zones.filter((z) => z.role === "barracks")
+    : zones.slice(3, 6)) {
     const candidates: Vec[] = [];
     for (let y = 350; y < height - 450; y += 100)
       for (let x = 350; x < width - 350; x += 100)
@@ -337,7 +427,7 @@ export function region(seed: number): GameMap {
     const entry = { x: s.x, y: s.y + 235 };
     sources.push({
       id: "source-" + z.id,
-      kind: z.id === 5 ? "barracks" : "outpost",
+      kind: plan || z.id === 5 ? "barracks" : "outpost",
       ...s,
       entry,
       doorId: "door-" + z.id,
@@ -354,12 +444,13 @@ export function region(seed: number): GameMap {
       warning: 0,
       blocked: false,
       blockProgress: 0,
-      facility: "facility-" + z.id,
+      facility:
+        installations.find((d) => d.zoneId === z.id)?.id ?? "facility-" + z.id,
     });
     nodes.push(entry);
     roads.push({
       id: "source-road-" + z.id,
-      from: 3,
+      from: plan ? nodes.length - 1 : 3,
       to: z.id,
       width: 240,
       points: [entry, z.entry],
@@ -452,7 +543,11 @@ export function region(seed: number): GameMap {
     });
   };
   const ridges = [];
-  for (let i = 0; i < 5; i++) {
+  for (
+    let i = 0;
+    i < (plan ? Math.ceil(((width * height) / (6400 * 4200)) * 5) : 5);
+    i++
+  ) {
     const a = {
         x: 650 + random() * (width - 1300),
         y: 500 + random() * (height - 1000),
@@ -470,24 +565,36 @@ export function region(seed: number): GameMap {
     }
     ridges.push(points);
   }
-  for (let i = 0; i < 220; i++)
+  for (
+    let i = 0;
+    i < (plan ? Math.ceil(((width * height) / (6400 * 4200)) * 220) : 220);
+    i++
+  )
     rock(
       { x: 180 + random() * (width - 360), y: 180 + random() * (height - 360) },
       90 + random() * 150,
       70 + random() * 120,
       i % 4,
     );
-  const decor = Array.from({ length: 190 }, (_, i) => ({
-    x: 100 + random() * (width - 200),
-    y: 100 + random() * (height - 200),
-    size: 25 + random() * 55,
-    frame: i % 5 === 0 ? 11 : 10,
-    angle: random() * 6.28,
-  }));
+  const decor = Array.from(
+    {
+      length: plan ? Math.ceil(((width * height) / (6400 * 4200)) * 190) : 190,
+    },
+    (_, i) => ({
+      x: 100 + random() * (width - 200),
+      y: 100 + random() * (height - 200),
+      size: 25 + random() * 55,
+      frame: i % 5 === 0 ? 11 : 10,
+      angle: random() * 6.28,
+    }),
+  );
   return {
     width,
     height,
     seed,
+    operation: plan?.options,
+    missionNodes: plan?.sites,
+    deployments: plan ? [spawn, ...extractions.slice(0, 2)] : undefined,
     obstacles,
     zones,
     roads,
@@ -514,8 +621,14 @@ export function region(seed: number): GameMap {
       biome: "barren",
       ridges,
       decor,
-      elevation: Array.from({ length: 64 * 42 }, (_, i) =>
-        elevation((i % 64) * 100, Math.floor(i / 64) * 100, seed),
+      elevation: Array.from(
+        { length: Math.ceil(width / 100) * Math.ceil(height / 100) },
+        (_, i) =>
+          elevation(
+            (i % Math.ceil(width / 100)) * 100,
+            Math.floor(i / Math.ceil(width / 100)) * 100,
+            seed,
+          ),
       ),
     },
   };

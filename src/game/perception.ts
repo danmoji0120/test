@@ -79,8 +79,12 @@ export function perceive(w: World, e: Enemy, live: Player[], dt: number) {
   }
   // Radio transmits a dated coordinate, with decay on each hop. No live player lookup for unseen units.
   if (e.lastSeen && e.memory > 0 && e.radio <= 0) {
-    const radius = w.map.installations.some(
-      (d) => d.kind === "comms" && d.hp > 0,
+    const radius = (
+      w.mission.id
+        ? !w.map.installations.some(
+            (d) => d.kind === "comms" && d.hp <= 0 && distance(e, d) < 2400,
+          )
+        : w.map.installations.some((d) => d.kind === "comms" && d.hp > 0)
     )
       ? difficulty(w.difficulty).radio
       : 320;

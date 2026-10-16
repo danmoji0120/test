@@ -1,3 +1,4 @@
+import { attackDefenseFacility } from "./facility-defense";
 import { clearShot, peekPosition } from "./cover";
 import { ballisticDistance } from "./ballistics";
 import { updateAim, firingAngle } from "./aim-controller";
@@ -47,6 +48,7 @@ export function enemyAI(w: World, dt: number) {
       else continue;
     }
     if (e.traveling) continue;
+    if (attackDefenseFacility(w, e, live, dt)) continue;
     if (strategicAI(w, e, dt)) continue;
     const target = perceive(w, e, live, dt);
     const acquired = special(e.kind) ? false : updateAim(w, e, target, dt);

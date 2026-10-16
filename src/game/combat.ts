@@ -55,6 +55,12 @@ export function applyHit(
       quality: "ricochet" as HitQuality,
       part: hit.region.id,
     };
+  if ("maxHp" in t && t.role === "beacon" && owner)
+    return {
+      damage: 0,
+      quality: "ricochet" as HitQuality,
+      part: hit.region.id,
+    };
   ensureComponents(t);
   const part = armorAt(t, hit.region, hit.point),
     multi = penetrationMultiplier(a.ap, part.av),

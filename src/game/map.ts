@@ -1,3 +1,5 @@
+import { geometryCandidates, invalidateGeometry } from "./spatial";
+import { clearNavigation } from "./navigation";
 import type { GameMap, Rect, Vec, Zone, ZoneKind } from "../shared/data";
 export function rng(seed: number) {
   let s = seed >>> 0;
@@ -11,7 +13,13 @@ export function rng(seed: number) {
 }
 export const distance = (a: Vec, b: Vec) => Math.hypot(a.x - b.x, a.y - b.y);
 export function blocked(p: Vec, obstacles: Rect[], radius = 16) {
-  return obstacles.some(
+  return geometryCandidates(
+    obstacles,
+    p.x - radius,
+    p.y - radius,
+    radius * 2,
+    radius * 2,
+  ).some(
     (o) =>
       !(o.kind === "door" && o.open) &&
       p.x + radius > o.x &&
@@ -140,7 +148,13 @@ function segmentDistanceSquared(p: Vec, a: Vec, b: Vec) {
 }
 export function wallDistance(p: Vec, angle: number, max: number, map: GameMap) {
   const d = { x: Math.cos(angle), y: Math.sin(angle) };
-  return map.obstacles.reduce(
+  return geometryCandidates(
+    map.obstacles,
+    Math.min(p.x, p.x + d.x * max),
+    Math.min(p.y, p.y + d.y * max),
+    Math.abs(d.x * max),
+    Math.abs(d.y * max),
+  ).reduce(
     (v, o) =>
       o.kind === "door" && o.open ? v : Math.min(v, rayRect(p, d, o, max)),
     max,
@@ -152,165 +166,7 @@ export function visible(a: Vec, b: Vec, map: GameMap) {
 }
 export { region as generateMap } from "./map-generator";
 export function invalidateNavigation(map: GameMap) {
-  navigationGrids.delete(map);
+  clearNavigation(map);
+  invalidateGeometry(map.obstacles);
 }
-const navigationGrids = new WeakMap<GameMap, Map<number, Uint8Array>>();
-function navigationGrid(map: GameMap, radius: number) {
-  const size = Math.max(20, Math.ceil(radius / 4) * 4),
-    cache = navigationGrids.get(map) ?? new Map<number, Uint8Array>();
-  navigationGrids.set(map, cache);
-  let grid = cache.get(size);
-  if (!grid) {
-    const cols = Math.ceil(map.width / 50),
-      rows = Math.ceil(map.height / 50);
-    grid = new Uint8Array(cols * rows);
-    for (let y = 0; y < rows; y++)
-      for (let x = 0; x < cols; x++)
-        grid[y * cols + x] = Number(
-          movementBlocked({ x: x * 50 + 25, y: y * 50 + 25 }, map, size),
-        );
-    cache.set(size, grid);
-  }
-  return grid;
-}
-/** Small-grid A*; diagonal corner-cutting is deliberately disallowed. */
-export function findPath(
-  start: Vec,
-  goal: Vec,
-  map: GameMap,
-  radius = 16,
-): Vec[] {
-  const grid = navigationGrid(map, radius);
-  const cell = 50,
-    cols = Math.ceil(map.width / 50),
-    rows = Math.ceil(map.height / 50),
-    key = (x: number, y: number) => y * cols + x;
-  let sx = Math.floor(start.x / cell),
-    sy = Math.floor(start.y / cell);
-  const originalGx = Math.floor(goal.x / cell),
-    originalGy = Math.floor(goal.y / cell);
-  let bridge: Vec | undefined;
-  if (grid[key(sx, sy)]) {
-    const candidates: Vec[] = [];
-    for (let dy = -2; dy <= 2; dy++)
-      for (let dx = -2; dx <= 2; dx++) {
-        const x = sx + dx,
-          y = sy + dy,
-          point = { x: x * cell + 25, y: y * cell + 25 };
-        if (x < 1 || y < 1 || x >= cols - 1 || y >= rows - 1 || grid[key(x, y)])
-          continue;
-        if (!visible(start, point, map)) continue;
-        let safe = true;
-        for (let i = 1; i <= 8; i++)
-          if (
-            movementBlocked(
-              {
-                x: start.x + ((point.x - start.x) * i) / 8,
-                y: start.y + ((point.y - start.y) * i) / 8,
-              },
-              map,
-              radius,
-            )
-          ) {
-            safe = false;
-            break;
-          }
-        if (safe) candidates.push(point);
-      }
-    candidates.sort((a, b) => distance(start, a) - distance(start, b));
-    bridge = candidates[0];
-    if (!bridge) return [];
-    sx = Math.floor(bridge.x / cell);
-    sy = Math.floor(bridge.y / cell);
-  }
-  const s = key(sx, sy);
-  let alternatives: number[] | undefined;
-  let gx = originalGx,
-    gy = originalGy;
-  if (grid[key(gx, gy)]) {
-    const nearby: Vec[] = [];
-    for (let dy = -2; dy <= 2; dy++)
-      for (let dx = -2; dx <= 2; dx++) {
-        const x = gx + dx,
-          y = gy + dy;
-        if (
-          x > 0 &&
-          x < cols - 1 &&
-          y > 0 &&
-          y < rows - 1 &&
-          !grid[key(x, y)] &&
-          visible({ x: x * cell + 25, y: y * cell + 25 }, goal, map)
-        )
-          nearby.push({ x, y });
-      }
-    nearby.sort(
-      (a, b) =>
-        distance({ x: a.x * cell + 25, y: a.y * cell + 25 }, goal) -
-        distance({ x: b.x * cell + 25, y: b.y * cell + 25 }, goal),
-    );
-    if (!nearby.length) return [];
-    alternatives = nearby.map((p) => key(p.x, p.y));
-    gx = nearby[0].x;
-    gy = nearby[0].y;
-  }
-  let g = key(gx, gy);
-  const goalKeys = new Set(alternatives ?? [g]);
-  const open = [s],
-    came = new Map<number, number>(),
-    cost = new Map([[s, 0]]),
-    score = new Map([[s, 0]]),
-    closed = new Set<number>();
-  let end = s;
-  while (open.length) {
-    let index = 0;
-    for (let i = 1; i < open.length; i++)
-      if (score.get(open[i])! < score.get(open[index])!) index = i;
-    const k = open.splice(index, 1)[0];
-    if (goalKeys.has(k)) {
-      end = k;
-      g = k;
-      break;
-    }
-    closed.add(k);
-    const x = k % cols,
-      y = Math.floor(k / cols);
-    for (const [dx, dy] of [
-      [1, 0],
-      [-1, 0],
-      [0, 1],
-      [0, -1],
-    ]) {
-      const nx = x + dx,
-        ny = y + dy,
-        n = key(nx, ny);
-      if (
-        nx < 1 ||
-        ny < 1 ||
-        nx >= cols - 1 ||
-        ny >= rows - 1 ||
-        closed.has(n) ||
-        grid[n] === 1
-      )
-        continue;
-      const c = cost.get(k)! + 1;
-      if (c < (cost.get(n) ?? Infinity)) {
-        came.set(n, k);
-        cost.set(n, c);
-        score.set(n, c + Math.abs(nx - gx) + Math.abs(ny - gy));
-        if (!open.includes(n)) open.push(n);
-      }
-    }
-  }
-  if (end !== g) return [];
-  const path: Vec[] = [];
-  while (end !== s) {
-    path.push({
-      x: (end % cols) * cell + 25,
-      y: Math.floor(end / cols) * cell + 25,
-    });
-    end = came.get(end)!;
-  }
-  path.reverse();
-  if (bridge) path.unshift(bridge);
-  return path;
-}
+export { findPath } from "./navigation";

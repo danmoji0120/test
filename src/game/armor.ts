@@ -90,7 +90,39 @@ const region = (
 /** Exposed components protrude from the hull. Nearest ray intersection wins; a frontal ray cannot pick a rear component through the hull. */
 export function hitRegions(t: ArmoredTarget): HitRegion[] {
   if ("maxHp" in t) {
-    if (t.kind !== "generator") return [region("body", 0, 0, 32, 1, 0.45)];
+    if (t.kind !== "generator")
+      return [
+        region(
+          "body",
+          0,
+          0,
+          32,
+          t.role &&
+            [
+              "command",
+              "power",
+              "silo",
+              "archive",
+              "transmitter",
+              "analyzer",
+              "drill",
+            ].includes(t.role)
+            ? 3
+            : 1,
+          t.role &&
+            [
+              "command",
+              "power",
+              "silo",
+              "archive",
+              "transmitter",
+              "analyzer",
+              "drill",
+            ].includes(t.role)
+            ? 0.75
+            : 0.45,
+        ),
+      ];
     return [
       region("body", 0, 0, 30, 3, 0.8),
       region("shield", 24, 0, 19, 3, 0.85, 190, 0, 1, "shield"),

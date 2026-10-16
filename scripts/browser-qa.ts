@@ -82,6 +82,17 @@ if (process.env.QA_MIXED === "1" && count >= 3) {
 if (pages[3]) await pages[3].click('[data-character="luna"]');
 await pages[0].fill("#seed", process.env.QA_SEED || "42");
 await pages[0].locator("#seed").dispatchEvent("change");
+if (process.env.QA_MISSION) {
+  await pages[0].selectOption("#mission", process.env.QA_MISSION);
+  await pages[0].waitForFunction(
+    (m) => (window as any).dollQA.room?.operation?.missionId === m,
+    process.env.QA_MISSION,
+  );
+  if (process.env.QA_WORLD_PROFILE)
+    await pages[0].selectOption("#world-profile", process.env.QA_WORLD_PROFILE);
+  if (process.env.QA_DEPLOYMENT)
+    await pages[0].selectOption("#deployment", process.env.QA_DEPLOYMENT);
+}
 if (process.env.QA_DIFFICULTY) {
   await pages[0].selectOption("#difficulty", process.env.QA_DIFFICULTY);
 }
@@ -153,6 +164,42 @@ try {
       });
     }
 
+    for (const o of w.mission.objectives) {
+      const key = `task-${o.id}-${o.phase ?? o.state}`.replaceAll(
+        /[^a-zA-Z0-9가-힣-]/g,
+        "-",
+      );
+      if (
+        o.phase &&
+        o.state === "active" &&
+        o.discovered &&
+        Math.hypot(o.position.x - me.x, o.position.y - me.y) < 750 &&
+        !visualCaptured.has(key)
+      ) {
+        visualCaptured.add(key);
+        await pages[0].screenshot({ path: `${output}/${key}.png` });
+        timeline.push({
+          at: w.time,
+          event: "objective-stage",
+          id: o.id,
+          phase: o.phase,
+        });
+      }
+    }
+    const cargo = w.mission.cargo;
+    if (cargo?.carrier && !visualCaptured.has("cargo-carried")) {
+      visualCaptured.add("cargo-carried");
+      const peerStates = await Promise.all(pages.map(read));
+      const carrierIndex = peerStates.findIndex((q) => q.id === cargo.carrier);
+      await pages[Math.max(0, carrierIndex)].screenshot({
+        path: `${output}/cargo-carried.png`,
+      });
+      timeline.push({
+        at: w.time,
+        event: "cargo-carried",
+        carrier: cargo.carrier,
+      });
+    }
     for (const e of w.enemies)
       visibleCounts.set(e.id, (visibleCounts.get(e.id) ?? 0) + 1);
     for (const kind of ["juggernaut", "drone", "walker", "artillery"])
@@ -293,11 +340,24 @@ try {
       await pages[0].screenshot({ path: `${output}/firing.png` });
       fireCaptured = true;
     }
-    if (!reconnected && count > 1 && w.mission.elapsed > 20) {
-      const old = await read(pages[count - 1]);
-      await pages[count - 1].reload();
-      await pages[count - 1].waitForSelector("#battle");
-      const restored = await read(pages[count - 1]);
+    if (
+      !reconnected &&
+      count > 1 &&
+      w.mission.elapsed > 20 &&
+      (w.mission.id !== "transfer" || !!w.mission.cargo?.carrier)
+    ) {
+      const peerStates = await Promise.all(pages.map(read));
+      const cargoOwner = w.mission.cargo?.carrier;
+      const reconnectIndex = cargoOwner
+        ? Math.max(
+            0,
+            peerStates.findIndex((q) => q.id === cargoOwner),
+          )
+        : count - 1;
+      const old = await read(pages[reconnectIndex]);
+      await pages[reconnectIndex].reload();
+      await pages[reconnectIndex].waitForSelector("#battle");
+      const restored = await read(pages[reconnectIndex]);
       if (restored.id !== old.id || restored.room.world.id !== w.id)
         throw Error("Reconnect identity/run mismatch");
       reconnected = true;
@@ -328,6 +388,9 @@ try {
     date: new Date().toISOString(),
     runId: final.room.world.id,
     metrics: final.room.world.metrics,
+    operation: final.room.operation,
+    missionId: final.room.world.mission.id,
+    outcome: final.room.world.mission.outcome,
     timeline,
     observed: observedActors,
     visualCaptured: [...visualCaptured],
@@ -383,7 +446,9 @@ try {
   if (creditsAfter - creditsBefore !== awarded)
     throw Error("Reward amount differs from profile settlement");
   const before = final.room.world.id;
-  await pages[0].click('[data-action="return"]');
+  const resultLeader = finals.findIndex((q) => q.id === q.room.host);
+  if (resultLeader < 0) throw Error("No result host after carrier reconnect");
+  await pages[resultLeader].click('[data-action="return"]');
   await pages[0].waitForSelector('[data-action="ready"]');
   await pages[0].reload();
   await pages[0].waitForSelector('[data-action="ready"]');

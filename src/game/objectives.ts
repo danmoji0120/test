@@ -1,9 +1,14 @@
+import {
+  operationObjectives,
+  tickOperationalObjectives,
+} from "./operational-objectives";
 import type { World, GameMap, Objective } from "../shared/data";
 import { distance } from "./map";
 import { lineOfSight, squadSees } from "./visibility";
 import { raiseAlert } from "./alert";
 import { event } from "./simulation";
 export function objectives(map: GameMap): Objective[] {
+  if (map.operation) return operationObjectives(map);
   return [
     ...map.installations.map((d) => ({
       id: d.id,
@@ -39,6 +44,10 @@ export function objectives(map: GameMap): Objective[] {
   ];
 }
 export function tickObjectives(w: World, dt: number) {
+  if (w.mission.id) {
+    tickOperationalObjectives(w, dt);
+    return;
+  }
   for (const o of w.mission.objectives) {
     if (squadSees(w, o.position)) o.discovered = true;
     if (o.state === "complete") continue;

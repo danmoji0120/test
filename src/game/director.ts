@@ -10,7 +10,9 @@ import {
 import { raiseAlert, audit } from "./alert";
 import { distance, blocked } from "./map";
 export function tickDirector(w: World, dt: number) {
-  const comms = w.map.installations.some((d) => d.kind === "comms" && d.hp > 0),
+  const comms =
+      !!w.mission.id ||
+      w.map.installations.some((d) => d.kind === "comms" && d.hp > 0),
     level = w.alertState.level,
     config = difficulty(w.difficulty, w.players.length);
   if (!comms && !w.director.commsDown) {
@@ -20,12 +22,20 @@ export function tickDirector(w: World, dt: number) {
         cancelRequest(w, r, "통신탑 파괴");
     audit(w, "communications", "광역 출동 준비 지연·현재 대기 요청 취소");
   }
-  for (const call of w.supportSignals.splice(0))
+  const defenseActive =
+    w.mission.id === "defense" &&
+    w.mission.objectives.some(
+      (o) =>
+        o.action === "defend" &&
+        o.phase === "방어 중" &&
+        o.state !== "complete",
+    );
+  for (const call of w.supportSignals.splice(0).filter(() => !defenseActive))
     if (w.time - call.at < 20) {
       const r = requestSupport(w, call.id, call.target, call.squad);
       if (r) raiseAlert(w, 8, "지원 요청", call.target);
     }
-  if (w.time >= w.director.next) {
+  if (w.time >= w.director.next && !defenseActive) {
     let target: Vec | undefined,
       patrol = false,
       task: Reinforcement["task"] = "assault";
@@ -50,10 +60,23 @@ export function tickDirector(w: World, dt: number) {
           task = "block";
         }
       } else if (level >= 3 && turn === 2) {
-        const site = w.map.zones
-          .slice(0, 2)
+        const site = (
+          w.mission.id
+            ? w.map.zones.filter((z) =>
+                w.map.installations.some(
+                  (d) =>
+                    d.zoneId === z.id &&
+                    d.hp > 0 &&
+                    w.mission.objectives.some(
+                      (o) => !o.optional && o.facilityId === d.id,
+                    ),
+                ),
+              )
+            : w.map.zones.slice(0, 2)
+        )
           .filter(
             (z) =>
+              w.mission.id ||
               w.map.installations.find((d) => d.id === "facility-" + z.id)
                 ?.hp! > 0,
           )
@@ -66,7 +89,12 @@ export function tickDirector(w: World, dt: number) {
         }
       } else task = "search";
     } else if (level >= 3) {
-      target = w.map.zones[Math.floor(w.time / 30) % 2].entry;
+      const sites = w.mission.id
+        ? w.mission.objectives
+            .filter((o) => !o.optional && o.state !== "complete")
+            .map((o) => o.operatingPoint ?? o.position)
+        : w.map.zones.slice(0, 2).map((z) => z.entry);
+      target = sites[Math.floor(w.time / 30) % sites.length];
       task = "defend";
     } else if (w.time > config.patrolPeriod) {
       patrol = true;

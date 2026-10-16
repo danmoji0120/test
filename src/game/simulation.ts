@@ -1,3 +1,7 @@
+import { missionComplete } from "./mission-graph";
+import { generateOperationMap } from "./operation-world";
+import { initializeOperation, tickCargo } from "./operational-objectives";
+import type { OperationOptions } from "../shared/missions";
 import { tickConsumable, tickSmoke } from "./consumables";
 import { rayHit, ensureComponents } from "./armor";
 import { applyHit } from "./combat";
@@ -90,10 +94,21 @@ export function spawnEnemy(
   kind: EnemyKind,
   options: Partial<Enemy> = {},
 ) {
-  if (blocked(pos, w.map.obstacles, enemyRadius(kind))) return;
+  if (
+    blocked(pos, w.map.obstacles, enemyRadius(kind)) ||
+    (w.map.operation &&
+      w.map.installations.some(
+        (d) => d.hp > 0 && distance(d, pos) < 43 + enemyRadius(kind),
+      ))
+  )
+    return;
   w.enemies.push({
     ...pos,
     id: `e${++w.eventId}`,
+    supportFacility:
+      kind === "artillery" && w.map.operation
+        ? w.map.installations.find((d) => d.role === "artillery")?.id
+        : undefined,
     kind,
     elite:
       w.difficulty >= 7 && random(w) < difficultyConfig(w.difficulty).elite,
@@ -137,6 +152,16 @@ export function spawnEnemy(
     ...options,
   });
   const e = w.enemies.at(-1)!;
+  if (
+    e.supportFacility &&
+    w.map.installations.find((d) => d.id === e.supportFacility)?.hp === 0
+  ) {
+    ensureComponents(e);
+    if (e.components?.weapon) {
+      e.components.weapon.hp = 0;
+      e.components.weapon.destroyed = true;
+    }
+  }
   const squad = (w.squads[e.squad] ??= {
     id: e.squad,
     leader: e.id,
@@ -156,8 +181,11 @@ export function createWorld(
   players: Player[],
   difficulty = 3,
   contract: "blackout" | "recon" = "blackout",
+  operation?: OperationOptions,
 ): World {
-  const map = generateMap(seed);
+  const map = operation
+    ? generateOperationMap(seed, operation, difficulty, players.length)
+    : generateMap(seed);
   map.smokes = [];
   for (const d of map.installations) {
     const zone = [...map.zones].sort(
@@ -181,6 +209,7 @@ export function createWorld(
       kills: 0,
       hurt: 0,
       reviveProgress: 0,
+      carrying: undefined,
       input: emptyInput(),
     });
     resetEquipment(p);
@@ -239,6 +268,7 @@ export function createWorld(
       objectiveOrder: [],
     },
   };
+  initializeOperation(w);
   initializeTheatre(w);
   updateVision(w, true);
   return w;
@@ -258,6 +288,7 @@ export function damagePlayer(w: World, p: Player, amount: number) {
 }
 export function fire(w: World, p: Player) {
   if (
+    (p.carrying && p.activeSlot === 1) ||
     p.activeSlot === 3 ||
     p.switching > 0 ||
     p.ammo <= 0 ||
@@ -354,6 +385,13 @@ export function fire(w: World, p: Player) {
 }
 export function finish(w: World, success: boolean, reason: string) {
   if (["success", "failed"].includes(w.mission.stage)) return;
+  w.mission.outcome = {
+    primaryAchieved: missionComplete(
+      w.mission.objectives,
+      w.mission.completion,
+    ),
+    extracted: success,
+  };
   w.mission.stage = success ? "success" : "failed";
   w.mission.reason = reason;
   const complete = w.mission.objectives.filter((o) => o.state === "complete");
@@ -379,6 +417,7 @@ export function finish(w: World, success: boolean, reason: string) {
 export function tick(w: World, dt: number) {
   if (["success", "failed"].includes(w.mission.stage)) return;
   dt = Math.min(0.1, Math.max(0, dt));
+  tickCargo(w);
   w.time += dt;
   w.mission.elapsed += dt;
   for (const p of w.players) {
@@ -401,7 +440,7 @@ export function tick(w: World, dt: number) {
       continue;
     }
     const input = p.input;
-    if (input.slot) equip(p, input.slot);
+    if (input.slot) equip(p, p.carrying && input.slot === 1 ? 2 : input.slot);
     const len = Math.hypot(input.dx, input.dy);
     p.angle = input.angle;
     if (len) {
@@ -543,5 +582,6 @@ export function tick(w: World, dt: number) {
   if (w.enemies.some((e) => e.seenAt === w.time)) w.metrics.combatSeconds += dt;
   w.metrics.peakActors = Math.max(w.metrics.peakActors, w.enemies.length);
   updateVision(w);
-  if (m.elapsed > RULES.timeLimit) finish(w, false, "작전 제한시간 초과");
+  if (m.elapsed > (m.timeLimit ?? RULES.timeLimit))
+    finish(w, false, "작전 제한시간 초과");
 }

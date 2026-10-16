@@ -1,3 +1,6 @@
+import { ballisticDistance } from "../src/game/ballistics";
+import { operationGoal } from "../src/shared/operation";
+import type { Objective } from "../src/shared/data";
 import {
   hitRegions,
   worldPoint,
@@ -29,6 +32,7 @@ export class Pilot {
   reckless = false;
   avoidArmor = false;
   rearApproach = false;
+  splitTargets = false;
   rearEntries = new Map<string, Vec>();
   rearReached = new Set<string>();
   navRevision = -1;
@@ -41,6 +45,7 @@ export class Pilot {
   lastObservation = 0;
   approached = new Set<string>();
   input(w: World, p: Player, index = 0): Input {
+    if (w.mission.id) return this.inputOperation(w, p, index);
     if (this.navRun !== w.id) {
       this.navMap = w.map;
       this.navRun = w.id;
@@ -266,7 +271,10 @@ export class Pilot {
       }
       while (
         this.path.length &&
-        distance(p, this.path[0]) < Math.max(42, 280 * sample * 0.6)
+        distance(p, this.path[0]) < Math.max(42, 280 * sample * 0.6) &&
+        (!w.map.operation ||
+          this.path.length < 2 ||
+          movementClear(p, this.path[1], w.map, 20))
       )
         this.path.shift();
       // String-pull along already validated corridors so slow browser sampling cannot oscillate at50px nodes.
@@ -480,6 +488,182 @@ export class Pilot {
       input.sprint = false;
     }
 
+    return input;
+  }
+  /** V4.2 adapter reuses the tested movement/combat pilot and only public graph/cargo information. */
+  inputOperation(w: World, p: Player, index: number): Input {
+    const anchor = this.splitTargets
+      ? p
+      : (w.players.find((p) => p.connected && !p.down) ?? p);
+    const known = w.mission.objectives.filter(
+      (o) =>
+        o.state !== "complete" &&
+        o.state !== "failed" &&
+        o.known !== "unknown" &&
+        o.state !== "locked",
+    );
+    let manual = "";
+    if (this.strategy === "all")
+      manual =
+        known
+          .filter((o) => o.optional)
+          .sort(
+            (a, b) =>
+              distance(anchor, a.position) - distance(anchor, b.position),
+          )[0]?.id ?? "";
+    else if (this.reverse)
+      manual =
+        known
+          .filter((o) => !o.optional)
+          .sort((a, b) => b.id.localeCompare(a.id))[0]?.id ?? "";
+    const targetGoal = operationGoal(w, p.carrying ? p : anchor, manual);
+    let objective = targetGoal
+      ? w.mission.objectives.find(
+          (o) =>
+            distance(o.operatingPoint ?? o.position, targetGoal.position) < 1,
+        )
+      : undefined;
+    const d = objective?.facilityId
+      ? w.map.installations.find(
+          (d) => d.id === objective!.facilityId && d.hp > 0,
+        )
+      : undefined;
+    let position = targetGoal?.position,
+      scouting = false;
+    if (
+      this.strategy === "all" &&
+      w.mission.extraction.state === "available" &&
+      !manual &&
+      w.mission.objectives.some((o) => o.optional && o.known === "unknown")
+    ) {
+      const sites = w.map.zones
+        .filter((z) => !this.approached.has("site:" + z.id))
+        .sort((a, b) => distance(anchor, a.entry) - distance(anchor, b.entry));
+      const site = sites[0];
+      if (site) {
+        scouting = true;
+        position = site.entry;
+        if (distance(anchor, site.entry) < 140)
+          this.approached.add("site:" + site.id);
+        objective = undefined;
+      }
+    }
+    const virtual: Objective[] = [];
+    if (
+      position &&
+      w.mission.stage !== "extract" &&
+      (objective || w.mission.extraction.state !== "available" || scouting)
+    ) {
+      virtual.push({
+        ...objective,
+        id: d?.id ?? objective?.id ?? "cargo-or-scout",
+        kind: objective?.action === "destroy" && d ? d.kind : "intel",
+        label: objective?.label ?? targetGoal?.label ?? "정찰",
+        position:
+          objective?.action === "destroy" && d ? { x: d.x, y: d.y } : position,
+        discovered: objective?.discovered ?? true,
+        optional: false,
+        state: "available",
+        progress: objective?.progress ?? 0,
+        total: objective?.total ?? 1,
+        reward: 0,
+      });
+    }
+    const compat = {
+      ...w,
+      map: { ...w.map, intel: position ?? w.map.intel },
+      mission: { ...w.mission, id: undefined, objectives: virtual },
+    };
+    const approaching = w.enemies
+      .filter(
+        (e) =>
+          e.hp > 0 &&
+          distance(p, e) < WEAPONS[p.weapon].range &&
+          visible(p, e, w.map),
+      )
+      .sort((a, b) => distance(p, a) - distance(p, b))[0];
+    if (objective?.phase && approaching) {
+      const a = Math.atan2(approaching.y - p.y, approaching.x - p.x),
+        range = distance(p, approaching);
+      if (ballisticDistance(w, p, a, range) < range - 20) {
+        peek: for (const width of [150, 230, 310])
+          for (const side of [index % 2 ? 1 : -1, index % 2 ? -1 : 1]) {
+            const candidate = {
+              x: p.x - Math.sin(a) * width * side,
+              y: p.y + Math.cos(a) * width * side,
+            };
+            if (
+              !movementBlocked(candidate, w.map, 20) &&
+              ballisticDistance(
+                w,
+                candidate,
+                Math.atan2(
+                  approaching.y - candidate.y,
+                  approaching.x - candidate.x,
+                ),
+                distance(candidate, approaching),
+              ) >=
+                distance(candidate, approaching) - 17
+            ) {
+              this.destination = candidate;
+              break peek;
+            }
+          }
+      }
+    }
+    const input = this.input(
+      compat,
+      p,
+      p.carrying || this.splitTargets ? 0 : index,
+    );
+    const automatic =
+      objective &&
+      ((objective.action === "drill" && objective.phase === "데이터 수집") ||
+        (objective.action === "defend" && !!objective.phase) ||
+        (objective.action === "upload" && !!w.mission.cargo?.delivered) ||
+        (objective.action === "analyze" && !!objective.phase) ||
+        (objective.action === "launch" &&
+          ["발사 준비", "미사일 발사"].includes(objective.phase ?? "")));
+    if (automatic) input.interact = false;
+    if (
+      objective &&
+      objective.action !== "destroy" &&
+      !automatic &&
+      position &&
+      distance(p, position) < 80
+    ) {
+      const immediate = w.enemies.some(
+        (e) => e.hp > 0 && distance(e, p) < 280 && visible(p, e, w.map),
+      );
+      input.interact = !immediate;
+      if (input.interact) {
+        input.fire = false;
+        input.sprint = false;
+      }
+    }
+    if (
+      w.mission.cargo &&
+      !w.mission.cargo.delivered &&
+      !w.mission.cargo.carrier &&
+      distance(p, w.mission.cargo) < 80
+    ) {
+      input.interact = true;
+      input.fire = false;
+      input.sprint = false;
+    }
+    if (p.carrying && input.slot === 1) {
+      input.slot = 2;
+      const enemy = w.enemies
+        .filter((e) => e.hp > 0 && distance(p, e) < 340 && visible(p, e, w.map))
+        .sort((a, b) => distance(p, a) - distance(p, b))[0];
+      if (enemy && !input.interact && !input.revive) {
+        input.angle = Math.atan2(enemy.y - p.y, enemy.x - p.x);
+        input.aim = true;
+        input.sprint = false;
+        input.fire =
+          p.activeSlot === 2 && p.switching <= 0 && p.reload <= 0 && p.ammo > 0;
+      }
+    }
     return input;
   }
 }

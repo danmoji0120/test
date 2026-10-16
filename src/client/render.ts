@@ -1,3 +1,4 @@
+import { drawMissionHardware } from "./mission-art";
 import { equipmentSprite } from "../art/equipment";
 import { RasterCache } from "./raster-cache";
 import {
@@ -8,7 +9,7 @@ import {
   armored,
   special,
 } from "../game/armor";
-import { paintTerrain } from "./terrain";
+import { TerrainChunks } from "./terrain-chunks";
 import { environmentImage, drawEnvironment } from "../art/environment";
 import { operationGoal } from "../shared/operation";
 import { lineOfSight } from "../game/visibility";
@@ -58,7 +59,8 @@ export class Renderer {
   mouse = { x: innerWidth / 2, y: innerHeight / 2 };
   world: World | null = null;
   id = "";
-  floor: HTMLCanvasElement | null = null;
+  floor: HTMLCanvasElement | null = null; // Compatibility observer; no map-sized canvas is allocated.
+  terrainChunks = new TerrainChunks();
   mapSeed = -1;
   atlas = operatorImage();
   enemyAtlas = enemyImage();
@@ -337,18 +339,12 @@ export class Renderer {
       this.particles.splice(0, this.particles.length - 400);
   }
   makeFloor(w: World) {
-    const c = document.createElement("canvas");
-    c.width = w.map.width;
-    c.height = w.map.height;
-    paintTerrain(c.getContext("2d")!, w, this.environmentAtlas);
-    this.floor = c;
+    this.terrainChunks.clear();
     if (!this.environmentAtlas.complete)
       this.environmentAtlas.addEventListener(
         "load",
         () => {
-          if (this.world?.id === w.id) {
-            paintTerrain(c.getContext("2d")!, w, this.environmentAtlas);
-          }
+          if (this.world?.id === w.id) this.terrainChunks.clear();
         },
         { once: true },
       );
@@ -423,13 +419,14 @@ export class Renderer {
     g.scale(this.zoom, this.zoom);
     g.translate(-this.camera.x, -this.camera.y);
     this.shake = Math.max(0, this.shake - dt * 26);
-    if (this.floor) {
-      const x = Math.max(0, Math.floor(this.camera.x - halfW - 8)),
-        y = Math.max(0, Math.floor(this.camera.y - halfH - 8));
-      const width = Math.min(this.floor.width - x, Math.ceil(halfW * 2 + 16)),
-        height = Math.min(this.floor.height - y, Math.ceil(halfH * 2 + 16));
-      g.drawImage(this.floor, x, y, width, height, x, y, width, height);
-    }
+    this.terrainChunks.draw(
+      g,
+      w,
+      this.environmentAtlas,
+      this.camera,
+      halfW,
+      halfH,
+    );
     for (const d of this.debris) {
       d.life -= dt;
       g.save();
@@ -471,7 +468,9 @@ export class Renderer {
       g.fillRect(s.entry.x - 13, s.entry.y - 13, 26, 26);
       if (s.warning > w.time) this.marker(s.entry, "출동 경보", t, "#ffb58d");
     }
-    for (const d of w.map.installations.filter((d) => d.kind !== "generator")) {
+    for (const d of w.map.installations.filter(
+      (d) => d.kind !== "generator" && !d.role,
+    )) {
       g.save();
       g.translate(d.x, d.y);
       g.globalAlpha = d.hp > 0 ? 1 : 0.4;
@@ -505,6 +504,15 @@ export class Renderer {
         "#e5bd9a",
       );
     }
+    drawMissionHardware(
+      g,
+      w,
+      this.environmentAtlas,
+      t,
+      this.camera,
+      halfW,
+      halfH,
+    );
     for (const device of w.map.installations.filter(
       (d) => d.kind === "generator",
     )) {
@@ -543,7 +551,12 @@ export class Renderer {
       }
     }
     for (const s of w.map.supplies) {
-      if (s.used) continue;
+      if (
+        s.used ||
+        Math.abs(s.x - this.camera.x) > halfW + 50 ||
+        Math.abs(s.y - this.camera.y) > halfH + 50
+      )
+        continue;
       g.fillStyle = "#173f3c";
       g.fillRect(s.x - 23, s.y - 19, 46, 36);
       g.strokeStyle = "#79dbc6";
@@ -552,7 +565,7 @@ export class Renderer {
       g.fillRect(s.x - 3, s.y - 11, 6, 20);
       g.fillRect(s.x - 10, s.y - 4, 20, 6);
     }
-    if (!w.mission.intel) {
+    if (!w.mission.id && !w.mission.intel) {
       this.terminal(
         w.map.intel,
         "DATA",
@@ -1257,7 +1270,15 @@ export class Renderer {
       w.mission.stage === "extract" && w.mission.extraction.site
         ? [w.mission.extraction.site]
         : w.mission.objectives
-            .filter((o) => !o.optional && o.state !== "complete")
+            .filter(
+              (o) =>
+                !o.optional &&
+                o.state !== "complete" &&
+                (!w.mission.id ||
+                  o.discovered ||
+                  o.known === "region" ||
+                  o.known === "exact"),
+            )
             .map((o) => o.position);
     for (const o of goals) g.fillRect(o.x - 30, o.y - 30, 60, 60);
     for (const p of w.players) {

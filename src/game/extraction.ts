@@ -43,7 +43,13 @@ export function tickExtraction(w: World, dt: number) {
         : 0;
     if (x.boarding >= 3) {
       x.state = "departing";
-      finish(w, true, "발전기 파괴 · 수송기 탑승 및 분대 귀환");
+      finish(
+        w,
+        true,
+        w.mission.id
+          ? "작전 목표 달성 · 수송기 탑승 및 분대 귀환"
+          : "발전기 파괴 · 수송기 탑승 및 분대 귀환",
+      );
     } else if (w.time >= x.departure)
       finish(w, false, "수송기 철수 · 탑승 기한 초과");
   }

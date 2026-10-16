@@ -414,6 +414,9 @@ export interface Enemy extends Vec {
   phase?: "ready" | "spinup" | "firing" | "overheat";
   attackPoint?: Vec | null;
   strategicAt?: number;
+  supportFacility?: string;
+  radioDisrupted?: boolean;
+  facilityAimAt?: number;
   id: string;
   kind: EnemyKind;
   hp: number;
@@ -461,6 +464,7 @@ export interface Zone extends Vec {
   center: Vec;
   entry: Vec;
   pads: Vec[];
+  role?: import("./missions").FacilityRole;
 }
 export interface Device extends Vec {
   hp: number;
@@ -474,7 +478,15 @@ export interface Smoke extends Vec {
 export interface GameMap {
   operation?: import("./missions").OperationOptions;
   deployments?: Vec[];
-  generation?: { version: number; signature: string; attempts: number; diagnostics: string[] };
+  missionNodes?: import("./missions").NodeDefinition[];
+  generation?: {
+    version: number;
+    signature: string;
+    attempts: number;
+    routeUnits?: number;
+    baseTravelSeconds?: number;
+    diagnostics: string[];
+  };
   smokes?: Smoke[];
   width: number;
   height: number;
@@ -532,7 +544,13 @@ export interface GameEvent extends Vec {
 }
 export interface Objective {
   id: string;
-  kind: "generator" | "comms" | "outpost" | "barracks" | "intel" | import("./missions").MissionAction;
+  kind:
+    | "generator"
+    | "comms"
+    | "outpost"
+    | "barracks"
+    | "intel"
+    | import("./missions").MissionAction;
   missionId?: import("./missions").MissionId;
   facilityId?: string;
   locationId?: string;
@@ -543,6 +561,7 @@ export interface Objective {
   phase?: string;
   phaseAt?: number;
   operatingPoint?: Vec;
+  known?: "exact" | "region" | "unknown";
   response?: number;
   effect?: import("./missions").NodeDefinition["effect"];
   failure?: "none" | "facility-destroyed";
@@ -559,8 +578,16 @@ export interface Mission {
   id?: import("./missions").MissionId;
   completion?: { ids: string[]; count: number };
   timeLimit?: number;
+  outcome?: { primaryAchieved: boolean; extracted: boolean };
   launch?: { position: Vec; at: number };
-  cargo?: { id: string; x: number; y: number; carrier: string | null; delivered: boolean; droppedAt: number };
+  cargo?: {
+    id: string;
+    x: number;
+    y: number;
+    carrier: string | null;
+    delivered: boolean;
+    droppedAt: number;
+  };
   defenseWaves?: number;
   stage: "recon" | "operate" | "extract" | "success" | "failed";
   objectives: Objective[];
@@ -625,11 +652,21 @@ export interface RoomView {
   difficulty: number;
   contract: "blackout" | "recon";
   operation?: import("./missions").OperationOptions;
+  brief?: {
+    width: number;
+    height: number;
+    deployments: Vec[];
+    extractions: Vec[];
+    estimates: (Vec & { radius: number; label: string })[];
+    signature: string;
+    error?: string;
+  };
   world: World | null;
 }
 
 export type SourceKind = "outpost" | "barracks" | "external";
 export interface DispatchSource extends Vec {
+  radioDelay?: number;
   id: string;
   kind: SourceKind;
   entry: Vec;
@@ -653,6 +690,7 @@ export interface Installation extends Vec {
   role?: import("./missions").FacilityRole;
   zoneId?: number;
   protectionDisabled?: boolean;
+  objectiveId?: string;
   id: string;
   kind: "generator" | "comms" | "outpost" | "barracks";
   hp: number;

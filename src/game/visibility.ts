@@ -1,3 +1,4 @@
+import { geometryCandidates } from "./spatial";
 import type { GameMap, Rect, Vec, World } from "../shared/data";
 import { distance, rayRect } from "./map";
 export const SIGHT_RANGE = 850,
@@ -28,7 +29,13 @@ export function sightDistance(
     minY = Math.min(p.y, endY),
     maxY = Math.max(p.y, endY);
   let length = max;
-  for (const o of map.obstacles)
+  for (const o of geometryCandidates(
+    map.obstacles,
+    minX,
+    minY,
+    maxX - minX,
+    maxY - minY,
+  ))
     if (
       occludes(o) &&
       o.x <= maxX &&
@@ -83,7 +90,13 @@ export function visionPolygon(
       };
       angles.push(Math.atan2(v.y - p.y, v.x - p.x));
     }
-  for (const o of map.obstacles) {
+  for (const o of geometryCandidates(
+    map.obstacles,
+    p.x - range,
+    p.y - range,
+    range * 2,
+    range * 2,
+  )) {
     if (
       !occludes(o) ||
       p.x < o.x - range ||

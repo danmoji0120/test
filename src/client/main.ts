@@ -1,3 +1,12 @@
+import {
+  MISSIONS,
+  WORLD_PROFILES,
+  operationOptions,
+  type MissionId,
+  type WorldProfileId,
+} from "../shared/missions";
+import { operationGoal } from "../shared/operation";
+import { TacticalMap } from "./tactical-map";
 import { equipmentIcon } from "../art/equipment";
 import { RULES } from "../shared/rules";
 import { difficulty } from "../shared/difficulty";
@@ -26,6 +35,7 @@ import { AudioEngine } from "./audio";
 import { distance, generateMap } from "../game/map";
 const app = document.querySelector<HTMLDivElement>("#app")!;
 const audio = new AudioEngine();
+const tacticalMap = new TacticalMap();
 let socket: WebSocket,
   profile: Profile | null = null,
   id = "",
@@ -145,20 +155,34 @@ function connect() {
   socket.onerror = () => {};
 }
 function logo() {
-  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>COMBAT REWORK / V4.1</small></span></a>`;
+  return `<a class="brand" href="#" aria-label="Doll Squad 홈"><span class="brand-icon">D<span>✦</span></span><span>DOLL SQUAD<small>OPERATIONAL MISSIONS / V4.2</small></span></a>`;
 }
 function header() {
   return `<header>${logo()}<nav><span class="nav-active">작전 준비</span><button data-action="help" class="text-button">필드 가이드 <span>↗</span></button></nav><div class="account"><span class="connection ${connected ? "online" : ""}">${connected ? "서버 연결됨" : "재연결 중"}</span><span class="credits">◈ <b>${profile?.credits ?? "—"}</b><small> CR</small></span></div></header>`;
 }
 function briefing() {
-  const map = generateMap(room?.seed ?? 42);
-  const plan = `<svg viewBox="0 0 ${map.width} ${map.height}" role="img" aria-label="위성 개요 · 황무지 정찰 미완료"><rect width="${map.width}" height="${map.height}" fill="#14272e"/>${map.roads.map((r) => `<polyline points="${r.points.map((p) => `${p.x},${p.y}`).join(" ")}" stroke="#627a7d" stroke-width="32" fill="none" opacity=".45"/>`).join("")}${map.installations
-    .filter((d) => d.kind === "generator")
-    .map((d) => `<circle cx="${d.x}" cy="${d.y}" r="110" fill="#ebc77d"/>`)
+  const options = room?.operation ?? operationOptions("reactor"),
+    spec = MISSIONS[options.missionId],
+    b = room?.brief;
+  const diagram = b
+    ? `<svg viewBox="0 0 ${b.width} ${b.height}" role="img" aria-label="공개된 작전 개요">${b.estimates.map((p) => `<circle cx="${p.x}" cy="${p.y}" r="${p.radius}" fill="#e9bf6b20" stroke="#e9bf6b" stroke-width="25"/>`).join("")}${b.deployments.map((p, i) => `<circle cx="${p.x}" cy="${p.y}" r="${i === options.deployment ? 140 : 95}" fill="${i === options.deployment ? "#92e7cc" : "#587b78"}"/>`).join("")}${b.extractions.map((p) => `<rect x="${p.x - 70}" y="${p.y - 70}" width="140" height="140" fill="none" stroke="#9ce2ca" stroke-width="25"/>`).join("")}</svg>`
+    : "<p>분대 생성 후 투입 후보를 검토하세요</p>";
+  const profile = WORLD_PROFILES[options.profile];
+  return `<div class="brief-map">${diagram}<span>${room?.seed ?? 42} / 추정 목표 구역 · 적 위치 비공개</span></div><div class="brief-body"><div class="eyebrow">BARREN FRONTIER <span class="tag">1–4인 협동</span></div><h2>${spec.title}<span class="pink">.</span></h2><p>${b?.error ? escape(b.error) : spec.description}</p><div class="brief-meta"><span>${profile.width} × ${profile.height} · ${profile.label}</span><span>제한 ${spec.minutes}분 · 적 전멸 불필요</span></div></div>`;
+}
+function missionSettings() {
+  const o = room?.operation ?? operationOptions("reactor"),
+    locked = room?.host !== id ? "disabled" : "";
+  return `<div class="operation-settings"><label>작전<select id="mission" aria-label="미션 유형" ${locked}>${Object.values(
+    MISSIONS,
+  )
+    .map(
+      (m) =>
+        `<option value="${m.id}" ${o.missionId === m.id ? "selected" : ""}>${m.title}</option>`,
+    )
     .join(
       "",
-    )}<circle cx="${map.spawn.x}" cy="${map.spawn.y}" r="100" fill="#80d9c5"/>${map.extractions.map((p) => `<circle cx="${p.x}" cy="${p.y}" r="85" fill="none" stroke="#80d9c5" stroke-width="25"/>`).join("")}</svg>`;
-  return `<div class="brief-map">${plan}<span>${map.seed} / 위성 개요 · 황무지 정찰 미완료</span></div><div class="brief-body"><div class="eyebrow">BARREN FRONTIER <span class="tag">1–4인 협동</span></div><h2>BLACKOUT<span class="pink">.</span></h2><p>발전기 두 기. 진입 방향과 파괴 순서는 자유.<br>교전을 피하거나 통신·출동 능력부터 끊으세요.</p><div class="mission-steps"><span><b>01</b> 자유 정찰</span><span><b>02</b> 발전기 2기</span><span><b>03</b> 수송 요청</span></div><div class="brief-meta"><span>전멸 조건 없음</span><span>실제 부위 약점 · AP/AV 관통</span></div></div>`;
+    )}</select></label><label>규모<select id="world-profile" aria-label="월드 규모" ${locked}>${MISSIONS[o.missionId].profiles.map((p) => `<option value="${p}" ${o.profile === p ? "selected" : ""}>${WORLD_PROFILES[p].label} · ${WORLD_PROFILES[p].width}×${WORLD_PROFILES[p].height}</option>`).join("")}</select></label><label>공동 투입<select id="deployment" aria-label="투입 지점" ${locked}>${[0, 1, 2].map((i) => `<option value="${i}" ${o.deployment === i ? "selected" : ""}>투입 ${i + 1}${i === 0 ? " · 기본 접근" : " · 우회 접근"}</option>`).join("")}</select></label></div>`;
 }
 function lobby() {
   const c = CHARACTERS[character],
@@ -198,18 +222,18 @@ function lobby() {
             : `<div class="empty-member"><span>＋</span> 코드로 동료 초대</div>`;
         }).join(
           "",
-        )}</div><div class="room-settings"><label>SEED <input id="seed" aria-label="작전 시드" type="number" min="0" max="999999" value="${room.seed}" ${room.host !== id ? "disabled" : ""}></label><select id="contract" aria-label="계약" ${room.host !== id ? "disabled" : ""}><option value="blackout">BLACKOUT · 기본 계약</option><option value="recon" ${room.contract === "recon" ? "selected" : ""}>BLACKOUT · 정찰 보너스</option></select><select id="difficulty" aria-label="난이도" ${room.host !== id ? "disabled" : ""}>${Array.from({ length: 10 }, (_, i) => `<option value="${i + 1}" ${room!.difficulty === i + 1 ? "selected" : ""}>${i + 1} · ${i < 2 ? "입문" : i < 4 ? "보통" : i < 6 ? "어려움" : i < 9 ? "극한" : "절망"}</option>`).join("")}</select></div><div class="deploy-row"><button class="secondary ${me?.ready ? "is-ready" : ""}" data-action="ready">${me?.ready ? "✓ 준비 완료" : "준비하기"}</button><button class="primary" data-action="start" ${room.host !== id || !room.players.filter((p) => p.connected).every((p) => p.ready) ? "disabled" : ""}>출격 <span>↗</span></button></div><button class="leave" data-action="leave">분대 나가기</button>`
+        )}</div>${missionSettings()}<div class="room-settings"><label>SEED <input id="seed" aria-label="작전 시드" type="number" min="0" max="999999" value="${room.seed}" ${room.host !== id ? "disabled" : ""}></label><select id="contract" aria-label="계약" ${room.host !== id ? "disabled" : ""}><option value="blackout">기본 계약</option><option value="recon" ${room.contract === "recon" ? "selected" : ""}>선택 목표 보너스</option></select><select id="difficulty" aria-label="난이도" ${room.host !== id ? "disabled" : ""}>${Array.from({ length: 10 }, (_, i) => `<option value="${i + 1}" ${room!.difficulty === i + 1 ? "selected" : ""}>${i + 1} · ${i < 2 ? "입문" : i < 4 ? "보통" : i < 6 ? "어려움" : i < 9 ? "극한" : "절망"}</option>`).join("")}</select></div><div class="deploy-row"><button class="secondary ${me?.ready ? "is-ready" : ""}" data-action="ready">${me?.ready ? "✓ 준비 완료" : "준비하기"}</button><button class="primary" data-action="start" ${room.host !== id || !room.players.filter((p) => p.connected).every((p) => p.ready) ? "disabled" : ""}>출격 <span>↗</span></button></div><button class="leave" data-action="leave">분대 나가기</button>`
       : `<div class="entry-fields"><label for="name">콜사인</label><input id="name" maxlength="14" placeholder="오퍼레이터 이름" value="${escape(stored("doll-name") || "오퍼레이터")}"></div><button class="primary create" data-action="create" ${!connected ? "disabled" : ""}>새 분대 만들기 <span>↗</span></button><div class="join-row"><input id="code" maxlength="5" placeholder="분대 코드" aria-label="분대 코드"><button class="secondary" data-action="join" ${!connected ? "disabled" : ""}>참가</button></div><p class="entry-note">혼자 출격하거나, 코드로 친구들과 함께하세요.</p>`
   }</section></aside></div></main><footer><span><i></i> PROJECT DOLL SQUAD <span class="muted">/ FIRST DEPLOYMENT</span></span><span>작게 귀엽게, 빠르고 위험하게.</span><button class="text-button" data-action="audio">${audio.volume ? "◖ 사운드 켜짐" : "◖ 사운드 꺼짐"}</button></footer>`;
 }
 function combat() {
-  return `<canvas id="battle" aria-label="BLACKOUT 전투 화면"></canvas><div class="battle-hud"><div class="battle-top"><div class="battle-logo">${logo()}</div><div class="objective"><div class="eyebrow">OPERATION BLACKOUT <span id="clock"></span></div><h3 id="objective-title"></h3><div class="objective-progress"><span id="objective-bar"></span></div><p id="objective-detail"></p></div><button class="menu-button" data-action="menu">ESC <span>메뉴</span></button></div><div id="team-hud"></div><div id="interaction"></div><div class="battle-bottom"><div class="health-panel"><div class="hud-portrait">${portrait(character)}</div><div><div class="eyebrow">${CHARACTERS[character].callsign} / ${CHARACTERS[character].role}</div><div class="health-number"><b id="hp">100</b><span> / 100</span></div><div class="health-bar"><span id="health-fill"></span></div></div></div><div class="battle-controls"><span><kbd>WASD</kbd> 이동</span><span><kbd>우클릭</kbd> 정밀 조준</span><span><kbd>SHIFT</kbd> 질주</span><span><kbd>TAB</kbd> 현황</span></div><div class="ammo-panel"><div class="eyebrow" id="equipped-label"></div><div><b id="ammo"></b><span id="reserve"></span></div><small id="reload-label">R · 재장전</small></div></div><div id="response-notice" role="status"></div><div id="radio"><span>COMMS / ${CHARACTERS[character].callsign}</span><p>${CHARACTERS[character].quote}</p></div></div><div id="overlay"></div>`;
+  return `<canvas id="battle" aria-label="협동 작전 전투 화면"></canvas><div class="battle-hud"><div class="battle-top"><div class="battle-logo">${logo()}</div><div class="objective"><div class="eyebrow"><span id="mission-name">OPERATION</span> <span id="clock"></span></div><h3 id="objective-title"></h3><div class="objective-progress"><span id="objective-bar"></span></div><p id="objective-detail"></p></div><button class="menu-button" data-action="menu">ESC <span>메뉴</span></button></div><div id="team-hud"></div><div id="interaction"></div><div class="battle-bottom"><div class="health-panel"><div class="hud-portrait">${portrait(character)}</div><div><div class="eyebrow">${CHARACTERS[character].callsign} / ${CHARACTERS[character].role}</div><div class="health-number"><b id="hp">100</b><span> / 100</span></div><div class="health-bar"><span id="health-fill"></span></div></div></div><div class="battle-controls"><span><kbd>WASD</kbd> 이동</span><span><kbd>우클릭</kbd> 정밀 조준</span><span><kbd>SHIFT</kbd> 질주</span><span><kbd>TAB</kbd> 현황</span></div><div class="ammo-panel"><div class="eyebrow" id="equipped-label"></div><div><b id="ammo"></b><span id="reserve"></span></div><small id="reload-label">R · 재장전</small></div></div><div id="response-notice" role="status"></div><div id="radio"><span>COMMS / ${CHARACTERS[character].callsign}</span><p>${CHARACTERS[character].quote}</p></div></div><div id="overlay"></div>`;
 }
 function result() {
   const m = room!.world!.mission,
     success = m.stage === "success",
     reward = Math.round(m.reward * difficulty(room!.difficulty).reward);
-  return `${header()}<main class="result-page"><div class="result-portrait">${portrait(character, success ? "happy" : "hurt")}</div><section class="result-card"><div class="eyebrow">OPERATION BLACKOUT / AFTER ACTION REPORT</div><div class="result-seal">${success ? "✦" : "×"}</div><h1>${success ? "모두, 무사히 귀환." : "다음 작전을 기약하며."}</h1><p>${escape(m.reason)}</p><div class="result-grade">${success ? (m.intel ? "S" : "A") : "D"}<span>${success ? "MISSION COMPLETE" : "MISSION FAILED"}</span></div><div class="result-stats"><div><small>작전 시간</small><b>${time(m.elapsed)}</b></div><div><small>분대 처치</small><b>${room!.players.reduce((v, p) => v + p.kills, 0)}</b></div><div><small>기밀 자료</small><b>${m.intel ? "회수 완료" : "미회수"}</b></div></div><div class="reward"><span>획득 크레딧</span><b>+ ${reward} <small>CR</small></b></div><p class="save-note">진행도가 서버에 저장되었습니다 · 현재 ${profile?.credits ?? 0} CR</p><button class="primary" data-action="return" ${room!.host !== id ? "disabled" : ""}>${room!.host === id ? "다음 작전 준비" : "분대장의 복귀를 기다리는 중"} <span>↗</span></button><button class="leave" data-action="leave">분대 나가기</button></section></main>`;
+  return `${header()}<main class="result-page"><div class="result-portrait">${portrait(character, success ? "happy" : "hurt")}</div><section class="result-card"><div class="eyebrow">${m.id ? MISSIONS[m.id].title : "OPERATION BLACKOUT"} / AFTER ACTION REPORT</div><div class="result-seal">${success ? "✦" : "×"}</div><h1>${success ? "모두, 무사히 귀환." : "다음 작전을 기약하며."}</h1><p>${escape(m.reason)}</p><p>주 목표 ${m.outcome?.primaryAchieved ? "달성" : "미달성"} · 생존 귀환 ${success ? "완료" : "실패"}</p><div class="result-grade">${success ? (m.intel ? "S" : "A") : "D"}<span>${success ? "MISSION COMPLETE" : "MISSION FAILED"}</span></div><div class="result-stats"><div><small>작전 시간</small><b>${time(m.elapsed)}</b></div><div><small>분대 처치</small><b>${room!.players.reduce((v, p) => v + p.kills, 0)}</b></div><div><small>기밀 자료</small><b>${m.intel ? "회수 완료" : "미회수"}</b></div></div><div class="reward"><span>획득 크레딧</span><b>+ ${reward} <small>CR</small></b></div><p class="save-note">진행도가 서버에 저장되었습니다 · 현재 ${profile?.credits ?? 0} CR</p><button class="primary" data-action="return" ${room!.host !== id ? "disabled" : ""}>${room!.host === id ? "다음 작전 준비" : "분대장의 복귀를 기다리는 중"} <span>↗</span></button><button class="leave" data-action="leave">분대 나가기</button></section></main>`;
 }
 function time(s: number) {
   return `${Math.floor(s / 60)
@@ -282,8 +306,15 @@ function updateHud() {
         : "탈출 · 수송기 도착 / 전원 탑승"
       : x.state === "available"
         ? "주 목표 완료 · 탈출 시점은 분대가 결정"
-        : "자유 작전 · 핵심 발전기 " + done + " / 2";
-  document.querySelector("#clock")!.textContent = time(m.elapsed) + " / 30:00";
+        : m.id
+          ? (operationGoal(w, p, renderer?.trackedObjective)?.label ??
+            "정찰 · 가용 목표 탐색")
+          : "자유 작전 · 핵심 발전기 " + done + " / 2";
+  document.querySelector("#clock")!.textContent =
+    time(m.elapsed) + " / " + time(m.timeLimit ?? 1800);
+  document.querySelector("#mission-name")!.textContent = m.id
+    ? MISSIONS[m.id].title
+    : "OPERATION BLACKOUT";
   const notice =
     [...(w.notices || [])]
       .reverse()
@@ -300,6 +331,12 @@ function updateHud() {
     noticeEl.classList.toggle("maximum", w.alertState.level === 4);
   }
   const levels = ["평시", "의심", "교전", "비상", "최고 경계"];
+  const task = m.objectives
+    .filter((o) => o.state === "active" && o.discovered && !o.optional)
+    .sort((a, b) => distance(a.position, p) - distance(b.position, p))[0];
+  const taskText = task
+    ? `${task.phase ?? task.label}${task.phase && ["데이터 수집", "방어 중", "데이터 전송", "분석 중"].includes(task.phase) ? ` · ${Math.floor(task.progress)}/${task.total}초` : ""}`
+    : "순서 자유 · TAB 목표 추적 / 적 전멸 불필요";
   document.querySelector("#objective-detail")!.textContent =
     `경보 ${w.alertState.level} · ${levels[w.alertState.level]} · ${w.alertState.reason} / ` +
     (m.stage === "extract"
@@ -308,13 +345,25 @@ function updateHud() {
         : `탑승 ${x.boarding.toFixed(1)}/3초 · 철수 ${Math.ceil(x.departure - w.time)}초`
       : x.state === "available"
         ? "후보 지점에서 E로 수송 요청 · 보조 목표 계속 가능"
-        : "순서 자유 · TAB 목표 추적 / 적 전멸 불필요");
+        : taskText);
   (document.querySelector("#objective-bar") as HTMLElement).style.width =
     (m.stage === "extract"
       ? x.state === "inbound"
         ? Math.min(1, (w.time - x.requested) / (x.eta - x.requested))
         : x.boarding / 3
-      : primary.reduce((n, o) => n + o.progress / o.total, 0) / 2) *
+      : Math.min(
+          1,
+          m.completion
+            ? m.completion.ids.reduce(
+                (n, id) =>
+                  n +
+                  (m.objectives.find((o) => o.id === id)?.state === "complete"
+                    ? 1
+                    : 0),
+                0,
+              ) / m.completion.count
+            : primary.reduce((n, o) => n + o.progress / o.total, 0) / 2,
+        )) *
       100 +
     "%";
   document.querySelector("#hp")!.textContent = String(Math.ceil(p.hp));
@@ -341,7 +390,7 @@ function updateHud() {
     .filter((p) => p.id !== id)
     .map(
       (p) =>
-        `<div class="teammate"><i style="background:${CHARACTERS[p.character].color}"></i><b>${escape(p.name)}</b><span>${!p.connected ? "연결 끊김" : p.down ? "구조 필요" : Math.ceil(p.hp) + " HP"}</span></div>`,
+        `<div class="teammate"><i style="background:${CHARACTERS[p.character].color}"></i><b>${escape(p.name)}${p.carrying ? " · CASE" : ""}</b><span>${!p.connected ? "연결 끊김" : p.down ? "구조 필요" : Math.ceil(p.hp) + " HP"}</span></div>`,
     )
     .join("");
   let hint = p.down
@@ -353,7 +402,7 @@ function updateHud() {
       hint = `F 길게 · ${fallen.name} 소생 ${fallen.reviveProgress.toFixed(1)} / 3`;
     else if (w.map.supplies.some((v) => !v.used && distance(v, p) < 90))
       hint = "E · 보급품 확보 / 체력·주/부무장 탄약·선택 소모품 1개";
-    else if (!m.intel && distance(p, w.map.intel) < 90)
+    else if (!m.id && !m.intel && distance(p, w.map.intel) < 90)
       hint = `E 길게 · 기밀 자료 회수 ${m.intelProgress.toFixed(1)} / 3`;
     else if (
       w.map.sources.some(
@@ -368,6 +417,23 @@ function updateHud() {
       hint = "E · 수송기 호출 / 도착 후 전원 탑승";
     else if (w.map.installations.some((d) => d.hp > 0 && distance(d, p) < 220))
       hint = "좌클릭 · 시설 장치를 사격해 파괴";
+  }
+  if (m.id && !p.down) {
+    const o = m.objectives.find(
+      (o) =>
+        o.discovered &&
+        o.state !== "complete" &&
+        distance(p, o.operatingPoint ?? o.position) < 110,
+    );
+    if (o)
+      hint =
+        o.state === "locked"
+          ? `잠김 · ${(o.prerequisiteIds ?? []).map((id) => m.objectives.find((n) => n.id === id)?.label ?? "선행 목표").join(o.prerequisiteMode === "any" ? " / " : " + ")}${o.activation === "breach" ? " 또는 장갑 돌파" : " 필요"}`
+          : o.action === "destroy"
+            ? "시설 공략 · 실제 약점 / AP·AV"
+            : `E · ${o.phase ?? o.label} · ${o.progress.toFixed(1)}/${o.total}`;
+    if (p.carrying)
+      hint = "데이터 운반 중 · 권총/소모품 사용 가능 · X 내려놓기";
   }
   document.querySelector("#interaction")!.textContent = hint;
   (document.querySelector("#radio") as HTMLElement).style.opacity =
@@ -385,7 +451,45 @@ function showOverlay() {
   if (menu) {
     el.innerHTML = `<div class="modal-backdrop"><div class="modal"><div class="eyebrow">FIELD MENU</div><h2>잠깐, 전술을 가다듬고.</h2><p>협동 작전은 메뉴를 열어도 계속 진행됩니다.</p><button class="primary" data-action="menu">작전으로 복귀</button><button class="secondary" data-action="help">조작 가이드</button><button class="secondary" data-action="audio">사운드 ${audio.volume ? "끄기" : "켜기"}</button><button class="leave" data-action="leave">분대 나가기</button></div></div>`;
   } else if (keys.has("Tab")) {
-    el.innerHTML = `<div class="status-panel"><div class="eyebrow">SQUAD STATUS / ${room?.code}</div><h2>BLACKOUT</h2><p>SEED ${room?.seed} · 기밀 자료 ${room?.world?.mission.intel ? "회수 완료" : "미회수"}</p><div class="operation-objectives">${room?.world?.mission.objectives.map((o) => `<button class="secondary" data-action="track" data-id="${o.id}">${o.state === "complete" ? "✓" : o.optional ? "◇" : "◆"} ${escape(o.label)} · ${o.state === "complete" ? "완료" : o.discovered ? "발견" : "추정 구역"}</button>`).join("")}</div>${room?.players.map((p) => `<div class="status-row"><b>${escape(p.name)}</b><span>${WEAPONS[p.weapon].name}</span><span>${p.kills} 처치</span><span>${p.down ? "쓰러짐" : Math.ceil(p.hp) + " HP"}</span></div>`).join("")}</div>`;
+    const w = room?.world;
+    if (!w || !renderer) return;
+    if (!el.querySelector("#tactical-map")) {
+      el.innerHTML = `<div class="status-panel tactical-panel"><div class="eyebrow">TACTICAL MAP / ${room?.code}</div><h2>${w.mission.id ? MISSIONS[w.mission.id].title : "BLACKOUT"}</h2><canvas id="tactical-map" width="1000" height="560" aria-label="전술 지도"></canvas><div id="tactical-objectives" class="operation-objectives"></div><p>◆ 필수 · ◇ 선택 · 점선은 추정 구역 · 미발견 위치는 표시하지 않습니다</p></div>`;
+      tacticalMap.attach(
+        el.querySelector("#tactical-map")!,
+        () => room?.world ?? undefined,
+        (id) => {
+          renderer!.trackedObjective = id;
+          toast("목표 추적 변경");
+        },
+      );
+    }
+    const stateLabel = (o: (typeof w.mission.objectives)[number]) =>
+      o.state === "locked"
+        ? "잠김"
+        : o.state === "complete"
+          ? "완료"
+          : o.state === "failed"
+            ? "실패"
+            : (o.phase ??
+              (o.discovered
+                ? "수행 가능"
+                : o.known === "region"
+                  ? "추정 구역"
+                  : "위치 미확인"));
+    el.querySelector("#tactical-objectives")!.innerHTML = w.mission.objectives
+      .filter((o) => !o.optional || o.discovered || o.state === "complete")
+      .map(
+        (o) =>
+          `<button class="secondary" data-action="track" data-id="${o.id}">${o.optional ? "◇" : "◆"} ${escape(o.label)} · ${stateLabel(o)}${o.state === "locked" ? `<small>선행 ${(o.prerequisiteIds ?? []).map((id) => escape(w.mission.objectives.find((n) => n.id === id)?.label ?? "미확인")).join(o.prerequisiteMode === "any" ? " / " : " + ")}${o.activation === "breach" ? " 또는 장갑 돌파" : ""}</small>` : ""}</button>`,
+      )
+      .join("");
+    tacticalMap.draw(
+      el.querySelector("#tactical-map")!,
+      w,
+      renderer.fog,
+      renderer.trackedObjective,
+    );
   } else el.innerHTML = "";
 }
 function showHelp() {
@@ -394,12 +498,13 @@ function showHelp() {
   const el = document.createElement("div");
   el.id = "help";
   el.className = "modal-backdrop";
-  el.innerHTML = `<div class="modal guide"><div class="eyebrow">DOLL SQUAD / FIELD GUIDE</div><h2>함께 들어가서, 함께 돌아오기.</h2><p>분대를 만들고 준비한 뒤 출격하세요. 발전기 두 기는 자유로운 순서로 파괴할 수 있고 적 전멸은 필요 없습니다. 통신탑은 광역 지원을 지연하고 전초기지·병영을 무력화하면 출동 능력이 줄어듭니다. 주 목표 완료 후 후보 지점에서 E로 수송기를 요청하세요. 도착한 수송기 주변에 전원이 3초 집결하면 귀환합니다. TAB으로 목표를 추적하고, E는 보급·자료·출입구 봉쇄, F는 동료 구조입니다.</p><div class="guide-grid">${[
+  el.innerHTML = `<div class="modal guide"><div class="eyebrow">DOLL SQUAD / FIELD GUIDE</div><h2>함께 들어가서, 함께 돌아오기.</h2><p>분대를 만들고 작전 유형·규모·공동 투입 지점을 선택하세요. 미션별 선행 조건과 단계가 다르며 적 전멸은 필요 없습니다. 통신시설과 병영·포병 시설은 실제 지역 대응을 약화시킵니다. 데이터 케이스 운반 중에는 권총과 소모품을 사용하며 X로 내려놓습니다. 주 목표 완료 후 후보 지점에서 E로 수송기를 요청하세요. 도착한 수송기 주변에 전원이 3초 집결하면 귀환합니다. TAB으로 목표를 추적하고, E는 보급·자료·출입구 봉쇄, F는 동료 구조입니다.</p><div class="guide-grid">${[
     ["W A S D", "이동"],
     ["마우스 · 좌클릭", "조준 · 발사"],
     ["우클릭", "정밀 조준"],
     ["SHIFT", "질주 · 사격 불가"],
     ["R", "재장전"],
+    ["X", "데이터 케이스 내려놓기"],
     ["1 / 2 / 3", "주무장 / 권총 / 소모품"],
     ["E 길게", "목표 · 보급품"],
     ["F 길게", "동료 소생"],
@@ -450,6 +555,7 @@ document.addEventListener("click", (e) => {
     save("doll-name", name);
     send({
       type: action,
+      operation: action === "create" ? operationOptions("reactor") : undefined,
       name,
       character,
       weapon,
@@ -518,6 +624,25 @@ document.addEventListener("change", (e) => {
       choose();
     }
   }
+  if (["mission", "world-profile", "deployment"].includes(el.id)) {
+    const mission = (document.querySelector("#mission") as HTMLSelectElement)
+      .value as MissionId;
+    const size =
+      el.id === "mission"
+        ? MISSIONS[mission].defaultProfile
+        : ((document.querySelector("#world-profile") as HTMLSelectElement)
+            .value as WorldProfileId);
+    send({
+      type: "settings",
+      operation: operationOptions(
+        mission,
+        size,
+        Number(
+          (document.querySelector("#deployment") as HTMLSelectElement).value,
+        ),
+      ),
+    });
+  }
   if (el.id === "seed" || el.id === "difficulty" || el.id === "contract")
     send({
       type: "settings",
@@ -543,17 +668,23 @@ window.addEventListener("keydown", (e) => {
     return;
   }
   keys.add(e.key.length === 1 ? e.key.toLowerCase() : e.key);
-  if (e.key === "Tab") showOverlay();
+  if (e.key === "Tab") {
+    mouseDown = false;
+    aim = false;
+    send({ type: "input", ...emptyInput() });
+    showOverlay();
+  }
 });
 window.addEventListener("keyup", (e) => {
   keys.delete(e.key.length === 1 ? e.key.toLowerCase() : e.key);
   if (e.key === "Tab") showOverlay();
 });
 window.addEventListener("mousemove", (e) => {
-  if (renderer) renderer.mouse = { x: e.clientX, y: e.clientY };
+  if (renderer && !keys.has("Tab") && !menu && !help)
+    renderer.mouse = { x: e.clientX, y: e.clientY };
 });
 window.addEventListener("mousedown", (e) => {
-  if (e.target instanceof HTMLCanvasElement && !menu && !help) {
+  if (e.target === renderer?.canvas && !menu && !help && !keys.has("Tab")) {
     audio.start();
     if (e.button === 0) mouseDown = true;
     if (e.button === 2) aim = true;
@@ -579,7 +710,14 @@ document.addEventListener("visibilitychange", () => {
 });
 window.addEventListener("resize", () => renderer?.resize());
 function currentInput(): Input | null {
-  if (room?.phase !== "playing" || !renderer || !connected || menu || help)
+  if (
+    room?.phase !== "playing" ||
+    !renderer ||
+    !connected ||
+    menu ||
+    help ||
+    keys.has("Tab")
+  )
     return null;
   const p = room.players.find((p) => p.id === id);
   if (!p) return null;
@@ -594,6 +732,7 @@ function currentInput(): Input | null {
     reload: keys.has("r"),
     interact: keys.has("e"),
     revive: keys.has("f"),
+    drop: keys.has("x"),
     slot: selectedSlot,
     targetX: cursor.x,
     targetY: cursor.y + RULES.muzzleHeight,
@@ -614,6 +753,8 @@ Object.defineProperty(window, "dollQA", {
     id,
     connected,
     frames: renderer?.frames.slice(),
+    terrain: renderer?.terrainChunks.stats(),
+    tactical: { zoom: tacticalMap.zoom, pan: { ...tacticalMap.pan } },
     camera: renderer ? { ...renderer.camera } : null,
     zoom: renderer?.zoom,
   }),
