@@ -13,6 +13,7 @@ it("repositions reactor27/defense59 layouts when the exact heavy facility entry 
   for (const [id, profile, seed, count] of [
     ["reactor", "standard", 27, 1],
     ["defense", "compact", 59, 4],
+    ["defense", "compact", 49, 1],
   ] as const) {
     const map = generateOperationMap(
       seed,

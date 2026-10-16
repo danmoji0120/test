@@ -178,6 +178,11 @@ it("validates mission/profile/version on the server and can deploy each of the s
     p.send({ type: "create", operation: operationOptions(mission.id) });
     await p.wait((m) => m.type === "state");
     const selected = p.room.operation;
+    p.send({ type: "settings", seed: 42, difficulty: 1, operation: selected });
+    await p.wait(
+      (m) =>
+        m.type === "state" && m.room.seed === 42 && m.room.difficulty === 1,
+    );
     expect(p.room.brief.width).toBeGreaterThan(0);
     p.send({
       type: "settings",

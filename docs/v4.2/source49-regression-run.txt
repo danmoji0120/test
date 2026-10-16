@@ -1,0 +1,3 @@
+{"mission":"defense","profile":"compact","count":1,"rows":100,"failures":0,"ms":1250.7304640000002}
+{"mission":"defense","profile":"compact","count":2,"rows":200,"failures":0,"ms":1127.353567}
+{"mission":"defense","profile":"compact","count":4,"rows":300,"failures":0,"ms":1159.4095969999998}

@@ -389,26 +389,35 @@ export function region(seed: number, plan?: SpatialPlan): GameMap {
       for (let x = 350; x < width - 350; x += 100)
         if (distance({ x, y }, z.center) < 1400) candidates.push({ x, y });
     candidates.sort((a, b) => distance(a, z.center) - distance(b, z.center));
-    const s = candidates.find(
-      (p) =>
-        !zones.some(
-          (o) =>
-            p.x + 220 > o.x &&
-            p.x - 220 < o.x + o.w &&
-            p.y + 450 > o.y &&
-            p.y - 200 < o.y + o.h,
-        ) &&
-        !nodes.some(
-          (v) => Math.abs(p.x - v.x) < 250 && Math.abs(p.y - v.y) < 370,
-        ) &&
-        !obstacles.some(
-          (o) =>
-            p.x + 210 > o.x &&
-            p.x - 210 < o.x + o.w &&
-            p.y + 420 > o.y &&
-            p.y - 190 < o.y + o.h,
-        ),
-    );
+    const sourceClear = (p: Vec) =>
+      !zones.some(
+        (o) =>
+          p.x + 220 > o.x &&
+          p.x - 220 < o.x + o.w &&
+          p.y + 450 > o.y &&
+          p.y - 200 < o.y + o.h,
+      ) &&
+      !nodes.some(
+        (v) => Math.abs(p.x - v.x) < 250 && Math.abs(p.y - v.y) < 370,
+      ) &&
+      !obstacles.some(
+        (o) =>
+          p.x + 210 > o.x &&
+          p.x - 210 < o.x + o.w &&
+          p.y + 420 > o.y &&
+          p.y - 190 < o.y + o.h,
+      );
+    let s = candidates.find(sourceClear);
+    // Compact sites can leave a valid motorpool between the coarse100-unit samples.
+    // Retry at50-unit resolution before rejecting the layout; keep every clearance rule.
+    if (!s && plan) {
+      const fine: Vec[] = [];
+      for (let y = 250; y < height - 450; y += 50)
+        for (let x = 250; x < width - 250; x += 50)
+          if (distance({ x, y }, z.center) < 1800) fine.push({ x, y });
+      fine.sort((a, b) => distance(a, z.center) - distance(b, z.center));
+      s = fine.find(sourceClear);
+    }
     if (!s) throw Error("No physical source " + seed + ":" + z.id);
     obstacles.push(
       { x: s.x - 150, y: s.y - 150, w: 300, h: 30, kind: "wall" },
