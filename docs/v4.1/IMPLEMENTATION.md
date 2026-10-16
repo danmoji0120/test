@@ -18,7 +18,7 @@ Existing build and 93 tests pass (41.76s). `baseline/combat.json` contains 252 c
 
 ## Current status
 
-Implementation in progress. Phase results, limitations and final commit/push status will be updated after verification.
+Core implementation is complete; chronological checkpoints follow. Final acceptance evidence and limitations are recorded in QA_RESULTS.md and final/summary.json.
 
 ## Integrated equipment / armor / consumable / aim checkpoint
 
@@ -49,3 +49,11 @@ A115-test run while several browsers and CPU experiments were active hit two wal
 ## Isolated regression result
 
 After stopping concurrent heavy browser/test jobs, unchanged assertions pass in the normal isolated command: `npm install`, build, **14 files /115 tests /50.05s**. Logs are in `final/`. The earlier co-load timeouts remain available; no timeout budget, assertion or Seed count was weakened.115 includes AP/AV36 combinations, slot/migration/security, physical components/functional effects, smoke/consumable latch/supply, impact-side explosion/no duplicate hit, generator friendly-cover and actual lateral firing position, plus all existing multiplayer/fog/source/path/reward regressions.
+
+## Final regression and production browser checkpoint
+
+Commit `a894772` includes the final projected-head contact alignment, separate penetration-result/weakpoint feedback, smoke hearing independent of optical occlusion, atomic validated character/loadout persistence, and visible hit labels above the projected actor. The normal isolated regression passes **15 files /119 tests /56.19s**. This adds actual AP1-accessible generator core firing positions over100 Seeds, all-direction projected-head geometry, smoke acoustic independence and partial-penetration weakpoint feedback. Build and install pass; the last renderer-only presentation adjustment was rebuilt and then captured by the final browser suite. No gameplay assertion was removed.
+
+Final production browser Seed42: difficulty1 one/two/four players succeeded in90.17/108.67/135.43 simulated seconds. Four mixed legal primaries recorded AT and pistol fire, one revive, reconnection, synchronized results, persisted credits and redeployment. The ordinary solo difficulty10 run failed at17.00s and preserved its video and failure reward. All four runs have zero page errors. Earlier successful and failed tuning runs remain separate. The browser report's legacy `loadout.weapon` is the currently equipped gun; authoritative primary selection is in server-trace equipment (the fourth player remains AT while holding P-01).
+
+A final sequential input campaign, controlled damage replay, same-load performance suite, synthetic AP/smoke stress and24-operation GC stability run are indexed in QA_RESULTS.md. Historical `matrix.rockets` referred to the removed G inventory and is deprecated; actual AT usage comes from `shotsByWeapon.at`, and the final summary uses that source. The old counter does not imply that no rockets were fired.

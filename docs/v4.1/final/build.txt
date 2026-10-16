@@ -21,7 +21,7 @@ dist/assets/v4-enemies-atlas-ClXva3bZ.png        2,286.88 kB
 dist/assets/v4-environment-atlas-0a1YvfBU.png    2,675.40 kB
 dist/assets/index-DeJ7qJEp.css                      23.45 kB │ gzip:  6.11 kB
 dist/assets/index-nJSEMW98.js                       75.55 kB │ gzip: 29.23 kB
-✓ built in 299ms
+✓ built in 466ms
 
   dist/server.mjs  137.3kb
 

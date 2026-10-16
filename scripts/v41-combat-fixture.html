@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+  <meta charset="utf-8" /><title>V4.1 COMBAT RULES FIXTURE</title
+  ><style>
+    body {
+      margin: 0;
+      background: #11151c;
+      color: #eddbc1;
+      font: 14px sans-serif;
+    }
+    canvas {
+      position: fixed;
+      inset: 0;
+    }
+    aside {
+      position: fixed;
+      top: 22px;
+      left: 24px;
+      max-width: 620px;
+      background: #101b29ee;
+      border-left: 4px solid #f1b476;
+      padding: 16px;
+      z-index: 2;
+      line-height: 1.7;
+    }
+    small {
+      color: #b6c3c9;
+      display: block;
+    }</style
+  ><canvas></canvas>
+  <aside>
+    <b>FIXTURE · 전투 규칙 / 실제 작전 완료 증거 아님</b>
+    <div id="title"></div>
+    <small id="status"></small>
+  </aside>
+  <script type="module">
+    import {
+      createWorld,
+      makePlayer,
+      spawnEnemy,
+      fire,
+    } from "/src/game/simulation.ts";
+    import { tickProjectiles, launch } from "/src/game/projectiles.ts";
+    import { updateVision } from "/src/game/visibility.ts";
+    import { visibleWorld } from "/src/server/visibility.ts";
+    import { Renderer } from "/src/client/render.ts";
+    import { AudioEngine } from "/src/client/audio.ts";
+    import { resetEquipment } from "/src/shared/loadout.ts";
+    import { enemyAI } from "/src/game/squads.ts";
+    const name =
+      new URLSearchParams(location.search).get("case") || "component";
+    const p = makePlayer("p", "아리아 / RULES"),
+      w = createWorld("fixture-" + name, 42, [p], 10);
+    w.map.obstacles = [];
+    w.map.installations = [];
+    w.enemies = [];
+    w.squads = {};
+    w.director.next = 1e9;
+    w.map.supplies = [];
+    p.x = 3000;
+    p.y = 2100;
+    p.hp = 1e6;
+    const enemy = spawnEnemy(w, { x: 3350, y: 2100 }, "walker", {
+      angle: name === "ricochet" ? Math.PI : 0,
+    });
+    p.weapon = name === "ricochet" || name === "partial" ? "ar" : "at";
+    resetEquipment(p);
+    p.input.aim = true;
+    if (name === "tracking") {
+      p.weapon = "ar";
+      resetEquipment(p);
+      enemy.cooldown = 0;
+    } else enemy.cooldown = 1e6;
+    const renderer = new Renderer(
+      document.querySelector("canvas"),
+      new AudioEngine(),
+    );
+    renderer.mouse = { x: innerWidth * 0.62, y: innerHeight * 0.5 };
+    updateVision(w, true);
+    renderer.set(visibleWorld(w), "p");
+    renderer.start();
+    let frames = 0;
+    const samples = [];
+    setInterval(() => {
+      frames++;
+      w.time += 1 / 30;
+      if (name === "tracking") {
+        p.x = 3000 + Math.sin(w.time * 1.2) * 90;
+        p.y = 2100 + Math.sin(w.time * 0.8) * 150;
+        enemyAI(w, 1 / 30);
+      }
+      if (frames === 20 && name !== "tracking") fire(w, p);
+      if (name !== "tracking") enemy.hurt = Math.max(0, enemy.hurt - 1 / 30);
+      tickProjectiles(w, 1 / 30);
+      updateVision(w);
+      if (frames % 2 === 0) renderer.set(visibleWorld(w), "p");
+      samples.push({
+        at: w.time,
+        hp: enemy.hp,
+        angle: enemy.angle,
+        turret: enemy.turretAngle,
+        components: structuredClone(enemy.components),
+        shots: w.events.filter((e) => e.type === "shot").length,
+      });
+      if (samples.length > 450) samples.shift();
+      document.querySelector("#title").textContent =
+        name === "ricochet"
+          ? "AR / AP2 → 전면 AV5 : 관통 실패"
+          : name === "partial"
+            ? "AR / AP2 → 노출 후방 AV2 : 약점·부분 관통"
+            : name === "tracking"
+              ? "관측 속도로 예측 · 몸체와 주포의 제한된 회전"
+              : "AT / AP5 → 노출 후방 동력부 : 실제 부위 파괴";
+      document.querySelector("#status").textContent =
+        `보행병기 ${Math.max(0, enemy.hp).toFixed(1)} / 650 · ${enemy.components?.core?.destroyed ? "동력 손상" : ""} · 시간 ${w.time.toFixed(2)}s`;
+    }, 1000 / 30);
+    window.fixture = {
+      report: () => ({
+        name,
+        time: w.time,
+        enemy,
+        events: w.events,
+        projectiles: w.projectiles,
+        samples,
+      }),
+    };
+  </script>
+</html>

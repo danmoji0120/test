@@ -1,0 +1,567 @@
+{
+  "damageSamples": 420,
+  "movement": [
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "stationary",
+      "shots": 60,
+      "hits": 60,
+      "damage": 660,
+      "hitRate": 1,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "strafe",
+      "shots": 60,
+      "hits": 11,
+      "damage": 121,
+      "hitRate": 0.18333333333333332,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "circle",
+      "shots": 34,
+      "hits": 6,
+      "damage": 66,
+      "hitRate": 0.17647058823529413,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "zigzag",
+      "shots": 60,
+      "hits": 13,
+      "damage": 143,
+      "hitRate": 0.21666666666666667,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "stationary",
+      "shots": 159,
+      "hits": 157,
+      "damage": 1649,
+      "hitRate": 0.9874213836477987,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "strafe",
+      "shots": 156,
+      "hits": 46,
+      "damage": 492,
+      "hitRate": 0.2948717948717949,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "circle",
+      "shots": 133,
+      "hits": 36,
+      "damage": 386,
+      "hitRate": 0.2706766917293233,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "zigzag",
+      "shots": 156,
+      "hits": 62,
+      "damage": 662,
+      "hitRate": 0.3974358974358974,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "stationary",
+      "shots": 81,
+      "hits": 81,
+      "damage": 891,
+      "hitRate": 1,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "strafe",
+      "shots": 81,
+      "hits": 27,
+      "damage": 297,
+      "hitRate": 0.3333333333333333,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "circle",
+      "shots": 63,
+      "hits": 31,
+      "damage": 341,
+      "hitRate": 0.49206349206349204,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "zigzag",
+      "shots": 81,
+      "hits": 27,
+      "damage": 297,
+      "hitRate": 0.3333333333333333,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "stationary",
+      "shots": 215,
+      "hits": 214,
+      "damage": 2248,
+      "hitRate": 0.9953488372093023,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "strafe",
+      "shots": 215,
+      "hits": 92,
+      "damage": 978,
+      "hitRate": 0.42790697674418604,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "circle",
+      "shots": 138,
+      "hits": 65,
+      "damage": 697,
+      "hitRate": 0.47101449275362317,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "zigzag",
+      "shots": 213,
+      "hits": 105,
+      "damage": 1117,
+      "hitRate": 0.49295774647887325,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor",
+          "assignment": "assault"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank",
+          "assignment": "intercept"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor",
+          "assignment": "suppress"
+        }
+      ]
+    }
+  ],
+  "generators": [
+    {
+      "weapon": "ar",
+      "face": "front",
+      "shots": 270,
+      "seconds": 48.39999999999988,
+      "hp": 420,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "ar",
+      "face": "rear",
+      "shots": 17,
+      "seconds": 2.1333333333333355,
+      "hp": 0,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "smg",
+      "face": "front",
+      "shots": 360,
+      "seconds": 33.20000000000046,
+      "hp": 420,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "smg",
+      "face": "rear",
+      "shots": 24,
+      "seconds": 1.5333333333333348,
+      "hp": 0,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "sg",
+      "face": "front",
+      "shots": 72,
+      "seconds": 73.1999999999988,
+      "hp": 420,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "sg",
+      "face": "rear",
+      "shots": 7,
+      "seconds": 4.799999999999993,
+      "hp": 0,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "at",
+      "face": "front",
+      "shots": 2,
+      "seconds": 4.466666666666666,
+      "hp": 0,
+      "components": {
+        "shield": {
+          "hp": 0,
+          "maxHp": 190,
+          "destroyed": true
+        }
+      }
+    },
+    {
+      "weapon": "at",
+      "face": "rear",
+      "shots": 1,
+      "seconds": 0.19999999999999998,
+      "hp": 0,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "pistol",
+      "face": "front",
+      "shots": 96,
+      "seconds": 33.65000000000043,
+      "hp": 420,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    },
+    {
+      "weapon": "pistol",
+      "face": "rear",
+      "shots": 24,
+      "seconds": 7.283333333333321,
+      "hp": 0,
+      "components": {
+        "shield": {
+          "hp": 190,
+          "maxHp": 190,
+          "destroyed": false
+        }
+      }
+    }
+  ]
+}

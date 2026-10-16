@@ -136,7 +136,10 @@ export class Pilot {
           visible(p, e, w.map),
       )
       .sort((a, b) => distance(p, a) - distance(p, b));
-    const target = enemies[0];
+    const target =
+      this.strategy === "evade"
+        ? enemies.find((e) => distance(p, e) < 170)
+        : enemies[0];
     const device =
       objective && objective.kind !== "intel"
         ? w.map.installations.find((d) => d.id === objective.id && d.hp > 0)
@@ -351,7 +354,7 @@ export class Pilot {
       }
     }
     if (
-      (m.stage === "extract" || this.strategy === "evade") &&
+      (m.stage === "extract" || (this.strategy === "evade" && !shot)) &&
       !fallen &&
       distance(p, extract) > 170
     ) {

@@ -1,0 +1,75 @@
+{
+  "groups": {
+    "acceptance": {
+      "count": 69,
+      "results": {
+        "success": 28,
+        "failed": 41
+      }
+    },
+    "loadouts": {
+      "count": 30,
+      "results": {
+        "success": 9,
+        "failed": 21
+      }
+    },
+    "random": {
+      "count": 18,
+      "results": {
+        "success": 13,
+        "failed": 5
+      }
+    },
+    "tactical-final": {
+      "count": 6,
+      "results": {
+        "failed": 6
+      }
+    }
+  },
+  "byLevel": {
+    "1": {
+      "success": 7,
+      "failed": 2
+    },
+    "3": {
+      "success": 7,
+      "failed": 2
+    },
+    "5": {
+      "failed": 5,
+      "success": 4
+    },
+    "7": {
+      "success": 5,
+      "failed": 4
+    },
+    "8": {
+      "failed": 6,
+      "success": 3
+    },
+    "10": {
+      "failed": 7,
+      "success": 2
+    }
+  },
+  "scenarios": 123,
+  "unfinished": [],
+  "dispatch": {
+    "trajectories": 1899,
+    "invalid": 0,
+    "samples": 62673,
+    "kinds": [
+      "rifle",
+      "rush",
+      "heavy",
+      "juggernaut",
+      "drone",
+      "walker",
+      "artillery"
+    ]
+  },
+  "atShots": 117,
+  "consumableUses": 183
+}

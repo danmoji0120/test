@@ -1,0 +1,1058 @@
+{
+  "method": "Recorded input automation, controlled fixtures and actual WebSocket browsers are distinct. No human play/listening approval. This script only aggregates existing evidence.",
+  "groups": {
+    "acceptance": {
+      "count": 69,
+      "results": {
+        "success": 28,
+        "failed": 41
+      }
+    },
+    "loadouts": {
+      "count": 30,
+      "results": {
+        "success": 9,
+        "failed": 21
+      }
+    },
+    "random": {
+      "count": 18,
+      "results": {
+        "success": 13,
+        "failed": 5
+      }
+    },
+    "tactical-final": {
+      "count": 6,
+      "results": {
+        "failed": 6
+      }
+    }
+  },
+  "byLevel": {
+    "1": {
+      "success": 7,
+      "failed": 2
+    },
+    "3": {
+      "success": 7,
+      "failed": 2
+    },
+    "5": {
+      "failed": 5,
+      "success": 4
+    },
+    "7": {
+      "success": 5,
+      "failed": 4
+    },
+    "8": {
+      "failed": 6,
+      "success": 3
+    },
+    "10": {
+      "failed": 7,
+      "success": 2
+    }
+  },
+  "scenarioCount": 123,
+  "unfinished": [],
+  "dispatch": {
+    "trajectories": 1899,
+    "invalid": 0,
+    "samples": 62673,
+    "kinds": [
+      "rifle",
+      "rush",
+      "heavy",
+      "juggernaut",
+      "drone",
+      "walker",
+      "artillery"
+    ]
+  },
+  "atShots": 117,
+  "consumableUses": 183,
+  "browser": [
+    {
+      "name": "release-1",
+      "players": 1,
+      "difficulty": 1,
+      "seed": 42,
+      "result": "success",
+      "seconds": 90.16666666666411,
+      "firstContact": 8.633333333333313,
+      "primaryAt": 56.89999999999933,
+      "revives": 0,
+      "frameMs": {
+        "samples": 480,
+        "median": 16,
+        "p95": 34.100000001490116,
+        "average": 17.67395833331781
+      },
+      "credits": {
+        "before": 300,
+        "after": 1205,
+        "awarded": 905,
+        "persisted": true
+      },
+      "reconnect": false,
+      "repeatDeployment": true,
+      "shots": {
+        "alarm": 4,
+        "hit": 53,
+        "shot:ar": 95,
+        "shot:enemy": 21,
+        "kill": 5,
+        "reload": 5,
+        "sound": 25
+      },
+      "errors": [],
+      "server": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 0.47823173055555446,
+          "p50": 0.2531710000039311,
+          "p95": 1.3864280000052531,
+          "p99": 3.732623000003514,
+          "max": 60.56824400000187
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 33.34153902166667,
+          "p50": 33.20517699999618,
+          "p95": 34.76781299999857,
+          "p99": 36.82636099999945,
+          "max": 60.65168000000267
+        },
+        "snapshotBytes": {
+          "samples": 1353,
+          "mean": 12472.408721359941,
+          "p50": 5521,
+          "p95": 46578,
+          "p99": 50359,
+          "max": 147221
+        },
+        "totalBytes": 16875169,
+        "totalMessages": 1353,
+        "heapMiB": 17.693565368652344,
+        "rssMiB": 83.7265625
+      },
+      "authoritativePrimary": [
+        "ar"
+      ]
+    },
+    {
+      "name": "release-2",
+      "players": 2,
+      "difficulty": 1,
+      "seed": 42,
+      "result": "success",
+      "seconds": 108.66666666666306,
+      "firstContact": 7.999999999999981,
+      "primaryAt": 74.49999999999834,
+      "revives": 0,
+      "frameMs": {
+        "samples": 420,
+        "median": 16.69999999552965,
+        "p95": 46.70000000298023,
+        "average": 22.09047619045845
+      },
+      "credits": {
+        "before": 300,
+        "after": 1207,
+        "awarded": 907,
+        "persisted": true
+      },
+      "reconnect": true,
+      "repeatDeployment": true,
+      "shots": {
+        "alarm": 4,
+        "hit": 112,
+        "shot:ar": 77,
+        "shot:enemy": 39,
+        "shot:smg": 108,
+        "kill": 7,
+        "reload": 8,
+        "sound": 25
+      },
+      "errors": [],
+      "server": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 0.795523034444369,
+          "p50": 0.3126009999978123,
+          "p95": 2.5431899999966845,
+          "p99": 6.473578999997699,
+          "max": 119.42724599999929
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 34.25937810444444,
+          "p50": 33.26549299999897,
+          "p95": 36.7205660000036,
+          "p99": 62.28356500000518,
+          "max": 121.88773300000321
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 15922.06111111111,
+          "p50": 7087,
+          "p95": 66149,
+          "p99": 70684,
+          "max": 74299
+        },
+        "totalBytes": 63867910,
+        "totalMessages": 3262,
+        "heapMiB": 19.568923950195312,
+        "rssMiB": 97.4140625
+      },
+      "authoritativePrimary": [
+        "ar",
+        "smg"
+      ]
+    },
+    {
+      "name": "release-4",
+      "players": 4,
+      "difficulty": 1,
+      "seed": 42,
+      "result": "success",
+      "seconds": 135.43333333332822,
+      "firstContact": 12.299999999999967,
+      "primaryAt": 93.3333333333306,
+      "revives": 1,
+      "frameMs": {
+        "samples": 300,
+        "median": 38,
+        "p95": 108.29999999701977,
+        "average": 47.54333333333334
+      },
+      "credits": {
+        "before": 300,
+        "after": 1210,
+        "awarded": 910,
+        "persisted": true
+      },
+      "reconnect": true,
+      "repeatDeployment": true,
+      "shots": {
+        "alarm": 3,
+        "shot:enemy": 105,
+        "hit": 91,
+        "shot:at": 4,
+        "reload": 17,
+        "shot:sg": 14,
+        "kill": 10,
+        "explode": 5,
+        "shot:ar": 75,
+        "shot:smg": 101,
+        "sound": 44,
+        "shot:pistol": 12,
+        "revive": 1,
+        "supply": 1
+      },
+      "errors": [],
+      "server": {
+        "serverTickMs": {
+          "samples": 1800,
+          "mean": 1.8029720200001935,
+          "p50": 0.3798620000015944,
+          "p95": 8.346185000002151,
+          "p99": 33.252521999995224,
+          "max": 95.12153600002057
+        },
+        "timerIntervalMs": {
+          "samples": 1800,
+          "mean": 43.94259220888888,
+          "p50": 34.11988799998653,
+          "p95": 68.00829900000826,
+          "p99": 72.2241760000179,
+          "max": 139.1041350000014
+        },
+        "snapshotBytes": {
+          "samples": 1800,
+          "mean": 11489.9,
+          "p50": 9564,
+          "p95": 11862,
+          "p99": 60076,
+          "max": 66058
+        },
+        "totalBytes": 249955909,
+        "totalMessages": 8132,
+        "heapMiB": 27.45818328857422,
+        "rssMiB": 135.8046875
+      },
+      "authoritativePrimary": [
+        "ar",
+        "smg",
+        "sg",
+        "at"
+      ]
+    },
+    {
+      "name": "release-level10",
+      "players": 1,
+      "difficulty": 10,
+      "seed": 42,
+      "result": "failed",
+      "seconds": 17.000000000000004,
+      "firstContact": 7.433333333333317,
+      "primaryAt": -1,
+      "revives": 0,
+      "frameMs": {
+        "samples": 60,
+        "median": 34,
+        "p95": 67.10000000149012,
+        "average": 39.253333333383004
+      },
+      "credits": {
+        "before": 300,
+        "after": 439,
+        "awarded": 139,
+        "persisted": true
+      },
+      "reconnect": false,
+      "repeatDeployment": true,
+      "shots": {
+        "sound": 34,
+        "shot:enemy": 42,
+        "hit": 23,
+        "shot:ar": 24,
+        "supply": 1,
+        "kill": 1
+      },
+      "errors": [],
+      "server": {
+        "serverTickMs": {
+          "samples": 510,
+          "mean": 2.6587844196078283,
+          "p50": 0.5241289999994478,
+          "p95": 8.017428999999538,
+          "p99": 53.86541800000032,
+          "max": 149.24466799999982
+        },
+        "timerIntervalMs": {
+          "samples": 592,
+          "mean": 36.55777627027026,
+          "p50": 33.41801699999996,
+          "p95": 62.080243999999766,
+          "p99": 68.35243499999979,
+          "max": 159.03911299999982
+        },
+        "snapshotBytes": {
+          "samples": 256,
+          "mean": 16150.35546875,
+          "p50": 7039,
+          "p95": 48998,
+          "p99": 50445,
+          "max": 147200
+        },
+        "totalBytes": 4134491,
+        "totalMessages": 256,
+        "heapMiB": 16.829078674316406,
+        "rssMiB": 82.5546875
+      },
+      "authoritativePrimary": [
+        "ar"
+      ]
+    }
+  ],
+  "render": [
+    {
+      "version": "v4",
+      "viewport": "1280x720",
+      "windows": 1,
+      "measurements": [
+        {
+          "averageMs": 22.582333333343268,
+          "approximateFPS": 44.28240364885058,
+          "p95Ms": 29.80000000447035,
+          "heapMiB": 4.17133903503418,
+          "drawMs": {
+            "mean": 3.8906666666393477,
+            "p95": 8.700000002980232
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 769.11328125
+    },
+    {
+      "version": "v4",
+      "viewport": "1280x720",
+      "windows": 2,
+      "measurements": [
+        {
+          "averageMs": 23.78233333333085,
+          "approximateFPS": 42.04801883751683,
+          "p95Ms": 33.79999999701977,
+          "heapMiB": 4.676538467407227,
+          "drawMs": {
+            "mean": 4.061499999947846,
+            "p95": 9
+          }
+        },
+        {
+          "averageMs": 23.133666666671633,
+          "approximateFPS": 43.22704283799017,
+          "p95Ms": 32.5,
+          "heapMiB": 4.542242050170898,
+          "drawMs": {
+            "mean": 4.019500000203649,
+            "p95": 9.099999994039536
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 1161.32421875
+    },
+    {
+      "version": "v4",
+      "viewport": "1280x720",
+      "windows": 4,
+      "measurements": [
+        {
+          "averageMs": 37.82806324110672,
+          "approximateFPS": 26.43540044929732,
+          "p95Ms": 73.40000000596046,
+          "heapMiB": 6.491525650024414,
+          "drawMs": {
+            "mean": 7.223122529479355,
+            "p95": 33.599999994039536
+          }
+        },
+        {
+          "averageMs": 37.30344827584998,
+          "approximateFPS": 26.807173229810868,
+          "p95Ms": 68.29999999701977,
+          "heapMiB": 6.60127067565918,
+          "drawMs": {
+            "mean": 7.795537525406353,
+            "p95": 38
+          }
+        },
+        {
+          "averageMs": 55.20473186121754,
+          "approximateFPS": 18.11438922507512,
+          "p95Ms": 99.20000000298023,
+          "heapMiB": 4.703577041625977,
+          "drawMs": {
+            "mean": 11.235646687777072,
+            "p95": 45.30000000447035
+          }
+        },
+        {
+          "averageMs": 54.70170068026197,
+          "approximateFPS": 18.28096727458476,
+          "p95Ms": 98.60000000149012,
+          "heapMiB": 4.176321029663086,
+          "drawMs": {
+            "mean": 12.342176870221184,
+            "p95": 43.70000000298023
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 1973.140625
+    },
+    {
+      "version": "v4",
+      "viewport": "1920x1080",
+      "windows": 1,
+      "measurements": [
+        {
+          "averageMs": 34.59295454546809,
+          "approximateFPS": 28.907620442932267,
+          "p95Ms": 55.600000001490116,
+          "heapMiB": 5.758050918579102,
+          "drawMs": {
+            "mean": 7.045227272554555,
+            "p95": 12
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 808.90625
+    },
+    {
+      "version": "v4",
+      "viewport": "1920x1080",
+      "windows": 2,
+      "measurements": [
+        {
+          "averageMs": 41.74030612245658,
+          "approximateFPS": 23.957658505575573,
+          "p95Ms": 74,
+          "heapMiB": 7.318471908569336,
+          "drawMs": {
+            "mean": 9.15586734692357,
+            "p95": 18.100000001490116
+          }
+        },
+        {
+          "averageMs": 39.39999999998862,
+          "approximateFPS": 25.380710659905805,
+          "p95Ms": 63.5,
+          "heapMiB": 4.226655960083008,
+          "drawMs": {
+            "mean": 8.695419847187953,
+            "p95": 15.800000004470348
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 1243.390625
+    },
+    {
+      "version": "v4",
+      "viewport": "1920x1080",
+      "windows": 4,
+      "measurements": [
+        {
+          "averageMs": 91.97762557078306,
+          "approximateFPS": 10.872209342156063,
+          "p95Ms": 184.89999999850988,
+          "heapMiB": 4.044801712036133,
+          "drawMs": {
+            "mean": 17.53652968012715,
+            "p95": 49.79999999701977
+          }
+        },
+        {
+          "averageMs": 64.26677631579437,
+          "approximateFPS": 15.560139427037626,
+          "p95Ms": 95.79999999701977,
+          "heapMiB": 3.5531139373779297,
+          "drawMs": {
+            "mean": 12.540789473728326,
+            "p95": 42.20000000298023
+          }
+        },
+        {
+          "averageMs": 61.26158940397351,
+          "approximateFPS": 16.3234419761094,
+          "p95Ms": 97.19999999552965,
+          "heapMiB": 4.985456466674805,
+          "drawMs": {
+            "mean": 14.241059602540455,
+            "p95": 44.100000001490116
+          }
+        },
+        {
+          "averageMs": 92.35635359116021,
+          "approximateFPS": 10.82762540005384,
+          "p95Ms": 183.59999999403954,
+          "heapMiB": 4.251382827758789,
+          "drawMs": {
+            "mean": 23.10386740325729,
+            "p95": 56
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 2101.40234375
+    },
+    {
+      "version": "v41",
+      "viewport": "1280x720",
+      "windows": 1,
+      "measurements": [
+        {
+          "averageMs": 22.565,
+          "approximateFPS": 44.316419233325945,
+          "p95Ms": 29.80000000447035,
+          "heapMiB": 7.67659854888916,
+          "drawMs": {
+            "mean": 3.80416666649282,
+            "p95": 8.699999995529652
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 766.45703125
+    },
+    {
+      "version": "v41",
+      "viewport": "1280x720",
+      "windows": 2,
+      "measurements": [
+        {
+          "averageMs": 23.849666666674118,
+          "approximateFPS": 41.929307188067796,
+          "p95Ms": 33.69999999552965,
+          "heapMiB": 6.941281318664551,
+          "drawMs": {
+            "mean": 4.095833333233992,
+            "p95": 9
+          }
+        },
+        {
+          "averageMs": 23.258833333328365,
+          "approximateFPS": 42.994417891419616,
+          "p95Ms": 33,
+          "heapMiB": 5.667553901672363,
+          "drawMs": {
+            "mean": 4.118500000014901,
+            "p95": 9
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 1186.23046875
+    },
+    {
+      "version": "v41",
+      "viewport": "1280x720",
+      "windows": 4,
+      "measurements": [
+        {
+          "averageMs": 37.84422700586793,
+          "approximateFPS": 26.42410954370782,
+          "p95Ms": 68.60000000149012,
+          "heapMiB": 4.866116523742676,
+          "drawMs": {
+            "mean": 6.807240704267692,
+            "p95": 21.899999998509884
+          }
+        },
+        {
+          "averageMs": 38.901467505241094,
+          "approximateFPS": 25.705971114464322,
+          "p95Ms": 74.10000000149012,
+          "heapMiB": 4.426205635070801,
+          "drawMs": {
+            "mean": 7.362473794405565,
+            "p95": 32.5
+          }
+        },
+        {
+          "averageMs": 56.427741935464645,
+          "approximateFPS": 17.721779495335493,
+          "p95Ms": 103.29999999701977,
+          "heapMiB": 4.774659156799316,
+          "drawMs": {
+            "mean": 10.921612903211386,
+            "p95": 41.900000005960464
+          }
+        },
+        {
+          "averageMs": 54.52229729730233,
+          "approximateFPS": 18.341120047586077,
+          "p95Ms": 101,
+          "heapMiB": 4.009980201721191,
+          "drawMs": {
+            "mean": 12.224324324017239,
+            "p95": 42.29999999701977
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 1975.78125
+    },
+    {
+      "version": "v41",
+      "viewport": "1920x1080",
+      "windows": 1,
+      "measurements": [
+        {
+          "averageMs": 34.79043280182233,
+          "approximateFPS": 28.743534341648658,
+          "p95Ms": 55.79999999701977,
+          "heapMiB": 6.108227729797363,
+          "drawMs": {
+            "mean": 7.376082004372514,
+            "p95": 12.099999994039536
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 805.9921875
+    },
+    {
+      "version": "v41",
+      "viewport": "1920x1080",
+      "windows": 2,
+      "measurements": [
+        {
+          "averageMs": 41.1275,
+          "approximateFPS": 24.31463132940247,
+          "p95Ms": 67.90000000596046,
+          "heapMiB": 4.5979509353637695,
+          "drawMs": {
+            "mean": 8.609000000059604,
+            "p95": 16.799999997019768
+          }
+        },
+        {
+          "averageMs": 38.70648379053484,
+          "approximateFPS": 25.835464812862615,
+          "p95Ms": 59.5,
+          "heapMiB": 3.92788028717041,
+          "drawMs": {
+            "mean": 8.375561097167674,
+            "p95": 14.600000001490116
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 1242.95703125
+    },
+    {
+      "version": "v41",
+      "viewport": "1920x1080",
+      "windows": 4,
+      "measurements": [
+        {
+          "averageMs": 69.29270833332299,
+          "approximateFPS": 14.43153289938731,
+          "p95Ms": 119.79999999701977,
+          "heapMiB": 4.955491065979004,
+          "drawMs": {
+            "mean": 14.855902777803648,
+            "p95": 46.20000000298023
+          }
+        },
+        {
+          "averageMs": 69.14748201438849,
+          "approximateFPS": 14.4618425844041,
+          "p95Ms": 107.89999999850988,
+          "heapMiB": 5.127900123596191,
+          "drawMs": {
+            "mean": 14.88057553974523,
+            "p95": 46.399999998509884
+          }
+        },
+        {
+          "averageMs": 83.17752293579349,
+          "approximateFPS": 12.022478726277066,
+          "p95Ms": 184.5,
+          "heapMiB": 4.270081520080566,
+          "drawMs": {
+            "mean": 18.521559632733602,
+            "p95": 57.5
+          }
+        },
+        {
+          "averageMs": 81.36731707319254,
+          "approximateFPS": 12.289946823495084,
+          "p95Ms": 181.30000000447035,
+          "heapMiB": 4.3059587478637695,
+          "drawMs": {
+            "mean": 20.148780487623156,
+            "p95": 55.399999998509884
+          }
+        }
+      ],
+      "chromiumAllProcessesRSSMiB": 2093.671875
+    }
+  ],
+  "stability": {
+    "runs": 24,
+    "mode": "V4.1 mixed finite three-slot loadouts, public actor observations,24 operations,360-second per-operation QA budget; no forced end state",
+    "unfinished": 0,
+    "records": [
+      {
+        "run": 0,
+        "seed": 7,
+        "level": 1,
+        "stage": "success",
+        "seconds": 51.666666666666295
+      },
+      {
+        "run": 1,
+        "seed": 42,
+        "level": 3,
+        "stage": "success",
+        "seconds": 46.03333333333328
+      },
+      {
+        "run": 2,
+        "seed": 103,
+        "level": 5,
+        "stage": "success",
+        "seconds": 57.26666666666598
+      },
+      {
+        "run": 3,
+        "seed": 837261,
+        "level": 7,
+        "stage": "success",
+        "seconds": 54.56666666666613
+      },
+      {
+        "run": 4,
+        "seed": 7,
+        "level": 8,
+        "stage": "failed",
+        "seconds": 75.59999999999827
+      },
+      {
+        "run": 5,
+        "seed": 42,
+        "level": 10,
+        "stage": "failed",
+        "seconds": 71.73333333333183
+      },
+      {
+        "run": 6,
+        "seed": 103,
+        "level": 1,
+        "stage": "success",
+        "seconds": 56.36666666666603
+      },
+      {
+        "run": 7,
+        "seed": 837261,
+        "level": 3,
+        "stage": "success",
+        "seconds": 56.66666666666601
+      },
+      {
+        "run": 8,
+        "seed": 7,
+        "level": 5,
+        "stage": "success",
+        "seconds": 50.56666666666636
+      },
+      {
+        "run": 9,
+        "seed": 42,
+        "level": 7,
+        "stage": "success",
+        "seconds": 61.666666666665726
+      },
+      {
+        "run": 10,
+        "seed": 103,
+        "level": 8,
+        "stage": "success",
+        "seconds": 75.76666666666493
+      },
+      {
+        "run": 11,
+        "seed": 837261,
+        "level": 10,
+        "stage": "success",
+        "seconds": 63.36666666666563
+      },
+      {
+        "run": 12,
+        "seed": 7,
+        "level": 1,
+        "stage": "success",
+        "seconds": 51.666666666666295
+      },
+      {
+        "run": 13,
+        "seed": 42,
+        "level": 3,
+        "stage": "success",
+        "seconds": 46.03333333333328
+      },
+      {
+        "run": 14,
+        "seed": 103,
+        "level": 5,
+        "stage": "success",
+        "seconds": 57.26666666666598
+      },
+      {
+        "run": 15,
+        "seed": 837261,
+        "level": 7,
+        "stage": "success",
+        "seconds": 54.56666666666613
+      },
+      {
+        "run": 16,
+        "seed": 7,
+        "level": 8,
+        "stage": "failed",
+        "seconds": 75.59999999999827
+      },
+      {
+        "run": 17,
+        "seed": 42,
+        "level": 10,
+        "stage": "failed",
+        "seconds": 71.73333333333183
+      },
+      {
+        "run": 18,
+        "seed": 103,
+        "level": 1,
+        "stage": "success",
+        "seconds": 56.36666666666603
+      },
+      {
+        "run": 19,
+        "seed": 837261,
+        "level": 3,
+        "stage": "success",
+        "seconds": 56.66666666666601
+      },
+      {
+        "run": 20,
+        "seed": 7,
+        "level": 5,
+        "stage": "success",
+        "seconds": 50.56666666666636
+      },
+      {
+        "run": 21,
+        "seed": 42,
+        "level": 7,
+        "stage": "success",
+        "seconds": 61.666666666665726
+      },
+      {
+        "run": 22,
+        "seed": 103,
+        "level": 8,
+        "stage": "success",
+        "seconds": 75.76666666666493
+      },
+      {
+        "run": 23,
+        "seed": 837261,
+        "level": 10,
+        "stage": "success",
+        "seconds": 63.36666666666563
+      }
+    ],
+    "successes": 20,
+    "failures": 4,
+    "maxEvents": 160,
+    "maxEnemies": 50,
+    "gcAvailable": true,
+    "heapMiB": [
+      10.76,
+      11.63,
+      11.98,
+      11.53,
+      11.5,
+      11.51
+    ],
+    "serverTickMs": {
+      "samples": 2900,
+      "median": 0.19787799999994604,
+      "p95": 4.76599300000089,
+      "p99": 13.883034999998927
+    }
+  },
+  "audio": {
+    "method": "actual AudioEngine rendered by Chromium OfflineAudioContext; not a listening review",
+    "report": [
+      {
+        "weapon": "ar",
+        "sampleRate": 48000,
+        "peak": 0.04606632515788078,
+        "clipped": 0,
+        "attackRms": 0.008006304346551807,
+        "tailRms": 0.00016183367400188952
+      },
+      {
+        "weapon": "smg",
+        "sampleRate": 48000,
+        "peak": 0.02742483839392662,
+        "clipped": 0,
+        "attackRms": 0.0028956485275658576,
+        "tailRms": 0.0000058600913979113795
+      },
+      {
+        "weapon": "sg",
+        "sampleRate": 48000,
+        "peak": 0.055805470794439316,
+        "clipped": 0,
+        "attackRms": 0.017233385146730885,
+        "tailRms": 0.00262027768160199
+      },
+      {
+        "weapon": "hmg",
+        "sampleRate": 48000,
+        "peak": 0.056942395865917206,
+        "clipped": 0,
+        "attackRms": 0.02101014223097123,
+        "tailRms": 0.004446560457607393
+      },
+      {
+        "weapon": "engine",
+        "sampleRate": 48000,
+        "peak": 0.01248792465776205,
+        "clipped": 0,
+        "attackRms": 0.005369032549077816,
+        "tailRms": 0.003539191042676665
+      },
+      {
+        "weapon": "shell",
+        "sampleRate": 48000,
+        "peak": 0.01904383674263954,
+        "clipped": 0,
+        "attackRms": 0.003964943818086256,
+        "tailRms": 0.005172900335441461
+      },
+      {
+        "weapon": "armor",
+        "sampleRate": 48000,
+        "peak": 0.013915035873651505,
+        "clipped": 0,
+        "attackRms": 0.0023255893533958272,
+        "tailRms": 0.00003782785106946452
+      },
+      {
+        "weapon": "explosion",
+        "sampleRate": 48000,
+        "peak": 0.06042078882455826,
+        "clipped": 0,
+        "attackRms": 0.02678886931593355,
+        "tailRms": 0.014803684588369833
+      },
+      {
+        "weapon": "maximum",
+        "sampleRate": 48000,
+        "peak": 0.021737003698945045,
+        "clipped": 0,
+        "attackRms": 0.008011969163552669,
+        "tailRms": 0.005832490839105115
+      },
+      {
+        "weapon": "pistol",
+        "sampleRate": 48000,
+        "peak": 0.02516687847673893,
+        "clipped": 0,
+        "attackRms": 0.002831965540792248,
+        "tailRms": 0.000010032434190139497
+      },
+      {
+        "weapon": "at",
+        "sampleRate": 48000,
+        "peak": 0.049096036702394485,
+        "clipped": 0,
+        "attackRms": 0.020257404634392864,
+        "tailRms": 0.004410908990475689
+      },
+      {
+        "weapon": "partial",
+        "sampleRate": 48000,
+        "peak": 0.009222901426255703,
+        "clipped": 0,
+        "attackRms": 0.0012347019581027793,
+        "tailRms": 0
+      },
+      {
+        "weapon": "weakpoint",
+        "sampleRate": 48000,
+        "peak": 0.006373154930770397,
+        "clipped": 0,
+        "attackRms": 0.0010552392890835205,
+        "tailRms": 0.00002010337383474259
+      },
+      {
+        "weapon": "component",
+        "sampleRate": 48000,
+        "peak": 0.013482391834259033,
+        "clipped": 0,
+        "attackRms": 0.0035909089475745586,
+        "tailRms": 0.0010087479256231414
+      },
+      {
+        "weapon": "smoke",
+        "sampleRate": 48000,
+        "peak": 0.0013314387761056423,
+        "clipped": 0,
+        "attackRms": 0.0002010473605182683,
+        "tailRms": 0
+      }
+    ]
+  }
+}

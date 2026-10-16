@@ -1,0 +1,61 @@
+{
+  maxProjectiles: 18,
+  maxSmokes: 1,
+  smokeSeconds: 13.999999999999961,
+  qualities: { weakpoint: 105, partial: 16, penetration: 132, ricochet: 39 },
+  equipment: [
+    { primary: 'ar', guns: [Object], consumable: 'smoke', count: 1 },
+    {
+      primary: 'smg',
+      guns: [Object],
+      consumable: 'antiarmor',
+      count: 2
+    },
+    {
+      primary: 'sg',
+      guns: [Object],
+      consumable: 'antiarmor',
+      count: 2
+    },
+    {
+      primary: 'at',
+      guns: [Object],
+      consumable: 'antiarmor',
+      count: 2
+    }
+  ],
+  fixture: 'V4.1 additional AP/parts/smoke stress. Deliberate64-high-HP-enemies to sustain damage processing,4 high-health scripted targets,actual Barren Frontier obstacles,alert4,30 simulated seconds; exceeds normal admission budgets; not gameplay/difficulty evidence',
+  ticks: {
+    mean: 7.585534554444451,
+    p50: 2.2665720000004512,
+    p95: 40.50747799999999,
+    p99: 68.73717699999997,
+    max: 155.08777600000002
+  },
+  tickPlusSnapshot: {
+    mean: 7.9883409022222205,
+    p50: 2.8127540000004956,
+    p95: 40.96855200000027,
+    p99: 69.09016800000018,
+    max: 158.875337
+  },
+  snapshotBytes: {
+    mean: 61211.22888888889,
+    p50: 39105,
+    p95: 133208,
+    p99: 139629,
+    max: 184306
+  },
+  budget: {
+    regional: 64,
+    reserve: 0,
+    near: 120,
+    strategic: 1,
+    traveling: 0,
+    travelingInfantry: 0,
+    heavy: 0,
+    queued: 4
+  },
+  heapMiB: 85.46012115478516,
+  rssMiB: 253.5390625
+}

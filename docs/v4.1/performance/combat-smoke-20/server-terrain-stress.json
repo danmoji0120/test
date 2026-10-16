@@ -1,0 +1,139 @@
+{
+  "maxProjectiles": 6,
+  "maxSmokes": 1,
+  "smokeSeconds": 13.999999999999961,
+  "qualities": {
+    "weakpoint": 72,
+    "penetration": 100,
+    "ricochet": 39,
+    "partial": 8
+  },
+  "equipment": [
+    {
+      "primary": "ar",
+      "guns": {
+        "primary": {
+          "id": "ar",
+          "ammo": 27,
+          "reserve": 90,
+          "reload": 0,
+          "cooldown": 0.05333333333333334,
+          "recoil": 0.08099999999999992
+        },
+        "secondary": {
+          "id": "pistol",
+          "ammo": 12,
+          "reserve": 84,
+          "reload": 0,
+          "cooldown": 0,
+          "recoil": 0
+        }
+      },
+      "consumable": "smoke",
+      "count": 1
+    },
+    {
+      "primary": "smg",
+      "guns": {
+        "primary": {
+          "id": "smg",
+          "ammo": 0,
+          "reserve": 40,
+          "reload": 0.4166666666666663,
+          "cooldown": 0,
+          "recoil": 0
+        },
+        "secondary": {
+          "id": "pistol",
+          "ammo": 12,
+          "reserve": 84,
+          "reload": 0,
+          "cooldown": 0,
+          "recoil": 0
+        }
+      },
+      "consumable": "antiarmor",
+      "count": 2
+    },
+    {
+      "primary": "sg",
+      "guns": {
+        "primary": {
+          "id": "sg",
+          "ammo": 0,
+          "reserve": 40,
+          "reload": 0.41666666666666385,
+          "cooldown": 0,
+          "recoil": 0.04949999999999993
+        },
+        "secondary": {
+          "id": "pistol",
+          "ammo": 12,
+          "reserve": 84,
+          "reload": 0,
+          "cooldown": 0,
+          "recoil": 0
+        }
+      },
+      "consumable": "antiarmor",
+      "count": 2
+    },
+    {
+      "primary": "at",
+      "guns": {
+        "primary": {
+          "id": "at",
+          "ammo": 0,
+          "reserve": 0,
+          "reload": 0,
+          "cooldown": 0,
+          "recoil": 0
+        },
+        "secondary": {
+          "id": "pistol",
+          "ammo": 1,
+          "reserve": 36,
+          "reload": 0,
+          "cooldown": 0.08333333333333337,
+          "recoil": 0.026499999999999954
+        }
+      },
+      "consumable": "antiarmor",
+      "count": 2
+    }
+  ],
+  "fixture": "V4.1 additional AP/parts/smoke stress. Deliberate20-high-HP-enemies to sustain damage processing,4 high-health scripted targets,actual Barren Frontier obstacles,alert4,30 simulated seconds; exceeds normal admission budgets; not gameplay/difficulty evidence",
+  "ticks": {
+    "mean": 3.1956368555555623,
+    "p50": 1.0025509999999258,
+    "p95": 13.460637000000133,
+    "p99": 34.54610599999978,
+    "max": 96.116984
+  },
+  "tickPlusSnapshot": {
+    "mean": 3.523589883333336,
+    "p50": 1.4558140000000321,
+    "p95": 14.056636000000253,
+    "p99": 34.56088899999986,
+    "max": 98.83828599999998
+  },
+  "snapshotBytes": {
+    "mean": 50170.48888888889,
+    "p50": 24422,
+    "p95": 118407,
+    "p99": 122617,
+    "max": 184094
+  },
+  "budget": {
+    "regional": 38,
+    "reserve": 0,
+    "near": 38,
+    "strategic": 1,
+    "traveling": 12,
+    "travelingInfantry": 12,
+    "heavy": 0,
+    "queued": 0
+  },
+  "heapMiB": 69.59813690185547,
+  "rssMiB": 166.875
+}

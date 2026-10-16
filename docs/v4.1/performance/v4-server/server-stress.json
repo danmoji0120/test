@@ -1,0 +1,36 @@
+{
+  "fixture": "Deliberate64-actor stress,4 high-health scripted targets,open terrain,alert4,30 simulated seconds; exceeds normal admission budgets; not gameplay/difficulty evidence",
+  "ticks": {
+    "mean": 0.43899182999999903,
+    "p50": 0.3083350000000564,
+    "p95": 0.9426489999999603,
+    "p99": 2.387794999999983,
+    "max": 11.50451799999999
+  },
+  "tickPlusSnapshot": {
+    "mean": 0.6788127433333342,
+    "p50": 0.5056409999999687,
+    "p95": 1.5201680000000124,
+    "p99": 3.271614999999997,
+    "max": 13.486070999999981
+  },
+  "snapshotBytes": {
+    "mean": 49699.60444444444,
+    "p50": 41088,
+    "p95": 89507,
+    "p99": 96808,
+    "max": 161162
+  },
+  "budget": {
+    "regional": 64,
+    "reserve": 0,
+    "near": 136,
+    "strategic": 0,
+    "traveling": 0,
+    "travelingInfantry": 0,
+    "heavy": 0,
+    "queued": 4
+  },
+  "heapMiB": 25.386917114257812,
+  "rssMiB": 102.01953125
+}

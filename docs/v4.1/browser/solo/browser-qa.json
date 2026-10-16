@@ -1,0 +1,272 @@
+{
+  "date": "2026-10-15T17:54:54.426Z",
+  "runId": "b0e087ea-f480-4f8e-95d1-2df8c1cc813c",
+  "metrics": {
+    "firstContact": 5.466666666666657,
+    "combatSeconds": 2.966666666666666,
+    "revives": 0,
+    "primaryAt": -1,
+    "peakActors": 18,
+    "objectiveOrder": []
+  },
+  "timeline": [
+    {
+      "at": 1.8333333333333357,
+      "alert": 0,
+      "hp": [
+        100
+      ],
+      "rockets": [
+        null
+      ],
+      "notices": []
+    }
+  ],
+  "observed": [
+    {
+      "time": 1.8333333333333357,
+      "enemies": []
+    },
+    {
+      "time": 2.833333333333333,
+      "enemies": []
+    },
+    {
+      "time": 3.299999999999998,
+      "enemies": []
+    },
+    {
+      "time": 3.8333333333333295,
+      "enemies": []
+    },
+    {
+      "time": 4.166666666666662,
+      "enemies": []
+    },
+    {
+      "time": 4.633333333333327,
+      "enemies": []
+    },
+    {
+      "time": 5.099999999999992,
+      "enemies": []
+    },
+    {
+      "time": 5.49999999999999,
+      "enemies": [
+        {
+          "id": "e11",
+          "kind": "rifle",
+          "x": 5718.698661074445,
+          "y": 3588.1814288106566
+        },
+        {
+          "id": "e12",
+          "kind": "rush",
+          "x": 5774.578723240014,
+          "y": 3549.178972278642
+        }
+      ]
+    },
+    {
+      "time": 6.299999999999987,
+      "enemies": [
+        {
+          "id": "e3",
+          "kind": "rifle",
+          "x": 5773.692005648179,
+          "y": 3641.2597408463967
+        },
+        {
+          "id": "e4",
+          "kind": "rifle",
+          "x": 5676.314155540226,
+          "y": 3641.2621018221434
+        },
+        {
+          "id": "e11",
+          "kind": "rifle",
+          "x": 5680.450798605416,
+          "y": 3495.3189221155317
+        },
+        {
+          "id": "e12",
+          "kind": "rush",
+          "x": 5774.999992322463,
+          "y": 3713.6758327224084
+        }
+      ]
+    },
+    {
+      "time": 6.699999999999986,
+      "enemies": [
+        {
+          "id": "e3",
+          "kind": "rifle",
+          "x": 5774.971204887837,
+          "y": 3578.9642459614715
+        },
+        {
+          "id": "e4",
+          "kind": "rifle",
+          "x": 5695.714902267687,
+          "y": 3611.2604831230824
+        },
+        {
+          "id": "e11",
+          "kind": "rifle",
+          "x": 5739.158288937674,
+          "y": 3477.3655094262244
+        },
+        {
+          "id": "e12",
+          "kind": "rush",
+          "x": 5774.999997633291,
+          "y": 3721.50916605574
+        }
+      ]
+    },
+    {
+      "time": 7.166666666666651,
+      "enemies": [
+        {
+          "id": "e4",
+          "kind": "rifle",
+          "x": 5766.675928308435,
+          "y": 3624.735355836601
+        },
+        {
+          "id": "e11",
+          "kind": "rifle",
+          "x": 5773.426458714783,
+          "y": 3514.7104219999414
+        },
+        {
+          "id": "e12",
+          "kind": "rush",
+          "x": 5774.999997633291,
+          "y": 3721.50916605574
+        }
+      ]
+    },
+    {
+      "time": 8.033333333333315,
+      "enemies": [
+        {
+          "id": "e4",
+          "kind": "rifle",
+          "x": 5773.244472541381,
+          "y": 3607.93951527762
+        },
+        {
+          "id": "e11",
+          "kind": "rifle",
+          "x": 5774.728756464935,
+          "y": 3554.3090464145303
+        },
+        {
+          "id": "e12",
+          "kind": "rush",
+          "x": 5774.999997633291,
+          "y": 3721.50916605574
+        }
+      ]
+    }
+  ],
+  "visualCaptured": [],
+  "browser": "154.0.8037.57",
+  "viewports": [
+    "1920x1080"
+  ],
+  "players": 1,
+  "seed": 42,
+  "contract": "blackout",
+  "credits": {
+    "before": 300,
+    "after": 394,
+    "awarded": 94,
+    "persisted": true
+  },
+  "difficulty": 3,
+  "loadout": [
+    {
+      "character": "aria",
+      "weapon": "ar"
+    }
+  ],
+  "escapeSeconds": null,
+  "objectives": [
+    {
+      "id": "facility-0",
+      "kind": "generator",
+      "state": "available"
+    },
+    {
+      "id": "facility-1",
+      "kind": "generator",
+      "state": "active"
+    },
+    {
+      "id": "facility-2",
+      "kind": "comms",
+      "state": "available"
+    },
+    {
+      "id": "facility-3",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-4",
+      "kind": "outpost",
+      "state": "available"
+    },
+    {
+      "id": "facility-5",
+      "kind": "barracks",
+      "state": "available"
+    },
+    {
+      "id": "intel",
+      "kind": "intel",
+      "state": "available"
+    }
+  ],
+  "extraction": {
+    "state": "locked",
+    "site": null,
+    "requested": 0,
+    "eta": 0,
+    "departure": 0,
+    "boarding": 0
+  },
+  "feedback": {
+    "sound": 6,
+    "alarm": 1,
+    "shot:enemy": 14,
+    "hit": 20,
+    "shot:ar": 12,
+    "kill": 1
+  },
+  "downCount": 1,
+  "stageTimes": {
+    "recon": 1.8333333333333357,
+    "operate": 5.49999999999999
+  },
+  "elapsed": 8.433333333333314,
+  "result": "failed",
+  "kills": [
+    {
+      "name": "아리아",
+      "kills": 1,
+      "hp": 0
+    }
+  ],
+  "reconnect": false,
+  "repeatDeployment": true,
+  "errors": [],
+  "frameMs": {
+    "samples": 0,
+    "average": null
+  }
+}

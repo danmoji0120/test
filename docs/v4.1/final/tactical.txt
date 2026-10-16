@@ -1,0 +1,6 @@
+{"scenario":{"level":10,"count":1,"seed":7,"mode":"tactical"},"result":"failed","seconds":14,"maxAlert":3,"downs":1,"hurt":100,"rockets":0,"departures":1,"peak":34,"p95":4.720944999999972}
+{"scenario":{"level":10,"count":1,"seed":42,"mode":"tactical"},"result":"failed","seconds":36,"maxAlert":4,"downs":1,"hurt":176,"rockets":0,"departures":8,"peak":38,"p95":2.2746539999998276}
+{"scenario":{"level":10,"count":1,"seed":103,"mode":"tactical"},"result":"failed","seconds":52,"maxAlert":4,"downs":1,"hurt":177,"rockets":0,"departures":8,"peak":38,"p95":2.214082999999846}
+{"scenario":{"level":10,"count":4,"seed":7,"mode":"tactical"},"result":"failed","seconds":70,"maxAlert":4,"downs":5,"hurt":651,"rockets":0,"departures":10,"peak":50,"p95":7.301799000000756}
+{"scenario":{"level":10,"count":4,"seed":42,"mode":"tactical"},"result":"failed","seconds":26,"maxAlert":4,"downs":4,"hurt":400,"rockets":0,"departures":7,"peak":51,"p95":7.387878999999884}
+{"scenario":{"level":10,"count":4,"seed":103,"mode":"tactical"},"result":"failed","seconds":29,"maxAlert":4,"downs":4,"hurt":464,"rockets":0,"departures":7,"peak":37,"p95":7.711014999998952}

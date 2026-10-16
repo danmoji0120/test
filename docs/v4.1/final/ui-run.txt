@@ -1,0 +1,2 @@
+DOLL SQUAD ready: http://localhost:3425
+four real loadouts, primary/secondary fire, held consumable latch and smoke: PASS

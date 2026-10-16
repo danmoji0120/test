@@ -1,0 +1,2797 @@
+{
+  "method": "Real browser renders of authoritative combat-rule fixtures, fixed open terrain / stationary targets or high-HP moving observation target; explicitly not a normal network mission.",
+  "report": [
+    {
+      "name": "ricochet",
+      "time": 1.5666666666666682,
+      "enemy": {
+        "x": 3350,
+        "y": 2100,
+        "id": "e35",
+        "kind": "walker",
+        "elite": false,
+        "hp": 650,
+        "angle": 3.141592653589793,
+        "cooldown": 1000000,
+        "windup": 0,
+        "target": null,
+        "lastSeen": null,
+        "memory": 0,
+        "path": [],
+        "repath": 0,
+        "hurt": 0,
+        "stagger": 0,
+        "zone": -1,
+        "burst": 0,
+        "home": {
+          "x": 3350,
+          "y": 2100
+        },
+        "role": "assault",
+        "alert": 0,
+        "tactical": null,
+        "squad": "squad-11",
+        "state": "PATROL",
+        "stateTime": 0,
+        "seenAt": -100,
+        "reportAt": -100,
+        "reportKind": "heard",
+        "heardNoise": 0,
+        "radio": 0,
+        "patrol": [],
+        "patrolIndex": 0,
+        "reserve": false,
+        "sourceId": "initial",
+        "requestId": "",
+        "traveling": false,
+        "stuck": 0,
+        "components": {
+          "core": {
+            "hp": 420,
+            "maxHp": 420,
+            "destroyed": false
+          },
+          "weapon": {
+            "hp": 190,
+            "maxHp": 190,
+            "destroyed": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "hit",
+          "x": 3306.800884544131,
+          "y": 2099.7235513962883,
+          "actor": "p",
+          "weapon": "ar",
+          "damage": 0,
+          "quality": "ricochet",
+          "penetrationResult": "failed",
+          "part": "body",
+          "target": "e35",
+          "armored": true,
+          "heavy": false,
+          "angle": -0.0009010682263973695,
+          "id": 36,
+          "at": 0.6666666666666666
+        },
+        {
+          "type": "shot",
+          "x": 3000,
+          "y": 2100,
+          "toX": 3306.800884544131,
+          "toY": 2099.7235513962883,
+          "weapon": "ar",
+          "actor": "p",
+          "pellet": false,
+          "impact": true,
+          "angle": -0.0009010682263970375,
+          "id": 37,
+          "at": 0.6666666666666666
+        }
+      ],
+      "projectiles": [],
+      "samples": [
+        {
+          "at": 0.03333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.06666666666666667,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.1,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.13333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.16666666666666666,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.19999999999999998,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.2333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.26666666666666666,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.3,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.3333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.36666666666666664,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.39999999999999997,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.4333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.4666666666666666,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.49999999999999994,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.5333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.5666666666666667,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.6,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.6333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "shots": 0
+        },
+        {
+          "at": 0.6666666666666666,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7666666666666666,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7999999999999999,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.8333333333333333,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.8666666666666666,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.8999999999999999,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.9333333333333332,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.9666666666666666,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.9999999999999999,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.0333333333333332,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.0666666666666667,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.1,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.1333333333333335,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.166666666666667,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2000000000000004,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2333333333333338,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2666666666666673,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3000000000000007,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3333333333333341,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3666666666666676,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.400000000000001,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.4333333333333345,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.466666666666668,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5000000000000013,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5333333333333348,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5666666666666682,
+          "hp": 650,
+          "angle": 3.141592653589793,
+          "components": {
+            "core": {
+              "hp": 420,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "partial",
+      "time": 1.5333333333333348,
+      "enemy": {
+        "x": 3350,
+        "y": 2100,
+        "id": "e35",
+        "kind": "walker",
+        "elite": false,
+        "hp": 642.59,
+        "angle": 0,
+        "cooldown": 1000000,
+        "windup": 0,
+        "target": null,
+        "lastSeen": null,
+        "memory": 0,
+        "path": [],
+        "repath": 0,
+        "hurt": 0,
+        "stagger": 0,
+        "zone": -1,
+        "burst": 0,
+        "home": {
+          "x": 3350,
+          "y": 2100
+        },
+        "role": "assault",
+        "alert": 0,
+        "tactical": null,
+        "squad": "squad-11",
+        "state": "PATROL",
+        "stateTime": 0,
+        "seenAt": -100,
+        "reportAt": -100,
+        "reportKind": "heard",
+        "heardNoise": 0,
+        "radio": 0,
+        "patrol": [],
+        "patrolIndex": 0,
+        "reserve": false,
+        "sourceId": "initial",
+        "requestId": "",
+        "traveling": false,
+        "stuck": 0,
+        "components": {
+          "core": {
+            "hp": 412.2,
+            "maxHp": 420,
+            "destroyed": false
+          },
+          "weapon": {
+            "hp": 190,
+            "maxHp": 190,
+            "destroyed": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "hit",
+          "x": 3287.9018883823383,
+          "y": 2099.740580685849,
+          "actor": "p",
+          "weapon": "ar",
+          "damage": 7.41,
+          "quality": "weakpoint",
+          "penetrationResult": "partial",
+          "part": "core",
+          "target": "e35",
+          "armored": false,
+          "heavy": false,
+          "angle": -0.0009010682263977277,
+          "id": 36,
+          "at": 0.6666666666666666
+        },
+        {
+          "type": "shot",
+          "x": 3000,
+          "y": 2100,
+          "toX": 3287.9018883823383,
+          "toY": 2099.740580685849,
+          "weapon": "ar",
+          "actor": "p",
+          "pellet": false,
+          "impact": true,
+          "angle": -0.0009010682263970375,
+          "id": 37,
+          "at": 0.6666666666666666
+        }
+      ],
+      "projectiles": [],
+      "samples": [
+        {
+          "at": 0.03333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.06666666666666667,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.1,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.13333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.16666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.19999999999999998,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.2333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.26666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.3,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.3333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.36666666666666664,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.39999999999999997,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.4333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.4666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.49999999999999994,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.5333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.5666666666666667,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.6,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.6333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.6666666666666666,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7333333333333333,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7666666666666666,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.7999999999999999,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.8333333333333333,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.8666666666666666,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.8999999999999999,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.9333333333333332,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.9666666666666666,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 0.9999999999999999,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.0333333333333332,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.0666666666666667,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.1,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.1333333333333335,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.166666666666667,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2000000000000004,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2333333333333338,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2666666666666673,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3000000000000007,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3333333333333341,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3666666666666676,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.400000000000001,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.4333333333333345,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.466666666666668,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5000000000000013,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5333333333333348,
+          "hp": 642.59,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 412.2,
+              "maxHp": 420,
+              "destroyed": false
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "component",
+      "time": 1.6000000000000016,
+      "enemy": {
+        "x": 3350,
+        "y": 2100,
+        "id": "e35",
+        "kind": "walker",
+        "elite": false,
+        "hp": 245.3,
+        "angle": 0,
+        "cooldown": 1000000,
+        "windup": 0,
+        "target": null,
+        "lastSeen": null,
+        "memory": 0,
+        "path": [],
+        "repath": 0,
+        "hurt": 0,
+        "stagger": 0,
+        "zone": -1,
+        "burst": 0,
+        "home": {
+          "x": 3350,
+          "y": 2100
+        },
+        "role": "assault",
+        "alert": 0,
+        "tactical": null,
+        "squad": "squad-11",
+        "state": "PATROL",
+        "stateTime": 0,
+        "seenAt": -100,
+        "reportAt": -100,
+        "reportKind": "heard",
+        "heardNoise": 0,
+        "radio": 0,
+        "patrol": [],
+        "patrolIndex": 0,
+        "reserve": false,
+        "sourceId": "initial",
+        "requestId": "",
+        "traveling": false,
+        "stuck": 0,
+        "components": {
+          "core": {
+            "hp": 0,
+            "maxHp": 420,
+            "destroyed": true
+          },
+          "weapon": {
+            "hp": 190,
+            "maxHp": 190,
+            "destroyed": false
+          }
+        }
+      },
+      "events": [
+        {
+          "type": "shot",
+          "toX": 3059.999959735205,
+          "toY": 2099.930489038084,
+          "angle": -0.0011585162910818817,
+          "cue": "gunfire",
+          "x": 3000,
+          "y": 2100,
+          "enemy": false,
+          "actor": "p",
+          "heavy": true,
+          "weapon": "at",
+          "id": 36,
+          "at": 0.6666666666666666
+        },
+        {
+          "type": "hit",
+          "x": 3287.9031217475076,
+          "y": 2099.666459393981,
+          "actor": "p",
+          "weapon": "at",
+          "damage": 404.7,
+          "quality": "component",
+          "penetrationResult": "full",
+          "part": "core",
+          "target": "e35",
+          "armored": false,
+          "heavy": true,
+          "angle": -0.001158516291080808,
+          "id": 37,
+          "at": 0.9999999999999999
+        },
+        {
+          "type": "explode",
+          "x": 3287.9031217475076,
+          "y": 2099.666459393981,
+          "heavy": true,
+          "id": 38,
+          "at": 0.9999999999999999
+        }
+      ],
+      "projectiles": [],
+      "samples": [
+        {
+          "at": 0.03333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.06666666666666667,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.1,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.13333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.16666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.19999999999999998,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.2333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.26666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.3,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.3333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.36666666666666664,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.39999999999999997,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.4333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.4666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.49999999999999994,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.5333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.5666666666666667,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.6,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.6333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 0
+        },
+        {
+          "at": 0.6666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.7,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.7333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.7666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.7999999999999999,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.8333333333333333,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.8666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.8999999999999999,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.9333333333333332,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.9666666666666666,
+          "hp": 650,
+          "angle": 0,
+          "shots": 1
+        },
+        {
+          "at": 0.9999999999999999,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.0333333333333332,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.0666666666666667,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.1,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.1333333333333335,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.166666666666667,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2000000000000004,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2333333333333338,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.2666666666666673,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3000000000000007,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3333333333333341,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.3666666666666676,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.400000000000001,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.4333333333333345,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.466666666666668,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5000000000000013,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5333333333333348,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.5666666666666682,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        },
+        {
+          "at": 1.6000000000000016,
+          "hp": 245.3,
+          "angle": 0,
+          "components": {
+            "core": {
+              "hp": 0,
+              "maxHp": 420,
+              "destroyed": true
+            },
+            "weapon": {
+              "hp": 190,
+              "maxHp": 190,
+              "destroyed": false
+            }
+          },
+          "shots": 1
+        }
+      ],
+      "errors": []
+    },
+    {
+      "name": "tracking",
+      "time": 2.999999999999999,
+      "enemy": {
+        "x": 3355.1861353626764,
+        "y": 2101.7287117875585,
+        "id": "e35",
+        "kind": "walker",
+        "elite": false,
+        "hp": 650,
+        "angle": 2.1000000000000036,
+        "cooldown": -2.999999999999999,
+        "windup": 0.2333333333333334,
+        "target": "p",
+        "lastSeen": {
+          "x": 2960.1731601034635,
+          "y": 2201.3194770826726
+        },
+        "memory": 9,
+        "path": [],
+        "repath": -0.6333333333333333,
+        "hurt": 0,
+        "stagger": 0,
+        "zone": -1,
+        "burst": 0,
+        "home": {
+          "x": 3350,
+          "y": 2100
+        },
+        "role": "assault",
+        "alert": 1.0333333333333374,
+        "tactical": null,
+        "squad": "squad-11",
+        "state": "ENGAGE",
+        "stateTime": 0.6333333333333333,
+        "seenAt": 2.999999999999999,
+        "reportAt": 2.999999999999999,
+        "reportKind": "seen",
+        "heardNoise": 0,
+        "radio": 0.23333333333333184,
+        "patrol": [],
+        "patrolIndex": 0,
+        "reserve": false,
+        "sourceId": "initial",
+        "requestId": "",
+        "traveling": false,
+        "stuck": 0,
+        "turretAngle": 2.994930211040588,
+        "aimControl": {
+          "point": {
+            "x": 2960.1731601034635,
+            "y": 2201.3194770826726
+          },
+          "velocity": {
+            "x": -100.38484652405235,
+            "y": -83.26130648027788
+          },
+          "at": 2.999999999999999,
+          "target": "p",
+          "acquired": 0.11133333333333331,
+          "error": 0.3
+        },
+        "phase": "spinup",
+        "attackPoint": {
+          "x": 3049.4419892784413,
+          "y": 2248.6175724908508
+        }
+      },
+      "events": [
+        {
+          "type": "alarm",
+          "x": 3350,
+          "y": 2100,
+          "id": 36,
+          "kind": "walker",
+          "elite": false,
+          "hp": 650,
+          "angle": 0,
+          "cooldown": -0.03333333333333333,
+          "windup": 0,
+          "target": "p",
+          "lastSeen": {
+            "x": 3003.599040076797,
+            "y": 2103.9995259427815
+          },
+          "memory": 9,
+          "path": [],
+          "repath": 0,
+          "hurt": 0,
+          "stagger": 0,
+          "zone": -1,
+          "burst": 0,
+          "home": {
+            "x": 3350,
+            "y": 2100
+          },
+          "role": "assault",
+          "alert": 0,
+          "tactical": null,
+          "squad": "squad-11",
+          "state": "ENGAGE",
+          "stateTime": 0,
+          "seenAt": 0.03333333333333333,
+          "reportAt": 0.03333333333333333,
+          "reportKind": "seen",
+          "heardNoise": 0,
+          "radio": 0,
+          "patrol": [],
+          "patrolIndex": 0,
+          "reserve": false,
+          "sourceId": "initial",
+          "requestId": "",
+          "traveling": false,
+          "stuck": 0,
+          "heavy": false,
+          "at": 0.03333333333333333
+        },
+        {
+          "type": "sound",
+          "cue": "engine",
+          "x": 3355.1861353626764,
+          "y": 2101.7287117875585,
+          "enemy": true,
+          "heavy": true,
+          "kind": "walker",
+          "id": 37,
+          "at": 2.1333333333333355
+        }
+      ],
+      "projectiles": [],
+      "samples": [
+        {
+          "at": 0.03333333333333333,
+          "hp": 650,
+          "angle": 0.02333333333333333,
+          "turret": 0.03833333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.06666666666666667,
+          "hp": 650,
+          "angle": 0.04666666666666666,
+          "turret": 0.07666666666666666,
+          "shots": 0
+        },
+        {
+          "at": 0.1,
+          "hp": 650,
+          "angle": 0.06999999999999999,
+          "turret": 0.11499999999999999,
+          "shots": 0
+        },
+        {
+          "at": 0.13333333333333333,
+          "hp": 650,
+          "angle": 0.09333333333333332,
+          "turret": 0.15333333333333332,
+          "shots": 0
+        },
+        {
+          "at": 0.16666666666666666,
+          "hp": 650,
+          "angle": 0.11666666666666665,
+          "turret": 0.19166666666666665,
+          "shots": 0
+        },
+        {
+          "at": 0.19999999999999998,
+          "hp": 650,
+          "angle": 0.13999999999999999,
+          "turret": 0.22999999999999998,
+          "shots": 0
+        },
+        {
+          "at": 0.2333333333333333,
+          "hp": 650,
+          "angle": 0.16333333333333333,
+          "turret": 0.2683333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.26666666666666666,
+          "hp": 650,
+          "angle": 0.18666666666666665,
+          "turret": 0.30666666666666664,
+          "shots": 0
+        },
+        {
+          "at": 0.3,
+          "hp": 650,
+          "angle": 0.20999999999999996,
+          "turret": 0.345,
+          "shots": 0
+        },
+        {
+          "at": 0.3333333333333333,
+          "hp": 650,
+          "angle": 0.23333333333333328,
+          "turret": 0.3833333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.36666666666666664,
+          "hp": 650,
+          "angle": 0.2566666666666666,
+          "turret": 0.42166666666666663,
+          "shots": 0
+        },
+        {
+          "at": 0.39999999999999997,
+          "hp": 650,
+          "angle": 0.2799999999999999,
+          "turret": 0.45999999999999996,
+          "shots": 0
+        },
+        {
+          "at": 0.4333333333333333,
+          "hp": 650,
+          "angle": 0.30333333333333323,
+          "turret": 0.4983333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.4666666666666666,
+          "hp": 650,
+          "angle": 0.32666666666666655,
+          "turret": 0.5366666666666666,
+          "shots": 0
+        },
+        {
+          "at": 0.49999999999999994,
+          "hp": 650,
+          "angle": 0.34999999999999987,
+          "turret": 0.575,
+          "shots": 0
+        },
+        {
+          "at": 0.5333333333333333,
+          "hp": 650,
+          "angle": 0.3733333333333332,
+          "turret": 0.6133333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.5666666666666667,
+          "hp": 650,
+          "angle": 0.3966666666666665,
+          "turret": 0.6516666666666666,
+          "shots": 0
+        },
+        {
+          "at": 0.6,
+          "hp": 650,
+          "angle": 0.4199999999999998,
+          "turret": 0.69,
+          "shots": 0
+        },
+        {
+          "at": 0.6333333333333333,
+          "hp": 650,
+          "angle": 0.44333333333333313,
+          "turret": 0.7283333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.6666666666666666,
+          "hp": 650,
+          "angle": 0.46666666666666645,
+          "turret": 0.7666666666666666,
+          "shots": 0
+        },
+        {
+          "at": 0.7,
+          "hp": 650,
+          "angle": 0.48999999999999977,
+          "turret": 0.8049999999999999,
+          "shots": 0
+        },
+        {
+          "at": 0.7333333333333333,
+          "hp": 650,
+          "angle": 0.5133333333333331,
+          "turret": 0.8433333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.7666666666666666,
+          "hp": 650,
+          "angle": 0.5366666666666664,
+          "turret": 0.8816666666666666,
+          "shots": 0
+        },
+        {
+          "at": 0.7999999999999999,
+          "hp": 650,
+          "angle": 0.5599999999999997,
+          "turret": 0.9199999999999999,
+          "shots": 0
+        },
+        {
+          "at": 0.8333333333333333,
+          "hp": 650,
+          "angle": 0.583333333333333,
+          "turret": 0.9583333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.8666666666666666,
+          "hp": 650,
+          "angle": 0.6066666666666664,
+          "turret": 0.9966666666666666,
+          "shots": 0
+        },
+        {
+          "at": 0.8999999999999999,
+          "hp": 650,
+          "angle": 0.6299999999999997,
+          "turret": 1.035,
+          "shots": 0
+        },
+        {
+          "at": 0.9333333333333332,
+          "hp": 650,
+          "angle": 0.653333333333333,
+          "turret": 1.0733333333333333,
+          "shots": 0
+        },
+        {
+          "at": 0.9666666666666666,
+          "hp": 650,
+          "angle": 0.6766666666666663,
+          "turret": 1.1116666666666666,
+          "shots": 0
+        },
+        {
+          "at": 0.9999999999999999,
+          "hp": 650,
+          "angle": 0.6999999999999996,
+          "turret": 1.15,
+          "shots": 0
+        },
+        {
+          "at": 1.0333333333333332,
+          "hp": 650,
+          "angle": 0.7233333333333329,
+          "turret": 1.1883333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.0666666666666667,
+          "hp": 650,
+          "angle": 0.7466666666666663,
+          "turret": 1.2266666666666666,
+          "shots": 0
+        },
+        {
+          "at": 1.1,
+          "hp": 650,
+          "angle": 0.7699999999999996,
+          "turret": 1.265,
+          "shots": 0
+        },
+        {
+          "at": 1.1333333333333335,
+          "hp": 650,
+          "angle": 0.7933333333333329,
+          "turret": 1.3033333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.166666666666667,
+          "hp": 650,
+          "angle": 0.8166666666666662,
+          "turret": 1.3416666666666666,
+          "shots": 0
+        },
+        {
+          "at": 1.2000000000000004,
+          "hp": 650,
+          "angle": 0.8399999999999995,
+          "turret": 1.38,
+          "shots": 0
+        },
+        {
+          "at": 1.2333333333333338,
+          "hp": 650,
+          "angle": 0.8633333333333328,
+          "turret": 1.4183333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.2666666666666673,
+          "hp": 650,
+          "angle": 0.8866666666666662,
+          "turret": 1.4566666666666666,
+          "shots": 0
+        },
+        {
+          "at": 1.3000000000000007,
+          "hp": 650,
+          "angle": 0.9099999999999995,
+          "turret": 1.4949999999999999,
+          "shots": 0
+        },
+        {
+          "at": 1.3333333333333341,
+          "hp": 650,
+          "angle": 0.9333333333333328,
+          "turret": 1.5333333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.3666666666666676,
+          "hp": 650,
+          "angle": 0.9566666666666661,
+          "turret": 1.5716666666666665,
+          "shots": 0
+        },
+        {
+          "at": 1.400000000000001,
+          "hp": 650,
+          "angle": 0.9799999999999994,
+          "turret": 1.6099999999999999,
+          "shots": 0
+        },
+        {
+          "at": 1.4333333333333345,
+          "hp": 650,
+          "angle": 1.0033333333333327,
+          "turret": 1.6483333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.466666666666668,
+          "hp": 650,
+          "angle": 1.0266666666666662,
+          "turret": 1.6866666666666665,
+          "shots": 0
+        },
+        {
+          "at": 1.5000000000000013,
+          "hp": 650,
+          "angle": 1.0499999999999996,
+          "turret": 1.7249999999999999,
+          "shots": 0
+        },
+        {
+          "at": 1.5333333333333348,
+          "hp": 650,
+          "angle": 1.073333333333333,
+          "turret": 1.7633333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.5666666666666682,
+          "hp": 650,
+          "angle": 1.0966666666666665,
+          "turret": 1.8016666666666665,
+          "shots": 0
+        },
+        {
+          "at": 1.6000000000000016,
+          "hp": 650,
+          "angle": 1.1199999999999999,
+          "turret": 1.8399999999999999,
+          "shots": 0
+        },
+        {
+          "at": 1.633333333333335,
+          "hp": 650,
+          "angle": 1.1433333333333333,
+          "turret": 1.8783333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.6666666666666685,
+          "hp": 650,
+          "angle": 1.1666666666666667,
+          "turret": 1.9166666666666665,
+          "shots": 0
+        },
+        {
+          "at": 1.700000000000002,
+          "hp": 650,
+          "angle": 1.1900000000000002,
+          "turret": 1.9549999999999998,
+          "shots": 0
+        },
+        {
+          "at": 1.7333333333333354,
+          "hp": 650,
+          "angle": 1.2133333333333336,
+          "turret": 1.9933333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.7666666666666688,
+          "hp": 650,
+          "angle": 1.236666666666667,
+          "turret": 2.0316666666666663,
+          "shots": 0
+        },
+        {
+          "at": 1.8000000000000023,
+          "hp": 650,
+          "angle": 1.2600000000000005,
+          "turret": 2.0699999999999994,
+          "shots": 0
+        },
+        {
+          "at": 1.8333333333333357,
+          "hp": 650,
+          "angle": 1.2833333333333339,
+          "turret": 2.1083333333333325,
+          "shots": 0
+        },
+        {
+          "at": 1.8666666666666691,
+          "hp": 650,
+          "angle": 1.3066666666666673,
+          "turret": 2.1466666666666656,
+          "shots": 0
+        },
+        {
+          "at": 1.9000000000000026,
+          "hp": 650,
+          "angle": 1.3300000000000007,
+          "turret": 2.1849999999999987,
+          "shots": 0
+        },
+        {
+          "at": 1.933333333333336,
+          "hp": 650,
+          "angle": 1.3533333333333342,
+          "turret": 2.223333333333332,
+          "shots": 0
+        },
+        {
+          "at": 1.9666666666666694,
+          "hp": 650,
+          "angle": 1.3766666666666676,
+          "turret": 2.261666666666665,
+          "shots": 0
+        },
+        {
+          "at": 2.0000000000000027,
+          "hp": 650,
+          "angle": 1.400000000000001,
+          "turret": 2.299999999999998,
+          "shots": 0
+        },
+        {
+          "at": 2.033333333333336,
+          "hp": 650,
+          "angle": 1.4233333333333344,
+          "turret": 2.338333333333331,
+          "shots": 0
+        },
+        {
+          "at": 2.066666666666669,
+          "hp": 650,
+          "angle": 1.4466666666666679,
+          "turret": 2.3766666666666643,
+          "shots": 0
+        },
+        {
+          "at": 2.1000000000000023,
+          "hp": 650,
+          "angle": 1.4700000000000013,
+          "turret": 2.4149999999999974,
+          "shots": 0
+        },
+        {
+          "at": 2.1333333333333355,
+          "hp": 650,
+          "angle": 1.4933333333333347,
+          "turret": 2.4533333333333305,
+          "shots": 0
+        },
+        {
+          "at": 2.1666666666666687,
+          "hp": 650,
+          "angle": 1.5166666666666682,
+          "turret": 2.4916666666666636,
+          "shots": 0
+        },
+        {
+          "at": 2.200000000000002,
+          "hp": 650,
+          "angle": 1.5400000000000016,
+          "turret": 2.5299999999999967,
+          "shots": 0
+        },
+        {
+          "at": 2.233333333333335,
+          "hp": 650,
+          "angle": 1.563333333333335,
+          "turret": 2.56833333333333,
+          "shots": 0
+        },
+        {
+          "at": 2.2666666666666684,
+          "hp": 650,
+          "angle": 1.5866666666666684,
+          "turret": 2.606666666666663,
+          "shots": 0
+        },
+        {
+          "at": 2.3000000000000016,
+          "hp": 650,
+          "angle": 1.6100000000000019,
+          "turret": 2.644999999999996,
+          "shots": 0
+        },
+        {
+          "at": 2.333333333333335,
+          "hp": 650,
+          "angle": 1.6333333333333353,
+          "turret": 2.683333333333329,
+          "shots": 0
+        },
+        {
+          "at": 2.366666666666668,
+          "hp": 650,
+          "angle": 1.6566666666666687,
+          "turret": 2.7216666666666622,
+          "shots": 0
+        },
+        {
+          "at": 2.4000000000000012,
+          "hp": 650,
+          "angle": 1.6800000000000022,
+          "turret": 2.7599999999999953,
+          "shots": 0
+        },
+        {
+          "at": 2.4333333333333345,
+          "hp": 650,
+          "angle": 1.7033333333333356,
+          "turret": 2.7983333333333285,
+          "shots": 0
+        },
+        {
+          "at": 2.4666666666666677,
+          "hp": 650,
+          "angle": 1.726666666666669,
+          "turret": 2.831443791068879,
+          "shots": 0
+        },
+        {
+          "at": 2.500000000000001,
+          "hp": 650,
+          "angle": 1.7500000000000024,
+          "turret": 2.841505436408968,
+          "shots": 0
+        },
+        {
+          "at": 2.533333333333334,
+          "hp": 650,
+          "angle": 1.7733333333333359,
+          "turret": 2.8516233079718565,
+          "shots": 0
+        },
+        {
+          "at": 2.5666666666666673,
+          "hp": 650,
+          "angle": 1.7966666666666693,
+          "turret": 2.861787811699295,
+          "shots": 0
+        },
+        {
+          "at": 2.6000000000000005,
+          "hp": 650,
+          "angle": 1.8200000000000027,
+          "turret": 2.8719900032777,
+          "shots": 0
+        },
+        {
+          "at": 2.6333333333333337,
+          "hp": 650,
+          "angle": 1.8433333333333362,
+          "turret": 2.8822215792157535,
+          "shots": 0
+        },
+        {
+          "at": 2.666666666666667,
+          "hp": 650,
+          "angle": 1.8666666666666696,
+          "turret": 2.8924748653122334,
+          "shots": 0
+        },
+        {
+          "at": 2.7,
+          "hp": 650,
+          "angle": 1.890000000000003,
+          "turret": 2.90274280277977,
+          "shots": 0
+        },
+        {
+          "at": 2.7333333333333334,
+          "hp": 650,
+          "angle": 1.9133333333333364,
+          "turret": 2.913018932285765,
+          "shots": 0
+        },
+        {
+          "at": 2.7666666666666666,
+          "hp": 650,
+          "angle": 1.9366666666666699,
+          "turret": 2.9232973761650154,
+          "shots": 0
+        },
+        {
+          "at": 2.8,
+          "hp": 650,
+          "angle": 1.9600000000000033,
+          "turret": 2.9335728190492465,
+          "shots": 0
+        },
+        {
+          "at": 2.833333333333333,
+          "hp": 650,
+          "angle": 1.9833333333333367,
+          "turret": 2.9438404871483907,
+          "shots": 0
+        },
+        {
+          "at": 2.8666666666666663,
+          "hp": 650,
+          "angle": 2.00666666666667,
+          "turret": 2.9540961264057506,
+          "shots": 0
+        },
+        {
+          "at": 2.8999999999999995,
+          "hp": 650,
+          "angle": 2.0300000000000034,
+          "turret": 2.964335979735861,
+          "shots": 0
+        },
+        {
+          "at": 2.9333333333333327,
+          "hp": 650,
+          "angle": 2.053333333333337,
+          "turret": 2.9745567635391796,
+          "shots": 0
+        },
+        {
+          "at": 2.966666666666666,
+          "hp": 650,
+          "angle": 2.07666666666667,
+          "turret": 2.9847556436727976,
+          "shots": 0
+        },
+        {
+          "at": 2.999999999999999,
+          "hp": 650,
+          "angle": 2.1000000000000036,
+          "turret": 2.994930211040588,
+          "shots": 0
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

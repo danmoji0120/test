@@ -1,0 +1,5 @@
+{
+  "qaAborted": true,
+  "missionResultNotClaimed": true,
+  "reason": "4-page slow DOM sampling caused corner movement oscillation; one pilot remained at x2278,y3367 while other pilots advanced. Aborted this QA process after >210 simulation seconds; no forced in-game loss. Original captures and last server trace preserved."
+}

@@ -1,0 +1,194 @@
+{
+  "runs": 24,
+  "mode": "V4.1 mixed finite three-slot loadouts, public actor observations,24 operations,360-second per-operation QA budget; no forced end state",
+  "unfinished": 0,
+  "records": [
+    {
+      "run": 0,
+      "seed": 7,
+      "level": 1,
+      "stage": "success",
+      "seconds": 51.666666666666295
+    },
+    {
+      "run": 1,
+      "seed": 42,
+      "level": 3,
+      "stage": "success",
+      "seconds": 46.03333333333328
+    },
+    {
+      "run": 2,
+      "seed": 103,
+      "level": 5,
+      "stage": "success",
+      "seconds": 57.26666666666598
+    },
+    {
+      "run": 3,
+      "seed": 837261,
+      "level": 7,
+      "stage": "success",
+      "seconds": 54.56666666666613
+    },
+    {
+      "run": 4,
+      "seed": 7,
+      "level": 8,
+      "stage": "failed",
+      "seconds": 75.59999999999827
+    },
+    {
+      "run": 5,
+      "seed": 42,
+      "level": 10,
+      "stage": "failed",
+      "seconds": 71.73333333333183
+    },
+    {
+      "run": 6,
+      "seed": 103,
+      "level": 1,
+      "stage": "success",
+      "seconds": 56.36666666666603
+    },
+    {
+      "run": 7,
+      "seed": 837261,
+      "level": 3,
+      "stage": "success",
+      "seconds": 56.66666666666601
+    },
+    {
+      "run": 8,
+      "seed": 7,
+      "level": 5,
+      "stage": "success",
+      "seconds": 50.56666666666636
+    },
+    {
+      "run": 9,
+      "seed": 42,
+      "level": 7,
+      "stage": "success",
+      "seconds": 61.666666666665726
+    },
+    {
+      "run": 10,
+      "seed": 103,
+      "level": 8,
+      "stage": "success",
+      "seconds": 75.76666666666493
+    },
+    {
+      "run": 11,
+      "seed": 837261,
+      "level": 10,
+      "stage": "success",
+      "seconds": 63.36666666666563
+    },
+    {
+      "run": 12,
+      "seed": 7,
+      "level": 1,
+      "stage": "success",
+      "seconds": 51.666666666666295
+    },
+    {
+      "run": 13,
+      "seed": 42,
+      "level": 3,
+      "stage": "success",
+      "seconds": 46.03333333333328
+    },
+    {
+      "run": 14,
+      "seed": 103,
+      "level": 5,
+      "stage": "success",
+      "seconds": 57.26666666666598
+    },
+    {
+      "run": 15,
+      "seed": 837261,
+      "level": 7,
+      "stage": "success",
+      "seconds": 54.56666666666613
+    },
+    {
+      "run": 16,
+      "seed": 7,
+      "level": 8,
+      "stage": "failed",
+      "seconds": 75.59999999999827
+    },
+    {
+      "run": 17,
+      "seed": 42,
+      "level": 10,
+      "stage": "failed",
+      "seconds": 71.73333333333183
+    },
+    {
+      "run": 18,
+      "seed": 103,
+      "level": 1,
+      "stage": "success",
+      "seconds": 56.36666666666603
+    },
+    {
+      "run": 19,
+      "seed": 837261,
+      "level": 3,
+      "stage": "success",
+      "seconds": 56.66666666666601
+    },
+    {
+      "run": 20,
+      "seed": 7,
+      "level": 5,
+      "stage": "success",
+      "seconds": 50.56666666666636
+    },
+    {
+      "run": 21,
+      "seed": 42,
+      "level": 7,
+      "stage": "success",
+      "seconds": 61.666666666665726
+    },
+    {
+      "run": 22,
+      "seed": 103,
+      "level": 8,
+      "stage": "success",
+      "seconds": 75.76666666666493
+    },
+    {
+      "run": 23,
+      "seed": 837261,
+      "level": 10,
+      "stage": "success",
+      "seconds": 63.36666666666563
+    }
+  ],
+  "successes": 20,
+  "failures": 4,
+  "maxEvents": 160,
+  "maxEnemies": 50,
+  "gcAvailable": true,
+  "heapMiB": [
+    10.76,
+    11.63,
+    11.98,
+    11.53,
+    11.5,
+    11.51
+  ],
+  "serverTickMs": {
+    "samples": 2900,
+    "median": 0.19787799999994604,
+    "p95": 4.76599300000089,
+    "p99": 13.883034999998927
+  }
+}

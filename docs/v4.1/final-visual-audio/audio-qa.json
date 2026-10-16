@@ -1,0 +1,125 @@
+{
+  "method": "actual AudioEngine rendered by Chromium OfflineAudioContext; not a listening review",
+  "report": [
+    {
+      "weapon": "ar",
+      "sampleRate": 48000,
+      "peak": 0.04606632515788078,
+      "clipped": 0,
+      "attackRms": 0.008006304346551807,
+      "tailRms": 0.00016183367400188952
+    },
+    {
+      "weapon": "smg",
+      "sampleRate": 48000,
+      "peak": 0.02742483839392662,
+      "clipped": 0,
+      "attackRms": 0.0028956485275658576,
+      "tailRms": 0.0000058600913979113795
+    },
+    {
+      "weapon": "sg",
+      "sampleRate": 48000,
+      "peak": 0.055805470794439316,
+      "clipped": 0,
+      "attackRms": 0.017233385146730885,
+      "tailRms": 0.00262027768160199
+    },
+    {
+      "weapon": "hmg",
+      "sampleRate": 48000,
+      "peak": 0.056942395865917206,
+      "clipped": 0,
+      "attackRms": 0.02101014223097123,
+      "tailRms": 0.004446560457607393
+    },
+    {
+      "weapon": "engine",
+      "sampleRate": 48000,
+      "peak": 0.01248792465776205,
+      "clipped": 0,
+      "attackRms": 0.005369032549077816,
+      "tailRms": 0.003539191042676665
+    },
+    {
+      "weapon": "shell",
+      "sampleRate": 48000,
+      "peak": 0.01904383674263954,
+      "clipped": 0,
+      "attackRms": 0.003964943818086256,
+      "tailRms": 0.005172900335441461
+    },
+    {
+      "weapon": "armor",
+      "sampleRate": 48000,
+      "peak": 0.013915035873651505,
+      "clipped": 0,
+      "attackRms": 0.0023255893533958272,
+      "tailRms": 0.00003782785106946452
+    },
+    {
+      "weapon": "explosion",
+      "sampleRate": 48000,
+      "peak": 0.06042078882455826,
+      "clipped": 0,
+      "attackRms": 0.02678886931593355,
+      "tailRms": 0.014803684588369833
+    },
+    {
+      "weapon": "maximum",
+      "sampleRate": 48000,
+      "peak": 0.021737003698945045,
+      "clipped": 0,
+      "attackRms": 0.008011969163552669,
+      "tailRms": 0.005832490839105115
+    },
+    {
+      "weapon": "pistol",
+      "sampleRate": 48000,
+      "peak": 0.02516687847673893,
+      "clipped": 0,
+      "attackRms": 0.002831965540792248,
+      "tailRms": 0.000010032434190139497
+    },
+    {
+      "weapon": "at",
+      "sampleRate": 48000,
+      "peak": 0.049096036702394485,
+      "clipped": 0,
+      "attackRms": 0.020257404634392864,
+      "tailRms": 0.004410908990475689
+    },
+    {
+      "weapon": "partial",
+      "sampleRate": 48000,
+      "peak": 0.009222901426255703,
+      "clipped": 0,
+      "attackRms": 0.0012347019581027793,
+      "tailRms": 0
+    },
+    {
+      "weapon": "weakpoint",
+      "sampleRate": 48000,
+      "peak": 0.006373154930770397,
+      "clipped": 0,
+      "attackRms": 0.0010552392890835205,
+      "tailRms": 0.00002010337383474259
+    },
+    {
+      "weapon": "component",
+      "sampleRate": 48000,
+      "peak": 0.013482391834259033,
+      "clipped": 0,
+      "attackRms": 0.0035909089475745586,
+      "tailRms": 0.0010087479256231414
+    },
+    {
+      "weapon": "smoke",
+      "sampleRate": 48000,
+      "peak": 0.0013314387761056423,
+      "clipped": 0,
+      "attackRms": 0.0002010473605182683,
+      "tailRms": 0
+    }
+  ]
+}

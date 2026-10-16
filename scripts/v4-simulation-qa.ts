@@ -65,7 +65,7 @@ for (const scenario of scenarios) {
     hurt = 0,
     rockets = 0,
     lastHP = players.map((p) => p.hp),
-    lastR = players.map((p) => (p.rockets ?? 0)),
+    lastR = players.map((p) => p.rockets ?? 0),
     maxBudget = forceBudget(w),
     lastPeak = 0;
   const maxSeconds = Number(process.env.QA_MAX_SECONDS || 600);
@@ -131,7 +131,7 @@ for (const scenario of scenarios) {
       }
       if ((p.rockets ?? 0) < lastR[i]) rockets += lastR[i] - (p.rockets ?? 0);
       lastHP[i] = p.hp;
-      lastR[i] = (p.rockets ?? 0);
+      lastR[i] = p.rockets ?? 0;
     });
     if (w.enemies.length > lastPeak) {
       lastPeak = w.enemies.length;

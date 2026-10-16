@@ -1,0 +1,8375 @@
+{
+  "fixture": "Fixed-position ray/projectile damage with data-defined reload/cadence, no enemy AI; not human TTK. Movement experiments use actual 30Hz inputs and 1e6HP to record damage. Same source harness runs against V4 reference and V4.1.",
+  "damage": [
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 32.8576,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 32.8576,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 32.8576,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 32.8576,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 32.8576,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 32.8576,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 28.267781511483008,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.26666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 28.267781511483008,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.26666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 28.267781511483008,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.26666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 15.228811533707002,
+      "shots": 5,
+      "reloads": 0,
+      "seconds": 0.5333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 15.228811533707002,
+      "shots": 5,
+      "reloads": 0,
+      "seconds": 0.5333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 15.228811533707002,
+      "shots": 5,
+      "reloads": 0,
+      "seconds": 0.5333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 33.6192,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 33.6192,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 33.6192,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 33.6192,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 33.6192,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 33.6192,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 28.922994990225988,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 28.922994990225988,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 28.922994990225988,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 15.581797231508162,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 15.581797231508162,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 15.581797231508162,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 31.144000000000005,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 31.144000000000005,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 31.144000000000005,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 31.144000000000005,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 31.144000000000005,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 31.144000000000005,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 26.79006578155088,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 26.79006578155088,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 26.79006578155088,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 14.42658673432311,
+      "shots": 8,
+      "reloads": 0,
+      "seconds": 0.9333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 14.42658673432311,
+      "shots": 8,
+      "reloads": 0,
+      "seconds": 0.9333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 14.42658673432311,
+      "shots": 8,
+      "reloads": 0,
+      "seconds": 0.9333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 3.740000000000009,
+      "shots": 65,
+      "reloads": 2,
+      "seconds": 11.466666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 16.319999999999993,
+      "shots": 15,
+      "reloads": 0,
+      "seconds": 1.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 37.400000000000006,
+      "shots": 7,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 3.740000000000009,
+      "shots": 65,
+      "reloads": 2,
+      "seconds": 11.466666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 16.319999999999993,
+      "shots": 15,
+      "reloads": 0,
+      "seconds": 1.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 37.400000000000006,
+      "shots": 7,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 3.2116288238723314,
+      "shots": 87,
+      "reloads": 2,
+      "seconds": 14.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 14.014380322351997,
+      "shots": 18,
+      "reloads": 0,
+      "seconds": 2.2666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 32.11628823872337,
+      "shots": 8,
+      "reloads": 0,
+      "seconds": 0.9333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 1.7274734688788556,
+      "shots": 211,
+      "reloads": 7,
+      "seconds": 38.266666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 7.53806604601678,
+      "shots": 47,
+      "reloads": 1,
+      "seconds": 7.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 17.27473468878847,
+      "shots": 18,
+      "reloads": 0,
+      "seconds": 2.2666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 33.524,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 33.524,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 33.524,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 33.524,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 33.524,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 33.524,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 28.149142405731144,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 28.149142405731144,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 28.149142405731144,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 14.845490602081043,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 14.845490602081043,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 14.845490602081043,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 1.5299999999999727,
+      "shots": 270,
+      "reloads": 8,
+      "seconds": 47.6,
+      "killed": false,
+      "remaining": 236.900000000007
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 8.159999999999968,
+      "shots": 80,
+      "reloads": 2,
+      "seconds": 13.466666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 32.299999999999955,
+      "shots": 21,
+      "reloads": 0,
+      "seconds": 2.6666666666666665,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 1.5299999999999727,
+      "shots": 270,
+      "reloads": 8,
+      "seconds": 47.6,
+      "killed": false,
+      "remaining": 236.900000000007
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 8.159999999999968,
+      "shots": 80,
+      "reloads": 2,
+      "seconds": 13.466666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 32.299999999999955,
+      "shots": 21,
+      "reloads": 0,
+      "seconds": 2.6666666666666665,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 1.3818530713454038,
+      "shots": 270,
+      "reloads": 8,
+      "seconds": 47.6,
+      "killed": false,
+      "remaining": 278.4608811702282
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 7.36988304717579,
+      "shots": 89,
+      "reloads": 2,
+      "seconds": 14.666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 29.172453728404207,
+      "shots": 23,
+      "reloads": 0,
+      "seconds": 2.933333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0.7747047548742785,
+      "shots": 270,
+      "reloads": 8,
+      "seconds": 47.6,
+      "killed": false,
+      "remaining": 444.81360525054083
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 4.131758692662515,
+      "shots": 161,
+      "reloads": 5,
+      "seconds": 28.666666666666668,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 16.354878158455904,
+      "shots": 41,
+      "reloads": 1,
+      "seconds": 6.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 6.1200000000000045,
+      "shots": 74,
+      "reloads": 2,
+      "seconds": 12.666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 16.319999999999993,
+      "shots": 28,
+      "reloads": 0,
+      "seconds": 3.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 35.69999999999999,
+      "shots": 13,
+      "reloads": 0,
+      "seconds": 1.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 6.1200000000000045,
+      "shots": 74,
+      "reloads": 2,
+      "seconds": 12.666666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 16.319999999999993,
+      "shots": 28,
+      "reloads": 0,
+      "seconds": 3.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 35.69999999999999,
+      "shots": 13,
+      "reloads": 0,
+      "seconds": 1.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 5.488553681838653,
+      "shots": 83,
+      "reloads": 2,
+      "seconds": 13.866666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 14.636143151569684,
+      "shots": 31,
+      "reloads": 1,
+      "seconds": 5.466666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 32.01656314405875,
+      "shots": 15,
+      "reloads": 0,
+      "seconds": 1.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 3.0599585898640385,
+      "shots": 151,
+      "reloads": 5,
+      "seconds": 27.333333333333332,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 8.159889572970712,
+      "shots": 57,
+      "reloads": 1,
+      "seconds": 8.933333333333334,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 17.849758440873472,
+      "shots": 26,
+      "reloads": 0,
+      "seconds": 3.3333333333333335,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 22.272000000000006,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 22.272000000000006,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 22.272000000000006,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 22.272000000000006,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 22.272000000000006,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 22.272000000000006,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 8.660514513469678,
+      "shots": 8,
+      "reloads": 0,
+      "seconds": 0.4666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 8.660514513469678,
+      "shots": 8,
+      "reloads": 0,
+      "seconds": 0.4666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 8.660514513469678,
+      "shots": 8,
+      "reloads": 0,
+      "seconds": 0.4666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 23.424,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 23.424,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 23.424,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 23.424,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 23.424,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 23.424,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 9.108472160718108,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 9.108472160718108,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 9.108472160718108,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 19.680000000000007,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 19.680000000000007,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 19.680000000000007,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 19.680000000000007,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 19.680000000000007,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 19.680000000000007,
+      "shots": 6,
+      "reloads": 0,
+      "seconds": 0.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 7.638198712570883,
+      "shots": 14,
+      "reloads": 0,
+      "seconds": 0.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 7.638198712570883,
+      "shots": 14,
+      "reloads": 0,
+      "seconds": 0.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 7.638198712570883,
+      "shots": 14,
+      "reloads": 0,
+      "seconds": 0.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 2.6399999999999864,
+      "shots": 91,
+      "reloads": 2,
+      "seconds": 8.266666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 11.52000000000001,
+      "shots": 21,
+      "reloads": 0,
+      "seconds": 1.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 26.400000000000006,
+      "shots": 10,
+      "reloads": 0,
+      "seconds": 0.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 2.6399999999999864,
+      "shots": 91,
+      "reloads": 2,
+      "seconds": 8.266666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 11.52000000000001,
+      "shots": 21,
+      "reloads": 0,
+      "seconds": 1.3333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 26.400000000000006,
+      "shots": 10,
+      "reloads": 0,
+      "seconds": 0.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 1.0197439544813562,
+      "shots": 288,
+      "reloads": 7,
+      "seconds": 27.066666666666666,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 4.449791801373124,
+      "shots": 62,
+      "reloads": 1,
+      "seconds": 5.2,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 10.19743954481342,
+      "shots": 24,
+      "reloads": 0,
+      "seconds": 1.5333333333333334,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 23.28,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 23.28,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 23.28,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 23.28,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 23.28,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 23.28,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 0.13333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 8.269620529704888,
+      "shots": 7,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 8.269620529704888,
+      "shots": 7,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 8.269620529704888,
+      "shots": 7,
+      "reloads": 0,
+      "seconds": 0.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 1.080000000000041,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 261.1999999999985
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 5.759999999999991,
+      "shots": 113,
+      "reloads": 2,
+      "seconds": 9.733333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 22.799999999999955,
+      "shots": 29,
+      "reloads": 0,
+      "seconds": 1.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 1.080000000000041,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 261.1999999999985
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 5.759999999999991,
+      "shots": 113,
+      "reloads": 2,
+      "seconds": 9.733333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 22.799999999999955,
+      "shots": 29,
+      "reloads": 0,
+      "seconds": 1.8666666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0.4953301216580712,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 474.5574506624973
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 2.64176064884316,
+      "shots": 250,
+      "reloads": 6,
+      "seconds": 23.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 10.456969235003953,
+      "shots": 63,
+      "reloads": 1,
+      "seconds": 5.266666666666667,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 4.319999999999993,
+      "shots": 105,
+      "reloads": 2,
+      "seconds": 9.2,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 11.519999999999982,
+      "shots": 40,
+      "reloads": 0,
+      "seconds": 2.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 25.19999999999999,
+      "shots": 18,
+      "reloads": 0,
+      "seconds": 1.1333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 4.319999999999993,
+      "shots": 105,
+      "reloads": 2,
+      "seconds": 9.2,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 11.519999999999982,
+      "shots": 40,
+      "reloads": 0,
+      "seconds": 2.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 25.19999999999999,
+      "shots": 18,
+      "reloads": 0,
+      "seconds": 1.1333333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 1.9366626087483496,
+      "shots": 237,
+      "reloads": 5,
+      "seconds": 21.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 5.164433623328932,
+      "shots": 89,
+      "reloads": 2,
+      "seconds": 8.133333333333333,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 11.297198551032011,
+      "shots": 41,
+      "reloads": 1,
+      "seconds": 3.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 360,
+      "reloads": 8,
+      "seconds": 33,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 66.22,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 66.22,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 66.22,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 52.27709477915009,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 52.27709477915009,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 52.27709477915009,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 65
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 54.99199999999999,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 54.99199999999999,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 54.99199999999999,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 49.090167848015426,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 49.090167848015426,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 49.090167848015426,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 48
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 108.99,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 108.99,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 108.99,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 47.85585156230189,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 1.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 47.85585156230189,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 1.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 47.85585156230189,
+      "shots": 3,
+      "reloads": 0,
+      "seconds": 1.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 105
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 15.39999999999992,
+      "shots": 16,
+      "reloads": 1,
+      "seconds": 13.2,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 67.19999999999999,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 2.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 154.00000000000006,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 5.993206241341483,
+      "shots": 48,
+      "reloads": 5,
+      "seconds": 43.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 26.1521726894901,
+      "shots": 11,
+      "reloads": 1,
+      "seconds": 9.2,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 59.93206241341488,
+      "shots": 5,
+      "reloads": 0,
+      "seconds": 3.2,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 240
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 54.74000000000001,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 54.74000000000001,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 54.74000000000001,
+      "shots": 1,
+      "reloads": 0,
+      "seconds": 0,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 31.43785933716603,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 31.43785933716603,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 31.43785933716603,
+      "shots": 2,
+      "reloads": 0,
+      "seconds": 0.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 50
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 6.2999999999999545,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 246.8000000000029
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 33.600000000000136,
+      "shots": 20,
+      "reloads": 2,
+      "seconds": 17.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 132.99999999999955,
+      "shots": 5,
+      "reloads": 0,
+      "seconds": 3.2,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 3.366082600186587,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 437.00605054476983
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 17.95244053432748,
+      "shots": 37,
+      "reloads": 4,
+      "seconds": 33.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 71.0617437817134,
+      "shots": 10,
+      "reloads": 1,
+      "seconds": 8.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 650
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 90,
+      "face": "front",
+      "firstDamage": 25.199999999999818,
+      "shots": 18,
+      "reloads": 2,
+      "seconds": 16,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 90,
+      "face": "side",
+      "firstDamage": 67.20000000000027,
+      "shots": 7,
+      "reloads": 0,
+      "seconds": 4.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 90,
+      "face": "rear",
+      "firstDamage": 146.9999999999999,
+      "shots": 4,
+      "reloads": 0,
+      "seconds": 2.4,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 250,
+      "face": "front",
+      "firstDamage": 12.957014386408332,
+      "shots": 36,
+      "reloads": 4,
+      "seconds": 32.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 250,
+      "face": "side",
+      "firstDamage": 34.5520383637554,
+      "shots": 14,
+      "reloads": 1,
+      "seconds": 11.6,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 250,
+      "face": "rear",
+      "firstDamage": 75.58258392071497,
+      "shots": 7,
+      "reloads": 0,
+      "seconds": 4.8,
+      "killed": true,
+      "remaining": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 500,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 500,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 500,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 750,
+      "face": "front",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 750,
+      "face": "side",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 450
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 750,
+      "face": "rear",
+      "firstDamage": 0,
+      "shots": 64,
+      "reloads": 8,
+      "seconds": 59.96666666666667,
+      "killed": false,
+      "remaining": 450
+    }
+  ],
+  "movement": [
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "stationary",
+      "shots": 60,
+      "hits": 42,
+      "damage": 462,
+      "hitRate": 0.7,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "strafe",
+      "shots": 60,
+      "hits": 6,
+      "damage": 66,
+      "hitRate": 0.1,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "circle",
+      "shots": 44,
+      "hits": 6,
+      "damage": 66,
+      "hitRate": 0.13636363636363635,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2854.7677894901108,
+            "y": 1763.759883050061
+          },
+          {
+            "x": 3005.5540629677907,
+            "y": 1774.9944828569942
+          },
+          {
+            "x": 3158.5540622795384,
+            "y": 1774.9999970478386
+          },
+          {
+            "x": 3175.623752787373,
+            "y": 1819.9864976204337
+          },
+          {
+            "x": 3056.8469144084206,
+            "y": 1824.9740743774043
+          },
+          {
+            "x": 3056.8469144084206,
+            "y": 1824.9740743774043
+          },
+          {
+            "x": 3056.8469144084206,
+            "y": 1824.9740743774043
+          },
+          {
+            "x": 3153.180243205,
+            "y": 1824.9991346127915
+          },
+          {
+            "x": 3125.8453443686985,
+            "y": 1923.213780955338
+          },
+          {
+            "x": 2972.8736077977183,
+            "y": 1924.999076575006
+          },
+          {
+            "x": 2870.873607806172,
+            "y": 1924.9999946103705
+          },
+          {
+            "x": 2870.873607806172,
+            "y": 1924.9999946103705
+          },
+          {
+            "x": 2870.873607806172,
+            "y": 1924.9999946103705
+          },
+          {
+            "x": 3006.8736078061684,
+            "y": 1924.9999999856773
+          },
+          {
+            "x": 3024.991722906453,
+            "y": 2066.249961131392
+          },
+          {
+            "x": 3024.998328725156,
+            "y": 2094.5832918951874
+          },
+          {
+            "x": 3024.998328725156,
+            "y": 2094.5832918951874
+          },
+          {
+            "x": 3089.4781757958444,
+            "y": 2075.028897070354
+          },
+          {
+            "x": 3075.0205806629033,
+            "y": 1978.7630895998093
+          },
+          {
+            "x": 3046.767087347452,
+            "y": 1976.6375559605624
+          },
+          {
+            "x": 3025.255944572619,
+            "y": 2043.1497153868622
+          },
+          {
+            "x": 3025.255944572619,
+            "y": 2043.1497153868622
+          },
+          {
+            "x": 3025.255944572619,
+            "y": 2043.1497153868622
+          },
+          {
+            "x": 3124.456578072702,
+            "y": 2025.2551098900788
+          },
+          {
+            "x": 3141.4563615337966,
+            "y": 2025.1693061845767
+          },
+          {
+            "x": 3107.4564718703305,
+            "y": 2025.0826870639676
+          },
+          {
+            "x": 3033.7898980045993,
+            "y": 2025.0017059802524
+          },
+          {
+            "x": 3033.7898980045993,
+            "y": 2025.0017059802524
+          },
+          {
+            "x": 3121.5836762806152,
+            "y": 2002.5061981208028
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "zigzag",
+      "shots": 60,
+      "hits": 31,
+      "damage": 341,
+      "hitRate": 0.5166666666666667,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 1,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2832.476778949011,
+            "y": 1751.375988305006
+          },
+          {
+            "x": 2909.237648119066,
+            "y": 1774.1505056538545
+          },
+          {
+            "x": 2869.1978912208283,
+            "y": 1822.550338017452
+          },
+          {
+            "x": 2832.09164128501,
+            "y": 1784.174085333823
+          },
+          {
+            "x": 2913.429042367531,
+            "y": 1775.299587583016
+          },
+          {
+            "x": 2867.0745260641056,
+            "y": 1776.7226241529922
+          },
+          {
+            "x": 2903.9189338464166,
+            "y": 1775.0749455480418
+          },
+          {
+            "x": 2856.219110423956,
+            "y": 1775.2408236712524
+          },
+          {
+            "x": 2910.067758507848,
+            "y": 1783.0202003861498
+          },
+          {
+            "x": 2859.796383350196,
+            "y": 1823.3604931115863
+          },
+          {
+            "x": 2825.987008261216,
+            "y": 1782.5523566528916
+          },
+          {
+            "x": 2876.4897472079915,
+            "y": 1775.9189728294693
+          },
+          {
+            "x": 2850.9865677076054,
+            "y": 1775.0417026192447
+          },
+          {
+            "x": 2882.153258973175,
+            "y": 1775.0011870041603
+          },
+          {
+            "x": 2894.4161192035804,
+            "y": 1782.1216945764793
+          },
+          {
+            "x": 2878.2982423230387,
+            "y": 1775.1398387815964
+          },
+          {
+            "x": 2882.222713254848,
+            "y": 1775.9297601449284
+          },
+          {
+            "x": 2859.5627015175687,
+            "y": 1775.0356977627337
+          },
+          {
+            "x": 2907.5829307249055,
+            "y": 1807.377585798499
+          },
+          {
+            "x": 2832.0639941949644,
+            "y": 1824.642041810752
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          },
+          {
+            "x": 2828.072409934562,
+            "y": 1796.591283659324
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "stationary",
+      "shots": 159,
+      "hits": 90,
+      "damage": 930,
+      "hitRate": 0.5660377358490566,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3166.1973482970125,
+            "y": 1774.9553764618008
+          },
+          {
+            "x": 3224.937896001329,
+            "y": 1870.783397945833
+          },
+          {
+            "x": 3175.3384811603564,
+            "y": 1986.8253514414027
+          },
+          {
+            "x": 3079.5516606993897,
+            "y": 2030.780180884527
+          },
+          {
+            "x": 3160.973603933257,
+            "y": 2075.4545566196543
+          },
+          {
+            "x": 3098.6342911562924,
+            "y": 2075.000173914128
+          },
+          {
+            "x": 3149.6342911567563,
+            "y": 2075.00000010702
+          },
+          {
+            "x": 3080.0726102718777,
+            "y": 2025.1786144595071
+          },
+          {
+            "x": 3172.759150498265,
+            "y": 2058.012921494287
+          },
+          {
+            "x": 3075.4604782824094,
+            "y": 2070.285621787419
+          },
+          {
+            "x": 3146.983967256655,
+            "y": 2032.2161743976997
+          },
+          {
+            "x": 3085.461022834642,
+            "y": 2093.7599494311626
+          },
+          {
+            "x": 3109.937912392131,
+            "y": 2075.008707632147
+          },
+          {
+            "x": 3068.643461907764,
+            "y": 2122.0801218051442
+          },
+          {
+            "x": 3119.5744972888447,
+            "y": 2124.9976805401684
+          },
+          {
+            "x": 3068.5744973430956,
+            "y": 2124.99999839383
+          },
+          {
+            "x": 3121.22707308232,
+            "y": 2235.8885617321553
+          },
+          {
+            "x": 3051.4595762999,
+            "y": 2324.8021836563307
+          },
+          {
+            "x": 2898.4602168349625,
+            "y": 2324.999915026018
+          },
+          {
+            "x": 2823.5179218195594,
+            "y": 2272.958442132165
+          },
+          {
+            "x": 2874.5675130080053,
+            "y": 2178.2140010164285
+          },
+          {
+            "x": 2800.6422576097425,
+            "y": 2075.8989382784484
+          },
+          {
+            "x": 2862.9894059813228,
+            "y": 2075.0007921294673
+          },
+          {
+            "x": 2808.891550841008,
+            "y": 2028.3940856304262
+          },
+          {
+            "x": 2882.305252666639,
+            "y": 2025.000674808958
+          },
+          {
+            "x": 2850.9589561740913,
+            "y": 1963.7234865728967
+          },
+          {
+            "x": 2928.1226756606006,
+            "y": 1974.9992141066039
+          },
+          {
+            "x": 3007.4608509699765,
+            "y": 1924.2096458222502
+          },
+          {
+            "x": 3160.448722674475,
+            "y": 1924.9994668824033
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "strafe",
+      "shots": 159,
+      "hits": 17,
+      "damage": 187,
+      "hitRate": 0.1069182389937107,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3069.865641011967,
+            "y": 1774.9626778405268
+          },
+          {
+            "x": 3092.5323214620043,
+            "y": 1774.999912977666
+          },
+          {
+            "x": 3030.1989881285726,
+            "y": 1774.9999999306597
+          },
+          {
+            "x": 3081.1989881285713,
+            "y": 1774.9999999999486
+          },
+          {
+            "x": 3125.52940798949,
+            "y": 1860.5462486940014
+          },
+          {
+            "x": 3020.7432372403377,
+            "y": 1924.900593017081
+          },
+          {
+            "x": 3080.519847195496,
+            "y": 1925.1374594313406
+          },
+          {
+            "x": 3035.1863246011,
+            "y": 1925.0001671217876
+          },
+          {
+            "x": 3108.852991268548,
+            "y": 1925.0000001909573
+          },
+          {
+            "x": 3025.438474338253,
+            "y": 1970.1492530570563
+          },
+          {
+            "x": 3050.4399094065598,
+            "y": 2112.956015240741
+          },
+          {
+            "x": 3155.7541856093176,
+            "y": 2124.9865812399544
+          },
+          {
+            "x": 3127.420854982179,
+            "y": 2124.9999951451878
+          },
+          {
+            "x": 3129.093654346893,
+            "y": 2174.565116038939
+          },
+          {
+            "x": 3078.095307291646,
+            "y": 2174.9998428716212
+          },
+          {
+            "x": 3073.5012214985327,
+            "y": 2224.6110186645296
+          },
+          {
+            "x": 2920.502684656454,
+            "y": 2224.999645514858
+          },
+          {
+            "x": 2825.580970658782,
+            "y": 2152.3079223294208
+          },
+          {
+            "x": 2825.000150275644,
+            "y": 1999.3131340773336
+          },
+          {
+            "x": 2881.3088246184266,
+            "y": 1925.5036711361815
+          },
+          {
+            "x": 3034.3061702587756,
+            "y": 1925.0002662059057
+          },
+          {
+            "x": 3034.306170258039,
+            "y": 1925.0000001794444
+          },
+          {
+            "x": 3096.6395035913706,
+            "y": 1925.0000000002485
+          },
+          {
+            "x": 3011.639503591373,
+            "y": 1925.0000000000002
+          },
+          {
+            "x": 3085.3061702580376,
+            "y": 1925.0000000000002
+          },
+          {
+            "x": 2988.972836924707,
+            "y": 1925
+          },
+          {
+            "x": 3079.115942284293,
+            "y": 1930.6424280827355
+          },
+          {
+            "x": 3026.0416659482435,
+            "y": 2057.6580399264003
+          },
+          {
+            "x": 3104.0005633229684,
+            "y": 2125.240664980366
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "circle",
+      "shots": 123,
+      "hits": 13,
+      "damage": 137,
+      "hitRate": 0.10569105691056911,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2834.953557898022,
+            "y": 1752.7519766100122
+          },
+          {
+            "x": 2988.5703023016167,
+            "y": 1774.9622011875442
+          },
+          {
+            "x": 3141.5702839465,
+            "y": 1774.9999782880375
+          },
+          {
+            "x": 3135.9557193473,
+            "y": 1872.8996630608074
+          },
+          {
+            "x": 3034.0659934945193,
+            "y": 1874.9863215114506
+          },
+          {
+            "x": 3034.0659934945193,
+            "y": 1874.9863215114506
+          },
+          {
+            "x": 3034.0659934945193,
+            "y": 1874.9863215114506
+          },
+          {
+            "x": 3085.0659915821766,
+            "y": 1874.9983747904537
+          },
+          {
+            "x": 3039.5969762162385,
+            "y": 1878.0857134283026
+          },
+          {
+            "x": 2886.8469311522094,
+            "y": 1875.0009870421761
+          },
+          {
+            "x": 2858.513597839496,
+            "y": 1875.0003071667359
+          },
+          {
+            "x": 2858.513597839496,
+            "y": 1875.0003071667359
+          },
+          {
+            "x": 2875.513597839314,
+            "y": 1875.0002286268489
+          },
+          {
+            "x": 3034.1802645054927,
+            "y": 1875.000000284606
+          },
+          {
+            "x": 2978.4761015215568,
+            "y": 1892.0527345863743
+          },
+          {
+            "x": 2856.4584420843826,
+            "y": 1925.0039592223013
+          },
+          {
+            "x": 2822.4584423089336,
+            "y": 1925.000351359328
+          },
+          {
+            "x": 2822.4584423089336,
+            "y": 1925.000351359328
+          },
+          {
+            "x": 2822.4584423089336,
+            "y": 1925.000351359328
+          },
+          {
+            "x": 2935.791775641236,
+            "y": 1925.0000036489096
+          },
+          {
+            "x": 2890.458442307904,
+            "y": 1925.000000006087
+          },
+          {
+            "x": 2879.125108974571,
+            "y": 1925.0000000016244
+          },
+          {
+            "x": 2879.125108974571,
+            "y": 1925.0000000016244
+          },
+          {
+            "x": 2879.125108974571,
+            "y": 1925.0000000016244
+          },
+          {
+            "x": 3003.7917756412344,
+            "y": 1925.0000000000082
+          },
+          {
+            "x": 3123.2964495987558,
+            "y": 1964.183657299245
+          },
+          {
+            "x": 3015.4617984069614,
+            "y": 2024.8816451847563
+          },
+          {
+            "x": 2987.128586285844,
+            "y": 2024.9645226696405
+          },
+          {
+            "x": 2929.8465329845844,
+            "y": 2019.3637292861638
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3166.1973482970125,
+            "y": 1774.9553764618008
+          },
+          {
+            "x": 3319.1972734160354,
+            "y": 1774.9999496390342
+          },
+          {
+            "x": 3472.197273416011,
+            "y": 1774.9999999843326
+          },
+          {
+            "x": 3403.319012221218,
+            "y": 1866.6503355708082
+          },
+          {
+            "x": 3281.578508531187,
+            "y": 1924.789393280356
+          },
+          {
+            "x": 3128.5788654435187,
+            "y": 1924.9998878148344
+          },
+          {
+            "x": 3166.445419570369,
+            "y": 1925.1452917027204
+          },
+          {
+            "x": 3319.444587049604,
+            "y": 1925.0001967416388
+          },
+          {
+            "x": 3314.645570681187,
+            "y": 1988.9397801021823
+          },
+          {
+            "x": 3163.896515301146,
+            "y": 1975.007449270903
+          },
+          {
+            "x": 3026.5856263949995,
+            "y": 1997.6287319196608
+          },
+          {
+            "x": 2977.570157095886,
+            "y": 2123.9852783633282
+          },
+          {
+            "x": 2937.912082905598,
+            "y": 2124.999022549628
+          },
+          {
+            "x": 3096.578749560417,
+            "y": 2124.999998282918
+          },
+          {
+            "x": 3174.8238390929155,
+            "y": 2204.1285402661983
+          },
+          {
+            "x": 3050.8094520904783,
+            "y": 2225.027474273075
+          },
+          {
+            "x": 2892.142793490432,
+            "y": 2225.000066343219
+          },
+          {
+            "x": 2929.8230144885447,
+            "y": 2323.403242702542
+          },
+          {
+            "x": 3071.387748346333,
+            "y": 2324.237000196439
+          },
+          {
+            "x": 3224.382572675081,
+            "y": 2324.9994912526977
+          },
+          {
+            "x": 3258.3825726727714,
+            "y": 2324.999999675649
+          },
+          {
+            "x": 3105.3825726727755,
+            "y": 2324.9999999998836
+          },
+          {
+            "x": 2946.715906006113,
+            "y": 2324.999999999999
+          },
+          {
+            "x": 2908.9918799352977,
+            "y": 2272.893679359034
+          },
+          {
+            "x": 3067.558329384635,
+            "y": 2274.999685126009
+          },
+          {
+            "x": 3220.558329383857,
+            "y": 2274.999999727259
+          },
+          {
+            "x": 3181.1389561920405,
+            "y": 2376.6156966646477
+          },
+          {
+            "x": 3028.1602508193873,
+            "y": 2375.000653561085
+          },
+          {
+            "x": 2875.1602508228843,
+            "y": 2375.000001046611
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3209.1127451173975,
+            "y": 1771.2376374741418
+          },
+          {
+            "x": 3224.8740155619594,
+            "y": 1885.8307366258553
+          },
+          {
+            "x": 3126.734424455002,
+            "y": 1876.8089235592292
+          },
+          {
+            "x": 3114.242058649196,
+            "y": 1876.37212088761
+          },
+          {
+            "x": 3114.242058649196,
+            "y": 1876.37212088761
+          },
+          {
+            "x": 3114.242058649196,
+            "y": 1876.37212088761
+          },
+          {
+            "x": 3114.242058649196,
+            "y": 1876.37212088761
+          },
+          {
+            "x": 3124.9381909474,
+            "y": 1971.1170781746443
+          },
+          {
+            "x": 3112.4970755306763,
+            "y": 1978.3410355929595
+          },
+          {
+            "x": 3112.4970755306763,
+            "y": 1978.3410355929595
+          },
+          {
+            "x": 3112.4970755306763,
+            "y": 1978.3410355929595
+          },
+          {
+            "x": 3112.4970755306763,
+            "y": 1978.3410355929595
+          },
+          {
+            "x": 3112.4970755306763,
+            "y": 1978.3410355929595
+          },
+          {
+            "x": 3095.8961761042387,
+            "y": 1976.8618750164637
+          },
+          {
+            "x": 3016.7965207018246,
+            "y": 1975.0233129727312
+          },
+          {
+            "x": 3016.7965207018246,
+            "y": 1975.0233129727312
+          },
+          {
+            "x": 2975.3726915199977,
+            "y": 1929.3373336572427
+          },
+          {
+            "x": 2975.22980221136,
+            "y": 1908.5044903461812
+          },
+          {
+            "x": 3014.7807574655726,
+            "y": 1921.6130009248259
+          },
+          {
+            "x": 3071.812003571841,
+            "y": 1949.5733822390239
+          },
+          {
+            "x": 3071.812003571841,
+            "y": 1949.5733822390239
+          },
+          {
+            "x": 3071.812003571841,
+            "y": 1949.5733822390239
+          },
+          {
+            "x": 3074.6593888958346,
+            "y": 1882.9675503527606
+          },
+          {
+            "x": 3074.6593888958346,
+            "y": 1882.9675503527606
+          },
+          {
+            "x": 3074.9829104865676,
+            "y": 1949.63297920214
+          },
+          {
+            "x": 3074.997179061193,
+            "y": 1974.6329744679142
+          },
+          {
+            "x": 3074.997179061193,
+            "y": 1974.6329744679142
+          },
+          {
+            "x": 3074.997179061193,
+            "y": 1974.6329744679142
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "zigzag",
+      "shots": 159,
+      "hits": 69,
+      "damage": 725,
+      "hitRate": 0.4339622641509434,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3166.1973482970125,
+            "y": 1774.9553764618008
+          },
+          {
+            "x": 3174.9989377543507,
+            "y": 1922.2278202709565
+          },
+          {
+            "x": 3125.400084606709,
+            "y": 2036.3323573427538
+          },
+          {
+            "x": 3024.3681501639685,
+            "y": 2075.119555830065
+          },
+          {
+            "x": 3063.4526726597232,
+            "y": 2075.654534564199
+          },
+          {
+            "x": 3001.1096688907264,
+            "y": 2075.0006001832394
+          },
+          {
+            "x": 3074.4535866842084,
+            "y": 2124.687453519395
+          },
+          {
+            "x": 3221.7860446608324,
+            "y": 2124.9998541317664
+          },
+          {
+            "x": 3108.452711327697,
+            "y": 2124.9999985824816
+          },
+          {
+            "x": 3221.7860446610275,
+            "y": 2124.99999999951
+          },
+          {
+            "x": 3119.7860446610302,
+            "y": 2125
+          },
+          {
+            "x": 3210.4527113276945,
+            "y": 2125
+          },
+          {
+            "x": 3182.119377994362,
+            "y": 2125
+          },
+          {
+            "x": 3176.4527113276954,
+            "y": 2125
+          },
+          {
+            "x": 3125.4527113276968,
+            "y": 2125
+          },
+          {
+            "x": 3170.786044661029,
+            "y": 2125
+          },
+          {
+            "x": 3131.1193779943633,
+            "y": 2125
+          },
+          {
+            "x": 3142.4527113276963,
+            "y": 2125
+          },
+          {
+            "x": 3136.78604466103,
+            "y": 2125
+          },
+          {
+            "x": 3118.1400982281843,
+            "y": 2174.6552189213917
+          },
+          {
+            "x": 3122.7618245780664,
+            "y": 2208.6830005731945
+          },
+          {
+            "x": 3045.767107086484,
+            "y": 2274.8519014699173
+          },
+          {
+            "x": 2892.767545736491,
+            "y": 2274.99993972572
+          },
+          {
+            "x": 2807.7675457365617,
+            "y": 2274.999999949337
+          },
+          {
+            "x": 2864.606121950278,
+            "y": 2174.650028795329
+          },
+          {
+            "x": 2848.490150156052,
+            "y": 2066.0918743665698
+          },
+          {
+            "x": 2815.1620016428346,
+            "y": 2025.995040994418
+          },
+          {
+            "x": 2798.1316729205464,
+            "y": 2025.000980929998
+          },
+          {
+            "x": 2854.7149714568163,
+            "y": 1975.1622030454812
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 3,
+      "group": 3,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2832.476778949011,
+            "y": 1751.375988305006
+          },
+          {
+            "x": 2909.237648119066,
+            "y": 1774.1505056538545
+          },
+          {
+            "x": 2872.9163011118853,
+            "y": 1777.2980378687641
+          },
+          {
+            "x": 2898.437705645004,
+            "y": 1775.1101034650922
+          },
+          {
+            "x": 2862.0604277084285,
+            "y": 1775.2917306421937
+          },
+          {
+            "x": 2898.8943172585496,
+            "y": 1775.0105490711408
+          },
+          {
+            "x": 2880.958687694435,
+            "y": 1777.1927721883285
+          },
+          {
+            "x": 2919.411881089502,
+            "y": 1786.3968855637431
+          },
+          {
+            "x": 2856.1809572570796,
+            "y": 1776.3866039678976
+          },
+          {
+            "x": 2921.0644249183247,
+            "y": 1794.7979926305434
+          },
+          {
+            "x": 2859.393397082685,
+            "y": 1776.2127445257695
+          },
+          {
+            "x": 2909.2702299374405,
+            "y": 1783.6027879005437
+          },
+          {
+            "x": 2890.2959517323006,
+            "y": 1775.5397352443015
+          },
+          {
+            "x": 2886.241082438563,
+            "y": 1779.1649870460399
+          },
+          {
+            "x": 2861.130437960417,
+            "y": 1775.1006351488356
+          },
+          {
+            "x": 2908.9203073280687,
+            "y": 1805.7705629820584
+          },
+          {
+            "x": 2840.6241894765194,
+            "y": 1808.0741445732654
+          },
+          {
+            "x": 2869.5897371158003,
+            "y": 1775.5551879575967
+          },
+          {
+            "x": 2910.198555529846,
+            "y": 1790.2057692021979
+          },
+          {
+            "x": 2841.9774426822587,
+            "y": 1775.4855426342328
+          },
+          {
+            "x": 2912.80792594883,
+            "y": 1775.010915339299
+          },
+          {
+            "x": 2830.6412606102626,
+            "y": 1775.00019096253
+          },
+          {
+            "x": 2909.9745939432505,
+            "y": 1775.0000084618518
+          },
+          {
+            "x": 2873.4690499726826,
+            "y": 1777.5289972723879
+          },
+          {
+            "x": 2913.1562170767143,
+            "y": 1775.215249623543
+          },
+          {
+            "x": 2864.990051512156,
+            "y": 1775.0058953048485
+          },
+          {
+            "x": 2899.8412079474324,
+            "y": 1778.1384124088495
+          },
+          {
+            "x": 2863.166743942237,
+            "y": 1775.0628814975094
+          },
+          {
+            "x": 2903.5453878166827,
+            "y": 1778.5447211607986
+          },
+          {
+            "x": 2889.5531886988865,
+            "y": 1775.2090810737056
+          }
+        ],
+        "e36": [
+          {
+            "x": 3002.687936011143,
+            "y": 1750.895978670381
+          },
+          {
+            "x": 3067.920001426539,
+            "y": 1781.3401303476396
+          },
+          {
+            "x": 3056.97591013543,
+            "y": 1775.3965866684316
+          },
+          {
+            "x": 3040.4406302611415,
+            "y": 1820.7250716295748
+          },
+          {
+            "x": 3056.8404713077803,
+            "y": 1777.2079585441954
+          },
+          {
+            "x": 3031.2980741944834,
+            "y": 1821.7715385948698
+          },
+          {
+            "x": 3026.004491270774,
+            "y": 1782.4596774805157
+          },
+          {
+            "x": 3071.22075308774,
+            "y": 1798.502257992071
+          },
+          {
+            "x": 3029.155276437548,
+            "y": 1804.3915020692718
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          },
+          {
+            "x": 3027.1721590975358,
+            "y": 1790.3643252307136
+          }
+        ],
+        "e37": [
+          {
+            "x": 3171.896596828047,
+            "y": 1750.862089467294
+          },
+          {
+            "x": 3230.063526104825,
+            "y": 1771.7440462378802
+          },
+          {
+            "x": 3246.4358706048665,
+            "y": 1781.0091912896942
+          },
+          {
+            "x": 3186.590388247725,
+            "y": 1775.4185802769528
+          },
+          {
+            "x": 3209.5092320463687,
+            "y": 1775.0975874945445
+          },
+          {
+            "x": 3265.75905115055,
+            "y": 1775.0053719684809
+          },
+          {
+            "x": 3205.342384777334,
+            "y": 1775.000517119752
+          },
+          {
+            "x": 3209.509051447208,
+            "y": 1775.000046047977
+          },
+          {
+            "x": 3265.759051447163,
+            "y": 1775.0000025348108
+          },
+          {
+            "x": 3210.4387931424267,
+            "y": 1775.3897622244124
+          },
+          {
+            "x": 3208.357189927164,
+            "y": 1775.0262629532422
+          },
+          {
+            "x": 3268.773842860704,
+            "y": 1775.001087974231
+          },
+          {
+            "x": 3208.3571762057054,
+            "y": 1775.0000924315584
+          },
+          {
+            "x": 3183.3571762058095,
+            "y": 1775.0000165563079
+          },
+          {
+            "x": 3243.773842872473,
+            "y": 1775.0000013747492
+          },
+          {
+            "x": 3239.012009234156,
+            "y": 1777.0713063848207
+          },
+          {
+            "x": 3182.8392071408384,
+            "y": 1775.1568867012106
+          },
+          {
+            "x": 3224.5056279920245,
+            "y": 1775.0223325865484
+          },
+          {
+            "x": 3249.505623757629,
+            "y": 1775.0016899000777
+          },
+          {
+            "x": 3189.0889571324965,
+            "y": 1775.0001316776136
+          },
+          {
+            "x": 3201.5889571327416,
+            "y": 1775.00004068186
+          },
+          {
+            "x": 3262.005623799387,
+            "y": 1775.0000026838268
+          },
+          {
+            "x": 3221.9636613836847,
+            "y": 1775.9008705575711
+          },
+          {
+            "x": 3182.387608587578,
+            "y": 1775.1417112480444
+          },
+          {
+            "x": 3236.554077768799,
+            "y": 1775.0160857015258
+          },
+          {
+            "x": 3236.554075110839,
+            "y": 1775.000812692813
+          },
+          {
+            "x": 3182.3874084565277,
+            "y": 1775.000066889638
+          },
+          {
+            "x": 3221.9707417898176,
+            "y": 1775.0000104726835
+          },
+          {
+            "x": 3256.1147968757537,
+            "y": 1778.0729343674
+          },
+          {
+            "x": 3195.821291261521,
+            "y": 1775.2280212903747
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "stationary",
+      "shots": 81,
+      "hits": 75,
+      "damage": 825,
+      "hitRate": 0.9259259259259259,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "strafe",
+      "shots": 81,
+      "hits": 6,
+      "damage": 66,
+      "hitRate": 0.07407407407407407,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "circle",
+      "shots": 48,
+      "hits": 15,
+      "damage": 165,
+      "hitRate": 0.3125,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2834.953557898022,
+            "y": 1752.7519766100122
+          },
+          {
+            "x": 2988.5703023016167,
+            "y": 1774.9622011875442
+          },
+          {
+            "x": 3141.5702839465,
+            "y": 1774.9999782880375
+          },
+          {
+            "x": 3224.8092847896796,
+            "y": 1848.514551683214
+          },
+          {
+            "x": 3081.467198020537,
+            "y": 1874.9814568614618
+          },
+          {
+            "x": 3081.467198020537,
+            "y": 1874.9814568614618
+          },
+          {
+            "x": 3081.467198020537,
+            "y": 1874.9814568614618
+          },
+          {
+            "x": 3143.8005277447164,
+            "y": 1874.9990461601183
+          },
+          {
+            "x": 3075.102217575534,
+            "y": 1880.0514079676745
+          },
+          {
+            "x": 2922.3330362467573,
+            "y": 1875.0018179156748
+          },
+          {
+            "x": 2922.3330362467573,
+            "y": 1875.0018179156748
+          },
+          {
+            "x": 2922.3330362467573,
+            "y": 1875.0018179156748
+          },
+          {
+            "x": 2922.3330362467573,
+            "y": 1875.0018179156748
+          },
+          {
+            "x": 3029.99970288592,
+            "y": 1875.000022338057
+          },
+          {
+            "x": 2979.9341186332317,
+            "y": 1886.4422624096005
+          },
+          {
+            "x": 2873.926049298134,
+            "y": 1875.1297903492239
+          },
+          {
+            "x": 2873.926049298134,
+            "y": 1875.1297903492239
+          },
+          {
+            "x": 2873.926049298134,
+            "y": 1875.1297903492239
+          },
+          {
+            "x": 2981.592567838655,
+            "y": 1875.0009838783615
+          },
+          {
+            "x": 3077.2638295121114,
+            "y": 1886.313978555404
+          },
+          {
+            "x": 2946.668461852218,
+            "y": 1916.0735484462596
+          },
+          {
+            "x": 2840.3325113190263,
+            "y": 1924.938948263
+          },
+          {
+            "x": 2840.3325113190263,
+            "y": 1924.938948263
+          },
+          {
+            "x": 2840.3325113190263,
+            "y": 1924.938948263
+          },
+          {
+            "x": 2936.665799713679,
+            "y": 1924.9992682591048
+          },
+          {
+            "x": 3095.332466375567,
+            "y": 1924.9999996232607
+          },
+          {
+            "x": 2964.999133042237,
+            "y": 1924.9999999996887
+          },
+          {
+            "x": 2959.3324663755707,
+            "y": 1924.9999999997328
+          },
+          {
+            "x": 2959.3324663755707,
+            "y": 1924.9999999997328
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "zigzag",
+      "shots": 81,
+      "hits": 36,
+      "damage": 396,
+      "hitRate": 0.4444444444444444,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 1,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2832.476778949011,
+            "y": 1751.375988305006
+          },
+          {
+            "x": 2909.237648119066,
+            "y": 1774.1505056538545
+          },
+          {
+            "x": 2872.9163011118853,
+            "y": 1777.2980378687641
+          },
+          {
+            "x": 2920.1457503663382,
+            "y": 1789.2251269496562
+          },
+          {
+            "x": 2883.561312461918,
+            "y": 1776.0063913693873
+          },
+          {
+            "x": 2882.662769404742,
+            "y": 1776.502086591299
+          },
+          {
+            "x": 2885.506788578886,
+            "y": 1775.0665681440896
+          },
+          {
+            "x": 2874.173407747139,
+            "y": 1775.0013611040097
+          },
+          {
+            "x": 2899.6734077534807,
+            "y": 1775.0000575859735
+          },
+          {
+            "x": 2877.1156058955985,
+            "y": 1822.427767161085
+          },
+          {
+            "x": 2826.813674328754,
+            "y": 1788.1734001062105
+          },
+          {
+            "x": 2859.642591073061,
+            "y": 1777.3713051125287
+          },
+          {
+            "x": 2870.8716695441617,
+            "y": 1775.0734346479373
+          },
+          {
+            "x": 2865.205052831461,
+            "y": 1775.0022216728853
+          },
+          {
+            "x": 2913.070367839761,
+            "y": 1788.9551675613395
+          },
+          {
+            "x": 2861.3342738918955,
+            "y": 1775.437090923197
+          },
+          {
+            "x": 2901.921741090154,
+            "y": 1778.4635887725908
+          },
+          {
+            "x": 2839.757282206382,
+            "y": 1775.082141946514
+          },
+          {
+            "x": 2910.352927470876,
+            "y": 1793.0368467048506
+          },
+          {
+            "x": 2849.0520077558253,
+            "y": 1823.7799115178186
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          },
+          {
+            "x": 2828.0767328717443,
+            "y": 1796.5911927771106
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "stationary",
+      "shots": 215,
+      "hits": 143,
+      "damage": 1491,
+      "hitRate": 0.6651162790697674,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3166.1951686614325,
+            "y": 1774.979185564798
+          },
+          {
+            "x": 3274.3085081672334,
+            "y": 1819.9191102795446
+          },
+          {
+            "x": 3225.3443335492966,
+            "y": 1936.7414107893637
+          },
+          {
+            "x": 3175.1967633043546,
+            "y": 2053.7075084190915
+          },
+          {
+            "x": 3117.1553041961624,
+            "y": 2076.891907536041
+          },
+          {
+            "x": 3145.328045356305,
+            "y": 2075.001137216961
+          },
+          {
+            "x": 3094.3280453831876,
+            "y": 2075.0000005346924
+          },
+          {
+            "x": 3088.661378716521,
+            "y": 2075.000000000108
+          },
+          {
+            "x": 3165.987563082813,
+            "y": 2125.0890196652513
+          },
+          {
+            "x": 3062.879183623324,
+            "y": 2174.884348695479
+          },
+          {
+            "x": 3074.8182050443525,
+            "y": 2259.6225869228524
+          },
+          {
+            "x": 2967.434678836927,
+            "y": 2274.979041301744
+          },
+          {
+            "x": 2814.434683690617,
+            "y": 2274.999984920425
+          },
+          {
+            "x": 2774.99900754733,
+            "y": 2161.6671567329035
+          },
+          {
+            "x": 2859.935025815148,
+            "y": 2125.0103539249726
+          },
+          {
+            "x": 2769.2683604236,
+            "y": 2125.000005158753
+          },
+          {
+            "x": 2876.9350270902637,
+            "y": 2125.000000010428
+          },
+          {
+            "x": 2930.1832716822223,
+            "y": 2122.469001725732
+          },
+          {
+            "x": 2782.903824776632,
+            "y": 2124.99827806271
+          },
+          {
+            "x": 2896.2371581054604,
+            "y": 2124.9999978387896
+          },
+          {
+            "x": 2788.7241290329193,
+            "y": 2157.8335825933264
+          },
+          {
+            "x": 2910.5554867563005,
+            "y": 2170.6957034889547
+          },
+          {
+            "x": 2825.2911986690237,
+            "y": 2129.554485915804
+          },
+          {
+            "x": 2915.1376899225384,
+            "y": 2074.8556622093924
+          },
+          {
+            "x": 2841.4704015669345,
+            "y": 2074.9998272923995
+          },
+          {
+            "x": 2931.9582979801517,
+            "y": 2025.1120005057642
+          },
+          {
+            "x": 2936.1006897693355,
+            "y": 1961.2201917087605
+          },
+          {
+            "x": 3092.769126221076,
+            "y": 1974.9557911341622
+          },
+          {
+            "x": 3171.9659778533255,
+            "y": 1876.258533744868
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "strafe",
+      "shots": 215,
+      "hits": 30,
+      "damage": 322,
+      "hitRate": 0.13953488372093023,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3081.195449778441,
+            "y": 1774.9827111417756
+          },
+          {
+            "x": 3108.362109030493,
+            "y": 1775.883783860757
+          },
+          {
+            "x": 3046.012544444152,
+            "y": 1775.0007805576693
+          },
+          {
+            "x": 3151.5079366948194,
+            "y": 1775.0393955502286
+          },
+          {
+            "x": 3094.8412590655707,
+            "y": 1775.0000269393106
+          },
+          {
+            "x": 3123.174592398894,
+            "y": 1775.000000030008
+          },
+          {
+            "x": 3080.6029924645363,
+            "y": 1776.1574970562133
+          },
+          {
+            "x": 3125.665481367211,
+            "y": 1819.9510368572078
+          },
+          {
+            "x": 3075.4363796468383,
+            "y": 1921.5627370180384
+          },
+          {
+            "x": 3171.5448166908363,
+            "y": 1991.7504638174473
+          },
+          {
+            "x": 3050.044423030754,
+            "y": 2024.986934924668
+          },
+          {
+            "x": 3074.1678841843664,
+            "y": 1980.229757793918
+          },
+          {
+            "x": 3074.9989982527295,
+            "y": 2048.2346627075553
+          },
+          {
+            "x": 2963.124402757432,
+            "y": 2075.0994948168573
+          },
+          {
+            "x": 2829.3013029546364,
+            "y": 2052.6036964978184
+          },
+          {
+            "x": 2858.9336838512136,
+            "y": 1926.0324467340515
+          },
+          {
+            "x": 3017.57622447599,
+            "y": 1925.0008202849447
+          },
+          {
+            "x": 3119.4714206789486,
+            "y": 1975.6891224651495
+          },
+          {
+            "x": 3080.6196343955944,
+            "y": 1975.0813866539395
+          },
+          {
+            "x": 3119.5987356353744,
+            "y": 1893.6828124209756
+          },
+          {
+            "x": 2992.797230299721,
+            "y": 1875.0137300500623
+          },
+          {
+            "x": 3132.3561681995975,
+            "y": 1886.1356244277376
+          },
+          {
+            "x": 3078.974691046004,
+            "y": 1986.9786909289544
+          },
+          {
+            "x": 2988.200351646929,
+            "y": 2074.712534357248
+          },
+          {
+            "x": 3061.868426077454,
+            "y": 2074.9998753771156
+          },
+          {
+            "x": 3170.152931147874,
+            "y": 2013.9182446645825
+          },
+          {
+            "x": 3078.2709313689093,
+            "y": 1975.017107104014
+          },
+          {
+            "x": 3136.3379131865872,
+            "y": 2019.762455116395
+          },
+          {
+            "x": 3069.6101597617594,
+            "y": 2019.3719405202335
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "circle",
+      "shots": 160,
+      "hits": 45,
+      "damage": 481,
+      "hitRate": 0.28125,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2849.8142315920886,
+            "y": 1761.0079064400488
+          },
+          {
+            "x": 3005.5540629677907,
+            "y": 1774.9944828569942
+          },
+          {
+            "x": 3158.5540622795384,
+            "y": 1774.9999970478386
+          },
+          {
+            "x": 3136.4486248259777,
+            "y": 1872.5909565323716
+          },
+          {
+            "x": 3040.2493907309604,
+            "y": 1874.9696667734872
+          },
+          {
+            "x": 3040.2493907309604,
+            "y": 1874.9696667734872
+          },
+          {
+            "x": 3040.2493907309604,
+            "y": 1874.9696667734872
+          },
+          {
+            "x": 3136.582713018178,
+            "y": 1874.9996271289137
+          },
+          {
+            "x": 3092.856891774956,
+            "y": 1980.8646267526167
+          },
+          {
+            "x": 2985.7988721459606,
+            "y": 1975.0481108228405
+          },
+          {
+            "x": 2985.7988721459606,
+            "y": 1975.0481108228405
+          },
+          {
+            "x": 3036.798846426586,
+            "y": 1975.0044174558254
+          },
+          {
+            "x": 3074.636459148339,
+            "y": 2025.8411462555955
+          },
+          {
+            "x": 3074.636459148339,
+            "y": 2025.8411462555955
+          },
+          {
+            "x": 3025.2834238452547,
+            "y": 2087.2379364433928
+          },
+          {
+            "x": 3025.2834238452547,
+            "y": 2087.2379364433928
+          },
+          {
+            "x": 3080.632505457554,
+            "y": 2076.117126933202
+          },
+          {
+            "x": 3124.9767164813975,
+            "y": 1961.9863548003866
+          },
+          {
+            "x": 3124.9981200363004,
+            "y": 1927.9863615373313
+          },
+          {
+            "x": 3174.7436800364017,
+            "y": 1993.0774827035254
+          },
+          {
+            "x": 3056.693547042358,
+            "y": 2024.954427320122
+          },
+          {
+            "x": 3056.693547042358,
+            "y": 2024.954427320122
+          },
+          {
+            "x": 3102.026870286109,
+            "y": 2024.9846727938443
+          },
+          {
+            "x": 3124.5887449570073,
+            "y": 1962.983790072166
+          },
+          {
+            "x": 3124.5887449570073,
+            "y": 1962.983790072166
+          },
+          {
+            "x": 3075.607163799018,
+            "y": 2024.3987082431581
+          },
+          {
+            "x": 3075.050280052562,
+            "y": 2081.0621043973647
+          },
+          {
+            "x": 3075.050280052562,
+            "y": 2081.0621043973647
+          },
+          {
+            "x": 3075.014704483213,
+            "y": 2041.3954536839092
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3166.1951686614325,
+            "y": 1774.979185564798
+          },
+          {
+            "x": 3319.1951523767425,
+            "y": 1774.9999764838203
+          },
+          {
+            "x": 3472.1951523767343,
+            "y": 1774.9999999926722
+          },
+          {
+            "x": 3508.0006081822885,
+            "y": 1872.2448861462167
+          },
+          {
+            "x": 3431.8540840556625,
+            "y": 1972.8674133990114
+          },
+          {
+            "x": 3278.890326019032,
+            "y": 1974.998629910456
+          },
+          {
+            "x": 3246.0339932508687,
+            "y": 2062.9583084051555
+          },
+          {
+            "x": 3396.85205965432,
+            "y": 2074.9907219494544
+          },
+          {
+            "x": 3402.518725062732,
+            "y": 2074.9999926345185
+          },
+          {
+            "x": 3249.518725062736,
+            "y": 2074.99999999776
+          },
+          {
+            "x": 3090.8520583960735,
+            "y": 2074.999999999994
+          },
+          {
+            "x": 3074.378621826358,
+            "y": 2024.4157173261983
+          },
+          {
+            "x": 3201.0832882086393,
+            "y": 1975.083334238985
+          },
+          {
+            "x": 3354.083180389999,
+            "y": 1975.0000839088918
+          },
+          {
+            "x": 3263.4165137231985,
+            "y": 1975.0000001869837
+          },
+          {
+            "x": 3110.4165137232026,
+            "y": 1975.0000000000412
+          },
+          {
+            "x": 3025.294864208044,
+            "y": 2048.333101337914
+          },
+          {
+            "x": 3025.00016320694,
+            "y": 1940.6650677901775
+          },
+          {
+            "x": 3166.4960434194327,
+            "y": 1925.0090493448579
+          },
+          {
+            "x": 3330.8293761330965,
+            "y": 1925.0000541729949
+          },
+          {
+            "x": 3295.4237003674875,
+            "y": 1974.6645865895825
+          },
+          {
+            "x": 3136.7593540814273,
+            "y": 1974.9999288063598
+          },
+          {
+            "x": 3022.6321650923255,
+            "y": 1941.35099219757
+          },
+          {
+            "x": 3097.1902215990904,
+            "y": 1874.2191851778543
+          },
+          {
+            "x": 3250.181116164045,
+            "y": 1874.9997039882646
+          },
+          {
+            "x": 3325.6727101856577,
+            "y": 1942.0837042466703
+          },
+          {
+            "x": 3227.999328346886,
+            "y": 1975.1046385300683
+          },
+          {
+            "x": 3080.666085149074,
+            "y": 1975.0001749464318
+          },
+          {
+            "x": 3121.912747648344,
+            "y": 1958.0735825418808
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3216.234921713666,
+            "y": 1774.7947298547501
+          },
+          {
+            "x": 3200.0463874463744,
+            "y": 1872.460542135152
+          },
+          {
+            "x": 3126.444908896197,
+            "y": 1922.860146814678
+          },
+          {
+            "x": 3126.444908896197,
+            "y": 1922.860146814678
+          },
+          {
+            "x": 3126.444908896197,
+            "y": 1922.860146814678
+          },
+          {
+            "x": 3126.444908896197,
+            "y": 1922.860146814678
+          },
+          {
+            "x": 3126.444908896197,
+            "y": 1922.860146814678
+          },
+          {
+            "x": 3125.019678483838,
+            "y": 2018.6756490439666
+          },
+          {
+            "x": 3125.0153112602693,
+            "y": 2031.1756482810608
+          },
+          {
+            "x": 3125.0153112602693,
+            "y": 2031.1756482810608
+          },
+          {
+            "x": 3187.1685813844656,
+            "y": 2025.3857162115837
+          },
+          {
+            "x": 3221.24645387639,
+            "y": 2016.7460278075744
+          },
+          {
+            "x": 3221.24645387639,
+            "y": 2016.7460278075744
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3184.3298227423147,
+            "y": 2023.3348323812859
+          },
+          {
+            "x": 3192.6561800681347,
+            "y": 2023.6757401799648
+          },
+          {
+            "x": 3192.6561800681347,
+            "y": 2023.6757401799648
+          },
+          {
+            "x": 3192.6561800681347,
+            "y": 2023.6757401799648
+          },
+          {
+            "x": 3192.6561800681347,
+            "y": 2023.6757401799648
+          },
+          {
+            "x": 3192.6561800681347,
+            "y": 2023.6757401799648
+          },
+          {
+            "x": 3192.6561800681347,
+            "y": 2023.6757401799648
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "zigzag",
+      "shots": 215,
+      "hits": 94,
+      "damage": 994,
+      "hitRate": 0.4372093023255814,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          },
+          {
+            "x": 2830,
+            "y": 1750
+          }
+        ],
+        "e36": [
+          {
+            "x": 3005.3758720222863,
+            "y": 1751.791957340762
+          },
+          {
+            "x": 3166.1951686614325,
+            "y": 1774.979185564798
+          },
+          {
+            "x": 3225.283122258391,
+            "y": 1859.245168250011
+          },
+          {
+            "x": 3225.000138828347,
+            "y": 2017.9099629974394
+          },
+          {
+            "x": 3104.4080138878207,
+            "y": 2025.0966309206017
+          },
+          {
+            "x": 3166.741358978905,
+            "y": 2025.0000140038844
+          },
+          {
+            "x": 3142.99720988999,
+            "y": 2025.348659948512
+          },
+          {
+            "x": 3129.010044502407,
+            "y": 1981.0832889563449
+          },
+          {
+            "x": 3202.5635382046457,
+            "y": 2074.245553447107
+          },
+          {
+            "x": 3179.886992633907,
+            "y": 2074.9998340450165
+          },
+          {
+            "x": 3253.553659300728,
+            "y": 2074.999999681667
+          },
+          {
+            "x": 3145.8869926340644,
+            "y": 2074.999999999716
+          },
+          {
+            "x": 3213.8869926340626,
+            "y": 2074.9999999999995
+          },
+          {
+            "x": 3106.220325967399,
+            "y": 2075
+          },
+          {
+            "x": 3170.0028353063713,
+            "y": 2063.7597004777845
+          },
+          {
+            "x": 3094.762790991983,
+            "y": 2028.64574897524
+          },
+          {
+            "x": 3208.1271020024196,
+            "y": 1976.7240582823601
+          },
+          {
+            "x": 3146.7329150127475,
+            "y": 2025.5669476879496
+          },
+          {
+            "x": 3120.48206603462,
+            "y": 2074.5645646862563
+          },
+          {
+            "x": 3081.5063426498773,
+            "y": 2074.897159946944
+          },
+          {
+            "x": 3168.5955320101425,
+            "y": 2044.4070564889912
+          },
+          {
+            "x": 3086.9438173217773,
+            "y": 2075.54310248294
+          },
+          {
+            "x": 3163.4272255112164,
+            "y": 2028.6754891194255
+          },
+          {
+            "x": 3069.9740597055393,
+            "y": 2076.2595151392397
+          },
+          {
+            "x": 3092.6563415554583,
+            "y": 2075.0029343540045
+          },
+          {
+            "x": 3219.764499143019,
+            "y": 2058.1070863838463
+          },
+          {
+            "x": 3116.768747903809,
+            "y": 2025.0192552406547
+          },
+          {
+            "x": 3160.8260535927457,
+            "y": 2007.5333786795686
+          },
+          {
+            "x": 3087.8417815493567,
+            "y": 2120.4504612688233
+          },
+          {
+            "x": 3025.888837308455,
+            "y": 2124.9971321435874
+          }
+        ],
+        "e37": [
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          },
+          {
+            "x": 3170,
+            "y": 1750
+          }
+        ]
+      }
+    },
+    {
+      "level": 10,
+      "group": 3,
+      "mode": "cover",
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0,
+      "roles": [
+        {
+          "kind": "rifle",
+          "role": "anchor"
+        },
+        {
+          "kind": "rifle",
+          "role": "flank"
+        },
+        {
+          "kind": "heavy",
+          "role": "anchor"
+        }
+      ],
+      "paths": {
+        "e35": [
+          {
+            "x": 2832.476778949011,
+            "y": 1751.375988305006
+          },
+          {
+            "x": 2909.237648119066,
+            "y": 1774.1505056538545
+          },
+          {
+            "x": 2872.9163011118853,
+            "y": 1777.2980378687641
+          },
+          {
+            "x": 2919.389317807677,
+            "y": 1783.5881244674251
+          },
+          {
+            "x": 2854.950103522295,
+            "y": 1775.28622736078
+          },
+          {
+            "x": 2897.448606504871,
+            "y": 1775.0061598669986
+          },
+          {
+            "x": 2905.9486071470433,
+            "y": 1775.000284156091
+          },
+          {
+            "x": 2875.6414171038105,
+            "y": 1777.4521138471696
+          },
+          {
+            "x": 2878.5182301733885,
+            "y": 1775.0860218587734
+          },
+          {
+            "x": 2890.1933220456444,
+            "y": 1817.8287888583243
+          },
+          {
+            "x": 2831.5074309006973,
+            "y": 1790.2360227451463
+          },
+          {
+            "x": 2880.6760499920583,
+            "y": 1775.4522852147832
+          },
+          {
+            "x": 2897.0524172870764,
+            "y": 1784.5534546351118
+          },
+          {
+            "x": 2875.811879814674,
+            "y": 1775.265494971406
+          },
+          {
+            "x": 2899.3127022978624,
+            "y": 1784.0095801557682
+          },
+          {
+            "x": 2872.230074297971,
+            "y": 1775.1555022699874
+          },
+          {
+            "x": 2875.063232987358,
+            "y": 1775.0039208988742
+          },
+          {
+            "x": 2894.896566387119,
+            "y": 1775.000144347733
+          },
+          {
+            "x": 2881.456543374869,
+            "y": 1777.78493220072
+          },
+          {
+            "x": 2861.684563280468,
+            "y": 1775.0814883701264
+          },
+          {
+            "x": 2887.184441801144,
+            "y": 1775.002315353612
+          },
+          {
+            "x": 2918.3511085703108,
+            "y": 1775.0000844202686
+          },
+          {
+            "x": 2856.856749491054,
+            "y": 1776.2659424843907
+          },
+          {
+            "x": 2908.0773715178047,
+            "y": 1787.9611655506683
+          },
+          {
+            "x": 2854.7353033020695,
+            "y": 1823.4936909157047
+          },
+          {
+            "x": 2826.89824366952,
+            "y": 1780.9931152814504
+          },
+          {
+            "x": 2897.4030286629973,
+            "y": 1775.364435927622
+          },
+          {
+            "x": 2849.2364820949806,
+            "y": 1775.0094176593132
+          },
+          {
+            "x": 2918.975385414533,
+            "y": 1786.1994372460836
+          },
+          {
+            "x": 2861.471446887222,
+            "y": 1776.365371035815
+          }
+        ],
+        "e36": [
+          {
+            "x": 3002.687936011143,
+            "y": 1750.895978670381
+          },
+          {
+            "x": 3071.0017791149066,
+            "y": 1784.5737534478747
+          },
+          {
+            "x": 3031.3965050550923,
+            "y": 1818.4291586777922
+          },
+          {
+            "x": 3068.8995609791514,
+            "y": 1782.0012000715365
+          },
+          {
+            "x": 3031.038918460947,
+            "y": 1777.4189595464663
+          },
+          {
+            "x": 3073.095478781952,
+            "y": 1811.848359824269
+          },
+          {
+            "x": 3027.154251570746,
+            "y": 1790.2685294680696
+          },
+          {
+            "x": 3066.180041420601,
+            "y": 1795.852921270245
+          },
+          {
+            "x": 3056.2359912535403,
+            "y": 1776.2448790836092
+          },
+          {
+            "x": 3040.2249424561123,
+            "y": 1820.852895371417
+          },
+          {
+            "x": 3025.881209752567,
+            "y": 1781.0330437326213
+          },
+          {
+            "x": 3073.211139621395,
+            "y": 1812.3238482406753
+          },
+          {
+            "x": 3027.1713699515726,
+            "y": 1790.3354900191512
+          },
+          {
+            "x": 3071.6357262613155,
+            "y": 1801.2276666905425
+          },
+          {
+            "x": 3026.8082619261804,
+            "y": 1792.0564395887882
+          },
+          {
+            "x": 3039.6838615472966,
+            "y": 1779.1377354512347
+          },
+          {
+            "x": 3059.6731689986386,
+            "y": 1817.924107170629
+          },
+          {
+            "x": 3025.9265013847457,
+            "y": 1781.5130352381311
+          },
+          {
+            "x": 3070.438274647965,
+            "y": 1792.7538708819025
+          },
+          {
+            "x": 3029.544529676114,
+            "y": 1806.7694612210275
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          },
+          {
+            "x": 3027.1372336686063,
+            "y": 1789.9407676908627
+          }
+        ],
+        "e37": [
+          {
+            "x": 3171.896596828047,
+            "y": 1750.862089467294
+          },
+          {
+            "x": 3230.390451529285,
+            "y": 1770.7459346595358
+          },
+          {
+            "x": 3247.7095079509304,
+            "y": 1776.8855485484337
+          },
+          {
+            "x": 3216.5177689277602,
+            "y": 1775.1946334439078
+          },
+          {
+            "x": 3216.517620103379,
+            "y": 1775.0517099290987
+          },
+          {
+            "x": 3206.100980532285,
+            "y": 1775.0032713394705
+          },
+          {
+            "x": 3266.517647002446,
+            "y": 1775.000166588329
+          },
+          {
+            "x": 3210.2676470022,
+            "y": 1775.0000110548044
+          },
+          {
+            "x": 3183.1843136688713,
+            "y": 1775.0000018216233
+          },
+          {
+            "x": 3243.6009803355423,
+            "y": 1775.0000001551944
+          },
+          {
+            "x": 3238.8612646346764,
+            "y": 1777.0552278850728
+          },
+          {
+            "x": 3182.6885918078474,
+            "y": 1775.1517692166024
+          },
+          {
+            "x": 3211.8550708433245,
+            "y": 1775.0471503002536
+          },
+          {
+            "x": 3263.938359256051,
+            "y": 1775.0027074912473
+          },
+          {
+            "x": 3203.521692666179,
+            "y": 1775.0002643079301
+          },
+          {
+            "x": 3266.021692665747,
+            "y": 1775.0000331994124
+          },
+          {
+            "x": 3217.666651878086,
+            "y": 1775.8078854877597
+          },
+          {
+            "x": 3255.1672192051205,
+            "y": 1775.1622390083369
+          },
+          {
+            "x": 3219.750169524478,
+            "y": 1775.0079678494442
+          },
+          {
+            "x": 3253.0835029472373,
+            "y": 1775.0016857207302
+          },
+          {
+            "x": 3226.9439578497286,
+            "y": 1775.5601609508665
+          },
+          {
+            "x": 3243.6115718795018,
+            "y": 1775.138449240246
+          },
+          {
+            "x": 3208.194874233586,
+            "y": 1775.0096820842978
+          },
+          {
+            "x": 3197.77820870521,
+            "y": 1775.0011056432386
+          },
+          {
+            "x": 3258.194875354273,
+            "y": 1775.0000773296204
+          },
+          {
+            "x": 3226.4392631181145,
+            "y": 1776.0162569178146
+          },
+          {
+            "x": 3232.6912066464015,
+            "y": 1775.0962143549652
+          },
+          {
+            "x": 3226.4411500956885,
+            "y": 1775.0068283204173
+          },
+          {
+            "x": 3182.69115048113,
+            "y": 1775.0010209266272
+          },
+          {
+            "x": 3243.1078171373792,
+            "y": 1775.0000932291568
+          }
+        ]
+      }
+    }
+  ],
+  "generators": [
+    {
+      "weapon": "ar",
+      "face": "front",
+      "shots": 13,
+      "seconds": 1.6000000000000016,
+      "hp": 0
+    },
+    {
+      "weapon": "ar",
+      "face": "rear",
+      "shots": 13,
+      "seconds": 1.6000000000000016,
+      "hp": 0
+    },
+    {
+      "weapon": "smg",
+      "face": "front",
+      "shots": 18,
+      "seconds": 1.1333333333333335,
+      "hp": 0
+    },
+    {
+      "weapon": "smg",
+      "face": "rear",
+      "shots": 18,
+      "seconds": 1.1333333333333335,
+      "hp": 0
+    },
+    {
+      "weapon": "sg",
+      "face": "front",
+      "shots": 3,
+      "seconds": 1.6000000000000016,
+      "hp": 0
+    },
+    {
+      "weapon": "sg",
+      "face": "rear",
+      "shots": 3,
+      "seconds": 1.6000000000000016,
+      "hp": 0
+    }
+  ]
+}

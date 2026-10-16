@@ -1,0 +1,36 @@
+{
+  "fixture": "Deliberate64-actor stress,4 high-health scripted targets,actual Barren Frontier obstacles,alert4,30 simulated seconds; exceeds normal admission budgets; not gameplay/difficulty evidence",
+  "ticks": {
+    "mean": 3.4784510055555615,
+    "p50": 1.4954709999997249,
+    "p95": 12.900881000000027,
+    "p99": 30.4624970000001,
+    "max": 77.03234599999996
+  },
+  "tickPlusSnapshot": {
+    "mean": 3.829082020000006,
+    "p50": 1.9959939999998824,
+    "p95": 13.304348000000118,
+    "p99": 30.66095499999983,
+    "max": 77.87976599999999
+  },
+  "snapshotBytes": {
+    "mean": 57046.30222222222,
+    "p50": 35339,
+    "p95": 128452,
+    "p99": 131351,
+    "max": 180677
+  },
+  "budget": {
+    "regional": 64,
+    "reserve": 0,
+    "near": 120,
+    "strategic": 1,
+    "traveling": 0,
+    "travelingInfantry": 0,
+    "heavy": 0,
+    "queued": 4
+  },
+  "heapMiB": 54.92761993408203,
+  "rssMiB": 147.015625
+}

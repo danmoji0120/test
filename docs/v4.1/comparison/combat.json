@@ -1,0 +1,2347 @@
+{
+  "fixture": "Controlled open-range measurements, 25 seeded shots per sample; estimated TTK excludes reload and assumes repeated same expected damage. Movement uses 1e6 HP to measure incoming damage, not mission success.",
+  "damage": [
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 0,
+      "damage": 29,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 29,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 29,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 0,
+      "damage": 29,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 29,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 29,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 0,
+      "damage": 25.87146089210175,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 25.87146089210175,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 25.87146089210175,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 0,
+      "damage": 12.89619844325818,
+      "estimatedShots": 6,
+      "estimatedSeconds": 0.6
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 12.89619844325818,
+      "estimatedShots": 6,
+      "estimatedSeconds": 0.6
+    },
+    {
+      "weapon": "ar",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 12.89619844325818,
+      "estimatedShots": 6,
+      "estimatedSeconds": 0.6
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 90,
+      "facing": 0,
+      "damage": 29,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 29,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 29,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 250,
+      "facing": 0,
+      "damage": 29,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 29,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 29,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 500,
+      "facing": 0,
+      "damage": 25.87146089210175,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 25.87146089210175,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 25.87146089210175,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 750,
+      "facing": 0,
+      "damage": 12.89619844325818,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.36
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 12.89619844325818,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.36
+    },
+    {
+      "weapon": "ar",
+      "kind": "rush",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 12.89619844325818,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.36
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 0,
+      "damage": 17.160000000032596,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 17.160000000032596,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 17.160000000032596,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 0,
+      "damage": 17.160000000032596,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 17.160000000032596,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 17.160000000032596,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 0,
+      "damage": 15.308603059519083,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 15.308603059519083,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 15.308603059519083,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 0,
+      "damage": 7.630671463869512,
+      "estimatedShots": 14,
+      "estimatedSeconds": 1.56
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 7.630671463869512,
+      "estimatedShots": 14,
+      "estimatedSeconds": 1.56
+    },
+    {
+      "weapon": "ar",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 7.630671463869512,
+      "estimatedShots": 14,
+      "estimatedSeconds": 1.56
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 0,
+      "damage": 20.699999999953434,
+      "estimatedShots": 12,
+      "estimatedSeconds": 1.3199999999999998
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 14.949999999953434,
+      "estimatedShots": 17,
+      "estimatedSeconds": 1.92
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 0,
+      "damage": 20.699999999953434,
+      "estimatedShots": 12,
+      "estimatedSeconds": 1.3199999999999998
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 14.949999999953434,
+      "estimatedShots": 17,
+      "estimatedSeconds": 1.92
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 0,
+      "damage": 18.887879003710115,
+      "estimatedShots": 13,
+      "estimatedSeconds": 1.44
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 13.39437730354257,
+      "estimatedShots": 18,
+      "estimatedSeconds": 2.04
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 0,
+      "damage": 9.599868586398662,
+      "estimatedShots": 26,
+      "estimatedSeconds": 3
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 6.7070283403806386,
+      "estimatedShots": 36,
+      "estimatedSeconds": 4.2
+    },
+    {
+      "weapon": "ar",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 90,
+      "facing": 0,
+      "damage": 18,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 18,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 18,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 250,
+      "facing": 0,
+      "damage": 18,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 18,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 18,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 500,
+      "facing": 0,
+      "damage": 15.858902399162762,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.36
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 15.858902399162762,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.36
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 15.858902399162762,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.36
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 750,
+      "facing": 0,
+      "damage": 7.794952309140935,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 7.794952309140935,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "drone",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 7.794952309140935,
+      "estimatedShots": 7,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 90,
+      "facing": 0,
+      "damage": 7.410000000032596,
+      "estimatedShots": 88,
+      "estimatedSeconds": 10.44
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 250,
+      "facing": 0,
+      "damage": 7.410000000032596,
+      "estimatedShots": 88,
+      "estimatedSeconds": 10.44
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 500,
+      "facing": 0,
+      "damage": 7.168037454131991,
+      "estimatedShots": 91,
+      "estimatedSeconds": 10.799999999999999
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 750,
+      "facing": 0,
+      "damage": 3.852254741117358,
+      "estimatedShots": 169,
+      "estimatedSeconds": 20.16
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "walker",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 0,
+      "damage": 6.630000000004657,
+      "estimatedShots": 68,
+      "estimatedSeconds": 8.04
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 0,
+      "damage": 6.630000000004657,
+      "estimatedShots": 68,
+      "estimatedSeconds": 8.04
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 0,
+      "damage": 6.364342716387473,
+      "estimatedShots": 71,
+      "estimatedSeconds": 8.4
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 0,
+      "damage": 3.3965784518932924,
+      "estimatedShots": 133,
+      "estimatedSeconds": 15.84
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "ar",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 0,
+      "damage": 21.150000000023283,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.18
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 21.150000000023283,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.18
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 21.150000000023283,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.18
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 0,
+      "damage": 17.559648417020217,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.18
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 17.559648417020217,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.18
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 17.559648417020217,
+      "estimatedShots": 4,
+      "estimatedSeconds": 0.18
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 0,
+      "damage": 3.8070000000298023,
+      "estimatedShots": 18,
+      "estimatedSeconds": 1.02
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 3.8070000000298023,
+      "estimatedShots": 18,
+      "estimatedSeconds": 1.02
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 3.8070000000298023,
+      "estimatedShots": 18,
+      "estimatedSeconds": 1.02
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 90,
+      "facing": 0,
+      "damage": 21.150000000023283,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 21.150000000023283,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 21.150000000023283,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 250,
+      "facing": 0,
+      "damage": 17.559648417020217,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 17.559648417020217,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 17.559648417020217,
+      "estimatedShots": 3,
+      "estimatedSeconds": 0.12
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 500,
+      "facing": 0,
+      "damage": 3.8070000000298023,
+      "estimatedShots": 13,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 3.8070000000298023,
+      "estimatedShots": 13,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 3.8070000000298023,
+      "estimatedShots": 13,
+      "estimatedSeconds": 0.72
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "rush",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 0,
+      "damage": 12.310999999986961,
+      "estimatedShots": 9,
+      "estimatedSeconds": 0.48
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 12.310999999986961,
+      "estimatedShots": 9,
+      "estimatedSeconds": 0.48
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 12.310999999986961,
+      "estimatedShots": 9,
+      "estimatedSeconds": 0.48
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 0,
+      "damage": 10.220942946714349,
+      "estimatedShots": 11,
+      "estimatedSeconds": 0.6
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 10.220942946714349,
+      "estimatedShots": 11,
+      "estimatedSeconds": 0.6
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 10.220942946714349,
+      "estimatedShots": 11,
+      "estimatedSeconds": 0.6
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 0,
+      "damage": 2.2159799999790266,
+      "estimatedShots": 48,
+      "estimatedSeconds": 2.82
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 2.2159799999790266,
+      "estimatedShots": 48,
+      "estimatedSeconds": 2.82
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 2.2159799999790266,
+      "estimatedShots": 48,
+      "estimatedSeconds": 2.82
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 0,
+      "damage": 13.972500000032596,
+      "estimatedShots": 18,
+      "estimatedSeconds": 1.02
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 10.432499999995343,
+      "estimatedShots": 24,
+      "estimatedSeconds": 1.38
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 0,
+      "damage": 12.06592229306698,
+      "estimatedShots": 20,
+      "estimatedSeconds": 1.14
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 8.726485536512918,
+      "estimatedShots": 28,
+      "estimatedSeconds": 1.6199999999999999
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 0,
+      "damage": 2.5898400000296533,
+      "estimatedShots": 93,
+      "estimatedSeconds": 5.52
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 1.9587420000415294,
+      "estimatedShots": 123,
+      "estimatedSeconds": 7.319999999999999
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 90,
+      "facing": 0,
+      "damage": 11.800000000046566,
+      "estimatedShots": 5,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 11.800000000046566,
+      "estimatedShots": 5,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 11.800000000046566,
+      "estimatedShots": 5,
+      "estimatedSeconds": 0.24
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 250,
+      "facing": 0,
+      "damage": 9.584241631776095,
+      "estimatedShots": 6,
+      "estimatedSeconds": 0.3
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 9.584241631776095,
+      "estimatedShots": 6,
+      "estimatedSeconds": 0.3
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 9.584241631776095,
+      "estimatedShots": 6,
+      "estimatedSeconds": 0.3
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 500,
+      "facing": 0,
+      "damage": 2.1239999999525025,
+      "estimatedShots": 24,
+      "estimatedSeconds": 1.38
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 2.1239999999525025,
+      "estimatedShots": 24,
+      "estimatedSeconds": 1.38
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 2.1239999999525025,
+      "estimatedShots": 24,
+      "estimatedSeconds": 1.38
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "drone",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 90,
+      "facing": 0,
+      "damage": 4.137250000028871,
+      "estimatedShots": 158,
+      "estimatedSeconds": 9.42
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 250,
+      "facing": 0,
+      "damage": 3.9424383485829457,
+      "estimatedShots": 165,
+      "estimatedSeconds": 9.84
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 500,
+      "facing": 0,
+      "damage": 0.9191542031988501,
+      "estimatedShots": 708,
+      "estimatedSeconds": 42.42
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "walker",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 0,
+      "damage": 3.7017500000074506,
+      "estimatedShots": 122,
+      "estimatedSeconds": 7.26
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 0,
+      "damage": 3.482823227462359,
+      "estimatedShots": 130,
+      "estimatedSeconds": 7.739999999999999
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 0,
+      "damage": 0.775220539085567,
+      "estimatedShots": 581,
+      "estimatedSeconds": 34.8
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "smg",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 0,
+      "damage": 134.49999999953434,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 134.49999999953434,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 134.49999999953434,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 0,
+      "damage": 15.13474387244787,
+      "estimatedShots": 5,
+      "estimatedSeconds": 3.12
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 12.02693798083812,
+      "estimatedShots": 6,
+      "estimatedSeconds": 3.9000000000000004
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 15.59465627132915,
+      "estimatedShots": 5,
+      "estimatedSeconds": 3.12
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rifle",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 90,
+      "facing": 0,
+      "damage": 134.49999999953434,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 134.49999999953434,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 134.49999999953434,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 250,
+      "facing": 0,
+      "damage": 15.13474387244787,
+      "estimatedShots": 4,
+      "estimatedSeconds": 2.34
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 12.02693798083812,
+      "estimatedShots": 4,
+      "estimatedSeconds": 2.34
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 15.59465627132915,
+      "estimatedShots": 4,
+      "estimatedSeconds": 2.34
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 500,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "rush",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 0,
+      "damage": 78.12999999965541,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.78
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 78.12999999965541,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.78
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 78.12999999965541,
+      "estimatedShots": 2,
+      "estimatedSeconds": 0.78
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 0,
+      "damage": 9.671252581113949,
+      "estimatedShots": 11,
+      "estimatedSeconds": 7.800000000000001
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 7.167140069808811,
+      "estimatedShots": 15,
+      "estimatedSeconds": 10.92
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 11.089447232950478,
+      "estimatedShots": 10,
+      "estimatedSeconds": 7.0200000000000005
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "heavy",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 0,
+      "damage": 87.9749999998603,
+      "estimatedShots": 3,
+      "estimatedSeconds": 1.56
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 65.97500000032596,
+      "estimatedShots": 4,
+      "estimatedSeconds": 2.34
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 0,
+      "damage": 11.071709258533083,
+      "estimatedShots": 22,
+      "estimatedSeconds": 16.38
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 8.476014997544699,
+      "estimatedShots": 29,
+      "estimatedSeconds": 21.84
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 1.7257402728451416,
+      "estimatedShots": 140,
+      "estimatedSeconds": 108.42
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "juggernaut",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 90,
+      "facing": 0,
+      "damage": 73.94345494409558,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 73.94345494409558,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 73.94345494409558,
+      "estimatedShots": 1,
+      "estimatedSeconds": 0
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 250,
+      "facing": 0,
+      "damage": 5.0193529019644485,
+      "estimatedShots": 10,
+      "estimatedSeconds": 7.0200000000000005
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 5.0193529019644485,
+      "estimatedShots": 10,
+      "estimatedSeconds": 7.0200000000000005
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 5.0193529019644485,
+      "estimatedShots": 10,
+      "estimatedSeconds": 7.0200000000000005
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 500,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "drone",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 90,
+      "facing": 0,
+      "damage": 25.31749999965541,
+      "estimatedShots": 26,
+      "estimatedSeconds": 19.5
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 250,
+      "facing": 0,
+      "damage": 5.915786416525952,
+      "estimatedShots": 110,
+      "estimatedSeconds": 85.02
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 1.1461730988323688,
+      "estimatedShots": 568,
+      "estimatedSeconds": 442.26
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 500,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "walker",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 0,
+      "damage": 22.65250000054948,
+      "estimatedShots": 20,
+      "estimatedSeconds": 14.82
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 90,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 0,
+      "damage": 3.779426409085281,
+      "estimatedShots": 120,
+      "estimatedSeconds": 92.82000000000001
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 250,
+      "facing": 3.141592653589793,
+      "damage": 0.5809784938814119,
+      "estimatedShots": 775,
+      "estimatedSeconds": 603.72
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 500,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 0,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 1.5707963267948966,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    },
+    {
+      "weapon": "sg",
+      "kind": "artillery",
+      "range": 750,
+      "facing": 3.141592653589793,
+      "damage": 0,
+      "estimatedShots": null,
+      "estimatedSeconds": null
+    }
+  ],
+  "rockets": [
+    {
+      "facing": 0,
+      "rocketDamage": 404.7,
+      "afterRocket": 245.3,
+      "arShots": 200,
+      "arSeconds": 23.88
+    },
+    {
+      "facing": 1.5707963267948966,
+      "rocketDamage": 423,
+      "afterRocket": 227,
+      "arShots": 200,
+      "arSeconds": 23.88
+    },
+    {
+      "facing": 3.141592653589793,
+      "rocketDamage": 274.95,
+      "afterRocket": 375.05,
+      "arShots": 200,
+      "arSeconds": 23.88
+    }
+  ],
+  "movement": [
+    {
+      "mode": "stationary",
+      "seconds": 30.00000000000065,
+      "shots": 80,
+      "hits": 79,
+      "damage": 869,
+      "hitRate": 0.9875
+    },
+    {
+      "mode": "strafe",
+      "seconds": 30.00000000000065,
+      "shots": 80,
+      "hits": 19,
+      "damage": 209,
+      "hitRate": 0.2375
+    },
+    {
+      "mode": "circle",
+      "seconds": 30.00000000000065,
+      "shots": 42,
+      "hits": 8,
+      "damage": 88,
+      "hitRate": 0.19047619047619047
+    },
+    {
+      "mode": "cover",
+      "seconds": 30.00000000000065,
+      "shots": 0,
+      "hits": 0,
+      "damage": 0,
+      "hitRate": 0
+    }
+  ],
+  "objectives": [
+    {
+      "weapon": "ar",
+      "seconds": 3.0999999999999988,
+      "hp": 0
+    },
+    {
+      "weapon": "smg",
+      "seconds": 3.0999999999999988,
+      "hp": 0
+    },
+    {
+      "weapon": "sg",
+      "seconds": 3.63333333333333,
+      "hp": 0
+    }
+  ]
+}
