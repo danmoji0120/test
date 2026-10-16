@@ -1,5 +1,6 @@
 import type { World, Vec } from "../shared/data";
 import { drawEnvironment } from "../art/environment";
+import { objectiveNeedsInput } from "../shared/operation";
 /** Existing industrial PNG atlas plus animated hardware, not fabricated gameplay screenshots. */
 export function drawMissionHardware(
   g: CanvasRenderingContext2D,
@@ -145,7 +146,7 @@ export function drawMissionHardware(
       52,
     );
     g.restore();
-    if (o?.operatingPoint && o.action !== "destroy" && o.state !== "complete") {
+    if (o?.operatingPoint && objectiveNeedsInput(o)) {
       const p = o.operatingPoint;
       g.strokeStyle = color;
       g.lineWidth = 2;

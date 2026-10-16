@@ -57,6 +57,16 @@ export class TerrainChunks {
         let c = this.cache.get(key);
         if (c) this.cache.delete(key);
         else {
+          // Release the oldest backing surface before allocating its replacement.
+          // The16-surface bound holds during traversal as well as after a frame.
+          if (this.cache.size >= this.limit) {
+            const oldest = this.cache.keys().next().value!,
+              released = this.cache.get(oldest)!;
+            released.width = 0;
+            released.height = 0;
+            this.cache.delete(oldest);
+            this.evicted++;
+          }
           const t = performance.now();
           c = document.createElement("canvas");
           c.width = this.size;

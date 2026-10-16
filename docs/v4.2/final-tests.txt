@@ -1,0 +1,55 @@
+
+> project-doll-squad@0.4.2 test
+> vitest run
+
+
+ RUN  v3.2.7 /workspace/doll-squad
+
+ ✓ tests/network.test.ts (6 tests) 6338ms
+   ✓ enforces 4-player capacity, ready/start authority, validated input, synchronized shots and reconnect  2625ms
+   ✓ authoritatively rejects forged slots/ammunition, prevents switch-fire and restores independent equipment after reconnect  2320ms
+ ✓ tests/operational-network.test.ts (2 tests) 6493ms
+   ✓ shares a validated four-player insertion/graph, rejects forged progress and restores equipment on reconnect  1687ms
+   ✓ validates mission/profile/version on the server and can deploy each of the six archetypes  3967ms
+ ✓ tests/operation-world.test.ts (5 tests) 4422ms
+   ✓ generates all allowed mission profiles deterministically, including alternate deployment at an extraction cell  3347ms
+   ✓ changing only deployment preserves strategic terrain, roads and facilities  664ms
+stdout | tests/game.test.ts > mission objectives > runs the entire mission with 4 input-only pilots without modifying game state
+Full input-only mission: success 49.4 seconds [
+  { hp: 100, kills: 1, ammo: 221 },
+  { hp: 100, kills: 3, ammo: 221 },
+  { hp: 100, kills: 1, ammo: 222 },
+  { hp: 100, kills: 3, ammo: 221 }
+]
+
+ ✓ tests/game.test.ts (35 tests) 4012ms
+   ✓ seed and collision geometry > keeps all objectives and extraction reachable for 100 seeds  1148ms
+   ✓ mission objectives > runs the entire mission with 4 input-only pilots without modifying game state  1466ms
+   ✓ completes an operation with discrete WASD held for 100ms updates without waypoint oscillation  988ms
+ ✓ tests/operational-missions.test.ts (13 tests) 2534ms
+   ✓ operational mission rule fixtures > survey accepts parallel sites and real nearby contest pauses collection  360ms
+   ✓ operational mission rule fixtures > regional radio destruction changes only nearby physical sources; radar never grants enemy vision  331ms
+ ✓ tests/region.test.ts (3 tests) 1458ms
+   ✓ keeps every objective, extraction and dispatch exit reachable across 100 seeds  1301ms
+ ✓ tests/terrain.test.ts (3 tests) 1441ms
+   ✓ keeps a 112px walker route from every external entry to both primary approaches in 100 seeds  728ms
+   ✓ positions all seven V4 enemy kinds and a physical motorpool exit safely across100 seeds  710ms
+ ✓ tests/reinforcements.test.ts (5 tests) 864ms
+   ✓ never places any initial or local reserve actor in solid geometry over 100 seeds  573ms
+ ✓ tests/objective-armor-paths.test.ts (1 test) 676ms
+   ✓ keeps an AP1-accessible reachable rear core for both generators across100 seeds, so non-AT primaries are never equipment-locked  675ms
+ ✓ tests/heavy-combat.test.ts (13 tests) 271ms
+ ✓ tests/difficulty.test.ts (1 test) 281ms
+ ✓ tests/response.test.ts (9 tests) 229ms
+ ✓ tests/combat-system.test.ts (24 tests) 220ms
+ ✓ tests/objectives.test.ts (5 tests) 89ms
+ ✓ tests/visibility.test.ts (6 tests) 115ms
+ ✓ tests/perception.test.ts (5 tests) 69ms
+ ✓ tests/snapshot.test.ts (1 test) 62ms
+ ✓ tests/mission-graph.test.ts (6 tests) 5ms
+ ✓ tests/store.test.ts (2 tests) 4ms
+
+ Test Files  19 passed (19)
+      Tests  145 passed (145)
+   Start at  07:15:58
+   Duration  33.37s (transform 376ms, setup 0ms, collect 1.06s, tests 29.58s, environment 2ms, prepare 816ms)

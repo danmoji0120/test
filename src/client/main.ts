@@ -5,7 +5,7 @@ import {
   type MissionId,
   type WorldProfileId,
 } from "../shared/missions";
-import { operationGoal } from "../shared/operation";
+import { operationGoal, operationInteractionHint } from "../shared/operation";
 import { TacticalMap } from "./tactical-map";
 import { equipmentIcon } from "../art/equipment";
 import { RULES } from "../shared/rules";
@@ -418,23 +418,8 @@ function updateHud() {
     else if (w.map.installations.some((d) => d.hp > 0 && distance(d, p) < 220))
       hint = "좌클릭 · 시설 장치를 사격해 파괴";
   }
-  if (m.id && !p.down) {
-    const o = m.objectives.find(
-      (o) =>
-        o.discovered &&
-        o.state !== "complete" &&
-        distance(p, o.operatingPoint ?? o.position) < 110,
-    );
-    if (o)
-      hint =
-        o.state === "locked"
-          ? `잠김 · ${(o.prerequisiteIds ?? []).map((id) => m.objectives.find((n) => n.id === id)?.label ?? "선행 목표").join(o.prerequisiteMode === "any" ? " / " : " + ")}${o.activation === "breach" ? " 또는 장갑 돌파" : " 필요"}`
-          : o.action === "destroy"
-            ? "시설 공략 · 실제 약점 / AP·AV"
-            : `E · ${o.phase ?? o.label} · ${o.progress.toFixed(1)}/${o.total}`;
-    if (p.carrying)
-      hint = "데이터 운반 중 · 권총/소모품 사용 가능 · X 내려놓기";
-  }
+  if (!/^(F |E · 보급|E · 수송)/.test(hint))
+    hint = operationInteractionHint(w, p) ?? hint;
   document.querySelector("#interaction")!.textContent = hint;
   (document.querySelector("#radio") as HTMLElement).style.opacity =
     m.elapsed < 10 ? "1" : "0";

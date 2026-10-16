@@ -17,7 +17,11 @@ import {
 import { missionComplete } from "../src/game/mission-graph";
 import { visibleWorld } from "../src/server/visibility";
 import { packRoom, unpackRoom } from "../src/shared/snapshot";
-import { operationGoal } from "../src/shared/operation";
+import {
+  operationGoal,
+  operationInteractionHint,
+  objectiveNeedsInput,
+} from "../src/shared/operation";
 import type { World, Objective } from "../src/shared/data";
 // Rule fixtures reposition operators to isolate task semantics. They are NOT input-only gameplay QA.
 function setup(id: MissionId) {
@@ -53,6 +57,46 @@ function node(w: World, id: string) {
   return w.mission.objectives.find((o) => o.id.endsWith(":" + id))!;
 }
 describe("operational mission rule fixtures", () => {
+  it("tells the carrier how to connect a real case and releases interaction during automatic upload", () => {
+    const w = setup("transfer"),
+      p = w.players[0];
+    work(w, node(w, "auth"));
+    work(w, node(w, "case"));
+    expect(p.carrying).toBe("data-case");
+    const upload = node(w, "upload");
+    upload.discovered = true;
+    Object.assign(p, upload.operatingPoint);
+    expect(operationInteractionHint(w, p)).toContain("E · 데이터 케이스 연결");
+    p.input.interact = true;
+    step(w);
+    p.input.interact = false;
+    expect(w.mission.cargo!.delivered).toBe(true);
+    expect(operationInteractionHint(w, p)).toMatch(/^자동 진행/);
+    expect(objectiveNeedsInput(upload)).toBe(false);
+  });
+  it("shows E for final launch approval but not automatic preparation or flight", () => {
+    const w = setup("launch"),
+      p = w.players[0];
+    work(w, node(w, "code"));
+    work(w, node(w, "power"));
+    const launch = node(w, "launch");
+    launch.discovered = true;
+    Object.assign(p, launch.operatingPoint);
+    p.input.interact = true;
+    step(w, 11);
+    p.input.interact = false;
+    expect(launch.phase).toBe("발사 준비");
+    expect(operationInteractionHint(w, p)).toMatch(/^자동 진행/);
+    expect(objectiveNeedsInput(launch)).toBe(false);
+    step(w, 91);
+    expect(launch.phase).toBe("최종 승인");
+    Object.assign(p, launch.operatingPoint);
+    expect(operationInteractionHint(w, p)).toMatch(/^E ·/);
+    p.input.interact = true;
+    step(w, 11);
+    expect(launch.phase).toBe("미사일 발사");
+    expect(objectiveNeedsInput(launch)).toBe(false);
+  });
   it("guides authorization before an already-discovered but locked data case", () => {
     const w = setup("transfer"),
       collection = node(w, "case");
